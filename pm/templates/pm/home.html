@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 {% extends 'base.html' %}
+{% load static %}
 
 
 {% block page_title %}
@@ -8,9 +9,14 @@ Moti Engineering || Preventive Maintainace
     
 {% endblock page_title %}
 
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'pm/home.css' %} ">
+{% endblock css_files %}
+    
+
 
 {% block content %}
-            <h1>{{company |title}}  </h1>
+        <h1>{{company |title}}  </h1>
         <h1>{{projectName |title}}</h1>
 {% endblock content %}
     
