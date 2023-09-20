@@ -8,5 +8,7 @@ urlpatterns = [
     path('Banks', views.allBanks),
     path('Atms', views.atms),
     path('Schedule', views.makeSchedule),
+    path('index',views.index)
+
    
 ]

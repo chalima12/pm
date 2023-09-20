@@ -13,7 +13,7 @@ def home(request):
         context ={
         "company":"moti Engineering PLC",
         "projectName":"preventive Maintainace For ATMS"}
-        return render(request,"pm/index.html",context)
+        return render(request,"pm/home.html",context)
     except:
         raise Http404() # Automatically find 404.html file in golobal templates 
         
@@ -27,3 +27,6 @@ def atms(request):
 @login_required
 def makeSchedule(request):
     return HttpResponse("All done")
+
+def index(request):
+    return render(request, 'pm/index.html')
