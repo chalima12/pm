@@ -8,7 +8,8 @@ urlpatterns = [
     path('Banks', views.allBanks),
     path('Atms', views.atms),
     path('Schedule', views.makeSchedule),
-    path('index',views.index)
+    path('index',views.index),
+    path('chart', views.chart, name = 'chart')
 
    
 ]

@@ -30,3 +30,6 @@ def makeSchedule(request):
 
 def index(request):
     return render(request, 'pm/index.html')
+
+def chart (request):
+    return render(request, 'pm/chart.html')
