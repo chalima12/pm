@@ -25,6 +25,8 @@ class Region(models.Model):
    
 class BankBranch(models.Model):
     bank_name = models.ForeignKey(Bank, on_delete=models.CASCADE)
+    region = models.ForeignKey(Region,on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return self.bank_name
