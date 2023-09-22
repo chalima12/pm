@@ -13,7 +13,7 @@ def home(request):
         context ={
         "company":"moti Engineering PLC",
         "projectName":"preventive Maintainace For ATMS"}
-        return render(request,"pm/home.html",context)
+        return render(request,"pm/index.html",context)
     except:
         raise Http404() # Automatically find 404.html file in golobal templates 
         
