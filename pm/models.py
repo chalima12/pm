@@ -30,4 +30,14 @@ class BankBranch(models.Model):
 
     def __str__(self):
         return self.bank_name
+
+class Engineer(models.Model):
+    GENDER =[("M","Male"),("F","Female")]
+    firstName = models.CharField(max_length=100 ,null=False)
+    lastName = models.CharField(max_length=100,null=False)
+    phoneNumber = models.IntegerField()
+    gender = models.CharField(max_length=1, choices=GENDER)
+    
+    def __str__(self):
+        return self.firstName
     

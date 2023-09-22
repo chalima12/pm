@@ -1,0 +1,10 @@
+/* Global Css like fonts and Global colors */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Montserrat:wght@300&family=Roboto+Condensed:wght@400;700&display=swap");
+
+html{
+    font-family: 'Roboto Condensed', sans-serif;
+}
+body{
+    margin: 0;
+    background-color: #0a192f;
+}

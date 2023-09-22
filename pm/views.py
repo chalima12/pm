@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse,Http404
-
+from django.shortcuts import redirect, render
+from django.http import HttpResponse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+import json
 # Create your views here.
 
 def home(request):
@@ -19,6 +24,12 @@ def allBanks(request):
 
 def atms(request):
     return HttpResponse("Atms")
-
+@login_required
 def makeSchedule(request):
     return HttpResponse("All done")
+
+def index(request):
+    return render(request, 'pm/index.html')
+
+def chart (request):
+    return render(request, 'pm/chart.html')
