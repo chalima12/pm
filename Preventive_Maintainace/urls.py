@@ -22,5 +22,6 @@ admin.site.index_title ="Super User (ADMIN)"
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path("pm/",include("pm.urls")),
-    path('', include('pm.urls'))
+    path('', include('pm.urls')),
+    path("__debug__/", include("debug_toolbar.urls"))
 ]

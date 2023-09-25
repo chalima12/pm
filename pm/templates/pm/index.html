@@ -5,8 +5,11 @@
     <div class="header-mobile__bar">
       <div class="container-fluid">
         <div class="header-mobile-inner">
-          <a class="logo" href="index.html">
-            <img src="{% static 'images/icon/logo.png' %}" alt="CoolAdmin" />
+          <a class="logo" href="{% url 'home' %}">
+            <img
+              src="{% static 'images/icon/logo.jfif' %}"
+              alt="Moti Engineering Logo"
+            />
           </a>
           <button class="hamburger hamburger--slider" type="button">
             <span class="hamburger-box">
@@ -20,34 +23,38 @@
       <div class="container-fluid">
         <ul class="navbar-mobile__list list-unstyled">
           <li class="has-sub">
-            <a class="js-arrow" href="#">
+            <a class="js-arrow" href=" {% url 'home' %}">
               <i class="fas fa-tachometer-alt"></i>Dashboard</a
             >
           </li>
 
           <li>
-            <a href="table.html">
+            <a href="{% url 'all-engineers' %}">
               <i class="fa fa-users" aria-hidden="true"></i>Engineers</a
             >
           </li>
           <li>
-            <a href="form.html">
+            <a href="{% url 'banks-page' %}">
               <i class="fa fa-university" aria-hidden="true"></i>Banks</a
             >
           </li>
           <li>
-            <a href="map.html"> <i class="fas fa-box"></i>Terminals</a>
+            <a href="{% url 'all-terminals' %}">
+              <i class="fas fa-box"></i>Terminals</a
+            >
           </li>
           <li>
-            <a href="calendar.html">
+            <a href="{% url 'creat-schedule' %}">
               <i class="fas fa-calendar-alt"></i>Schedule</a
             >
           </li>
           <li>
-            <a href="chart.html"> <i class="fas fa-chart-bar"></i>Reports</a>
+            <a href="{% url 'reports' %}">
+              <i class="fas fa-chart-bar"></i>Reports</a
+            >
           </li>
           <li>
-            <a href="map.html"> <i class="fas fa-map-marker-alt"></i>Maps</a>
+            <a href="#"> <i class="fas fa-map-marker-alt"></i>Maps</a>
           </li>
         </ul>
       </div>
@@ -58,42 +65,49 @@
   <!-- MENU SIDEBAR-->
   <aside class="menu-sidebar d-none d-lg-block">
     <div class="logo">
-      <a href="#">
-        <img src="images/icon/logo.png" alt="Cool Admin" />
+      <a href="{% url 'home' %}">
+        <img
+          src="{% static 'images/icon/logo.jfif' %}"
+          alt="Moti Engineering PlC"
+        />
       </a>
     </div>
     <div class="menu-sidebar__content js-scrollbar1">
       <nav class="navbar-sidebar">
         <ul class="list-unstyled navbar__list">
           <li class="active has-sub">
-            <a class="js-arrow" href="#">
+            <a class="js-arrow" href="{% url 'home' %}">
               <i class="fas fa-tachometer-alt"></i>Dashboard</a
             >
           </li>
 
           <li>
-            <a href="table.html">
+            <a href="{% url 'all-engineers' %}">
               <i class="fa fa-users" aria-hidden="true"></i>Engineers</a
             >
           </li>
           <li>
-            <a href="form.html">
+            <a href="{% url 'banks-page' %}">
               <i class="fa fa-university" aria-hidden="true"></i>Banks</a
             >
           </li>
           <li>
-            <a href="map.html"> <i class="fas fa-box"></i>Terminals</a>
+            <a href="{% url 'all-terminals' %}">
+              <i class="fas fa-box"></i>Terminals</a
+            >
           </li>
           <li>
-            <a href="calendar.html">
+            <a href="{% url 'creat-schedule' %}">
               <i class="fas fa-calendar-alt"></i>Schedule</a
             >
           </li>
           <li>
-            <a href="chart.html"> <i class="fas fa-chart-bar"></i>Reports</a>
+            <a href="{% url 'reports' %}">
+              <i class="fas fa-chart-bar"></i>Reports</a
+            >
           </li>
           <li>
-            <a href="map.html"> <i class="fas fa-map-marker-alt"></i>Maps</a>
+            <a href="#"> <i class="fas fa-map-marker-alt"></i>Maps</a>
           </li>
         </ul>
       </nav>
@@ -122,44 +136,6 @@
             <div class="header-button">
               <div class="noti-wrap">
                 <div class="noti__item js-item-menu">
-                  <i class="zmdi zmdi-comment-more"></i>
-                  <span class="quantity">1</span>
-                  <div class="mess-dropdown js-dropdown">
-                    <div class="mess__title">
-                      <p>You have 2 news message</p>
-                    </div>
-                    <div class="mess__item">
-                      <div class="image img-cir img-40">
-                        <img
-                          src="images/icon/avatar-06.jpg"
-                          alt="Michelle Moreno"
-                        />
-                      </div>
-                      <div class="content">
-                        <h6>Michelle Moreno</h6>
-                        <p>Have sent a photo</p>
-                        <span class="time">3 min ago</span>
-                      </div>
-                    </div>
-                    <div class="mess__item">
-                      <div class="image img-cir img-40">
-                        <img
-                          src="images/icon/avatar-04.jpg"
-                          alt="Diane Myers"
-                        />
-                      </div>
-                      <div class="content">
-                        <h6>Diane Myers</h6>
-                        <p>You are now connected on message</p>
-                        <span class="time">Yesterday</span>
-                      </div>
-                    </div>
-                    <div class="mess__footer">
-                      <a href="#">View all messages</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="noti__item js-item-menu">
                   <i class="zmdi zmdi-email"></i>
                   <span class="quantity">1</span>
                   <div class="email-dropdown js-dropdown">
@@ -169,8 +145,8 @@
                     <div class="email__item">
                       <div class="image img-cir img-40">
                         <img
-                          src="images/icon/avatar-06.jpg"
-                          alt="Cynthia Harvey"
+                          src="{% static 'images/icon/pp.jpg' %}"
+                          alt="Getachew Muhabaw"
                         />
                       </div>
                       <div class="content">
@@ -181,25 +157,13 @@
                     <div class="email__item">
                       <div class="image img-cir img-40">
                         <img
-                          src="images/icon/avatar-05.jpg"
+                          src="{% static 'images/icon/pp.jpg' %}"
                           alt="Cynthia Harvey"
                         />
                       </div>
                       <div class="content">
                         <p>Meeting about new dashboard...</p>
                         <span>Cynthia Harvey, Yesterday</span>
-                      </div>
-                    </div>
-                    <div class="email__item">
-                      <div class="image img-cir img-40">
-                        <img
-                          src="images/icon/avatar-04.jpg"
-                          alt="Cynthia Harvey"
-                        />
-                      </div>
-                      <div class="content">
-                        <p>Meeting about new dashboard...</p>
-                        <span>Cynthia Harvey, April 12,,2018</span>
                       </div>
                     </div>
                     <div class="email__footer">
@@ -250,7 +214,10 @@
               <div class="account-wrap">
                 <div class="account-item clearfix js-item-menu">
                   <div class="image">
-                    <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                    <img
+                      src="{% static 'images/icon/pp.jpg' %}"
+                      alt="Getachew"
+                    />
                   </div>
                   <div class="content">
                     <a class="js-acc-btn" href="#">Getachew Muhabaw</a>
@@ -259,7 +226,10 @@
                     <div class="info clearfix">
                       <div class="image">
                         <a href="#">
-                          <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                          <img
+                            src="{% static 'images/icon/pp.jpg' %}"
+                            alt="John Doe"
+                          />
                         </a>
                       </div>
                       <div class="content">
@@ -394,13 +364,13 @@
                         <span class="index incre">
                           <i class="zmdi zmdi-long-arrow-up"></i>25%</span
                         >
-                        <span class="label">products</span>
+                        <span class="label">Cleand ATMs</span>
                       </div>
                       <div class="chart-statis mr-0">
                         <span class="index decre">
                           <i class="zmdi zmdi-long-arrow-down"></i>10%</span
                         >
-                        <span class="label">services</span>
+                        <span class="label">Scheduled ATMs</span>
                       </div>
                     </div>
                   </div>
@@ -418,12 +388,16 @@
                     <div class="col-xl-6">
                       <div class="chart-note-wrap">
                         <div class="chart-note mr-0 d-block">
-                          <span class="dot dot--blue"></span>
-                          <span>products</span>
+                          <span class="dot dot--red"></span>
+                          <span>Pending</span>
                         </div>
                         <div class="chart-note mr-0 d-block">
-                          <span class="dot dot--red"></span>
-                          <span>services</span>
+                          <span class="dot dot--blue"></span>
+                          <span>Onprogress</span>
+                        </div>
+                        <div class="chart-note mr-0 d-block">
+                          <span class="dot dot--green"></span>
+                          <span>Completed</span>
                         </div>
                       </div>
                     </div>
@@ -439,7 +413,7 @@
           </div>
           <div class="row">
             <div class="col-lg-9">
-              <h2 class="title-1 m-b-25">Earnings By Items</h2>
+              <h2 class="title-1 m-b-25">List of Terminals</h2>
               <div class="table-responsive table--no-card m-b-40">
                 <table
                   class="table table-borderless table-striped table-earning"
@@ -493,36 +467,8 @@
                     <table class="table table-top-countries">
                       <tbody>
                         <tr>
-                          <td>United States</td>
-                          <td class="text-right">$119,366.96</td>
-                        </tr>
-                        <tr>
-                          <td>Australia</td>
-                          <td class="text-right">$70,261.65</td>
-                        </tr>
-                        <tr>
-                          <td>United Kingdom</td>
-                          <td class="text-right">$46,399.22</td>
-                        </tr>
-                        <tr>
-                          <td>Turkey</td>
-                          <td class="text-right">$35,364.90</td>
-                        </tr>
-                        <tr>
-                          <td>Germany</td>
-                          <td class="text-right">$20,366.96</td>
-                        </tr>
-                        <tr>
-                          <td>France</td>
-                          <td class="text-right">$10,366.96</td>
-                        </tr>
-                        <tr>
-                          <td>Australia</td>
-                          <td class="text-right">$5,366.96</td>
-                        </tr>
-                        <tr>
-                          <td>Italy</td>
-                          <td class="text-right">$1639.32</td>
+                          <td>CBE</td>
+                          <td class="text-right">3245 ATMs</td>
                         </tr>
                       </tbody>
                     </table>

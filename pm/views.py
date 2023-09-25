@@ -20,7 +20,6 @@ def home(request):
 
 
 def engineers(request):
-
     return render(request, 'pm/engineers.html')
 
 
