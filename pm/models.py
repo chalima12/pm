@@ -3,7 +3,14 @@ from django.utils import timezone
 
 # Create your models here.
 
-
+REGION_CHIOCES = [
+        ("NR", "North"),
+        ("SR", "South"),
+        ("ER", "East"),
+        ("WR", "West"),
+        ("CR", "Centeral"),
+        ("NN", "None")
+    ]
 class Bank(models.Model):
     bank_name = models.CharField(max_length=50)
     bank_key = models.CharField(max_length=40)
@@ -13,14 +20,7 @@ class Bank(models.Model):
 
 
 class Region(models.Model):
-    REGION_CHIOCES = [
-        ("NR", "North"),
-        ("SR", "South"),
-        ("ER", "East"),
-        ("WR", "West"),
-        ("CR", "Centeral"),
-        ("NN", "None")
-    ]
+ 
     name = models.CharField(max_length=30)
     region = models.CharField(max_length=2, choices=REGION_CHIOCES)
 
@@ -29,8 +29,13 @@ class Region(models.Model):
 
 
 class BankBranch(models.Model):
-    baranch_name = models.ForeignKey(Bank, on_delete=models.PROTECT)
+    bank_name = models.ForeignKey(Bank, on_delete=models.PROTECT)
+    region = models.CharField(max_length=2, choices=REGION_CHIOCES)
+    district = models.CharField(max_length=30)
+    branch_name = models.CharField(max_length=255)
+    branch_key = models.CharField(max_length=50)
     location = models.CharField(max_length=255)
+    
 
     def __str__(self):
         return self.baranch_name
@@ -69,6 +74,9 @@ class Terminal(models.Model):
     disspenser_type = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
+    
+    def __str__(self) -> str:
+        return self.terminal_name
 
 
 class Schedule(models.Model):
@@ -81,5 +89,8 @@ class Schedule(models.Model):
     terminal_name = models.ForeignKey(Terminal, on_delete=models.PROTECT)
     starting_date = models.DateTimeField(auto_now_add=True,)
     end_date = models.DateTimeField()
-    status = models.CharField(max_length=2, choices=STATUS)
+    status = models.CharField(max_length=2, choices=STATUS, default=STATUS[0])
     description = models.CharField(max_length=300)
+
+    def __str__(self) -> str:
+        return str(self.starting_date + "To" + self.end_date)
