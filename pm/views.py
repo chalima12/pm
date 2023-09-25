@@ -19,17 +19,4 @@ def home(request):
         
 
 
-def allBanks(request):
-    return HttpResponse("All Banks")
 
-def atms(request):
-    return HttpResponse("Atms")
-@login_required
-def makeSchedule(request):
-    return HttpResponse("All done")
-
-def index(request):
-    return render(request, 'pm/index.html')
-
-def chart (request):
-    return render(request, 'pm/chart.html')
