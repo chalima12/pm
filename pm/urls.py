@@ -9,7 +9,4 @@ urlpatterns = [
     path('terminals', views.terminals, name="all-terminal"),
     path('schedule', views.schedule, name='creat-schedule'),
     path('reports', views.reports, name='reports'),
-
-
-
 ]
