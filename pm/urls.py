@@ -4,12 +4,12 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 from django.views.generic.base import RedirectView
 urlpatterns = [
-    path('', views.home),
-    path('Banks', views.allBanks),
-    path('Atms', views.atms),
-    path('Schedule', views.makeSchedule),
-    path('index',views.index),
-    path('chart', views.chart, name = 'chart')
+    path('', views.home, name='home'),
+    path('banks', views.banks, name='banks-page'),
+    path('terminals', views.terminals, name="all-terminal"),
+    path('schedule', views.schedule, name='creat-schedule'),
+    path('reports', views.reports, name='reports'),
 
-   
+
+
 ]
