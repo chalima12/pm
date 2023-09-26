@@ -1,0 +1,13 @@
+asgiref==3.7.2
+certifi==2023.7.22
+distlib==0.3.7
+Django==4.2.5
+django-debug-toolbar==4.2.0
+filelock==3.12.4
+pipenv==2023.9.8
+platformdirs==3.10.0
+python-dateutil==2.8.2
+six==1.16.0
+sqlparse==0.4.4
+tzdata==2023.3
+virtualenv==20.24.5
