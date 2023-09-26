@@ -335,7 +335,7 @@
                       <i class="fa fa-cubes" aria-hidden="true"></i>
                     </div>
                     <div class="text">
-                      <h2>$555</h2>
+                      <h2>35</h2>
                       <span>Scheduled To be Cleand</span>
                     </div>
                   </div>
@@ -343,6 +343,7 @@
               </div>
             </div>
           </div>
+          {% comment %}
           <div class="row">
             <div class="col-lg-6">
               <div class="au-card recent-report">
@@ -362,13 +363,13 @@
                     <div class="chart-info__right">
                       <div class="chart-statis">
                         <span class="index incre">
-                          <i class="zmdi zmdi-long-arrow-up"></i>25%</span
+                          <i class="zmdi zmdi-long-arrow-up"></i>50%</span
                         >
                         <span class="label">Cleand ATMs</span>
                       </div>
                       <div class="chart-statis mr-0">
                         <span class="index decre">
-                          <i class="zmdi zmdi-long-arrow-down"></i>10%</span
+                          <i class="zmdi zmdi-long-arrow-down"></i>50%</span
                         >
                         <span class="label">Scheduled ATMs</span>
                       </div>
@@ -411,6 +412,7 @@
               </div>
             </div>
           </div>
+          {% endcomment %}
           <div class="row">
             <div class="col-lg-9">
               <h2 class="title-1 m-b-25">List of Terminals</h2>
@@ -420,39 +422,25 @@
                 >
                   <thead>
                     <tr>
-                      <th>date</th>
-                      <th>order ID</th>
-                      <th>name</th>
-                      <th class="text-right">price</th>
-                      <th class="text-right">quantity</th>
-                      <th class="text-right">total</th>
+                      <th>TID</th>
+                      <th>Bank Name</th>
+                      <th>TER NAME</th>
+                      <th class="text-right">SERIAL NO</th>
+                      <th class="text-right">LOCATION</th>
+                      <th class="text-right">CITY</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% for terminal in terminals %}
                     <tr>
-                      <td>2018-09-29 05:57</td>
-                      <td>100398</td>
-                      <td>iPhone X 64Gb Grey</td>
-                      <td class="text-right">$999.00</td>
-                      <td class="text-right">1</td>
-                      <td class="text-right">$999.00</td>
+                      <td>{{terminal.tid}}</td>
+                      <td>{{terminal.bank_name}}</td>
+                      <td>{{terminal.terminal_name}}</td>
+                      <td class="text-right">{{terminal.serial_number}}</td>
+                      <td class="text-right">{{terminal.location}}</td>
+                      <td class="text-right">{{terminal.city}}</td>
                     </tr>
-                    <tr>
-                      <td>2018-09-28 01:22</td>
-                      <td>100397</td>
-                      <td>Samsung S8 Black</td>
-                      <td class="text-right">$756.00</td>
-                      <td class="text-right">1</td>
-                      <td class="text-right">$756.00</td>
-                    </tr>
-                    <tr>
-                      <td>2018-09-27 02:12</td>
-                      <td>100396</td>
-                      <td>Game Console Controller</td>
-                      <td class="text-right">$22.00</td>
-                      <td class="text-right">2</td>
-                      <td class="text-right">$44.00</td>
-                    </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
               </div>
@@ -474,19 +462,6 @@
                     </table>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <div class="copyright">
-                <p>
-                  Copyriht © 2023 Moti Engineering. All rights reserved.
-
-                  <a href="https://www.motiengineering.com/">Moti Engineering</a
-                  >.
-                </p>
               </div>
             </div>
           </div>
