@@ -88,10 +88,12 @@ class Schedule(models.Model):
         ("4", "Cancled")
     ]
     terminal_name = models.ForeignKey(Terminal, on_delete=models.PROTECT)
-    start_date = models.DateTimeField(auto_now_add=True)
-    end_date = models.DateTimeField(auto_now_add=False, null=False, auto_now=False),
+    start_date = models.DateTimeField(
+        auto_now_add=False, editable=True)
+    end_date = models.DateTimeField(auto_now_add=False, editable=True)
+    assign_to = models.ForeignKey(Engineer, on_delete=models.CASCADE)
     status = models.CharField(max_length=2, choices=STATUS, default=STATUS[0])
     description = models.CharField(max_length=300)
 
     def __str__(self) -> str:
-        return str(self.starting_date + "To" + self.end_date)
+        return str(self.terminal_name)
