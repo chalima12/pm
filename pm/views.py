@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 import json
+from pm.models import Terminal
 # Create your views here.
 
 
@@ -28,7 +29,12 @@ def banks(request):
 
 
 def terminals(request):
-    return render(request, 'pm/terminals.html')
+    terminals = Terminal.objects.all()
+    context = {
+        "title": "Terminals",
+        "terminals": terminals,
+    }
+    return render(request, 'pm/terminals.html', context)
 
 
 def schedule(request):

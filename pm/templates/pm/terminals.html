@@ -54,14 +54,15 @@
           </tr>
         </thead>
         <tbody>
+          {% for terminal in terminals %}
           <tr class="tr-shadow">
-            <td>Lori Lynch</td>
+            <td>{{terminal.tid}}</td>
             <td>
-              <span class="block-email">lori@example.com</span>
+              <span >{{terminal.bank_name}}</span>
             </td>
-            <td class="desc">Samsung S8 Black</td>
-            <td>2018-09-27 02:12</td>
-            <td>$679.00</td>
+            <td class="desc">{{terminal.terminal_name}}</td>
+            <td>{{terminal.serial_number}}</td>
+            <td>{{terminal.location}}</td>
             <td>
               <span class="status--process">Processed</span>
             </td>
@@ -96,6 +97,7 @@
             </td>
           </tr>
           <tr class="spacer"></tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
