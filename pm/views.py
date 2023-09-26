@@ -1,8 +1,31 @@
 from django.shortcuts import render
 from django.http import Http404
-
+import datetime
+from dateutil.relativedelta import relativedelta
 from pm.models import Terminal, Engineer, Bank, Schedule
 # Create your views here.
+
+a = '2014-05-06 12:00:56'
+b = '2014-02-06 16:08:22'
+start = datetime.datetime.strptime(a, '%Y-%m-%d %H:%M:%S')
+ends = datetime.datetime.strptime(b, '%Y-%m-%d %H:%M:%S')
+diff = relativedelta(start, ends)
+# print(diff.years, diff.months, diff.days,
+#       diff.hours, diff.minutes, diff.seconds)
+month = diff.months
+day = diff.days
+hour = diff.hours
+
+# Futer Reference 
+# import datetime
+# from dateutil.relativedelta import relativedelta
+# print(datetime.datetime.now())
+# a = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+# b = '2020-03-06 16:08:22'
+# start = datetime.datetime.strptime(a, '%Y-%m-%d %H:%M:%S')
+# ends = datetime.datetime.strptime(b, '%Y-%m-%d %H:%M:%S')
+# diff = relativedelta(start, ends)
+# print (diff.years, diff.months, diff.days, diff.hours, diff.minutes)
 
 
 def home(request):
@@ -11,8 +34,11 @@ def home(request):
         context = {
             "company": "moti Engineering PLC",
             "projectName": "preventive Maintainace For ATMS",
-            "terminals":terminalsQuerySet
-            }
+            "terminals": terminalsQuerySet,
+            "month": month,
+            "day": day,
+            "hour":hour,
+        }
         return render(request, "pm/index.html", context)
     except:
         raise Http404()  # Automatically find 404.html file in golobal templates
@@ -49,6 +75,10 @@ def terminals(request):
         return render(request, 'pm/terminals.html', context)
     except:
         raise Http404()
+
+
+def addTerminal(request):
+    return render(request, 'pm/terminalForm.html')
 
 
 def schedule(request):

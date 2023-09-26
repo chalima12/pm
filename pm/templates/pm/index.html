@@ -63,7 +63,7 @@
   <!-- END HEADER MOBILE-->
 
   <!-- MENU SIDEBAR-->
-  <aside class="menu-sidebar d-none d-lg-block">
+  {% comment %} <aside class="menu-sidebar d-none d-lg-block">
     <div class="logo">
       <a href="{% url 'home' %}">
         <img
@@ -112,13 +112,15 @@
         </ul>
       </nav>
     </div>
-  </aside>
+  </aside> 
+  
+  {% endcomment %}
   <!-- END MENU SIDEBAR-->
 
   <!-- PAGE CONTAINER-->
   <div class="page-container">
     <!-- HEADER DESKTOP-->
-    <header class="header-desktop">
+    {% comment %} <header class="header-desktop">
       <div class="section__content section__content--p30">
         <div class="container-fluid">
           <div class="header-wrap">
@@ -262,6 +264,7 @@
         </div>
       </div>
     </header>
+     {% endcomment %}
 
     <!-- HEADER DESKTOP-->
 
@@ -272,13 +275,16 @@
           <div class="row">
             <div class="col-md-12">
               <div class="overview-wrap">
-                <h2 class="title-1">overview</h2>
+                <h2 class="title-1">
+                  overview Remaning month :{{month}} Remaning day: {{day}}
+                </h2>
                 <button class="au-btn au-btn-icon au-btn--blue">
                   <i class="zmdi zmdi-plus"></i>Add Terminals
                 </button>
               </div>
             </div>
           </div>
+
           <div class="row m-t-25">
             <div class="col-sm-6 col-lg-3">
               <div class="overview-item overview-item--c1">
@@ -343,76 +349,6 @@
               </div>
             </div>
           </div>
-          {% comment %}
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="au-card recent-report">
-                <div class="au-card-inner">
-                  <h3 class="title-2">recent reports</h3>
-                  <div class="chart-info">
-                    <div class="chart-info__left">
-                      <div class="chart-note">
-                        <span class="dot dot--blue"></span>
-                        <span>products</span>
-                      </div>
-                      <div class="chart-note mr-0">
-                        <span class="dot dot--green"></span>
-                        <span>services</span>
-                      </div>
-                    </div>
-                    <div class="chart-info__right">
-                      <div class="chart-statis">
-                        <span class="index incre">
-                          <i class="zmdi zmdi-long-arrow-up"></i>50%</span
-                        >
-                        <span class="label">Cleand ATMs</span>
-                      </div>
-                      <div class="chart-statis mr-0">
-                        <span class="index decre">
-                          <i class="zmdi zmdi-long-arrow-down"></i>50%</span
-                        >
-                        <span class="label">Scheduled ATMs</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="recent-report__chart">
-                    <canvas id="recent-rep-chart"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="au-card chart-percent-card">
-                <div class="au-card-inner">
-                  <h3 class="title-2 tm-b-5">char by %</h3>
-                  <div class="row no-gutters">
-                    <div class="col-xl-6">
-                      <div class="chart-note-wrap">
-                        <div class="chart-note mr-0 d-block">
-                          <span class="dot dot--red"></span>
-                          <span>Pending</span>
-                        </div>
-                        <div class="chart-note mr-0 d-block">
-                          <span class="dot dot--blue"></span>
-                          <span>Onprogress</span>
-                        </div>
-                        <div class="chart-note mr-0 d-block">
-                          <span class="dot dot--green"></span>
-                          <span>Completed</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xl-6">
-                      <div class="percent-chart">
-                        <canvas id="percent-chart"></canvas>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          {% endcomment %}
           <div class="row">
             <div class="col-lg-9">
               <h2 class="title-1 m-b-25">List of Terminals</h2>
