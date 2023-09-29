@@ -1,12 +1,14 @@
 from django.shortcuts import render,redirect
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.http import Http404
 import datetime
 from dateutil.relativedelta import relativedelta
 from pm.models import Terminal, Engineer, Bank, Schedule
 from pm.forms import TerminalForm
 #Django rest framework Imports
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+# from rest_framework.decorators import api_view
+# from rest_framework.response import Response
 # Create your views here.
 
 a = '2014-05-06 12:00:56'
@@ -33,8 +35,13 @@ hour = diff.hours
 
 # Rest Framwork  Implementations
 
+# @api_view()
+# def terminal_list(request):
+#     return Response('ok')
 
-
+# @api_view()
+# def terminal_detail(request,id):
+#     return Response(id)
 # Simple django implementions
 def home(request):
     try:
@@ -72,6 +79,10 @@ def banks(request):
     except:
         raise Http404()
 
+
+def view_bank(request,id):
+    bank = Bank.objects.get(pk=id)
+    return HttpResponseRedirect(reverse('home'))
 
 def terminals(request):
     try:

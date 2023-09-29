@@ -82,63 +82,62 @@
     />
 
     <!-- Main CSS-->
+    {% comment %} <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" /> {% endcomment %}
     <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all" />
   </head>
   <body class="animsition">
-    
     <aside class="menu-sidebar d-none d-lg-block">
-    <div class="logo">
-      <a href="{% url 'home' %}">
-        <img
-          src="{% static 'images/icon/logo.jfif' %}"
-          alt="Moti Engineering PlC"
-        />
-      </a>
-    </div>
-    <div class="menu-sidebar__content js-scrollbar1">
-      <nav class="navbar-sidebar">
-        <ul class="list-unstyled navbar__list">
-          <li class="active has-sub">
-            <a class="js-arrow" href="{% url 'home' %}">
-              <i class="fas fa-tachometer-alt"></i>Dashboard</a
-            >
-          </li>
+      <div class="logo">
+        <a href="{% url 'home' %}">
+          <img
+            src="{% static 'images/icon/logo.jfif' %}"
+            alt="Moti Engineering PlC"
+          />
+        </a>
+      </div>
+      <div class="menu-sidebar__content js-scrollbar1">
+        <nav class="navbar-sidebar">
+          <ul class="list-unstyled navbar__list">
+            <li class="active has-sub">
+              <a class="js-arrow" href="{% url 'home' %}">
+                <i class="fas fa-tachometer-alt"></i>Dashboard</a
+              >
+            </li>
 
-          <li>
-            <a href="{% url 'all-engineers' %}">
-              <i class="fa fa-users" aria-hidden="true"></i>Engineers</a
-            >
-          </li>
-          <li>
-            <a href="{% url 'banks-page' %}">
-              <i class="fa fa-university" aria-hidden="true"></i>Banks</a
-            >
-          </li>
-          <li>
-            <a href="{% url 'all-terminals' %}">
-              <i class="fas fa-box"></i>Terminals</a
-            >
-          </li>
-          <li>
-            <a href="{% url 'creat-schedule' %}">
-              <i class="fas fa-calendar-alt"></i>Schedule</a
-            >
-          </li>
-          <li>
-            <a href="{% url 'reports' %}">
-              <i class="fas fa-chart-bar"></i>Reports</a
-            >
-          </li>
-          <li>
-            <a href="#"> <i class="fas fa-map-marker-alt"></i>Maps</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </aside>
+            <li>
+              <a href="{% url 'all-engineers' %}">
+                <i class="fa fa-users" aria-hidden="true"></i>Engineers</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'banks-page' %}">
+                <i class="fa fa-university" aria-hidden="true"></i>Banks</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'all-terminals' %}">
+                <i class="fas fa-box"></i>Terminals</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'creat-schedule' %}">
+                <i class="fas fa-calendar-alt"></i>Schedule</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'reports' %}">
+                <i class="fas fa-chart-bar"></i>Reports</a
+              >
+            </li>
+            <li>
+              <a href="#"> <i class="fas fa-map-marker-alt"></i>Maps</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
 
-  
-  <header class="header-desktop">
+    <header class="header-desktop">
       <div class="section__content section__content--p30">
         <div class="container-fluid">
           <div class="header-wrap">
@@ -286,11 +285,14 @@
     <div class="row">
       <div class="col-md-12">
         <div class="copyright">
-          <p>
-            Copyriht © 2023 Moti Engineering. All rights reserved.
-
-            <a href="https://www.motiengineering.com/">Moti Engineering</a>.
-          </p>
+          <span
+            >Copyright &copy;
+            <script>
+              document.write(new Date().getFullYear());
+            </script>
+            <a href="https://www.motiengineering.com/">Moti Engineering</a
+            >.</span
+          >
         </div>
       </div>
     </div>

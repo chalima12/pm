@@ -52,27 +52,16 @@
                 <table class="table table-data2">
                   <thead>
                     <tr>
-                      <th>TID</th>
-                      <th>BANK Name</th>
-                      <th>TERMINAL NAME</th>
-                      <th>SERIAL NO</th>
-                      <th>LOCATION</th>
-                      <th>STATUS</th>
-                      <th>ACTIONS</th>
+                      <th>Bank</th>
+                      <th>Bank Key</th>
+                      <th class="text text-right">ACTIONS</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% for bank in banks %}
                     <tr class="tr-shadow">
-                      <td></td>
-                      <td>
-                        <span></span>
-                      </td>
-                      <td class="desc"></td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        <span class="status--process">Processed</span>
-                      </td>
+                      <td>{{bank.bank_name}}</td>
+                      <td>{{bank.bank_key}}</td>
 
                       <td>
                         <div class="table-data-feature">
@@ -81,9 +70,60 @@
                             data-toggle="tooltip"
                             data-placement="top"
                             title="View"
+                            type="button"
+                            onclick="location.href='{% url 'view-bank' bank.id %}'"
+                            data-bs-toggle="modal"
+                            data-bs-target="#myModal{{bank.id}}"
                           >
                             <i class="zmdi zmdi-eye text-info"></i>
                           </button>
+
+                          {% comment %} modal componet {% endcomment %}
+                          <div
+                            class="modal"
+                            id="myModal{{bank.id}}"
+                            tabindex="-1"
+                            aria-labelledby="myModalLabel1"
+                            aria-hidden="true"
+                          >
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Bank Information</h5>
+                                  <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                  >
+                                    <span aria-hidden="true"></span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <ul class="list-unstyled">
+                                    <li>
+                                      Bank Name:
+                                      <strong>{{ bank.bank_name }}</strong>
+                                    </li>
+                                    <li>
+                                      Bank Key:
+                                      <strong>{{ bank.bank_key}}</strong>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="modal-footer">
+                                  <button
+                                    type="button"
+                                    class="btn btn-primary"
+                                    data-bs-dismiss="modal"
+                                  >
+                                    Close
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                           <button
                             class="item"
                             data-toggle="tooltip"
@@ -104,6 +144,7 @@
                       </td>
                     </tr>
                     <tr class="spacer"></tr>
+                    {% endfor %}
                   </tbody>
                 </table>
               </div>
