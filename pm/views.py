@@ -4,6 +4,9 @@ import datetime
 from dateutil.relativedelta import relativedelta
 from pm.models import Terminal, Engineer, Bank, Schedule
 from pm.forms import TerminalForm
+#Django rest framework Imports
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 # Create your views here.
 
 a = '2014-05-06 12:00:56'
@@ -28,7 +31,11 @@ hour = diff.hours
 # diff = relativedelta(start, ends)
 # print (diff.years, diff.months, diff.days, diff.hours, diff.minutes)
 
+# Rest Framwork  Implementations
 
+
+
+# Simple django implementions
 def home(request):
     try:
         terminalsQuerySet = Terminal.objects.all()
