@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import Http404
 import datetime
 from dateutil.relativedelta import relativedelta
 from pm.models import Terminal, Engineer, Bank, Schedule
+from pm.forms import TerminalForm
 # Create your views here.
 
 a = '2014-05-06 12:00:56'
@@ -78,8 +79,21 @@ def terminals(request):
 
 
 def addTerminal(request):
-    return render(request, 'pm/terminalForm.html')
+    if request.method == "POST":
+        form = TerminalForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('/add-terminal')
+            except:
+                print("ERROR Happend")
 
+    else:
+        form = TerminalForm()
+    context = {
+        "form":form,
+    }
+    return render(request,"pm/terminalForm.html",context)
 
 def schedule(request):
     try:
