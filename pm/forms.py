@@ -8,7 +8,15 @@ class TerminalForm(forms.ModelForm):
 class BankForm(forms.ModelForm):
     class Meta:
         modele = Bank
-        fields = "__all__"
+        fields = ['bank_name','bank_key']
+        labels ={
+            'bank_name':"Bank Name",
+            'bank_key':"Bank Key"
+        }
+        widgets ={
+            'bank_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'bank_key': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 class EngineerForm(forms.ModelForm):
     class Meta:
         model = Engineer

@@ -1,12 +1,12 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.http import Http404
 import datetime
 from dateutil.relativedelta import relativedelta
 from pm.models import Terminal, Engineer, Bank, Schedule
-from pm.forms import TerminalForm
-#Django rest framework Imports
+from pm.forms import TerminalForm, BankForm
+# Django rest framework Imports
 # from rest_framework.decorators import api_view
 # from rest_framework.response import Response
 # Create your views here.
@@ -22,7 +22,7 @@ month = diff.months
 day = diff.days
 hour = diff.hours
 
-# Futer Reference 
+# Futer Reference
 # import datetime
 # from dateutil.relativedelta import relativedelta
 # print(datetime.datetime.now())
@@ -43,6 +43,8 @@ hour = diff.hours
 # def terminal_detail(request,id):
 #     return Response(id)
 # Simple django implementions
+
+
 def home(request):
     try:
         terminalsQuerySet = Terminal.objects.all()
@@ -52,7 +54,7 @@ def home(request):
             "terminals": terminalsQuerySet,
             "month": month,
             "day": day,
-            "hour":hour,
+            "hour": hour,
         }
         return render(request, "pm/index.html", context)
     except:
@@ -80,9 +82,25 @@ def banks(request):
         raise Http404()
 
 
-def view_bank(request,id):
+def view_bank(request, id):
     bank = Bank.objects.get(pk=id)
     return HttpResponseRedirect(reverse('home'))
+
+
+def addBank(request):
+    if request.method == "POST":
+        form = BankForm(request.POST)
+        if form.is_valid():
+            form.save()
+            context = {
+                "form": BankForm(),
+                "success": True
+            }
+            return redirect(request, 'pm/addBank.html', context)
+    else:
+        form = BankForm()
+        return render(request, 'pm/addBank.html', {"form": form})
+
 
 def terminals(request):
     try:
@@ -109,9 +127,10 @@ def addTerminal(request):
     else:
         form = TerminalForm()
     context = {
-        "form":form,
+        "form": form,
     }
-    return render(request,"pm/terminalForm.html",context)
+    return render(request, "pm/terminalForm.html", context)
+
 
 def schedule(request):
     try:

@@ -11,6 +11,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('banks/', views.banks, name='banks-page'),
     path('banks/<int:id>/', views.view_bank, name='view-bank'),
+    path('addBank/', views.addBank, name='addBank'),
     path('terminals/', views.terminals, name="all-terminals"),
     path('schedule/', views.schedule, name='creat-schedule'),
     path('reports/', views.reports, name='reports'),
