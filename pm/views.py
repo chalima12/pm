@@ -100,7 +100,7 @@ def addBank(request):
                 "form": BankForm(),
                 "success": True
             }
-            return redirect(request, 'pm/addBank.html', context)
+            return redirect(reverse('pm/addBank.html', context))
     else:
         form = BankForm()
         return render(request, 'pm/addBank.html', {"form": form})
