@@ -91,7 +91,11 @@ def addBank(request):
     if request.method == "POST":
         form = BankForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_bank_name = form.cleaned_data['bank_name']
+            new_bank_key = form.cleaned_data['bank_key']
+            new_bank = Bank(bank_name=new_bank_name, bank_key=new_bank_key)
+            new_bank.save()
+
             context = {
                 "form": BankForm(),
                 "success": True
