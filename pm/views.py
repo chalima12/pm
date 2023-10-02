@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 from django.urls import reverse
 from django.http import Http404
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 import datetime
+import json
 from dateutil.relativedelta import relativedelta
 from pm.models import Terminal, Engineer, Bank, Schedule
 from pm.forms import TerminalForm, BankForm
@@ -48,7 +51,34 @@ hour = diff.hours
 def login(request):
     return render(request, 'registration/login.html')
 
+# Login
 
+
+def login_user(request):
+    logout(request)
+    resp = {"status": 'failed', 'msg': ''}
+    username = ''
+    password = ''
+    if request.POST:
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                resp['status'] = 'success'
+            else:
+                resp['msg'] = "Incorrect username or password"
+        else:
+            resp['msg'] = "Incorrect username or password"
+    return HttpResponse(json.dumps(resp), content_type='application/json')
+
+#Logout
+def logoutuser(request):
+    logout(request)
+    return redirect('/')
+@login_required
 def home(request):
     try:
         terminalsQuerySet = Terminal.objects.all()

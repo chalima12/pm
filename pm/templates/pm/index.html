@@ -1,4 +1,5 @@
 {% extends "base.html" %} {% load static %} {% block content %}
+{% if user.is_authenticated %}
 <div class="page-wrapper">
   <!-- HEADER MOBILE-->
   <header class="header-mobile d-block d-lg-none">
@@ -410,4 +411,9 @@
     <!-- END PAGE CONTAINER-->
   </div>
 </div>
+{% else %}
+<p>Please Try again!!</p>
+<a href="{% url "login" %}">Login</a>
+{% endif %}
+
 {% endblock content %}
