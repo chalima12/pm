@@ -24,7 +24,6 @@ admin.site.index_title = "Super User (ADMIN)"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    # path("", TemplateView.as_view(template_name="index.html"), name="home"),
     path('', include('pm.urls')),
     path("__debug__/", include("debug_toolbar.urls")),
 
