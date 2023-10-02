@@ -25,5 +25,5 @@ urlpatterns = [
     path('', include('pm.urls')),
     path("__debug__/", include("debug_toolbar.urls")),
     # Django auth usls
-    path('', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

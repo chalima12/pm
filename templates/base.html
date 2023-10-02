@@ -83,10 +83,11 @@
 
     <!-- Main CSS-->
 
-    {% comment %} <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" /> {% endcomment %}
+    {% comment %}
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    {% endcomment %}
 
     <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all" />
- 
   </head>
   <body class="animsition">
     <aside class="menu-sidebar d-none d-lg-block">
@@ -95,7 +96,8 @@
           <img
             src="{% static 'images/icon/logo.jfif' %}"
             alt="Moti Engineering PlC"
-           style="width: 85px;"/>
+            style="width: 85px"
+          />
         </a>
         Moti Engineering
       </div>
@@ -145,17 +147,7 @@
       <div class="section__content section__content--p30">
         <div class="container-fluid text text-right">
           <div class="header-wrap">
-            <form class="form-header" action="" method="POST">
-              <input
-                class="au-input au-input--xl"
-                type="text"
-                name="search"
-                placeholder="Search for datas &amp; reports..."
-              />
-              <button class="au-btn--submit" type="submit">
-                <i class="zmdi zmdi-search"></i>
-              </button>
-            </form>
+            <div><h4>PM Portal | Moti Engineering</h4></div>
             <div class="header-button">
               <div class="noti-wrap">
                 <div class="noti__item js-item-menu">

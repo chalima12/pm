@@ -46,7 +46,7 @@ hour = diff.hours
 
 
 def login(request):
-    return render(request, 'pm/login.html')
+    return render(request, 'registration/login.html')
 
 
 def home(request):
