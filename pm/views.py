@@ -45,6 +45,10 @@ hour = diff.hours
 # Simple django implementions
 
 
+def login(request):
+    return render(request, 'pm/login.html')
+
+
 def home(request):
     try:
         terminalsQuerySet = Terminal.objects.all()

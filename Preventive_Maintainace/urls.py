@@ -24,6 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pm.urls')),
     path("__debug__/", include("debug_toolbar.urls")),
-     # Django auth usls
+    # Django auth usls
     path('', include('django.contrib.auth.urls')),
 ]
