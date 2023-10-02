@@ -95,11 +95,13 @@
             <div class="login-content">
               <div class="login-logo">
                 <a href="#">
-                  <img src="images/icon/logo.png" alt="CoolAdmin" />
+                  <img src="{% static "images/icon/logo.jfif" %}"
+                  alt="Moti Logo" />
                 </a>
               </div>
               <div class="login-form">
-                <form action="" method="post">
+                <form action="#" method="post">
+                  {% csrf_token %}
                   <div class="form-group">
                     <label>Email Address</label>
                     <input

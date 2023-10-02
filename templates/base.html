@@ -83,7 +83,7 @@
 
     <!-- Main CSS-->
 
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    {% comment %} <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" /> {% endcomment %}
 
     <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all" />
  
@@ -95,8 +95,9 @@
           <img
             src="{% static 'images/icon/logo.jfif' %}"
             alt="Moti Engineering PlC"
-          />
+           style="width: 85px;"/>
         </a>
+        Moti Engineering
       </div>
       <div class="menu-sidebar__content js-scrollbar1">
         <nav class="navbar-sidebar">
@@ -261,7 +262,7 @@
                         <span class="email">getachewmuhabaw@gmail.com</span>
                       </div>
                     </div>
-                    <div class="account-dropdown__body">
+                    <div class="account-dropdown__body text text-left">
                       <div class="account-dropdown__item">
                         <a href="#">
                           <i class="zmdi zmdi-account"></i>Account</a
@@ -273,7 +274,7 @@
                         >
                       </div>
                     </div>
-                    <div class="account-dropdown__footer">
+                    <div class="account-dropdown__footer text text-left">
                       <a href="#"> <i class="zmdi zmdi-power"></i>Logout</a>
                     </div>
                   </div>
