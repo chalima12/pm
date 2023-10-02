@@ -48,8 +48,8 @@ hour = diff.hours
 # Simple django implementions
 
 
-def login(request):
-    return render(request, 'registration/login.html')
+# def login(request):
+#     return render(request, 'registration/login.html')
 
 # Login
 
@@ -94,7 +94,7 @@ def home(request):
     except:
         raise Http404()  # Automatically find 404.html file in golobal templates
 
-
+@login_required
 def engineers(request):
     engineersQuerySet = Engineer.objects.all()
     context = {
@@ -103,7 +103,7 @@ def engineers(request):
     }
     return render(request, 'pm/engineers.html', context)
 
-
+@login_required
 def banks(request):
     try:
         banksQuerySet = Bank.objects.all()
@@ -115,12 +115,12 @@ def banks(request):
     except:
         raise Http404()
 
-
+@login_required
 def view_bank(request, id):
     bank = Bank.objects.get(pk=id)
     return HttpResponseRedirect(reverse('home'))
 
-
+@login_required
 def addBank(request):
     if request.method == "POST":
         form = BankForm(request.POST)
@@ -139,7 +139,7 @@ def addBank(request):
         form = BankForm()
         return render(request, 'pm/addBank.html', {"form": form})
 
-
+@login_required
 def terminals(request):
     try:
         terminalsQuerySet = Terminal.objects.all()
@@ -151,7 +151,7 @@ def terminals(request):
     except:
         raise Http404()
 
-
+@login_required
 def addTerminal(request):
     if request.method == "POST":
         form = TerminalForm(request.POST)
@@ -169,7 +169,7 @@ def addTerminal(request):
     }
     return render(request, "pm/terminalForm.html", context)
 
-
+@login_required
 def schedule(request):
     try:
         scheduleQuerySet = Schedule.objects.all()
@@ -181,6 +181,6 @@ def schedule(request):
     except:
         raise Http404()
 
-
+@login_required
 def reports(request):
     return render(request, 'pm/reports.html')

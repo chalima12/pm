@@ -102,9 +102,9 @@
                 <h3>PM Portal</h3>
               </div>
               <div class="login-form">
-                <form method="POST">
+                <form method="POST" style="background-color: #dfd5db;color: black; font-weight: bold; border-radius: 15px;">
                   {% csrf_token %}
-                  <div class="form-group au-input au-input">{{form.as_p }}</div>
+                  <div class="form-group au-input au-input" >{{form.as_p }}</div>
 
                   <button
                     class="au-btn au-btn--block au-btn--green m-b-20"
