@@ -82,11 +82,12 @@ class Terminal(models.Model):
 
 class Schedule(models.Model):
     STATUS = [
-        ("0", "Pending"),
-        ("1", "Onprogress"),
-        ("3", "Completed"),
-        ("4", "Cancled")
+        ("PE", "Pending"),
+        ("OP", "Onprogress"),
+        ("CO", "Completed"),
+        ("CA", "Cancled")
     ]
+    bank_name = models.ForeignKey(Bank, on_delete=models.CASCADE)
     terminal_name = models.ForeignKey(Terminal, on_delete=models.PROTECT)
     start_date = models.DateTimeField(
         auto_now_add=False, editable=True)

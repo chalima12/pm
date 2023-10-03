@@ -173,6 +173,7 @@ def addTerminal(request):
 def schedule(request):
     try:
         scheduleQuerySet = Schedule.objects.all()
+        
         context = {
             "title": "Scheduled ATMS",
             "schedules": scheduleQuerySet,

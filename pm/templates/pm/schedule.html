@@ -55,46 +55,33 @@
                       <th>TID</th>
                       <th>BANK Name</th>
                       <th>TERMINAL NAME</th>
-                      <th>SERIAL NO</th>
-                      <th>LOCATION</th>
+                      <th>START DATE</th>
+                      <th>END DATE</th>
+                      <th>REMAINING DAY </th>
                       <th>STATUS</th>
                       <th>ACTIONS</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% for schedule in schedules  %}
                     <tr class="tr-shadow">
-                      <td></td>
+                      <td>placeholder</td>
                       <td>
-                        <span></span>
+                        {{schedule.bank_name}}
                       </td>
-                      <td class="desc"></td>
-                      <td></td>
-                      <td></td>
+                      <td >{{schedule.terminal_name}}</td>
+                      <td>{{schedule.start_date}}</td>
+                      <td>{{schedule.end_date}}</td>
+                      <td>3 Month</td>
                       <td>
-                        <span class="status--process">Processed</span>
+                        <span class="badge badge-danger" style="width:90px;">Pending</span>
                       </td>
 
                       <td>
-                        <div class="table-data-feature">
-                          <button
-                            class="item"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="View"
-                          >
-                            <i class="zmdi zmdi-eye text-info"></i>
-                          </button>
-                          <button
-                            class="item"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="Edit"
-                          >
-                            <i class="zmdi zmdi-edit text-primary"></i>
-                          </button>
-                        </div>
+                        <a href="" style="width:80px;" class="btn btn-outline btn-primary btn-bitbucket"><i class="fa">Assign</i></a>
                       </td>
                     </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
               </div>
