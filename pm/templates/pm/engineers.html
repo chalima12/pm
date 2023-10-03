@@ -52,26 +52,27 @@
                 <table class="table table-data2">
                   <thead>
                     <tr>
-                      <th>TID</th>
-                      <th>BANK Name</th>
-                      <th>TERMINAL NAME</th>
-                      <th>SERIAL NO</th>
-                      <th>LOCATION</th>
+                      <th>NO</th>
+                      <th>FIRST NAME</th>
+                      <th>LAST NAME</th>
+                      <th>GENDER</th>
+                      <th>PHONE NUMBER</th>
+                      <th>EMAIL</th>
                       <th>STATUS</th>
                       <th>ACTIONS</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% for engineer in engineers %}
                     <tr class="tr-shadow">
-                      <td></td>
+                      <td>{{engineer.id}}</td>
+                      <td>{{engineer.firstName}}</td>
+                      <td>{{engineer.lastName}}</td>
+                      <td>{{engineer.gender}}</td>
+                      <td>{{engineer.phoneNumber}}</td>
+                      <td>{{engineer.email}}</td>
                       <td>
-                        <span></span>
-                      </td>
-                      <td class="desc"></td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        <span class="status--process">Processed</span>
+                        <span class="status--process">Active</span>
                       </td>
 
                       <td>
@@ -96,6 +97,7 @@
                       </td>
                     </tr>
                     <tr class="spacer"></tr>
+                    {% endfor %}
                   </tbody>
                 </table>
               </div>
