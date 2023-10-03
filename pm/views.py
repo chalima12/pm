@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect,HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.http import Http404
 from django.contrib.auth import authenticate, login, logout
@@ -74,10 +74,14 @@ def login_user(request):
             resp['msg'] = "Incorrect username or password"
     return HttpResponse(json.dumps(resp), content_type='application/json')
 
-#Logout
+# Logout
+
+
 def logoutuser(request):
     logout(request)
     return redirect('/')
+
+
 @login_required
 def home(request):
     try:
@@ -94,6 +98,7 @@ def home(request):
     except:
         raise Http404()  # Automatically find 404.html file in golobal templates
 
+
 @login_required
 def engineers(request):
     engineersQuerySet = Engineer.objects.all()
@@ -102,6 +107,7 @@ def engineers(request):
         "engineers": engineersQuerySet
     }
     return render(request, 'pm/engineers.html', context)
+
 
 @login_required
 def banks(request):
@@ -115,10 +121,12 @@ def banks(request):
     except:
         raise Http404()
 
+
 @login_required
 def view_bank(request, id):
     bank = Bank.objects.get(pk=id)
     return HttpResponseRedirect(reverse('home'))
+
 
 @login_required
 def addBank(request):
@@ -139,6 +147,7 @@ def addBank(request):
         form = BankForm()
         return render(request, 'pm/addBank.html', {"form": form})
 
+
 @login_required
 def terminals(request):
     try:
@@ -150,6 +159,7 @@ def terminals(request):
         return render(request, 'pm/terminals.html', context)
     except:
         raise Http404()
+
 
 @login_required
 def addTerminal(request):
@@ -169,11 +179,12 @@ def addTerminal(request):
     }
     return render(request, "pm/terminalForm.html", context)
 
+
 @login_required
 def schedule(request):
     try:
         scheduleQuerySet = Schedule.objects.all()
-        
+
         context = {
             "title": "Scheduled ATMS",
             "schedules": scheduleQuerySet,
@@ -181,6 +192,7 @@ def schedule(request):
         return render(request, 'pm/schedule.html', context)
     except:
         raise Http404()
+
 
 @login_required
 def reports(request):
