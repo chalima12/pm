@@ -68,10 +68,12 @@
                         <div class="table-data-feature">
                           <button
                             class="item"
-                            data-toggle="tooltip"
+                            data-toggle="modal"
                             data-placement="top"
                             title="View"
                             type="button"
+                            data-backdrop="static"
+                            data-keyboard="false"
                             href="{% url 'view-bank' bank.id %}"
                             data-bs-toggle="modal"
                             data-bs-target="#myModal{{bank.id}}"
@@ -87,7 +89,7 @@
                             aria-labelledby="myModalLabel1"
                             aria-hidden="true"
                           >
-                            <div class="modal-dialog mt-5 pt-5" role="document">
+                            <div class="modal-dialog mt-5 pt-5" role="document" >
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <h5 class="modal-title">Bank Information</h5>
