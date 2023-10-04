@@ -97,7 +97,19 @@ def addBank(request):
     context ={"form": form,"submitted":submitted}
     return render(request, 'pm/addBank.html',context )
 
-
+@login_required
+def updateBank(request,bank_id):
+    bank = Bank.objects.get(pk=bank_id)
+    form = BankForm(request.POST or None,instance=bank)
+    if form.is_valid():
+        form.save()
+        return redirect('banks-page')
+    context ={
+        'bank':bank,
+        'form':form,
+    }
+    return render(request,'pm/update_bank.html',context)
+    
 @login_required
 def terminals(request):
     try:

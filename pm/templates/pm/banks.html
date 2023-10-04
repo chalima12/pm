@@ -126,14 +126,15 @@
                             </div>
                           </div>
 
-                          <button
+                          <a
                             class="item"
                             data-toggle="tooltip"
                             data-placement="top"
                             title="Edit"
+                            href ="{% url "update-bank" bank.id %}"
                           >
                             <i class="zmdi zmdi-edit text-primary"></i>
-                          </button>
+                          </a>
                         </div>
                       </td>
                     </tr>
