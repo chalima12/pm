@@ -17,7 +17,7 @@ class BankForm(forms.ModelForm):
             'bank_key': "Bank Key"
         }
         widgets = {
-            'bank_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'bank_name': forms.TextInput(attrs={'class': 'form-controll'}),
             'bank_key': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
