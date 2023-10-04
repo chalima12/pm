@@ -7,7 +7,7 @@
           <div class="row">
             <div class="col-md-12">
               <!-- DATA TABLE -->
-              <h3 class="title-5 m-b-35">List of Engineers</h3>
+              <h3 class="title-5 m-b-35">List of Users</h3>
               <div class="table-data__tool">
                 <div class="table-data__tool-left">
                   <div class="rs-select2--light rs-select2--md">
@@ -34,7 +34,7 @@
                   <button
                     class="au-btn au-btn-icon au-btn--green au-btn--small"
                   >
-                    <i class="zmdi zmdi-plus"></i>Add Engineer
+                    <i class="zmdi zmdi-plus"></i>Add User
                   </button>
                   <div
                     class="rs-select2--dark rs-select2--sm rs-select2--dark2"
@@ -63,14 +63,14 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {% for engineer in engineers %}
+                    {% for User in Users %}
                     <tr class="tr-shadow">
-                      <td>{{engineer.id}}</td>
-                      <td>{{engineer.firstName}}</td>
-                      <td>{{engineer.lastName}}</td>
-                      <td>{{engineer.gender}}</td>
-                      <td>{{engineer.phoneNumber}}</td>
-                      <td>{{engineer.email}}</td>
+                      <td>{{User.id}}</td>
+                      <td>{{User.firstName}}</td>
+                      <td>{{User.lastName}}</td>
+                      <td>{{User.gender}}</td>
+                      <td>{{User.phoneNumber}}</td>
+                      <td>{{User.email}}</td>
                       <td>
                         <span class="status--process">Active</span>
                       </td>

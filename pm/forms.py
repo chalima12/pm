@@ -1,5 +1,5 @@
 from django import forms
-from pm.models import Terminal, Bank, Engineer, BankBranch
+from pm.models import Terminal, Bank, User, BankBranch
 
 
 class TerminalForm(forms.ModelForm):
@@ -22,9 +22,9 @@ class BankForm(forms.ModelForm):
         }
 
 
-class EngineerForm(forms.ModelForm):
+class UserForm(forms.ModelForm):
     class Meta:
-        model = Engineer
+        model = User
         fields = "__all__"
 
 

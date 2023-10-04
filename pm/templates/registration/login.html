@@ -94,7 +94,7 @@
           <div class="login-wrap">
             <div class="login-content">
               <div class="login-logo">
-                <a href="https://www.motiengineering.com/">
+                <a href="https://www.motiUsering.com/">
                   <img src="{% static "images/icon/logo.jfif" %}" alt="Moti
                   Logo" style="width: 130px;"/>
                 </a>
@@ -102,9 +102,17 @@
                 <h3>PM Portal</h3>
               </div>
               <div class="login-form">
-                <form method="POST" style="background-color: #dfd5db;color: black; font-weight: bold; border-radius: 15px;">
+                <form
+                  method="POST"
+                  style="
+                    background-color: #dfd5db;
+                    color: black;
+                    font-weight: bold;
+                    border-radius: 15px;
+                  "
+                >
                   {% csrf_token %}
-                  <div class="form-group au-input au-input" >{{form.as_p }}</div>
+                  <div class="form-group au-input au-input">{{form.as_p }}</div>
 
                   <button
                     class="au-btn au-btn--block au-btn--green m-b-20"
