@@ -7,7 +7,7 @@
           <div class="row">
             <div class="col-md-12">
               <!-- DATA TABLE -->
-              <h3 class="title-5 m-b-35">List of Users</h3>
+              <h3 class="title-5 m-b-35">List of Engineers</h3>
               <div class="table-data__tool">
                 <div class="table-data__tool-left">
                   <div class="rs-select2--light rs-select2--md">
@@ -63,16 +63,25 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {% for User in Users %}
+                    {% for user in users %}
                     <tr class="tr-shadow">
-                      <td>{{User.id}}</td>
-                      <td>{{User.firstName}}</td>
-                      <td>{{User.lastName}}</td>
-                      <td>{{User.gender}}</td>
-                      <td>{{User.phoneNumber}}</td>
-                      <td>{{User.email}}</td>
+                      <td>{{user.id}}</td>
+                      <td>{{user.first_name}}</td>
+                      <td>{{user.last_name}}</td>
+                      <td>{{user.gender}}</td>
+                      <td>{{user.phone}}</td>
+                      <td>{{user.email}}</td>
                       <td>
-                        <span class="status--process">Active</span>
+                        {% if user.is_active %}
+                        <span class="badge badge-success" style="width: 90px"
+                          ><b>Active</b></span
+                        >
+
+                        {% else %}
+                        <span class="badge badge-danger" style="width: 90px"
+                          ><b>InActive</b></span
+                        >
+                        {% endif %}
                       </td>
 
                       <td>

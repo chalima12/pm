@@ -58,7 +58,7 @@ def user(request):
     UsersQuerySet = User.objects.all()
     context = {
         "title": "All Users",
-        "Users": UsersQuerySet
+        "users": UsersQuerySet
     }
     return render(request, 'pm/engineers.html', context)
 
@@ -84,22 +84,18 @@ def view_bank(request, id):
 
 @login_required
 def addBank(request):
+    submitted = False
     if request.method == "POST":
         form = BankForm(request.POST)
         if form.is_valid():
-            new_bank_name = form.cleaned_data['bank_name']
-            new_bank_key = form.cleaned_data['bank_key']
-            new_bank = Bank(bank_name=new_bank_name, bank_key=new_bank_key)
-            new_bank.save()
-
-            context = {
-                "form": BankForm(),
-                "success": True
-            }
-            return redirect(reverse('pm/addBank.html', context))
+            form.save()
+            return HttpResponseRedirect('/addBank?submitted=True')
     else:
-        form = BankForm()
-        return render(request, 'pm/addBank.html', {"form": form})
+        form = BankForm
+        if 'submitted' in request.GET:
+            submitted= True
+    context ={"form": form,"submitted":submitted}
+    return render(request, 'pm/addBank.html',context )
 
 
 @login_required
@@ -141,6 +137,7 @@ def schedule(request):
         context = {
             "title": "Scheduled ATMS",
             "schedules": scheduleQuerySet,
+
         }
         return render(request, 'pm/schedule.html', context)
     except:
