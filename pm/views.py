@@ -147,7 +147,18 @@ def addTerminal(request):
             submitted = True
     context = {"form": form, "submitted": submitted}
     return render(request, 'pm/addTerminal.html', context)
-
+@login_required
+def updateTerminal(request,terminal_id):
+    terminal = Terminal.objects.get(pk=terminal_id)
+    form = TerminalForm(request.POST or None, instance=terminal)
+    if form.is_valid():
+        form.save()
+        return redirect('all-terminals')
+    context = {
+        'bank': terminal,
+        'form': form,
+    }
+    return render(request, 'pm/update_terminal.html', context)
 
 @login_required
 def schedule(request):

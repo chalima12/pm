@@ -83,14 +83,15 @@
                           >
                             <i class="zmdi zmdi-eye text-info"></i>
                           </button>
-                          <button
+                          <a
                             class="item"
                             data-toggle="tooltip"
                             data-placement="top"
                             title="Edit"
+                            href ="{% url "update-terminal" terminal.id %}"
                           >
                             <i class="zmdi zmdi-edit text-primary"></i>
-                          </button>
+                          </a>
                         </div>
                       </td>
                     </tr>
