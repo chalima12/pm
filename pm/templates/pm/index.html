@@ -292,7 +292,7 @@
                     </div>
                       </br>
                     <div class="text">
-                      <h2>52</h2>
+                      <h2>{{numOfUsers }}</h2>
                       <span> Number of Users</span>
                     </div>
                   </div>
@@ -308,7 +308,7 @@
                     </div>
                   </br>
                     <div class="text">
-                      <h2>31</h2>
+                      <h2>{{numOfBanks}}</h2>
                       <span>Number of Banks</span>
                     </div>
                   </div>
@@ -324,7 +324,7 @@
                     </div>
                     <br />
                     <div class="text">
-                      <h2>56</h2>
+                      <h2>{{numberOfTerminals}}</h2>
                       <span>Cleand ATMs</span>
                       <!--TODO:Button that goes to respective page to add something-->
                     </div>
@@ -341,7 +341,7 @@
                     </div>
                   </br>
                     <div class="text">
-                      <h2>35</h2>
+                      <h2>{{numberOfTerminals}}</h2>
                       <span>Scheduled ATMs</span>
                     </div>
                   </div>
@@ -390,10 +390,12 @@
                   <div class="table-responsive">
                     <table class="table table-top-countries">
                       <tbody>
+                        {% for bank in banks %}
                         <tr>
-                          <td>CBE</td>
-                          <td class="text-right">3245 ATMs</td>
+                          <td>{{bank.bank_name}}</td>
+                          <td class="text-right">45 ATMs</td>
                         </tr>
+                        {% endfor %}
                       </tbody>
                     </table>
                   </div>

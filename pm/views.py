@@ -43,10 +43,18 @@ def logoutuser(request):
 def home(request):
     try:
         terminalsQuerySet = Terminal.objects.all()
+        banksQuerySet = Bank.objects.all()
+        numOfBanks= Bank.objects.all().count()
+        numOfUsers = User.objects.all().count()
+        numberOfTerminals = Terminal.objects.all().count()
         context = {
             "company": "moti Usering PLC",
             "projectName": "preventive Maintainace For ATMS",
             "terminals": terminalsQuerySet,
+            'banks': banksQuerySet,
+            'numOfBanks':numOfBanks,
+            'numOfUsers':numOfUsers,
+            'numberOfTerminals':numberOfTerminals,
         }
         return render(request, "pm/index.html", context)
     except:
@@ -93,23 +101,25 @@ def addBank(request):
     else:
         form = BankForm
         if 'submitted' in request.GET:
-            submitted= True
-    context ={"form": form,"submitted":submitted}
-    return render(request, 'pm/addBank.html',context )
+            submitted = True
+    context = {"form": form, "submitted": submitted}
+    return render(request, 'pm/addBank.html', context)
+
 
 @login_required
-def updateBank(request,bank_id):
+def updateBank(request, bank_id):
     bank = Bank.objects.get(pk=bank_id)
-    form = BankForm(request.POST or None,instance=bank)
+    form = BankForm(request.POST or None, instance=bank)
     if form.is_valid():
         form.save()
         return redirect('banks-page')
-    context ={
-        'bank':bank,
-        'form':form,
+    context = {
+        'bank': bank,
+        'form': form,
     }
-    return render(request,'pm/update_bank.html',context)
-    
+    return render(request, 'pm/update_bank.html', context)
+
+
 @login_required
 def terminals(request):
     try:
@@ -134,9 +144,9 @@ def addTerminal(request):
     else:
         form = TerminalForm
         if 'submitted' in request.GET:
-            submitted= True
-    context ={"form": form,"submitted":submitted}
-    return render(request, 'pm/addTerminal.html',context )
+            submitted = True
+    context = {"form": form, "submitted": submitted}
+    return render(request, 'pm/addTerminal.html', context)
 
 
 @login_required
