@@ -53,6 +53,7 @@
                 <table class="table table-data2">
                   <thead>
                     <tr>
+                      <th>NO</th>
                       <th>Bank</th>
                       <th>Bank Key</th>
                       <th class="text text-right">ACTIONS</th>
@@ -61,6 +62,7 @@
                   <tbody>
                     {% for bank in banks %}
                     <tr class="tr-shadow">
+                      <td>{{bank.id}}</td>
                       <td>{{bank.bank_name}}</td>
                       <td>{{bank.bank_key}}</td>
 
