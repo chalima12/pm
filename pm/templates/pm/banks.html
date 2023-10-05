@@ -68,7 +68,7 @@
 
                       <td>
                         <div class="table-data-feature">
-                          <button
+                          <a
                             class="item"
                             data-toggle="modal"
                             data-placement="top"
@@ -76,12 +76,12 @@
                             type="button"
                             data-backdrop="static"
                             data-keyboard="false"
-                            href="{% url 'view-bank' bank.id %}"
+                            href="{% url 'bank-detail' bank.id %}"
                             data-bs-toggle="modal"
                             data-bs-target="#myModal{{bank.id}}"
                           >
                             <i class="zmdi zmdi-eye text-info"></i>
-                          </button>
+                          </a>
 
                           {% comment %} modal componet {% endcomment %}
                           <div

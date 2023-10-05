@@ -87,9 +87,14 @@ def banks(request):
 @login_required
 def view_bank(request, id):
     bank = Bank.objects.get(pk=id)
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('home'),{'bank':bank})
 
-
+def bank_detail(request,bank_id):
+    bank = Bank.objects.get(pk=bank_id)
+    context ={
+        "bank":bank
+    }
+    return render(request,'pm/bank_detail.html',context)
 @login_required
 def addBank(request):
     submitted = False
