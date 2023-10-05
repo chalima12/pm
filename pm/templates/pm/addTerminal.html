@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% load static %} {% block content %}
-<h3 class="text-center m-4">Add Bank</h3>
+<h3 class="text-center m-4">Add Terminal</h3>
 {% if submitted %}
 <div class="alert alert-success" role="alert" style="margin:0 20%; padding-left: 20%;">
   The new Terminal added successfully.
@@ -9,15 +9,15 @@
 <div class="row justify-content-center mt-5">
   <div class="col-6">
     <div class="card bg-light mb-3">
-      <div class="card-header">
-        <i class="zmdi zmdi-account-box "></i> Bank Registration
+      <div class="card-header text text-center" style="font-weight: bold;">
+        <i class="zmdi zmdi-account-box " style="font-size: 24px; font-weight: bolder;"></i> Terminal Registration
       </div>
       <div class="card-body">
-        <form action="{% url 'add-bank' %}" method="POST">
+        <form action="{% url 'add-terminal' %}" method="POST">
           {% csrf_token %} {{ form.as_p }}
           <br>
           <button type="submit" class="btn btn-primary">Add</button>
-          <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+          <a href="{% url 'all-terminals' %}" class="btn btn-secondary">Cancel</a>
         </form>
       </div>
     </div>

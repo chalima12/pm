@@ -130,7 +130,7 @@ def addTerminal(request):
         form = TerminalForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/addTerminal?submitted=True')
+            return HttpResponseRedirect('/add-terminal?submitted=True')
     else:
         form = TerminalForm
         if 'submitted' in request.GET:
