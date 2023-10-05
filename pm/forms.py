@@ -5,7 +5,10 @@ from pm.models import Terminal, Bank, User, BankBranch
 class TerminalForm(forms.ModelForm):
     class Meta:
         model = Terminal
-        fields = "__all__"
+        fields = []
+        widgets ={
+            'bank_name':forms.Select(attrs={'class':'form-select'})
+        }
 
 
 class BankForm(forms.ModelForm):
@@ -17,7 +20,7 @@ class BankForm(forms.ModelForm):
             'bank_key': "Bank Key"
         }
         widgets = {
-            'bank_name': forms.TextInput(attrs={'class': 'form-controll'}),
+            'bank_name': forms.TextInput(attrs={'class': 'form-control'}),
             'bank_key': forms.TextInput(attrs={'class': 'form-control'}),
         }
 

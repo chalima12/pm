@@ -125,21 +125,18 @@ def terminals(request):
 
 @login_required
 def addTerminal(request):
+    submitted = False
     if request.method == "POST":
         form = TerminalForm(request.POST)
         if form.is_valid():
-            try:
-                form.save()
-                return redirect('/add-terminal')
-            except:
-                print("ERROR Happend")
-
+            form.save()
+            return HttpResponseRedirect('/addTerminal?submitted=True')
     else:
-        form = TerminalForm()
-    context = {
-        "form": form,
-    }
-    return render(request, "pm/terminalForm.html", context)
+        form = TerminalForm
+        if 'submitted' in request.GET:
+            submitted= True
+    context ={"form": form,"submitted":submitted}
+    return render(request, 'pm/addTerminal.html',context )
 
 
 @login_required

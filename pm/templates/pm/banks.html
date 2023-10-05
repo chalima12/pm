@@ -86,13 +86,13 @@
                             class="modal mb-3"
                             id="myModal{{bank.id}}"
                             tabindex="-1"
-                            aria-labelledby="myModalLabel1"
+                            aria-labelledby="{{bank.id}}"
                             aria-hidden="true"
                           >
                             <div class="modal-dialog mt-5 pt-5" role="document" >
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title">Bank Information</h5>
+                                  <h5 class="modal-title" id="{{bank.id}}">Bank Information</h5>
                                   <button
                                     type="button"
                                     class="btn-close"
