@@ -169,6 +169,7 @@ def updateTerminal(request,terminal_id):
 def schedule(request):
     try:
         scheduleQuerySet = Schedule.objects.all()
+        
         context = {
             "title": "Scheduled ATMS",
             "schedules": scheduleQuerySet,
