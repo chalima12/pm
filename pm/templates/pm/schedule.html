@@ -70,8 +70,8 @@
                         {{schedule.bank_name}}
                       </td>
                       <td >{{schedule.terminal_name}}</td>
-                      <td>{{schedule.start_date}}</td>
-                      <td>{{schedule.end_date}}</td>
+                      <td>{{schedule.start_date|date:'Y-m-d H:i:s'}}</td>
+                      <td>{{schedule.end_date|date:'Y-m-d H:i:s'}}</td>
                       <td>3 Month</td>
                       <td>
                         <span class="badge badge-danger" style="width:90px;">Pending</span>

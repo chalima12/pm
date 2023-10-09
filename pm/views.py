@@ -167,17 +167,19 @@ def updateTerminal(request,terminal_id):
 
 @login_required
 def schedule(request):
-    try:
+
         scheduleQuerySet = Schedule.objects.all()
+        # s = Schedule()
+        # # datetime.datetime.strptime(a, '%Y-%m-%d %H:%M:%S')
+        # start = datetime.datetime.strptime(str(s.start_date),'%Y-%m-%d %H:%M:%S')
         
         context = {
             "title": "Scheduled ATMS",
             "schedules": scheduleQuerySet,
-
+            
         }
         return render(request, 'pm/schedule.html', context)
-    except:
-        raise Http404()
+   
 
 
 @login_required
