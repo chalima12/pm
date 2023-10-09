@@ -44,7 +44,7 @@ def home(request):
     try:
         terminalsQuerySet = Terminal.objects.all()
         banksQuerySet = Bank.objects.all()
-        numOfBanks= Bank.objects.all().count()
+        numOfBanks = Bank.objects.all().count()
         numOfUsers = User.objects.all().count()
         numberOfTerminals = Terminal.objects.all().count()
         context = {
@@ -52,9 +52,9 @@ def home(request):
             "projectName": "preventive Maintainace For ATMS",
             "terminals": terminalsQuerySet,
             'banks': banksQuerySet,
-            'numOfBanks':numOfBanks,
-            'numOfUsers':numOfUsers,
-            'numberOfTerminals':numberOfTerminals,
+            'numOfBanks': numOfBanks,
+            'numOfUsers': numOfUsers,
+            'numberOfTerminals': numberOfTerminals,
         }
         return render(request, "pm/index.html", context)
     except:
@@ -87,14 +87,17 @@ def banks(request):
 @login_required
 def view_bank(request, id):
     bank = Bank.objects.get(pk=id)
-    return HttpResponseRedirect(reverse('home'),{'bank':bank})
+    return HttpResponseRedirect(reverse('home'), {'bank': bank})
 
-def bank_detail(request,bank_id):
+
+def bank_detail(request, bank_id):
     bank = Bank.objects.get(pk=bank_id)
-    context ={
-        "bank":bank
+    context = {
+        "bank": bank
     }
-    return render(request,'pm/bank_detail.html',context)
+    return render(request, 'pm/bank_detail.html', context)
+
+
 @login_required
 def addBank(request):
     submitted = False
@@ -152,8 +155,10 @@ def addTerminal(request):
             submitted = True
     context = {"form": form, "submitted": submitted}
     return render(request, 'pm/addTerminal.html', context)
+
+
 @login_required
-def updateTerminal(request,terminal_id):
+def updateTerminal(request, terminal_id):
     terminal = Terminal.objects.get(pk=terminal_id)
     form = TerminalForm(request.POST or None, instance=terminal)
     if form.is_valid():
@@ -165,21 +170,23 @@ def updateTerminal(request,terminal_id):
     }
     return render(request, 'pm/update_terminal.html', context)
 
+
 @login_required
 def schedule(request):
 
-        scheduleQuerySet = Schedule.objects.all()
-        # s = Schedule()
-        # # datetime.datetime.strptime(a, '%Y-%m-%d %H:%M:%S')
-        # start = datetime.datetime.strptime(str(s.start_date),'%Y-%m-%d %H:%M:%S')
-        
-        context = {
-            "title": "Scheduled ATMS",
-            "schedules": scheduleQuerySet,
-            
-        }
-        return render(request, 'pm/schedule.html', context)
-   
+    scheduleQuerySet = Schedule.objects.all()
+    isoStart = ''
+    for s in scheduleQuerySet:
+
+        isoStart = datetime.datetime.isoformat(s.start_date, ' ')
+
+    context = {
+        "title": "Scheduled ATMS",
+        "schedules": scheduleQuerySet,
+        "s": isoStart
+
+    }
+    return render(request, 'pm/schedule.html', context)
 
 
 @login_required
