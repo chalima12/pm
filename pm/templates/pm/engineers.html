@@ -1,3 +1,105 @@
 {% extends "base.html" %} {% load static %} {% block content %}
-
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>List of Banks</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
+            <li class="breadcrumb-item active">Banks</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Banks</h3>
+               <a href="{% url 'add-bank' %}" class="btn btn-success btn-lg float-right"
+                        > <i class="fas fa-plus"></i>
+                     Add Bank
+                </a>
+            </div>
+                  
+               
+            
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped table-hover">
+                <thead>
+                  <tr>
+                  <th>NO</th>
+                      <th>FIRST NAME</th>
+                      <th>LAST NAME</th>
+                      <th>GENDER</th>
+                      <th>PHONE NUMBER</th>
+                      <th>EMAIL</th>
+                      <th>STATUS</th>
+                      <th>ACTIONS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {%for user in users %}
+                  <tr>
+                      <td>{{user.id}}</td>
+                      <td>{{user.first_name}}</td>
+                      <td>{{user.last_name}}</td>
+                      <td>{{user.gender}}</td>
+                      <td>{{user.phone}}</td>
+                      <td>{{user.email}}</td>
+                    <td>{% if user.is_active %}
+                        <span class="badge badge-success" style="width: 90px"
+                          ><b>Active</b></span
+                        >
+                       {% else %}
+                        <span class="badge badge-danger" style="width: 90px"
+                          ><b>InActive</b></span
+                        >
+                        {% endif %}</td>
+                    <td><a
+                          href="#"
+                          style="width: 80px"
+                          class="d-inline p-2 m-2 btn btn-block btn-outline-success"
+                          ><i class="nav-icon fas fa-edit"></i></a
+                        >
+                          <a
+                          href="#"
+                          style="width: 80px"
+                          class="d-inline p-2 m-2 btn btn-block btn-outline-primary"
+                          > <i class="fas fa-eye"></i>
+                          </a>
+                      </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                <tfoot>
+                  <tr>
+                      <th>NO</th>
+                      <th>FIRST NAME</th>
+                      <th>LAST NAME</th>
+                      <th>GENDER</th>
+                      <th>PHONE NUMBER</th>
+                      <th>EMAIL</th>
+                      <th>STATUS</th>
+                      <th>ACTIONS</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 {% endblock content %}
