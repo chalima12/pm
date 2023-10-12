@@ -2,317 +2,352 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="au theme template" />
-    <meta name="author" content="Hau Nguyen" />
-    <meta name="keywords" content="au theme template" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Moti Engineeering</title>
 
-    <!-- Title Page-->
-    <title>Moti Engineering | Dashboard</title>
-
-    <!-- Fontfaces CSS-->
+    <!-- Google Font: Source Sans Pro -->
     <link
-      href="{% static 'css/font-face.css' %}"
       rel="stylesheet"
-      media="all"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
     />
+    <!-- Font Awesome -->
     <link
-      href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}"
       rel="stylesheet"
-      media="all"
+      href="{% static 'plugins/fontawesome-free/css/all.min.css' %}"
     />
+    <!-- Ionicons -->
     <link
-      href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}"
       rel="stylesheet"
-      media="all"
+      href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
     />
+    <!-- Tempusdominus Bootstrap 4 -->
     <link
-      href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}"
       rel="stylesheet"
-      media="all"
+      href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}"
     />
-
-    <!-- Bootstrap CSS-->
+    <!-- iCheck -->
     <link
-      href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}"
       rel="stylesheet"
-      media="all"
+      href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}"
     />
-
-    <!-- Vendor CSS-->
+    <!-- JQVMap -->
     <link
-      href="{% static 'vendor/animsition/animsition.min.css' %}"
       rel="stylesheet"
-      media="all"
+      href="{% static 'plugins/jqvmap/jqvmap.min.css' %}"
     />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}" />
+    <!-- overlayScrollbars -->
     <link
-      href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}"
       rel="stylesheet"
-      media="all"
+      href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}"
     />
+    <!-- Daterange picker -->
     <link
-      href="{% static 'vendor/wow/animate.css' %}"
       rel="stylesheet"
-      media="all"
+      href="{% static 'plugins/daterangepicker/daterangepicker.css' %}"
     />
+    <!-- summernote -->
     <link
-      href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}"
       rel="stylesheet"
-      media="all"
+      href="{% static 'plugins/summernote/summernote-bs4.min.css' %}"
     />
-    <link
-      href="{% static 'vendor/slick/slick.css' %}"
-      rel="stylesheet"
-      media="all"
-    />
-    <link
-      href="{% static 'vendor/select2/select2.min.css' %}"
-      rel="stylesheet"
-      media="all"
-    />
-    <link
-      href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}"
-      rel="stylesheet"
-      media="all"
-    />
-
-    <!-- Main CSS-->
-
-    {% comment %}
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
-    {% endcomment %}
-
-    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all" />
   </head>
-  <body class="animsition">
-    <aside class="menu-sidebar d-none d-lg-block">
-      <div class="logo">
-        <a href="{% url 'home' %}">
+  <body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+      <!-- Preloader -->
+      <div
+        class="preloader flex-column justify-content-center align-items-center"
+      >
+        <img
+          class="animation__shake"
+          src="{% static 'dist/img/AdminLTELogo.png' %}"
+          alt="AdminLTELogo"
+          height="60"
+          width="60"
+        />
+      </div>
+
+      <!-- Navbar -->
+      <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"
+              ><i class="fas fa-bars"></i> Welcome to Moti Engineering -
+              Preventive maintenance Management System.</a
+            >
+          </li>
+        </ul>
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+          <!-- Messages Dropdown Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-comments"></i>
+              <span class="badge badge-danger navbar-badge">3</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <a href="#" class="dropdown-item">
+                <!-- Message Start -->
+                <div class="media">
+                  <img src="{% static "dist/img/user1-128x128.jpg" %}" alt="User
+                  Avatar" class="img-size-50 mr-3 img-circle" />
+                  <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                      Brad Diesel
+                      <span class="float-right text-sm text-danger"
+                        ><i class="fas fa-star"></i
+                      ></span>
+                    </h3>
+                    <p class="text-sm">Call me whenever you can...</p>
+                    <p class="text-sm text-muted">
+                      <i class="far fa-clock mr-1"></i> 4 Hours Ago
+                    </p>
+                  </div>
+                </div>
+                <!-- Message End -->
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <!-- Message Start -->
+                <div class="media">
+                  <img src="{% static "dist/img/user8-128x128.jpg" %}" alt="User
+                  Avatar" class="img-size-50 img-circle mr-3" />
+                  <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                      John Pierce
+                      <span class="float-right text-sm text-muted"
+                        ><i class="fas fa-star"></i
+                      ></span>
+                    </h3>
+                    <p class="text-sm">I got your message bro</p>
+                    <p class="text-sm text-muted">
+                      <i class="far fa-clock mr-1"></i> 4 Hours Ago
+                    </p>
+                  </div>
+                </div>
+                <!-- Message End -->
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <!-- Message Start -->
+                <div class="media">
+                  <img src="{% static "dist/img/user3-128x128.jpg" %}" alt="User
+                  Avatar" class="img-size-50 img-circle mr-3" />
+                  <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                      Nora Silvester
+                      <span class="float-right text-sm text-warning"
+                        ><i class="fas fa-star"></i
+                      ></span>
+                    </h3>
+                    <p class="text-sm">The subject goes here</p>
+                    <p class="text-sm text-muted">
+                      <i class="far fa-clock mr-1"></i> 4 Hours Ago
+                    </p>
+                  </div>
+                </div>
+                <!-- Message End -->
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item dropdown-footer"
+                >See All Messages</a
+              >
+            </div>
+          </li>
+          <!-- Notifications Dropdown Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-bell"></i>
+              <span class="badge badge-warning navbar-badge">15</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <span class="dropdown-item dropdown-header"
+                >15 Notifications</span
+              >
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-envelope mr-2"></i> 4 new messages
+                <span class="float-right text-muted text-sm">3 mins</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-users mr-2"></i> 8 friend requests
+                <span class="float-right text-muted text-sm">12 hours</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-file mr-2"></i> 3 new reports
+                <span class="float-right text-muted text-sm">2 days</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item dropdown-footer"
+                >See All Notifications</a
+              >
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url "logout" %}" role="button">
+              <i class="fas fa-sign-out-alt"> Log out</i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.navbar -->
+
+      <!-- Main Sidebar Container -->
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
           <img
-            src="{% static 'images/icon/logo.jfif' %}"
-            alt="Moti Engineering PlC"
-            style="width: 85px"
+            src="{% static "dist/img/logo.jfif" %}"
+            alt="Moti Engineering"
+            class="brand-image img-circle elevation-3"
+            style="opacity: 0.8"
           />
+          <span class="brand-text font-weight-light">Moti Engineering</span>
         </a>
-        Moti Engineering
-      </div>
-      <div class="menu-sidebar__content js-scrollbar1">
-        <nav class="navbar-sidebar">
-          <ul class="list-unstyled navbar__list">
-            <li class="active has-sub">
-              <a class="js-arrow" href="{% url 'home' %}">
-                <i class="fas fa-tachometer-alt"></i>Dashboard</a
-              >
-            </li>
 
-            <li>
-              <a href="{% url 'all-engineers' %}">
-                <i class="fa fa-users" aria-hidden="true"></i>Engineers</a
-              >
-            </li>
-            <li>
-              <a href="{% url 'banks-page' %}">
-                <i class="fa fa-university" aria-hidden="true"></i>Banks</a
-              >
-            </li>
-            <li>
-              <a href="{% url 'all-terminals' %}">
-                <i class="fas fa-box"></i>Terminals</a
-              >
-            </li>
-            <li>
-              <a href="{% url 'creat-schedule' %}">
-                <i class="fas fa-calendar-alt"></i>Schedule</a
-              >
-            </li>
-            <li>
-              <a href="{% url 'reports' %}">
-                <i class="fas fa-chart-bar"></i>Reports</a
-              >
-            </li>
-            <li>
-              <a href="#"> <i class="fas fa-map-marker-alt"></i>Maps</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </aside>
-
-    <header class="header-desktop">
-      <div class="section__content section__content--p30">
-        <div class="container-fluid text text-right">
-          <div class="header-wrap">
-            <div><h4>PM Portal | Moti Engineering</h4></div>
-            <div class="header-button">
-              <div class="noti-wrap">
-                <div class="noti__item js-item-menu">
-                  <i class="zmdi zmdi-email"></i>
-                  <span class="quantity">1</span>
-                  <div class="email-dropdown js-dropdown">
-                    <div class="email__title">
-                      <p>You have 3 New Emails</p>
-                    </div>
-                    <div class="email__item">
-                      <div class="image img-cir img-40">
-                        <img
-                          src="{% static 'images/icon/pp.jpg' %}"
-                          alt="Getachew Muhabaw"
-                        />
-                      </div>
-                      <div class="content">
-                        <p>Meeting about new dashboard...</p>
-                        <span>Cynthia Harvey, 3 min ago</span>
-                      </div>
-                    </div>
-                    <div class="email__item">
-                      <div class="image img-cir img-40">
-                        <img
-                          src="{% static 'images/icon/pp.jpg' %}"
-                          alt="Cynthia Harvey"
-                        />
-                      </div>
-                      <div class="content">
-                        <p>Meeting about new dashboard...</p>
-                        <span>Cynthia Harvey, Yesterday</span>
-                      </div>
-                    </div>
-                    <div class="email__footer">
-                      <a href="#">See all emails</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="noti__item js-item-menu">
-                  <i class="zmdi zmdi-notifications"></i>
-                  <span class="quantity">3</span>
-                  <div class="notifi-dropdown js-dropdown">
-                    <div class="notifi__title">
-                      <p>You have 3 Notifications</p>
-                    </div>
-                    <div class="notifi__item">
-                      <div class="bg-c1 img-cir img-40">
-                        <i class="zmdi zmdi-email-open"></i>
-                      </div>
-                      <div class="content">
-                        <p>You got a email notification</p>
-                        <span class="date">April 12, 2018 06:50</span>
-                      </div>
-                    </div>
-                    <div class="notifi__item">
-                      <div class="bg-c2 img-cir img-40">
-                        <i class="zmdi zmdi-account-box"></i>
-                      </div>
-                      <div class="content">
-                        <p>Your account has been blocked</p>
-                        <span class="date">April 12, 2018 06:50</span>
-                      </div>
-                    </div>
-                    <div class="notifi__item">
-                      <div class="bg-c3 img-cir img-40">
-                        <i class="zmdi zmdi-file-text"></i>
-                      </div>
-                      <div class="content">
-                        <p>You got a new file</p>
-                        <span class="date">April 12, 2018 06:50</span>
-                      </div>
-                    </div>
-                    <div class="notifi__footer">
-                      <a href="#">All notifications</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="account-wrap">
-                <div class="account-item clearfix js-item-menu">
-                  <div class="image">
-                    <img
-                      src="{% static 'images/icon/pp.jpg' %}"
-                      alt="Getachew"
-                    />
-                  </div>
-                  <div class="content">
-                    <a class="js-acc-btn" href="#">Getachew Muhabaw</a>
-                  </div>
-                  <div class="account-dropdown js-dropdown">
-                    <div class="info clearfix">
-                      <div class="image">
-                        <a href="#">
-                          <img
-                            src="{% static 'images/icon/pp.jpg' %}"
-                            alt="Getachew Muhabaw"
-                          />
-                        </a>
-                      </div>
-                      <div class="content">
-                        <h5 class="name">
-                          <a href="#">Getachew Muhabaw</a>
-                        </h5>
-                        <span class="email">test_user@admin.com</span>
-                      </div>
-                    </div>
-                    <div class="account-dropdown__body text text-left">
-                      <div class="account-dropdown__item">
-                        <a href="#">
-                          <i class="zmdi zmdi-account"></i>Account</a
-                        >
-                      </div>
-                      <div class="account-dropdown__item">
-                        <a href="#">
-                          <i class="zmdi zmdi-settings"></i>Setting</a
-                        >
-                      </div>
-                    </div>
-                    <div class="account-dropdown__footer text text-left">
-                      <a href="{% url "logout" %}"> <i class="zmdi zmdi-power"></i>Logout</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+              <img src="{% static "dist/img/user2-160x160.jpg" %}"
+              class="img-circle elevation-2" alt="User Image" />
+            </div>
+            <div class="info">
+              <a href="#" class="d-block">Getachew Muhabaw</a>
             </div>
           </div>
+
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+            <ul
+              class="nav nav-pills nav-sidebar flex-column"
+              data-widget="treeview"
+              role="menu"
+              data-accordion="false"
+            >
+              <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+              <li class="nav-item menu-open">
+                <a href="#" class="nav-link active">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>Engineers</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                 <i class="nav-icon fa fa-university" aria-hidden="true"></i>
+                  <p>Banks</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                 <i class=" nav-icon fa fa-cubes" aria-hidden="true"></i>
+                  <p>Terminals</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon far fa-calendar-alt"></i>
+                  <p>Schedule</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-columns" aria-hidden="true"></i>
+                  <p>Reports</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-map-marker-alt"></i>
+                  <p>Map</p>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
         </div>
-      </div>
-    </header>
-    {% block content %} {% endblock content %}
-    <div class="row">
-      <div class="col-md-12">
-        <div class="copyright" style="
-  bottom: 0;
-  width: 100%;
-  height: 100px">
+        <!-- /.sidebar -->
+      </aside>
+  
+     
+      
+      {% block content %}{% endblock content %}
+    
+
+  
+      <footer class="main-footer">
+        <strong>
           <span
             >Copyright &copy;
             <script>
               document.write(new Date().getFullYear());
             </script>
-            <a href="https://www.motiUsering.com/">Moti Engineering</a
-            >.</span
-          >
+            <a href="https://www.motiengineering.com/">Moti Engineering</a>.
+          </span>
+        </strong>
+        All rights reserved.
+        <div class="float-right d-none d-sm-inline-block">
+          <b>Version</b> 1.1.0
         </div>
-      </div>
-    </div>
-    <!-- Jquery JS-->
-    <script src=" {%static 'vendor/jquery-3.2.1.min.js' %}"></script>
-    <!-- Bootstrap JS-->
-    <script src=" {%static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
-    <script src=" {%static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
-    <!-- Vendor JS       -->
-    <script src=" {%static 'vendor/slick/slick.min.js' %}"></script>
-    <script src=" {%static 'vendor/wow/wow.min.js' %}"></script>
-    <script src=" {%static 'vendor/animsition/animsition.min.js' %}"></script>
-    <script src=" {%static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
-    <script src=" {%static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
-    <script src=" {%static 'vendor/counter-up/jquery.counterup.min.js' %}"></script>
-    <script src=" {%static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
-    <script src=" {%static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
-    <script src=" {%static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
-    <script src=" {%static 'vendor/select2/select2.min.js' %}"></script>
+      </footer>
 
-    <!-- Main JS-->
-    <script src=" {%static 'js/main.js' %}"></script>
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+      </aside>
+      <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="{% static 'plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+      $.widget.bridge("uibutton", $.ui.button);
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- ChartJS -->
+    <script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
+    <!-- Sparkline -->
+    <script src="{% static 'plugins/sparklines/sparkline.js' %}"></script>
+    <!-- JQVMap -->
+    <script src="{% static 'plugins/jqvmap/jquery.vmap.min.js' %}"></script>
+    <script src="{% static 'plugins/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="{% static 'plugins/jquery-knob/jquery.knob.min.js' %}"></script>
+    <!-- daterangepicker -->
+    <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <!-- Summernote -->
+    <script src="{% static 'plugins/summernote/summernote-bs4.min.js' %}"></script>
+    <!-- overlayScrollbars -->
+    <script src="{% static 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'dist/js/adminlte.js' %}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{% static 'dist/js/demo.js' %}"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="{% static 'dist/js/pages/dashboard.js' %}"></script>
   </body>
 </html>
