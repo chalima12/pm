@@ -1,26 +1,62 @@
 {% extends "base.html" %} {% load static %} {% block content %}
 <h3 class="text-center m-4">Add Bank</h3>
 {% if submitted %}
-<div class="alert alert-success" role="alert" style="margin:0 20%; padding-left: 20%;">
+<div
+  class="alert alert-success"
+  role="alert"
+  style="margin: 0 20%; padding-left: 20%"
+>
   The new Bank added successfully.
   <a href="{% url 'add-bank' %}" class="alert-link">Add More.</a>
 </div>
 {% else %}
-<div class="row justify-content-center mt-5">
-  <div class="col-6">
-    <div class="card bg-light mb-3">
-      <div class="card-header">
-        <i class="zmdi zmdi-account-box "></i> Bank Registration
-      </div>
-      <div class="card-body">
-        <form action="{% url 'add-bank' %}" method="POST">
-          {% csrf_token %} {{ form.as_p }}
-          <br>
-          <button type="submit" class="btn btn-primary">Add</button>
-          <a href="{% url 'banks-page' %}" class="btn btn-secondary">Cancel</a>
-        </form>
+<div class="content-wrapper ">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row ">
+        <div class="col-md-8 ">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Add Bank</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form action="{% url 'add-bank' %}" method="POST">
+              {% csrf_token %}
+              <div class="card-body">
+                <div class="form-group">
+                  <label >BANK NAME</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Bank Name"
+                    name="bank_name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label >BANK KEY</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Bank Key"
+                    name="bank_key"
+                  />
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Add</button>
+                <a href="{% url 'banks-page' %}" class="btn btn-secondary">Cancel</a>
+              </div>
+            </form>
+          </div>
+          <!-- /.card -->
+
+          <!-- general form elements -->
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </div>
 {% endif %} {% endblock content %}
