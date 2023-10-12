@@ -1,3 +1,89 @@
 {% extends "base.html" %} {% load static %} {% block content %}
-
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>List of Banks</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
+            <li class="breadcrumb-item active">Banks</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Banks</h3>
+               <a href="{% url 'add-bank' %}" class="btn btn-success btn-lg float-right"
+                        > <i class="fas fa-plus"></i>
+                     Add Bank
+                </a>
+            </div>
+                  
+               
+            
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>NO</th>
+                    <th>BANK NAME</th>
+                    <th>Bank Key</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for bank  in banks %}
+                  <tr>
+                    <td>{{bank.id}}</td>
+                    <td>{{bank.bank_name}}</td>
+                    <td>{{bank.bank_key}}</td>
+                    <td><span class="badge badge-success" style="width: 90px"
+                          >Active</span
+                        ></td>
+                    <td><a
+                          href="#"
+                          style="width: 80px"
+                          class="d-inline p-2 m-2 btn btn-block btn-outline-success"
+                          ><i class="nav-icon fas fa-edit"></i></a
+                        >
+                          <a
+                          href="#"
+                          style="width: 80px"
+                          class="d-inline p-2 m-2 btn btn-block btn-outline-danger"
+                          ><i class="fas fa-lock"></i>
+                          </a>
+                      </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>NO</th>
+                    <th>BANK NAME</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 {% endblock content %}
