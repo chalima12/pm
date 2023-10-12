@@ -41,24 +41,23 @@ def logoutuser(request):
 
 @login_required
 def home(request):
-    try:
-        terminalsQuerySet = Terminal.objects.all()
-        banksQuerySet = Bank.objects.all()
-        numOfBanks = Bank.objects.all().count()
-        numOfUsers = User.objects.all().count()
-        numberOfTerminals = Terminal.objects.all().count()
-        context = {
-            "company": "moti Usering PLC",
-            "projectName": "preventive Maintainace For ATMS",
-            "terminals": terminalsQuerySet,
-            'banks': banksQuerySet,
-            'numOfBanks': numOfBanks,
-            'numOfUsers': numOfUsers,
-            'numberOfTerminals': numberOfTerminals,
-        }
-        return render(request, "pm/index.html", context)
-    except:
-        raise Http404()  # Automatically find 404.html file in golobal templates
+
+    terminalsQuerySet = Terminal.objects.all()
+    banksQuerySet = Bank.objects.all()
+    numOfBanks = Bank.objects.all().count()
+    numOfUsers = User.objects.all().count()
+    numberOfTerminals = Terminal.objects.all().count()
+    context = {
+        "company": "moti Usering PLC",
+        "projectName": "preventive Maintainace For ATMS",
+        "terminals": terminalsQuerySet,
+        'banks': banksQuerySet,
+        'numOfBanks': numOfBanks,
+        'numOfUsers': numOfUsers,
+        'numberOfTerminals': numberOfTerminals,
+    }
+    return render(request, "pm/index.html", context)
+    # Automatically find 404.html file in golobal templates
 
 
 @login_required
