@@ -5,25 +5,8 @@
   The new Bank added successfully.
   <a href="{% url 'home' %}" class="alert-link">Go to Home Page.</a>
 </div>
-{% else %}
-<div class="row justify-content-center mt-5">
-  <div class="col-6">
-    <div class="card bg-light mb-3">
-      <div class="card-header">
-        <i class="zmdi zmdi-account-box "></i> Bank Registration
-      </div>
-      <div class="card-body">
-        <form action="{% url 'make-schedule' %}" method="POST">
-          {% csrf_token %} {{ form.as_p }}
-          <br>
-          <button type="submit" class="btn btn-primary">Add</button>
-          <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
+{% else %}
 <div class="content-wrapper">
   <section class="content-header">
     <div class="container-fluid">
@@ -48,89 +31,96 @@
           <h3 class="card-title">Make Scheule</h3>
         </div>
         <div class="card-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Bank Name</label>
-                <select class="form-control select2" style="width: 100%;">
-                  <option selected="selected">---</option>
-                  {% for bank in banks %}
-                  <option>{{bank.bank_name}}</option>
-                  {% endfor %}
-                </select>
+          <form action="{% url 'make-schedule' %}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Bank Name</label>
+                  <select class="form-control select2" style="width: 100%;" name="bank_name">
+                    <option selected="selected">---</option>
+                    {% for bank in banks %}
+                    <option>{{bank.bank_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Terminal Name</label>
-                <select class="form-control select2" style="width: 100%;">
-                  <option selected="selected">---</option>
-                  {% for terminal in terminals %}
-                  <option>{{terminal.terminal_name}}</option>
-                  {% endfor %}
-                </select>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Terminal Name</label>
+                  <select class="form-control select2" style="width: 100%;" name="terminal_name">
+                    <option selected="selected">---</option>
+                    {% for terminal in terminals %}
+                    <option>{{terminal.terminal_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Start Date:</label>
-                <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
-                  <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" />
-                  <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <!--TODO: Fix the Date-->
+                  <label>Start Date:</label>
+                  <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                    <input type="datetime-local" name="start_date" class="form-control datetimepicker-input"
+                      data-target="#reservationdatetime" />
+                    <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
+
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>End Date:</label>
-                <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
-                  <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" />
-                  <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>End Date:</label>
+                  <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                    <input type="datetime-local" name="end_date" class="form-control datetimepicker-input"
+                      data-target="#reservationdatetime" />
+                    <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
+
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Assigned To</label>
-                <select class="form-control select2" style="width: 100%;">
-                  <option selected="selected">---</option>
-                  {% for user in users %}
-                  <option>{{user.first_name}}</option>
-                  {% endfor %}
-                </select>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Assigned To</label>
+                  <select class="form-control select2" name="assign_to" style="width: 100%;">
+                    <option selected="selected">---</option>
+                    {% for user in users %}
+                    <option>{{user.first_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Status</label>
-                <select class="form-control select2" style="width: 100%;">
-                  <option selected="selected" >---</option>
-                  {% for schedule in schedules %}
-                  <option>{{schedule.status}}</option>
-                  {% endfor %}
-                </select>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Status</label>
+                  <select class="form-control select2" name="status" style="width: 100%;">
+                    <option selected="selected">---</option>
+                    {% for schedule in schedules %}
+                    <option>{{schedule.status}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
               </div>
-            </div>
-            <div class="col-sm-6">
+              <div class="col-sm-10">
                 <div class="form-group">
                   <label>Description</label>
                   <textarea class="form-control" name="description" rows="3" placeholder="Description ..."></textarea>
                 </div>
+              </div>
+
             </div>
-            
-          </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+          </form>
         </div>
       </div>
 
 
     </div>
+  </section>
 </div>
-</section>
-
 
 <!--New Form-->
 
