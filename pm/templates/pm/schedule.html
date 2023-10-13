@@ -55,9 +55,19 @@
                     <td>{{schedule.start_date|date:'Y-m-d H:i:s'}}</td>
                     <td>{{schedule.end_date|date:'Y-m-d H:i:s'}}</td>
                     <td>3 month</td>
-                    <td><span class="badge badge-danger" style="width: 90px"
-                          >Pending</span
-                        ></td>
+                    <td>
+                      {% if schedule.status == "PE" %}
+                          <span class="badge badge-danger" style="width: 90px"
+                          ><b>Pending</b></span>
+                        {% elif schedule.status == "OP" %}
+                        <span class="badge badge-warning" style="width: 90px"
+                          ><b>Onprogress</b></span>
+                          {% elif schedule.status == "CO" %}
+                          <span class="badge badge-success" style="width: 90px"
+                          ><b>Completed</b></span
+                        >
+                      {% endif %}
+                    </td>
                     <td><a
                           href=""
                           style="width: 80px"

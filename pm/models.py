@@ -127,7 +127,7 @@ class Schedule(models.Model):
         ("PE", "Pending"),
         ("OP", "Onprogress"),
         ("CO", "Completed"),
-        ("CA", "Cancled")
+
     ]
     bank_name = models.ForeignKey(Bank, on_delete=models.CASCADE)
     terminal_name = models.ForeignKey(Terminal, on_delete=models.PROTECT)
