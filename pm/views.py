@@ -42,11 +42,12 @@ def logoutuser(request):
 @login_required
 def home(request):
 
-    terminalsQuerySet = Terminal.objects.all()
+    terminalsQuerySet = Terminal.objects.all().order_by('tid')[:10]
     banksQuerySet = Bank.objects.all()
     numOfBanks = Bank.objects.all().count()
     numOfUsers = User.objects.all().count()
-    numberOfTerminals = Terminal.objects.all().count()
+    pendingTerminals= Schedule.objects.filter(status ="PE").count()
+    cleanedTerminals= Schedule.objects.filter(status ="CO").count()
     context = {
         "company": "moti Usering PLC",
         "projectName": "preventive Maintainace For ATMS",
@@ -54,7 +55,8 @@ def home(request):
         'banks': banksQuerySet,
         'numOfBanks': numOfBanks,
         'numOfUsers': numOfUsers,
-        'numberOfTerminals': numberOfTerminals,
+        'cleanedTerminals': cleanedTerminals,
+        "pendingTerminals":pendingTerminals
     }
     return render(request, "pm/index.html", context)
     # Automatically find 404.html file in golobal templates
