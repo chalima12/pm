@@ -8,7 +8,7 @@ import datetime
 import json
 from dateutil.relativedelta import relativedelta
 from pm.models import Terminal, User, Bank, Schedule
-from pm.forms import TerminalForm, BankForm
+from pm.forms import TerminalForm, BankForm, ScheduleForm
 
 
 def login_user(request):
@@ -186,6 +186,26 @@ def schedule(request):
 
     }
     return render(request, 'pm/schedule.html', context)
+
+
+@login_required
+def makeSchedule(request):
+    terminals= Terminal.objects.all()
+    banks= Bank.objects.all()
+    users=User.objects.all()
+    schedules = Schedule.objects.all()
+    submitted = False
+    if request.method == "POST":
+        form = ScheduleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/make-schedule?submitted=True')
+    else:
+        form = ScheduleForm
+        if 'submitted' in request.GET:
+            submitted = True
+    context = {"form": form, "submitted": submitted,"banks":banks,"users":users,"terminals":terminals,"schedules":schedules}
+    return render(request, 'pm/addSchedule.html', context)
 
 
 @login_required

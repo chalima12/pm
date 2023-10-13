@@ -13,7 +13,7 @@
         <i class="zmdi zmdi-account-box "></i> Bank Registration
       </div>
       <div class="card-body">
-        <form action="{% url 'add-bank' %}" method="POST">
+        <form action="{% url 'make-schedule' %}" method="POST">
           {% csrf_token %} {{ form.as_p }}
           <br>
           <button type="submit" class="btn btn-primary">Add</button>
@@ -23,4 +23,115 @@
     </div>
   </div>
 </div>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Make Schedule</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
+            <li class="breadcrumb-item active">Make Schedule</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card card-default">
+        <div class="card-header">
+          <h3 class="card-title">Make Scheule</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Bank Name</label>
+                <select class="form-control select2" style="width: 100%;">
+                  <option selected="selected">---</option>
+                  {% for bank in banks %}
+                  <option>{{bank.bank_name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Terminal Name</label>
+                <select class="form-control select2" style="width: 100%;">
+                  <option selected="selected">---</option>
+                  {% for terminal in terminals %}
+                  <option>{{terminal.terminal_name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>End Date:</label>
+                <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                  <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" />
+                  <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>End Date:</label>
+                <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                  <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" />
+                  <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Assigned To</label>
+                <select class="form-control select2" style="width: 100%;">
+                  <option selected="selected">---</option>
+                  {% for user in users %}
+                  <option>{{user.first_name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Status</label>
+                <select class="form-control select2" style="width: 100%;">
+                  <option selected="selected" >---</option>
+                  {% for schedule in schedules %}
+                  <option>{{schedule.status}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+</div>
+</section>
+
+
+<!--New Form-->
+
 {% endif %} {% endblock content %}

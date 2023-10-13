@@ -1,5 +1,5 @@
 from django import forms
-from pm.models import Terminal, Bank, User, BankBranch
+from pm.models import Terminal, Bank, User, BankBranch, Schedule
 
 
 class TerminalForm(forms.ModelForm):
@@ -61,3 +61,10 @@ class BankBranchForm(forms.ModelForm):
     class Meta:
         model = BankBranch
         fields = "__all__"
+
+
+class ScheduleForm(forms.ModelForm):
+    class Meta:
+        model = Schedule
+        fields = ['bank_name', 'terminal_name', 'start_date',
+                  'end_date', 'assign_to', 'status', 'description']
