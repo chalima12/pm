@@ -49,12 +49,12 @@
                 <tbody>
                   {% for schedule  in schedules %}
                   <tr>
-                    <td>{{s}}</td>
+                    <td>{{schedule.id}}</td>
                     <td>{{schedule.bank_name}}</td>
                     <td>{{schedule.terminal_name}}</td>
                     <td>{{schedule.start_date|date:'Y-m-d H:i:s'}}</td>
                     <td>{{schedule.end_date|date:'Y-m-d H:i:s'}}</td>
-                    <td>3 month</td>
+                    <td>{{start}}</td>
                     <td>
                     <!--It must have space to compare and not Use else for more than two comparisions-->
                       {% if schedule.status == "PE" %}

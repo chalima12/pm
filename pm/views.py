@@ -176,7 +176,12 @@ def updateTerminal(request, terminal_id):
 def schedule(request):
 
     scheduleQuerySet = Schedule.objects.all()
-    isoStart = ''
+    a = '2014-05-06 12:00:56'
+    b = '2014-02-06 16:08:22'
+    start = datetime.datetime.strptime(a, '%Y-%m-%d %H:%M:%S')
+    ends = datetime.datetime.strptime(b, '%Y-%m-%d %H:%M:%S')
+    diff = relativedelta(start, ends)
+    starts = diff.months
     for s in scheduleQuerySet:
 
         isoStart = datetime.datetime.isoformat(s.start_date, ' ')
@@ -184,7 +189,7 @@ def schedule(request):
     context = {
         "title": "Scheduled ATMS",
         "schedules": scheduleQuerySet,
-        "s": isoStart
+        "start": starts
 
     }
     return render(request, 'pm/schedule.html', context)
