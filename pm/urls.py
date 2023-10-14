@@ -12,10 +12,13 @@ urlpatterns = [
     path('bank_detail/<int:bank_id>', views.bank_detail, name='bank-detail'),
     path('terminals/', views.terminals, name="all-terminals"),
     path('add-terminal/', views.addTerminal, name='add-terminal'),
-    path('update_terminal/<int:terminal_id>',views.updateTerminal, name='update-terminal'),
+    path('update_terminal/<int:terminal_id>',
+         views.updateTerminal, name='update-terminal'),
     path('schedules/', views.schedule, name='schedules'),
     path('make-schedule/', views.makeSchedule, name='make-schedule'),
     path('reports/', views.reports, name='reports'),
     path('engineers/', views.user, name='all-engineers'),
+    path('create_schedule/', views.create_schedule, name='create_schedule'),
+
 
 ]

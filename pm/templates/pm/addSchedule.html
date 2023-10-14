@@ -36,77 +36,33 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Bank Name</label>
-                  <select class="form-control select2" style="width: 100%;" name="bank_name">
-                    <option selected="selected">---</option>
-                    {% for bank in banks %}
-                    <option>{{bank.bank_name}}</option>
-                    {% endfor %}
-                  </select>
+                  <label for="{{ form.name.id_for_label }}">Bank Name</label>
+                    {{form.bank_name}}
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Terminal Name</label>
-                  <select class="form-control select2" style="width: 100%;" name="terminal_name">
-                    <option selected="selected">---</option>
-                    {% for terminal in terminals %}
-                    <option>{{terminal.terminal_name}}</option>
-                    {% endfor %}
-                  </select>
+                  <label for="{{ form.terminal_name.id_for_label }}">Terminal Name</label>
+                    {{form.terminal_name}}
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <!--TODO: Fix the Date-->
-                  <label>Start Date:</label>
-                  <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
-                    <input type="datetime-local" name="start_date" class="form-control datetimepicker-input"
-                      data-target="#reservationdatetime" />
-                    <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
+                  <label for="{{ form.start_date.id_for_label }}">Start Date</label>
+                    {{form.start_date}}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="{{ form.end_date.id_for_label }}">End Date</label>
+                    {{form.end_date}}
+                </div>
+              </div>
 
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
+              <div class="col-sm-12">
                 <div class="form-group">
-                  <label>End Date:</label>
-                  <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
-                    <input type="datetime-local" name="end_date" class="form-control datetimepicker-input"
-                      data-target="#reservationdatetime" />
-                    <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Assigned To</label>
-                  <select class="form-control select2" name="assign_to" style="width: 100%;">
-                    <option selected="selected">---</option>
-                    {% for user in users %}
-                    <option>{{user.first_name}}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Status</label>
-                  <select class="form-control select2" name="status" style="width: 100%;">
-                    <option selected="selected">---</option>
-                    {% for schedule in schedules %}
-                    <option>{{schedule.status}}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-              </div>
-              <div class="col-sm-10">
-                <div class="form-group">
-                  <label>Description</label>
-                  <textarea class="form-control" name="description" rows="3" placeholder="Description ..."></textarea>
+                  <label for="{{ form.description.id_for_label }}">Description</label>
+                    {{form.description}}
                 </div>
               </div>
 

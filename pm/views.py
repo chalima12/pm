@@ -46,8 +46,8 @@ def home(request):
     banksQuerySet = Bank.objects.all()
     numOfBanks = Bank.objects.all().count()
     numOfUsers = User.objects.all().count()
-    pendingTerminals= Schedule.objects.filter(status ="PE").count()
-    cleanedTerminals= Schedule.objects.filter(status ="CO").count()
+    pendingTerminals = Schedule.objects.filter(status="PE").count()
+    cleanedTerminals = Schedule.objects.filter(status="CO").count()
     context = {
         "company": "moti Usering PLC",
         "projectName": "preventive Maintainace For ATMS",
@@ -56,7 +56,7 @@ def home(request):
         'numOfBanks': numOfBanks,
         'numOfUsers': numOfUsers,
         'cleanedTerminals': cleanedTerminals,
-        "pendingTerminals":pendingTerminals
+        "pendingTerminals": pendingTerminals
     }
     return render(request, "pm/index.html", context)
     # Automatically find 404.html file in golobal templates
@@ -174,22 +174,15 @@ def updateTerminal(request, terminal_id):
 
 @login_required
 def schedule(request):
-
     scheduleQuerySet = Schedule.objects.all()
-    a = '2014-05-06 12:00:56'
-    b = '2014-02-06 16:08:22'
-    start = datetime.datetime.strptime(a, '%Y-%m-%d %H:%M:%S')
-    ends = datetime.datetime.strptime(b, '%Y-%m-%d %H:%M:%S')
-    diff = relativedelta(start, ends)
-    starts = diff.months
-    for s in scheduleQuerySet:
+    remaining_day = None
 
-        isoStart = datetime.datetime.isoformat(s.start_date, ' ')
-
+    for schedule in scheduleQuerySet:
+        schedule.remaining_day = (schedule.end_date - schedule.start_date).days
     context = {
         "title": "Scheduled ATMS",
         "schedules": scheduleQuerySet,
-        "start": starts
+
 
     }
     return render(request, 'pm/schedule.html', context)
@@ -197,9 +190,9 @@ def schedule(request):
 
 @login_required
 def makeSchedule(request):
-    terminals= Terminal.objects.all()
-    banks= Bank.objects.all()
-    users=User.objects.all()
+    terminals = Terminal.objects.all()
+    banks = Bank.objects.all()
+    users = User.objects.all()
     schedules = Schedule.objects.all()
     submitted = False
     if request.method == "POST":
@@ -211,8 +204,32 @@ def makeSchedule(request):
         form = ScheduleForm
         if 'submitted' in request.GET:
             submitted = True
-    context = {"form": form, "submitted": submitted,"banks":banks,"users":users,"terminals":terminals,"schedules":schedules}
+    context = {"form": form, "submitted": submitted, "banks": banks,
+               "users": users, "terminals": terminals, "schedules": schedules}
     return render(request, 'pm/addSchedule.html', context)
+
+
+@login_required
+def create_schedule(request):
+    if request.method == 'POST':
+        form = ScheduleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Meeting schedule created successfully!")
+            return redirect('schedule')
+    else:
+        form = ScheduleForm()
+
+    return render(request, 'pm/addSchedule.html', {'form': form})
+
+
+@login_required
+def remaining_date(request, schedule_id):
+    schedule = Schedule.objects.get(pk=schedule_id)
+    start = schedule.start_date
+    end = schedule.end_date
+
+    pass
 
 
 @login_required

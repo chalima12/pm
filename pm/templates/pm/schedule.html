@@ -26,7 +26,7 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">List of Terminals To be Schedule</h3>
-              <a href="{% url 'make-schedule' %}" class="btn btn-success btn-lg float-right"
+              <a href="{% url 'create_schedule' %}" class="btn btn-success btn-lg float-right"
                         > <i class="fas fa-plus"></i>
                      Make Schedule
                 </a>
@@ -36,6 +36,7 @@
               <table id="example1" class="table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
+                    <th>#</th>
                     <th>TID</th>
                     <th>BANK NAME</th>
                     <th>TERMINAL NAME</th>
@@ -49,12 +50,21 @@
                 <tbody>
                   {% for schedule  in schedules %}
                   <tr>
-                    <td>{{schedule.id}}</td>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{schedule.terminal_name.tid}}</td>
                     <td>{{schedule.bank_name}}</td>
                     <td>{{schedule.terminal_name}}</td>
                     <td>{{schedule.start_date|date:'Y-m-d H:i:s'}}</td>
                     <td>{{schedule.end_date|date:'Y-m-d H:i:s'}}</td>
-                    <td>{{start}}</td>
+                    <td>
+                      {% if schedule.remaining_day < 61 %}
+                        <span class="badge badge-danger" style="width: 90px"><b>{{schedule.remaining_day}} Days</b></span>
+
+                      {% else %}
+                        {{schedule.remaining_day}} Days
+                      {% endif %}
+                      
+                    </td>
                     <td>
                     <!--It must have space to compare and not Use else for more than two comparisions-->
                       {% if schedule.status == "PE" %}

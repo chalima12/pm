@@ -129,14 +129,18 @@ class Schedule(models.Model):
         ("CO", "Completed"),
 
     ]
-    bank_name = models.ForeignKey(Bank, on_delete=models.CASCADE)
+    bank_name = models.ForeignKey(
+        Bank, on_delete=models.CASCADE, null=True, blank=True)
     terminal_name = models.ForeignKey(Terminal, on_delete=models.PROTECT)
     start_date = models.DateTimeField(
-        auto_now_add=False, editable=True)
-    end_date = models.DateTimeField(auto_now_add=False, editable=True)
-    assign_to = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.CharField(max_length=2, choices=STATUS, default=STATUS[0])
-    description = models.CharField(max_length=300)
+        auto_now_add=False, editable=True, null=True, blank=True)
+    end_date = models.DateTimeField(
+        auto_now_add=False, editable=True, null=True, blank=True)
+    assign_to = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True)
+    status = models.CharField(
+        max_length=2, choices=STATUS, default=STATUS[0], null=True, blank=True)
+    description = models.CharField(max_length=300, null=True, blank=True)
 
     def __str__(self) -> str:
         return str(self.terminal_name)
