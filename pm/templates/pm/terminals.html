@@ -35,6 +35,7 @@
               <table id="example1" class="table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
+                      <th>#</th>
                       <th>TID</th>
                       <th>BANK Name</th>
                       <th>TERMINAL NAME</th>
@@ -46,6 +47,7 @@
                 <tbody>
                   {% for terminal in terminals %}
                   <tr>
+                    <td>{{forloop.counter}}</td>
                     <td>{{terminal.tid}}</td>
                     <td>{{terminal.bank_name}}</td>
                     <td>{{terminal.terminal_name}}</td>

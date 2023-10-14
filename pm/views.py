@@ -215,7 +215,7 @@ def create_schedule(request):
         form = ScheduleForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Meeting schedule created successfully!")
+            # messages.success(request, "Meeting schedule created successfully!")
             return redirect('schedule')
     else:
         form = ScheduleForm()

@@ -37,7 +37,7 @@
               <table id="example1" class="table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                  <th>NO</th>
+                  <th>#</th>
                       <th>FIRST NAME</th>
                       <th>LAST NAME</th>
                       <th>GENDER</th>
@@ -50,7 +50,7 @@
                 <tbody>
                   {%for user in users %}
                   <tr>
-                      <td>{{user.id}}</td>
+                      <td>{{forloop.counter}}</td>
                       <td>{{user.first_name}}</td>
                       <td>{{user.last_name}}</td>
                       <td>{{user.gender}}</td>
