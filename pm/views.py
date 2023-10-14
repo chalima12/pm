@@ -46,8 +46,9 @@ def home(request):
     banksQuerySet = Bank.objects.all()
     numOfBanks = Bank.objects.all().count()
     numOfUsers = User.objects.all().count()
+    numberofTerminals= Terminal.objects.all().count()
     pendingTerminals = Schedule.objects.filter(status="PE").count()
-    cleanedTerminals = Schedule.objects.filter(status="CO").count()
+    # cleanedTerminals = Schedule.objects.filter(status="CO").count()
     context = {
         "company": "moti Usering PLC",
         "projectName": "preventive Maintainace For ATMS",
@@ -55,7 +56,7 @@ def home(request):
         'banks': banksQuerySet,
         'numOfBanks': numOfBanks,
         'numOfUsers': numOfUsers,
-        'cleanedTerminals': cleanedTerminals,
+        'numberofTerminals': numberofTerminals,
         "pendingTerminals": pendingTerminals
     }
     return render(request, "pm/index.html", context)
