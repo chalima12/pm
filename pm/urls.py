@@ -18,6 +18,7 @@ urlpatterns = [
     path('make-schedule/', views.makeSchedule, name='make-schedule'),
     path('reports/', views.reports, name='reports'),
     path('engineers/', views.user, name='all-engineers'),
+    path('add-user/',views.add_user, name="add-user"),
     path('create_schedule/', views.create_schedule, name='create_schedule'),
 
 

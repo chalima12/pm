@@ -54,7 +54,16 @@ class BankForm(forms.ModelForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ['first_name','last_name','gender','username','email','phone','address']
+        widgets ={
+            'first_name':forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name':forms.TextInput(attrs={'class': 'form-control'}),
+            'gender':forms.RadioSelect(attrs={'class': 'form-control'}),
+            'username':forms.TextInput(attrs={'class': 'form-control'}),
+            'email':forms.EmailInput(attrs={'class': 'form-control'}),
+            'phone':forms.TextInput(attrs={'class': 'form-control'}),
+            'address':forms.TextInput(attrs={'class': 'form-control'})
+        }
 
 
 class BankBranchForm(forms.ModelForm):
@@ -73,8 +82,7 @@ class ScheduleForm(forms.ModelForm):
 class ScheduleForm(forms.ModelForm):
     class Meta:
         model = Schedule
-        fields = ['bank_name', 'terminal_name', 'start_date',
-                  'end_date', 'description']
+        fields = ['bank_name', 'terminal_name', 'start_date','end_date', 'description']
         widgets = {
             'bank_name': forms.Select(attrs={'class': 'form-control'}),
             'terminal_name': forms.Select(attrs={'class': 'form-control'}),

@@ -72,7 +72,9 @@ def user(request):
     }
     return render(request, 'pm/engineers.html', context)
 
-
+@login_required
+def add_user(request):
+    pass
 @login_required
 def banks(request):
     try:
