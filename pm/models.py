@@ -28,9 +28,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     ]
     # Basic information
     email = models.EmailField(("email address"), unique=True, null=True)
-    username = models.CharField(unique=True, max_length=255, null=True)
-    first_name = models.CharField(max_length=255, null=True)
-    last_name = models.CharField(max_length=255, null=True)
+    username = models.CharField(unique=True, max_length=255, null=True,blank=True)
+    first_name = models.CharField(max_length=255, null=True,blank=True)
+    last_name = models.CharField(max_length=255, null=True,blank=True)
     gender = models.CharField(
         max_length=100, choices=gender_choices, help_text="Gender", null=True, blank=True)
     phone = models.CharField(
@@ -39,13 +39,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text='Photo', null=True, blank=True, default='atm_U2G9mVp.png')
     address = models.TextField(
         max_length=50, help_text='Address', null=True, blank=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
+    date_joined = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     # Informtion for system access
-    is_staff = models.BooleanField(default=False, null=True)
-    is_active = models.BooleanField(default=True, null=True)
-    is_moti = models.BooleanField(default=False, null=True)
-    is_User = models.BooleanField(default=False, null=True)
-    is_bank = models.BooleanField(default=False, null=True)
+    is_staff = models.BooleanField(default=False, null=True,blank=True)
+    is_active = models.BooleanField(default=True, null=True, blank=True)
+    is_moti = models.BooleanField(default=False, null=True,blank=True)
+    is_User = models.BooleanField(default=False, null=True,blank=True)
+    is_bank = models.BooleanField(default=False, null=True,blank=True)
     system_summary = models.BooleanField(default=False, null=True, blank=True)
     equipment_usage = models.BooleanField(default=False, null=True, blank=True)
     view_user_list = models.BooleanField(default=False, null=True, blank=True)

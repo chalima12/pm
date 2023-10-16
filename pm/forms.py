@@ -55,10 +55,16 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name','last_name','gender','username','email','phone','address']
+        MALE = 'M'
+        FEMALE = 'F'
+        gender_choices = [
+            (MALE, 'Male'),
+            (FEMALE, 'Female'),
+        ]
         widgets ={
             'first_name':forms.TextInput(attrs={'class': 'form-control'}),
             'last_name':forms.TextInput(attrs={'class': 'form-control'}),
-            'gender':forms.RadioSelect(attrs={'class': 'form-control'}),
+            'gender': forms.Select(attrs={'class': 'form-control'}),
             'username':forms.TextInput(attrs={'class': 'form-control'}),
             'email':forms.EmailInput(attrs={'class': 'form-control'}),
             'phone':forms.TextInput(attrs={'class': 'form-control'}),
