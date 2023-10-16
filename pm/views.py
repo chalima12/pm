@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.http import Http404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-import datetime
+from datetime import datetime, timezone
 import json
 from dateutil.relativedelta import relativedelta
 from pm.models import Terminal, User, Bank, Schedule
@@ -190,10 +190,9 @@ def updateTerminal(request, terminal_id):
 @login_required
 def schedule(request):
     scheduleQuerySet = Schedule.objects.all()
-    remaining_day = None
-
+    now = datetime.now(timezone.utc)
     for schedule in scheduleQuerySet:
-        schedule.remaining_day = (schedule.end_date - schedule.start_date).days
+        schedule.remaining_day = (schedule.end_date-now).days
     context = {
         "title": "Scheduled ATMS",
         "schedules": scheduleQuerySet,
@@ -236,15 +235,6 @@ def create_schedule(request):
         form = ScheduleForm()
 
     return render(request, 'pm/addSchedule.html', {'form': form})
-
-
-@login_required
-def remaining_date(request, schedule_id):
-    schedule = Schedule.objects.get(pk=schedule_id)
-    start = schedule.start_date
-    end = schedule.end_date
-
-    pass
 
 
 @login_required
