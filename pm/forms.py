@@ -41,14 +41,10 @@ class BankForm(forms.ModelForm):
     class Meta:
         model = Bank
         fields = ['bank_name', 'bank_key']
-        # labels = {
-        #     'bank_name': "Bank Name",
-        #     'bank_key': "Bank Key"
-        # }
-        # widgets = {
-        #     'bank_name': forms.TextInput(attrs={'class': 'form-control'}),
-        #     'bank_key': forms.TextInput(attrs={'class': 'form-control'}),
-        # }
+        widgets = {
+            'bank_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'bank_key': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
 
 class UserForm(forms.ModelForm):

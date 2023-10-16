@@ -1,20 +1,33 @@
-{% extends "base.html" %} {% load static %} {% block content %}
-<h3 class="text-center m-4">Add Bank</h3>
 
-<div class="row justify-content-center mt-5">
-  <div class="col-6">
-    <div class="card bg-light mb-3">
-      <div class="card-header">
-        <i class="zmdi zmdi-account-box"></i> Upadat Bank Information     </div>
-      <div class="card-body">
-        <form action="" method="POST">
-          {% csrf_token %} {{ form.as_p }}
-          <br />
-          <button type="submit" class="btn btn-primary">Update</button>
-          <a href="{% url 'banks-page' %}" class="btn btn-secondary">Cancel</a>
-        </form>
+{% extends "base.html" %} {% load static %} {% block content %}
+<div class="content-wrapper ">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row ">
+        <div class="col-md-8 ">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Update Bank Information</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form action = "" method="POST">
+              {% csrf_token %}
+              <div class="card-body">
+                <div class="form-group">
+                {{ form.as_p }}
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Add</button>
+                <a href="{% url 'banks-page' %}" class="btn btn-secondary">Cancel</a>
+              </div>
+            </form>
+          </div>
+          <!-- /.card -->
+
+          <!-- general form elements -->
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </div>
 {% endblock content %}
