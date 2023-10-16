@@ -11,6 +11,7 @@ urlpatterns = [
     path('update_bank/<int:bank_id>', views.updateBank, name="update-bank"),
     path('bank_detail/<int:bank_id>', views.bank_detail, name='bank-detail'),
     path('terminals/', views.terminals, name="all-terminals"),
+    path('view_terminal/<int:id>', views.view_terminal, name='view_terminal'),
     path('add-terminal/', views.addTerminal, name='add-terminal'),
     path('update_terminal/<int:terminal_id>',
          views.updateTerminal, name='update-terminal'),

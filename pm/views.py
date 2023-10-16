@@ -156,7 +156,9 @@ def terminals(request):
     except:
         raise Http404()
 
-
+@login_required
+def view_terminal(request, id):
+  return HttpResponseRedirect(reverse('index'))
 @login_required
 def addTerminal(request):
     submitted = False
