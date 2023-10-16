@@ -25,22 +25,12 @@
               {% csrf_token %}
               <div class="card-body">
                 <div class="form-group">
-                  <label >BANK NAME</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Bank Name"
-                    name="bank_name"
-                  />
+                  <label for="{{ form.bank_name.id_for_label }}">Bank Name</label>
+                    {{form.bank_name}}
                 </div>
                 <div class="form-group">
-                  <label >BANK KEY</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Bank Key"
-                    name="bank_key"
-                  />
+                  <label for="{{ form.bank_name.id_for_label }}" >BANK KEY</label>
+                  {{form.bank_key}}
                 </div>
               </div>
               <!-- /.card-body -->
