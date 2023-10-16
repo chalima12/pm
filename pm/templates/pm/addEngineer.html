@@ -28,41 +28,53 @@
     <div class="container-fluid">
       <div class="card card-default">
         <div class="card-header">
-          <h3 class="card-title">Make Scheule</h3>
+          <h3 class="card-title">Add User</h3>
         </div>
         <div class="card-body">
-          <form action="{% url 'make-schedule' %}" method="POST">
+          <form action="{% url 'add-user' %}" method="POST">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="{{ form.name.id_for_label }}">Bank Name</label>
-                    {{form.bank_name}}
+                  <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                    {{form.first_name}}
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="{{ form.terminal_name.id_for_label }}">Terminal Name</label>
-                    {{form.terminal_name}}
+                  <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                    {{form.last_name}}
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="{{ form.start_date.id_for_label }}">Start Date</label>
-                    {{form.start_date}}
+                  <label for="{{ form.gender.id_for_label }}">Gender</label>
+                    {{form.gender}}
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="{{ form.end_date.id_for_label }}">End Date</label>
-                    {{form.end_date}}
+                  <label for="{{ form.username.id_for_label }}">Username</label>
+                    {{form.username}}
                 </div>
               </div>
 
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="{{ form.description.id_for_label }}">Description</label>
-                    {{form.description}}
+                  <label for="{{ form.email.id_for_label }}">email</label>
+                    {{form.email}}
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="{{ form.phone.id_for_label }}">Phone</label>
+                    {{form.phone}}
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="{{ form.address.id_for_label }}">Address</label>
+                    {{form.address}}
                 </div>
               </div>
 
