@@ -7,19 +7,6 @@ class TerminalForm(forms.ModelForm):
         model = Terminal
         fields = ['bank_name', 'bank_district', 'bank_branch', 'moti_district', 'tid',
                   'terminal_name', 'serial_number', 'model', 'disspenser_type', 'city', 'location']
-        labels: {
-            'bank_name': 'Bank Name',
-            'bank_district': 'Bank District',
-            'bank_branch': 'Bank Branch',
-            'moti_district': 'Moti District',
-            'tid': 'Terminal ID',
-            'terminal_name': 'Termianl Name',
-            'serial_number': 'Serial Number',
-            'model': 'Termianl Model',
-            'disspenser_type': 'Dispenser Type',
-            'city': 'City',
-            'location': 'Location'
-        }
         widgets = {
             'bank_name': forms.Select(attrs={'class': 'form-control'}),
             'bank_district': forms.TextInput(attrs={'class': 'form-control'}),

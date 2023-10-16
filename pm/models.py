@@ -71,6 +71,7 @@ class Bank(models.Model):
     bank_name = models.CharField(max_length=50,null=True, blank=True)
     bank_key = models.CharField(max_length=40,null=True, blank=True)
 
+    
     def __str__(self):
         return self.bank_name
 
