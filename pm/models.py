@@ -91,13 +91,17 @@ class BankBranch(models.Model):
 
 
 class Terminal(models.Model):
+    NORTH = "NR"
+    SOUTH = "SR"
+    EAST = "ER"
+    WEST = "WR"
+    CENTERAL = "CR"
     MOTI_DISTRICT = [
-        ("NR", "North"),
-        ("SR", "South"),
-        ("ER", "East"),
-        ("WR", "West"),
-        ("CR", "Centeral"),
-        ("NN", "None")
+        (NORTH, "North"),
+        (SOUTH, "South"),
+        (EAST, "East"),
+        (WEST, "West"),
+        (CENTERAL, "Centeral"),
     ]
 
     bank_name = models.ForeignKey(
@@ -149,7 +153,12 @@ class Schedule(models.Model):
     description = models.CharField(max_length=300, null=True, blank=True)
     priority = models.CharField(
         max_length=10, choices=priority_choice, blank=True, null=True)
+    material_required = models.CharField(max_length=255, null=True,blank=True)
     comment = models.CharField(max_length=255, null=True, blank=True)
+    photo = models.ImageField(
+        help_text='Photo', null=True, blank=True)
+    closed_date = models.DateTimeField(auto_now_add=True, blank=True)
+    
 
     def __str__(self) -> str:
         return str(self.terminal_name)

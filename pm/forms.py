@@ -84,12 +84,13 @@ class ScheduleForm(forms.ModelForm):
 class AssignEngineerForm(forms.ModelForm):
     class Meta:
         model = Schedule
-        fields = ['priority','assign_to','comment']
+        fields = ['priority','assign_to','material_required']
         widgets ={
             'priority':forms.Select(attrs={'class': 'form-control'}),
             'assign_to':forms.Select(attrs={'class': 'form-control'}),
-            'comment':forms.Textarea(
-                attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Comment here...'}),
+            'material_required':forms.Textarea(
+                attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Materials Used here...'}),
         
         }
+
 
