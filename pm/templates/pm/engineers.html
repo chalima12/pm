@@ -72,11 +72,66 @@
                           ><i class="nav-icon fas fa-edit"></i></a
                         >
                           <a
-                          href="#"
+                          href="{% url "view-user" user.id %}"
                           style="width: 80px"
+                          data-toggle="modal" data-target="#myModal{{user.id}}"
                           class="d-inline p-2 m-2 btn btn-block btn-outline-primary"
                           > <i class="fas fa-eye"></i>
                           </a>
+                          <!--Modal-->
+                    <div class="modal fade" id="myModal{{user.id}}">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Terminal Information</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-6">
+                          <p>Name:<strong>{{user.first_name}} {{user.last_name}}</strong> </p>
+                          <hr>
+                            </div>
+                          <div class="col-md-6">
+                            <p>Gender:<strong>{{user.gender}}</strong> </p>
+                            <hr>
+                          </div>
+                          <div class="col-md-6">
+                            <p>Email:<strong>{{user.email}}</strong> </p>
+                            <hr>
+                          </div>
+                          <div class="col-md-6">
+                            <p>Phone Number:<strong>{{user.phone}}</strong> </p>
+                            <hr>
+                          </div>
+                          <div class="col-md-6">
+                            <p>Address:<strong>{{user.address}}</strong> </p>
+                            <hr>
+                          </div>
+                          <div class="col-md-6">
+                            <p>Role:{% if user.is_staff %}
+                              <strong>Super User</strong> 
+                              {% elif user.is_moti %}
+                              <strong>Support Engineer</strong> 
+                              {% elif use.bank %}
+                              <strong>Bank User</strong> 
+                              {% endif %}</p>
+                            <hr>
+                          </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                          <button type="button" class="btn btn-default m-4" data-dismiss="modal">Close</button>
+                          
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
                       </td>
                   </tr>
                   {% endfor %}

@@ -6,10 +6,8 @@ from django.views.generic.base import RedirectView
 urlpatterns = [
     path('', views.home, name='home'),
     path('banks/', views.banks, name='banks-page'),
-    path('banks/<int:id>/', views.view_bank, name='view-bank'),
     path('addBank/', views.addBank, name='add-bank'),
     path('update_bank/<int:bank_id>', views.updateBank, name="update-bank"),
-    path('bank_detail/<int:bank_id>', views.bank_detail, name='bank-detail'),
     path('terminals/', views.terminals, name="all-terminals"),
     path('view_terminal/<int:id>', views.view_terminal, name='view_terminal'),
     path('add-terminal/', views.addTerminal, name='add-terminal'),
@@ -22,6 +20,7 @@ urlpatterns = [
     path('reports/', views.reports, name='reports'),
     path('engineers/', views.user, name='all-engineers'),
     path('add-user/',views.add_user, name="add-user"),
+    path('view-user/<int:id>', views.view_user, name='view-user'),
     path('create_schedule/', views.create_schedule, name='create_schedule'),
 
 

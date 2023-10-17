@@ -71,7 +71,8 @@ def user(request):
         "users": UsersQuerySet
     }
     return render(request, 'pm/engineers.html', context)
-
+def view_user(request, id):
+  return HttpResponseRedirect(reverse('index'))
 @login_required
 def add_user(request):
     submitted = False
@@ -98,22 +99,6 @@ def banks(request):
         return render(request, 'pm/banks.html', context)
     except:
         raise Http404()
-
-
-@login_required
-def view_bank(request, id):
-    bank = Bank.objects.get(pk=id)
-    return HttpResponseRedirect(reverse('home'), {'bank': bank})
-
-
-def bank_detail(request, bank_id):
-    bank = Bank.objects.get(pk=bank_id)
-    context = {
-        "bank": bank
-    }
-    return render(request, 'pm/bank_detail.html', context)
-
-
 @login_required
 def addBank(request):
     submitted = False
