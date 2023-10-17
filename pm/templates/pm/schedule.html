@@ -49,7 +49,8 @@
                 </thead>
                 <tbody>
                   {% for schedule  in schedules %}
-                  <tr>
+                   {% if schedule.status != "CO" %}
+                    <tr>
                     <td>{{forloop.counter}}</td>
                     <td>{{schedule.terminal_name.tid}}</td>
                     <td>{{schedule.bank_name}}</td>
@@ -98,6 +99,7 @@
                       
                       </td>
                   </tr>
+                   {% endif %}
                   {% endfor %}
                 </tbody>
                 <tfoot>
