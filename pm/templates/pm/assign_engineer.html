@@ -21,7 +21,22 @@
     <div class="container-fluid">
       <div class="card card-default">
         <div class="card-header">
-          <h3 class="card-title">Assign Engineer</h3>
+          <div class="row">
+            <div class="col-md-3">
+              <h3 class="card-title">Bank Name: <span class="h4 text-danger font-weight-bold"> </span></h3>
+            </div>
+            <div class="col-md-3">
+            <h3 class="card-title">Terminal Name: <span class="h4 text-danger font-weight-bold"> </span></h3>
+            </div>
+            <div class="col-md-3">
+            <h3 class="card-title">Terminal ID:  <span class="h4 text-danger font-weight-bold"> </span></h3>
+            </div>
+            <div class="col-md-3">
+            <h3 class="card-title">Location:  <span class="h4 text-danger font-weight-bold"> </span></h3>
+            </div>
+          </div>
+          
+          
         </div>
         <div class="card-body">
           <form action="" method="POST">
@@ -46,7 +61,11 @@
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary">Assign</button>
+            {% if schedule.assign_to %}
+            <button type="submit" class="btn btn-primary">Chenge Engineer</button>
+            {% else %}
+            <button type="submit" class="btn btn-primary">Assign Engineer</button>
+            {% endif %}
             <a href="{% url 'schedules' %}" class="btn btn-secondary">Cancel</a>
           </form>
         </div>

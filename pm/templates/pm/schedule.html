@@ -79,12 +79,25 @@
                         >
                       {% endif %}
                     </td>
-                    <td><a
-                          href=" {% url "assign-engineer" schedule.id %}"
-                          style="width: 80px"
-                          class="btn btn-block btn-outline-success"
-                          ><i class="fa">Assign</i></a
-                        ></td>
+                    <td>
+                      {% if schedule.assign_to %}
+                        <a href=" {% url "assign-engineer" schedule.id %}"
+                          style="width: 90px"
+                          class="d-inline p-2 m-2 btn btn-block btn-outline-success"
+                          ><i class="fa">Chenge</i></a>
+                        <a href="#"
+                          style="width: 90px"
+                          class="d-inline p-2 m-3 btn btn-block btn-danger"
+                          ><i class="fa">End</i></a>
+                          {% else %}
+                          <a
+                              href=" {% url "assign-engineer" schedule.id %}"
+                              style="width: 90px"
+                              class="btn btn-block btn-outline-success"
+                              ><i class="fa">Assign</i></a>
+                      {% endif %}
+                      
+                      </td>
                   </tr>
                   {% endfor %}
                 </tbody>
