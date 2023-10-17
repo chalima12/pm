@@ -81,4 +81,15 @@ class ScheduleForm(forms.ModelForm):
                 attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter description here...'}),
         }
 
+class AssignEngineerForm(forms.ModelForm):
+    class Meta:
+        model = Schedule
+        fields = ['priority','assign_to','comment']
+        widgets ={
+            'priority':forms.Select(attrs={'class': 'form-control'}),
+            'assign_to':forms.Select(attrs={'class': 'form-control'}),
+            'comment':forms.Textarea(
+                attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Comment here...'}),
         
+        }
+

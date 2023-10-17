@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 import json
 from dateutil.relativedelta import relativedelta
 from pm.models import Terminal, User, Bank, Schedule
-from pm.forms import TerminalForm, BankForm, ScheduleForm,UserForm
+from pm.forms import TerminalForm, BankForm, ScheduleForm,UserForm,AssignEngineerForm
 
 
 def login_user(request):
@@ -202,8 +202,6 @@ def schedule(request):
 
     }
     return render(request, 'pm/schedule.html', context)
-
-
 @login_required
 def makeSchedule(request):
     terminals = Terminal.objects.all()
@@ -238,6 +236,17 @@ def create_schedule(request):
 
     return render(request, 'pm/addSchedule.html', {'form': form})
 
+@login_required
+def assign_engineer(request, id):
+    if request.method == 'POST':
+        form = AssignEngineerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # messages.success(request, "Meeting schedule created successfully!")
+            return redirect('schedule')
+    else:
+        form = AssignEngineerForm()
+    return render(request, 'pm/assign_engineer.html', {'form': form})
 
 @login_required
 def reports(request):
