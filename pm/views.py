@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 import json
 from dateutil.relativedelta import relativedelta
 from pm.models import Terminal, User, Bank, Schedule
-from pm.forms import TerminalForm, BankForm, ScheduleForm,UserForm,AssignEngineerForm
+from pm.forms import TerminalForm, BankForm, ScheduleForm,UserForm,AssignEngineerForm,EndScheduleForm
 
 
 def login_user(request):
@@ -251,6 +251,22 @@ def assign_engineer(request,id):
         form = AssignEngineerForm(instance=schedule)
     context ={'form': form,'schedule':schedule}
     return render(request, 'pm/assign_engineer.html',context )
+
+@login_required
+def end_scheduled_task(request,id):
+    if request.method == 'POST':
+        schedule= Schedule.objects.get(pk=id)
+        form =EndScheduleForm(request.POST,instance=schedule)
+        if form.is_valid():
+            schedule.status = "CO"
+            form.save()
+            # messages.success(request, "Meeting schedule created successfully!")
+            return redirect('schedules')
+    else:
+        schedule= Schedule.objects.get(pk=id)
+        form = EndScheduleForm(instance=schedule)
+    context ={'form': form,'schedule':schedule}
+    return render(request, 'pm/end_schedule.html',context )
 
 @login_required
 def reports(request):

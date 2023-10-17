@@ -10,7 +10,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
-            <li class="breadcrumb-item active">Add Terminal</li>
+            <li class="breadcrumb-item active">End Your Task</li>
           </ol>
         </div>
       </div>
@@ -44,28 +44,25 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="{{ form.priority.id_for_label }}">Priority</label>
-                    {{form.priority}}
+                  <label for="{{ form.comment.id_for_label }}">Comment</label>
+                    {{form.comment}}
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="{{ form.assign_to.id_for_label }}">Assigned To</label>
-                    {{form.assign_to}}
+                  <label for="{{ form.checklist_photo.id_for_label }}">Upload CheckList</label>
+                    {{form.checklist_photo}}
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="{{ form.material_required.id_for_label }}">Material Required</label>
-                    {{form.material_required}}
+                  <label for="{{ form.closed_date.id_for_label }}">Closed Date</label>
+                    {{form.closed_date}}
                 </div>
               </div>
             </div>
-            {% if schedule.assign_to %}
-            <button type="submit" class="btn btn-primary">Chenge Engineer</button>
-            {% else %}
-            <button type="submit" class="btn btn-primary">Assign Engineer</button>
-            {% endif %}
+            
+            <button type="submit" class="btn btn-primary">End</button>
             <a href="{% url 'schedules' %}" class="btn btn-secondary">Cancel</a>
           </form>
         </div>
@@ -74,4 +71,4 @@
   </section>
 </div>
 
-{% endblock content %}      
+{% endblock content %}

@@ -154,10 +154,9 @@ class Schedule(models.Model):
     priority = models.CharField(
         max_length=10, choices=priority_choice, blank=True, null=True)
     material_required = models.CharField(max_length=255, null=True,blank=True)
-    comment = models.CharField(max_length=255, null=True, blank=True)
-    photo = models.ImageField(
-        help_text='Photo', null=True, blank=True)
-    closed_date = models.DateTimeField(auto_now_add=True, blank=True)
+    comment = models.CharField(max_length=255)
+    checklist_photo = models.ImageField(null=True, blank=True,upload_to="pm_checklist_pics/")
+    closed_date = models.DateTimeField(blank=True,null=True,default=timezone.now)
     
 
     def __str__(self) -> str:
