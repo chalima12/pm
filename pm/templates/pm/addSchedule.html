@@ -31,7 +31,7 @@
           <h3 class="card-title">Make Scheule</h3>
         </div>
         <div class="card-body">
-          <form action="{% url 'make-schedule' %}" method="POST">
+          <form action="{% url 'create_schedule' %}" method="POST">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6">

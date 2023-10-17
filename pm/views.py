@@ -202,25 +202,25 @@ def schedule(request):
 
     }
     return render(request, 'pm/schedule.html', context)
-@login_required
-def makeSchedule(request):
-    terminals = Terminal.objects.all()
-    banks = Bank.objects.all()
-    users = User.objects.all()
-    schedules = Schedule.objects.all()
-    submitted = False
-    if request.method == "POST":
-        form = ScheduleForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/make-schedule?submitted=True')
-    else:
-        form = ScheduleForm
-        if 'submitted' in request.GET:
-            submitted = True
-    context = {"form": form, "submitted": submitted, "banks": banks,
-               "users": users, "terminals": terminals, "schedules": schedules}
-    return render(request, 'pm/addSchedule.html', context)
+# @login_required
+# def makeSchedule(request):
+#     terminals = Terminal.objects.all()
+#     banks = Bank.objects.all()
+#     users = User.objects.all()
+#     schedules = Schedule.objects.all()
+#     submitted = False
+#     if request.method == "POST":
+#         form = ScheduleForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect('/make-schedule?submitted=True')
+#     else:
+#         form = ScheduleForm
+#         if 'submitted' in request.GET:
+#             submitted = True
+#     context = {"form": form, "submitted": submitted, "banks": banks,
+#                "users": users, "terminals": terminals, "schedules": schedules}
+#     return render(request, 'pm/addSchedule.html', context)
 
 
 @login_required
@@ -230,23 +230,27 @@ def create_schedule(request):
         if form.is_valid():
             form.save()
             # messages.success(request, "Meeting schedule created successfully!")
-            return redirect('schedule')
+            return redirect('schedules')
     else:
         form = ScheduleForm()
 
     return render(request, 'pm/addSchedule.html', {'form': form})
 
 @login_required
-def assign_engineer(request, id):
+def assign_engineer(request,id):
     if request.method == 'POST':
-        form = AssignEngineerForm(request.POST)
+        schedule= Schedule.objects.get(pk=id)
+        form = AssignEngineerForm(request.POST,instance=schedule)
         if form.is_valid():
+            schedule.status = "OP"
             form.save()
             # messages.success(request, "Meeting schedule created successfully!")
-            return redirect('schedule')
+            return redirect('schedules')
     else:
-        form = AssignEngineerForm()
-    return render(request, 'pm/assign_engineer.html', {'form': form})
+        schedule= Schedule.objects.get(pk=id)
+        form = AssignEngineerForm(instance=schedule)
+    context ={'form': form,'schedule':schedule}
+    return render(request, 'pm/assign_engineer.html',context )
 
 @login_required
 def reports(request):
