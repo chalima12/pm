@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.contrib import messages
 from django.http import Http404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone
 import json
-from dateutil.relativedelta import relativedelta
 from pm.models import Terminal, User, Bank, Schedule
 from pm.forms import TerminalForm, BankForm, ScheduleForm,UserForm,AssignEngineerForm,EndScheduleForm
 
@@ -32,7 +32,6 @@ def login_user(request):
     return HttpResponse(json.dumps(resp), content_type='application/json')
 
 # Logout
-
 
 def logoutuser(request):
     logout(request)
@@ -75,18 +74,15 @@ def view_user(request, id):
   return HttpResponseRedirect(reverse('index'))
 @login_required
 def add_user(request):
-    submitted = False
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
             form.save()
-            # messages.success(request, "Meeting schedule created successfully!")
-            return HttpResponseRedirect('/add-user?submitted=True')
+            messages.success(request, "New User created successfully!")
+            return redirect('all-engineers')
     else:
-        form = UserForm
-        if 'submitted' in request.GET:
-            submitted = True
-    context ={'form': form,"submitted":submitted}
+        form = UserForm()
+    context ={'form': form}
     return render(request, 'pm/addEngineer.html', context)
 @login_required
 def banks(request):
@@ -101,7 +97,6 @@ def banks(request):
         raise Http404()
 @login_required
 def addBank(request):
-    submitted = False
     if request.method == "POST":
         form = BankForm(request.POST)
         if form.is_valid():
@@ -187,26 +182,6 @@ def schedule(request):
 
     }
     return render(request, 'pm/schedule.html', context)
-# @login_required
-# def makeSchedule(request):
-#     terminals = Terminal.objects.all()
-#     banks = Bank.objects.all()
-#     users = User.objects.all()
-#     schedules = Schedule.objects.all()
-#     submitted = False
-#     if request.method == "POST":
-#         form = ScheduleForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect('/make-schedule?submitted=True')
-#     else:
-#         form = ScheduleForm
-#         if 'submitted' in request.GET:
-#             submitted = True
-#     context = {"form": form, "submitted": submitted, "banks": banks,
-#                "users": users, "terminals": terminals, "schedules": schedules}
-#     return render(request, 'pm/addSchedule.html', context)
-
 
 @login_required
 def create_schedule(request):
@@ -214,7 +189,7 @@ def create_schedule(request):
         form = ScheduleForm(request.POST)
         if form.is_valid():
             form.save()
-            # messages.success(request, "Meeting schedule created successfully!")
+            messages.success(request, "Schedule created successfully!")
             return redirect('schedules')
     else:
         form = ScheduleForm()

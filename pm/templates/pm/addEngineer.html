@@ -1,12 +1,4 @@
 {% extends "base.html" %} {% load static %} {% block content %}
-
-{% if submitted %}
-<div class="alert alert-success" role="alert" style="margin:0 20%; padding-left: 20%;">
-  The new user added successfully.
-  <a href="{% url 'home' %}" class="alert-link">Go to Home Page.</a>
-</div>
-
-{% else %}
 <div class="content-wrapper">
   <section class="content-header">
     <div class="container-fluid">
@@ -87,4 +79,5 @@
     </div>
   </section>
 </div>
-{% endif %} {% endblock content %}
+ 
+{% endblock content %}
