@@ -60,11 +60,37 @@
                           ><i class="nav-icon fas fa-edit"></i></a
                         >
                           <a
-                          href="#"
+                          href="{% url "inactive_bank" bank.id %}"
                           style="width: 80px"
+                          data-toggle="modal" data-target="#myModal{{bank.id}}"
                           class="d-inline p-2 m-2 btn btn-block btn-outline-danger"
                           ><i class="fas fa-lock"></i>
                           </a>
+                        <div class="modal" id="myModal{{bank.id}}" tabindex="-1" aria-labelledby="myModalLabel2" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">
+                                Bank Name: {{ bank.bank_name }}
+                              </h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <p>Are you sure you want to inactive this bank?</p>
+                            </div>
+                            <div class="modal-footer">
+                              <form action="{% url 'inactive_bank' bank.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger" value="inactive">
+                              </form>
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                       </td>
                   </tr>
                   {% endfor %}

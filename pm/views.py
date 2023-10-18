@@ -123,6 +123,12 @@ def updateBank(request, bank_id):
     }
     return render(request, 'pm/update_bank.html', context)
 @login_required
+def bank_inactive(request,id):
+    if request.method == 'POST':
+        bank = Bank.objects.get(pk=id)
+        bank.is_active = 0
+    return HttpResponseRedirect(reverse('banks-page'))
+@login_required
 def terminals(request):
     try:
         terminalsQuerySet = Terminal.objects.all()
