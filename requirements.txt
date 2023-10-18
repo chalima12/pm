@@ -7,6 +7,7 @@ django-filter==23.3
 djangorestframework==3.14.0
 filelock==3.12.4
 Markdown==3.4.4
+Pillow==10.0.1
 pipenv==2023.9.8
 platformdirs==3.10.0
 python-dateutil==2.8.2
