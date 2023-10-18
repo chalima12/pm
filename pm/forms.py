@@ -1,5 +1,5 @@
 from django import forms
-from pm.models import Terminal, Bank, User, BankBranch, Schedule
+from pm.models import Terminal, Bank, User, Schedule
 
 
 class TerminalForm(forms.ModelForm):
@@ -52,13 +52,6 @@ class UserForm(forms.ModelForm):
             'phone':forms.TextInput(attrs={'class': 'form-control'}),
             'address':forms.TextInput(attrs={'class': 'form-control'})
         }
-
-
-class BankBranchForm(forms.ModelForm):
-    class Meta:
-        model = BankBranch
-        fields = "__all__"
-
 
 class ScheduleForm(forms.ModelForm):
     class Meta:

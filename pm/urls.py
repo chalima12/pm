@@ -1,8 +1,5 @@
 from . import views
-from django.contrib import admin
-from django.contrib.auth import views as auth_views
 from django.urls import path
-from django.views.generic.base import RedirectView
 urlpatterns = [
     path('', views.home, name='home'),
     path('banks/', views.banks, name='banks-page'),
@@ -15,11 +12,12 @@ urlpatterns = [
          views.updateTerminal, name='update-terminal'),
     path('schedules/', views.schedule, name='schedules'),
     # path('make-schedule/', views.makeSchedule, name='make-schedule'),
-    path('assign_engineer/<int:id>',views.assign_engineer, name='assign-engineer'),
-    path('end_scheduled_task/<int:id>',views.end_scheduled_task,name='end-task'),
+    path('assign_engineer/<int:id>', views.assign_engineer, name='assign-engineer'),
+    path('end_scheduled_task/<int:id>',
+         views.end_scheduled_task, name='end-task'),
     path('reports/', views.reports, name='reports'),
     path('engineers/', views.user, name='all-engineers'),
-    path('add-user/',views.add_user, name="add-user"),
+    path('add-user/', views.add_user, name="add-user"),
     path('view-user/<int:id>', views.view_user, name='view-user'),
     path('create_schedule/', views.create_schedule, name='create_schedule'),
 
