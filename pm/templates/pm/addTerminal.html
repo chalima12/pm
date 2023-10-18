@@ -1,12 +1,4 @@
 {% extends "base.html" %} {% load static %} {% block content %}
-<h3 class="text-center m-4">Add Terminal</h3>
-{% if submitted %}
-<div class="alert alert-success" role="alert" style="margin:0 20%; padding-left: 20%;">
-  The new Terminal added successfully.
-  <a href="{% url 'all-terminals' %}" class="alert-link">Go to Home Page.</a>
-</div>
-{% else %}
-<!--New Form-->
 <div class="content-wrapper">
   <section class="content-header">
     <div class="container-fluid">
@@ -44,6 +36,12 @@
                 <div class="form-group">
                   <label for="{{ form.bank_district.id_for_label }}">Bank District</label>
                     {{form.bank_district}}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="{{ form.bank_branch.id_for_label }}">Bank Branch</label>
+                    {{form.bank_branch}}
                 </div>
               </div>
               <div class="col-md-6">
@@ -105,5 +103,5 @@
     </div>
   </section>
 </div>
-{% endif %} {% endblock content %}
+{% endblock content %}
 

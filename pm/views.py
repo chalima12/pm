@@ -101,12 +101,11 @@ def addBank(request):
         form = BankForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/addBank?submitted=True')
+            messages.success(request,"New Bank Add Successfully!")
+            return redirect('banks-page')
     else:
-        form = BankForm
-        if 'submitted' in request.GET:
-            submitted = True
-    context = {"form": form, "submitted": submitted}
+        form = BankForm()
+    context = {"form": form}
     return render(request, 'pm/addBank.html', context)
 
 
@@ -116,14 +115,13 @@ def updateBank(request, bank_id):
     form = BankForm(request.POST or None, instance=bank)
     if form.is_valid():
         form.save()
+        messages.info(request, "Updated Successfully!")
         return redirect('banks-page')
     context = {
         'bank': bank,
         'form': form,
     }
     return render(request, 'pm/update_bank.html', context)
-
-
 @login_required
 def terminals(request):
     try:
@@ -138,20 +136,18 @@ def terminals(request):
 
 @login_required
 def view_terminal(request, id):
-  return HttpResponseRedirect(reverse('index'))
+  return HttpResponseRedirect(reverse('all-terminals'))
 @login_required
 def addTerminal(request):
-    submitted = False
     if request.method == "POST":
         form = TerminalForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/add-terminal?submitted=True')
+            messages.success(request,"New Terminals Add Successfully!")
+            return redirect('all-terminals')
     else:
-        form = TerminalForm
-        if 'submitted' in request.GET:
-            submitted = True
-    context = {"form": form, "submitted": submitted}
+        form = TerminalForm()
+    context = {"form": form}
     return render(request, 'pm/addTerminal.html', context)
 
 

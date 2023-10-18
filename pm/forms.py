@@ -20,7 +20,6 @@ class TerminalForm(forms.ModelForm):
             'city': forms.TextInput(attrs={'class': 'form-control'}),
             'location': forms.TextInput(attrs={'class': 'form-control'})
 
-
         }
 
 
