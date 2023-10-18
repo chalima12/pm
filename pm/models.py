@@ -71,24 +71,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Bank(models.Model):
     bank_name = models.CharField(max_length=50, null=True, blank=True)
     bank_key = models.CharField(max_length=40, null=True, blank=True)
+    is_active = models.BooleanField(default=True, null=True, blank=True)
+
 
     def __str__(self):
         return self.bank_name
-
-
-class BankBranch(models.Model):
-    bank_name = models.ForeignKey(
-        Bank, on_delete=models.PROTECT, null=True, blank=True)
-    region = models.CharField(
-        max_length=2, choices=REGION_CHIOCES, null=True, blank=True)
-    district = models.CharField(max_length=30, null=True, blank=True)
-    branch_name = models.CharField(max_length=255, null=True, blank=True)
-    branch_key = models.CharField(max_length=50, null=True, blank=True)
-    location = models.CharField(max_length=255, null=True, blank=True)
-
-    def __str__(self):
-        return self.baranch_name
-
 
 class Terminal(models.Model):
     NORTH = "NR"
