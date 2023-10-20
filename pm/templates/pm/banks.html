@@ -50,9 +50,16 @@
                     <td>{{forloop.counter}}</td>
                     <td>{{bank.bank_name}}</td>
                     <td>{{bank.bank_key}}</td>
-                    <td><span class="badge badge-success" style="width: 90px"
-                          >Active</span
-                        ></td>
+                    <td>{% if bank.is_active %}
+                        <span class="badge badge-success" style="width: 90px"
+                          ><b>Active</b></span
+                        >
+                       {% else %}
+                        <span class="badge badge-danger" style="width: 90px"
+                          ><b>InActive</b></span
+                        >
+                        {% endif %}</td>
+                        </td>
                     <td><a
                           href="{% url "update-bank" bank.id %}"
                           style="width: 80px"
