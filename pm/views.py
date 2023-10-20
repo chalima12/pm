@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone
 import json
 from pm.models import Terminal, User, Bank, Schedule
-from pm.forms import TerminalForm, BankForm, ScheduleForm,UserForm,AssignEngineerForm,EndScheduleForm
+from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm
 
 
 def login_user(request):
@@ -33,6 +33,7 @@ def login_user(request):
 
 # Logout
 
+
 def logoutuser(request):
     logout(request)
     return redirect('/')
@@ -44,7 +45,7 @@ def home(request):
     banksQuerySet = Bank.objects.all()
     numOfBanks = Bank.objects.all().count()
     numOfUsers = User.objects.all().count()
-    numberofTerminals= Terminal.objects.all().count()
+    numberofTerminals = Terminal.objects.all().count()
     pendingTerminals = Schedule.objects.filter(status="PE").count()
     # cleanedTerminals = Schedule.objects.filter(status="CO").count()
     context = {
@@ -58,6 +59,8 @@ def home(request):
         "pendingTerminals": pendingTerminals
     }
     return render(request, "pm/index.html", context)
+
+
 @login_required
 def user(request):
     UsersQuerySet = User.objects.all()
@@ -66,8 +69,12 @@ def user(request):
         "users": UsersQuerySet
     }
     return render(request, 'pm/engineers.html', context)
+
+
 def view_user(request, id):
-  return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('index'))
+
+
 @login_required
 def add_user(request):
     if request.method == 'POST':
@@ -78,8 +85,10 @@ def add_user(request):
             return redirect('all-engineers')
     else:
         form = UserForm()
-    context ={'form': form}
+    context = {'form': form}
     return render(request, 'pm/addEngineer.html', context)
+
+
 @login_required
 def banks(request):
     try:
@@ -91,13 +100,15 @@ def banks(request):
         return render(request, 'pm/banks.html', context)
     except:
         raise Http404()
+
+
 @login_required
 def addBank(request):
     if request.method == "POST":
         form = BankForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request,"New Bank Add Successfully!")
+            messages.success(request, "New Bank Add Successfully!")
             return redirect('banks-page')
     else:
         form = BankForm()
@@ -118,17 +129,23 @@ def updateBank(request, bank_id):
         'form': form,
     }
     return render(request, 'pm/update_bank.html', context)
+
+
 @login_required
-def inactive_bank(request,bank_id):
+def deactivate_bank(request, bank_id):
     bank = Bank.objects.get(pk=bank_id)
     bank.is_active = False
     bank.save()
     return HttpResponseRedirect(reverse('banks-page'))
-def active_bank(request,bank_id):
+
+
+def activate_bank(request, bank_id):
     bank = Bank.objects.get(pk=bank_id)
     bank.is_active = True
     bank.save()
     return HttpResponseRedirect(reverse('banks-page'))
+
+
 @login_required
 def terminals(request):
     try:
@@ -141,16 +158,19 @@ def terminals(request):
     except:
         raise Http404()
 
+
 @login_required
 def view_terminal(request, id):
-  return HttpResponseRedirect(reverse('all-terminals'))
+    return HttpResponseRedirect(reverse('all-terminals'))
+
+
 @login_required
 def addTerminal(request):
     if request.method == "POST":
         form = TerminalForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request,"New Terminals Add Successfully!")
+            messages.success(request, "New Terminals Add Successfully!")
             return redirect('all-terminals')
     else:
         form = TerminalForm()
@@ -184,6 +204,7 @@ def schedule(request):
     }
     return render(request, 'pm/schedule.html', context)
 
+
 @login_required
 def create_schedule(request):
     if request.method == 'POST':
@@ -197,37 +218,40 @@ def create_schedule(request):
 
     return render(request, 'pm/addSchedule.html', {'form': form})
 
+
 @login_required
-def assign_engineer(request,id):
+def assign_engineer(request, id):
     if request.method == 'POST':
-        schedule= Schedule.objects.get(pk=id)
-        form = AssignEngineerForm(request.POST,instance=schedule)
+        schedule = Schedule.objects.get(pk=id)
+        form = AssignEngineerForm(request.POST, instance=schedule)
         if form.is_valid():
             schedule.status = "OP"
             form.save()
             messages.success(request, "Engineer Assigned successfully!")
             return redirect('schedules')
     else:
-        schedule= Schedule.objects.get(pk=id)
+        schedule = Schedule.objects.get(pk=id)
         form = AssignEngineerForm(instance=schedule)
-    context ={'form': form,'schedule':schedule}
-    return render(request, 'pm/assign_engineer.html',context )
+    context = {'form': form, 'schedule': schedule}
+    return render(request, 'pm/assign_engineer.html', context)
+
 
 @login_required
-def end_scheduled_task(request,id):
+def end_scheduled_task(request, id):
     if request.method == 'POST':
-        schedule= Schedule.objects.get(pk=id)
-        form =EndScheduleForm(request.POST,instance=schedule)
+        schedule = Schedule.objects.get(pk=id)
+        form = EndScheduleForm(request.POST, instance=schedule)
         if form.is_valid():
             schedule.status = "CO"
             form.save()
             messages.success(request, "Chenge Updated successfully!")
             return redirect('schedules')
     else:
-        schedule= Schedule.objects.get(pk=id)
+        schedule = Schedule.objects.get(pk=id)
         form = EndScheduleForm(instance=schedule)
-    context ={'form': form,'schedule':schedule}
-    return render(request, 'pm/end_schedule.html',context )
+    context = {'form': form, 'schedule': schedule}
+    return render(request, 'pm/end_schedule.html', context)
+
 
 @login_required
 def reports(request):

@@ -56,7 +56,7 @@
                     <td>{{schedule.bank_name}}</td>
                     <td>{{schedule.terminal_name}}</td>
                     <!-- <td>{{schedule.start_date|date:'Y-m-d H:i:s'}}</td> -->
-                    <td>{{schedule.end_date|date:'Y-m-d H:i:s'}}</td>
+                    <td>{{schedule.end_date|date:'Y-m-d'}}</td>
                     <td>{% if schedule.assign_to %}
                          {{schedule.assign_to.first_name}} {{schedule.assign_to.last_name}}
                          {% else %}

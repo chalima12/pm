@@ -10,7 +10,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url " home" %}">Home</a></li>
             <li class="breadcrumb-item active">Terminals</li>
           </ol>
         </div>
@@ -25,23 +25,22 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">TERMINALS</h3>
-                      <a href="{% url 'add-terminal' %}" class="btn btn-success btn-lg float-right"
-                        > <i class="fas fa-plus"></i>
-                     Add Terminal
-                </a>
+              <a href="{% url 'add-terminal' %}" class="btn btn-success btn-lg float-right"> <i class="fas fa-plus"></i>
+                Add Terminal
+              </a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
               <table id="example1" class="table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                      <th>#</th>
-                      <th>TID</th>
-                      <th>BANK Name</th>
-                      <th>TERMINAL NAME</th>
-                      <th>SERIAL NO</th>
-                      <th>LOCATION</th>
-                      <th>ACTIONS</th>
+                    <th>#</th>
+                    <th>TID</th>
+                    <th>BANK Name</th>
+                    <th>TERMINAL NAME</th>
+                    <th>SERIAL NO</th>
+                    <th>LOCATION</th>
+                    <th>ACTIONS</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -53,108 +52,97 @@
                     <td>{{terminal.terminal_name}}</td>
                     <td>{{terminal.serial_number}}</td>
                     <td>{{terminal.location}}</td>
-                    <td><a
-                          href="{% url "update-terminal" terminal.id %}"
-                          style="width: 80px"
-                          class="d-inline p-2 m-2 btn btn-block btn-outline-success"
-                          title="Edit Information"
-                          ><i class="nav-icon fas fa-edit"></i></a
-                        >
-                          <a
-                          style="width: 80px"
-                          href ="{% url "view_terminal" terminal.id %}"
-                          class="d-inline p-1 m-1 btn btn-block btn-outline-primary"
-                          data-toggle="modal" data-target="#myModal{{terminal.id}}"
-                          title = "View Details"
-                          > <i class="fas fa-eye"></i>
-                          </a>
+                    <td><a href="{% url " update-terminal" terminal.id %}" style="width: 80px"
+                        class="d-inline p-2 m-2 btn btn-block btn-outline-success" title="Edit Information"><i
+                          class="nav-icon fas fa-edit"></i></a>
+                      <a style="width: 80px" href="{% url " view_terminal" terminal.id %}"
+                        class="d-inline p-1 m-1 btn btn-block btn-outline-primary" data-toggle="modal"
+                        data-target="#myModal{{terminal.id}}" title="View Details"> <i class="fas fa-eye"></i>
+                      </a>
 
-                          <!--Modal -->
-                    <div class="modal fade" id="myModal{{terminal.id}}">
-                    <div class="modal-dialog modal-lg">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h4 class="modal-title">Terminal Information</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="row">
-                            
-                            <div class="col-md-6">
-                          <p>Bank Name:<strong>{{terminal.bank_name}}</strong> </p>
-                          <hr>
+                      <!--Modal -->
+                      <div class="modal fade" id="myModal{{terminal.id}}">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Terminal Information</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
                             </div>
-                          <div class="col-md-6">
-                            <p>Bank District:<strong>{{terminal.bank_district}}</strong> </p>
-                            <hr>
-                          </div>
-                          <div class="col-md-6">
-                            <p>Bank Branch:<strong>{{terminal.bank_branch}}</strong> </p>
-                            <hr>
-                          </div>
-                          <div class="col-md-6">
-                            <p>Moti District:<strong>{{terminal.moti_district}}</strong> </p>
-                            <hr>
-                          </div>
-                          <div class="col-md-6">
-                            <p>Terminal ID:<strong>{{terminal.tid}}</strong> </p>
-                            <hr>
-                          </div>
-                          <div class="col-md-6">
-                            <p>Terminal Name:<strong>{{terminal.terminal_name}}</strong> </p>
-                            <hr>
-                          </div>
-                          <div class="col-md-6">
-                            <p>Serial Number:<strong>{{terminal.serial_number}}</strong> </p>
-                            <hr>
-                          </div>
-                          <div class="col-md-6">
-                            <p>Model:<strong>{{terminal.model}}</strong> </p>
-                            <hr>
-                          </div>
-                          <div class="col-md-6">
-                            <p>Disspenser Type:<strong>{{terminal.disspenser_type}}</strong> </p>
-                            <hr>
-                          </div>
-                          <div class="col-md-6">
-                            <p>City:<strong>{{terminal.city}}</strong> </p>
-                            <hr>
-                          </div>
-                          <div class="col-md-6">
-                            <p>Location:<strong>{{terminal.location}}</strong> </p>
-                            <hr>
-                          </div>
+                            <div class="modal-body">
+                              <div class="row">
 
+                                <div class="col-md-6">
+                                  <p>Bank Name:<strong>{{terminal.bank_name}}</strong> </p>
+                                  <hr>
+                                </div>
+                                <div class="col-md-6">
+                                  <p>Bank District:<strong>{{terminal.bank_district}}</strong> </p>
+                                  <hr>
+                                </div>
+                                <div class="col-md-6">
+                                  <p>Bank Branch:<strong>{{terminal.bank_branch}}</strong> </p>
+                                  <hr>
+                                </div>
+                                <div class="col-md-6">
+                                  <p>Moti District:<strong>{{terminal.moti_district}}</strong> </p>
+                                  <hr>
+                                </div>
+                                <div class="col-md-6">
+                                  <p>Terminal ID:<strong>{{terminal.tid}}</strong> </p>
+                                  <hr>
+                                </div>
+                                <div class="col-md-6">
+                                  <p>Terminal Name:<strong>{{terminal.terminal_name}}</strong> </p>
+                                  <hr>
+                                </div>
+                                <div class="col-md-6">
+                                  <p>Serial Number:<strong>{{terminal.serial_number}}</strong> </p>
+                                  <hr>
+                                </div>
+                                <div class="col-md-6">
+                                  <p>Model:<strong>{{terminal.model}}</strong> </p>
+                                  <hr>
+                                </div>
+                                <div class="col-md-6">
+                                  <p>Disspenser Type:<strong>{{terminal.disspenser_type}}</strong> </p>
+                                  <hr>
+                                </div>
+                                <div class="col-md-6">
+                                  <p>City:<strong>{{terminal.city}}</strong> </p>
+                                  <hr>
+                                </div>
+                                <div class="col-md-6">
+                                  <p>Location:<strong>{{terminal.location}}</strong> </p>
+                                  <hr>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-default m-4" data-dismiss="modal">Close</button>
 
-
+                            </div>
                           </div>
+                          <!-- /.modal-content -->
                         </div>
-                        <div class="modal-footer justify-content-between">
-                          <button type="button" class="btn btn-default m-4" data-dismiss="modal">Close</button>
-                          
-                        </div>
+                        <!-- /.modal-dialog -->
                       </div>
-                      <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                  </div>
-                  <!-- /.modal -->
+                      <!-- /.modal -->
 
-                      </td>
+                    </td>
                   </tr>
                   {% endfor %}
                 </tbody>
                 <tfoot>
                   <tr>
-                      <th>#</th>
-                      <th>TID</th>
-                      <th>BANK Name</th>
-                      <th>TERMINAL NAME</th>
-                      <th>SERIAL NO</th>
-                      <th>LOCATION</th>
-                      <th>ACTIONS</th>
+                    <th>#</th>
+                    <th>TID</th>
+                    <th>BANK Name</th>
+                    <th>TERMINAL NAME</th>
+                    <th>SERIAL NO</th>
+                    <th>LOCATION</th>
+                    <th>ACTIONS</th>
                   </tr>
                 </tfoot>
               </table>
