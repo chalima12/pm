@@ -47,6 +47,7 @@ def home(request):
     numOfUsers = User.objects.all().count()
     numberofTerminals = Terminal.objects.all().count()
     pendingTerminals = Schedule.objects.filter(status="PE").count()
+    pendingLists = Schedule.objects.filter(status = "PE").all()
     # cleanedTerminals = Schedule.objects.filter(status="CO").count()
     context = {
         "company": "moti Usering PLC",
@@ -56,7 +57,8 @@ def home(request):
         'numOfBanks': numOfBanks,
         'numOfUsers': numOfUsers,
         'numberofTerminals': numberofTerminals,
-        "pendingTerminals": pendingTerminals
+        "pendingTerminals": pendingTerminals,
+        "pendingLists":pendingLists
     }
     return render(request, "pm/index.html", context)
 
@@ -148,15 +150,13 @@ def activate_bank(request, bank_id):
 
 @login_required
 def terminals(request):
-    try:
         terminalsQuerySet = Terminal.objects.all()
         context = {
             "title": "Terminals",
             "terminals": terminalsQuerySet,
         }
         return render(request, 'pm/terminals.html', context)
-    except:
-        raise Http404()
+   
 
 
 @login_required
