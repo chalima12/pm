@@ -40,7 +40,6 @@ def logoutuser(request):
 
 @login_required
 def home(request):
-
     terminalsQuerySet = Terminal.objects.all().order_by('tid')[:10]
     banksQuerySet = Bank.objects.all()
     numOfBanks = Bank.objects.all().count()
@@ -59,9 +58,6 @@ def home(request):
         "pendingTerminals": pendingTerminals
     }
     return render(request, "pm/index.html", context)
-    # Automatically find 404.html file in golobal templates
-
-
 @login_required
 def user(request):
     UsersQuerySet = User.objects.all()
@@ -126,7 +122,8 @@ def updateBank(request, bank_id):
 def bank_inactive(request,id):
     if request.method == 'POST':
         bank = Bank.objects.get(pk=id)
-        bank.is_active = 0
+        bank.is_active = False
+        bank.save()
     return HttpResponseRedirect(reverse('banks-page'))
 @login_required
 def terminals(request):
@@ -180,8 +177,6 @@ def schedule(request):
     context = {
         "title": "Scheduled ATMS",
         "schedules": scheduleQuerySet,
-
-
     }
     return render(request, 'pm/schedule.html', context)
 
@@ -206,7 +201,7 @@ def assign_engineer(request,id):
         if form.is_valid():
             schedule.status = "OP"
             form.save()
-            # messages.success(request, "Meeting schedule created successfully!")
+            messages.success(request, "Engineer Assigned successfully!")
             return redirect('schedules')
     else:
         schedule= Schedule.objects.get(pk=id)
@@ -222,7 +217,7 @@ def end_scheduled_task(request,id):
         if form.is_valid():
             schedule.status = "CO"
             form.save()
-            # messages.success(request, "Meeting schedule created successfully!")
+            messages.success(request, "Chenge Updated successfully!")
             return redirect('schedules')
     else:
         schedule= Schedule.objects.get(pk=id)
