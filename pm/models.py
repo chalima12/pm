@@ -76,6 +76,8 @@ class Bank(models.Model):
 
     def __str__(self):
         return self.bank_name
+    class Meta:
+        ordering = ['bank_name']
 
 class Terminal(models.Model):
     NORTH = "NR"
