@@ -1,10 +1,6 @@
 from django.contrib import admin
 from pm.models import Bank,Schedule,Terminal,User
 
-# admin.site.register(Bank)
-# admin.site.register(User)
-# admin.site.register(Terminal)
-# admin.site.register(Schedule)
 @admin.register(Bank)
 class BankAdmin(admin.ModelAdmin):
     list_display =['bank_name','bank_key']
