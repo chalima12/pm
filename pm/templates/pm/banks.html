@@ -64,7 +64,8 @@
                           href="{% url "update-bank" bank.id %}"
                           style="width: 80px"
                           class="d-inline p-2 m-2 btn btn-block btn-outline-success"
-                          ><i class="nav-icon fas fa-edit"></i></a
+                          title ="Edit bank Information"
+                          ><i class="nav-icon fas fa-edit" ></i></a
                         >
                        {% if bank.is_active %}
                           <a
@@ -72,15 +73,17 @@
                           style="width: 80px"
                           data-toggle="modal" data-target="#myModal{{bank.id}}"
                           class="d-inline p-2 m-2 btn btn-block btn-outline-danger"
-                          ><i class="fas fa-lock"></i>
+                          title="InActive Bank"
+                          ><i class="fas fa-lock" ></i>
                           </a>
                           {% else %}
                             <a
                           href="{% url "active-bank" bank.id %}"
                           style="width: 80px"
                           data-toggle="modal" data-target="#myModal{{bank.id}}"
-                          class="d-inline p-2 m-2 btn btn-block btn-outline-danger"
-                          ><i class="fas fa-lock-open"></i>
+                          class="d-inline p-2 m-2 btn btn-block btn-outline-success"
+                          title ="Active bank"
+                          ><i class="fas fa-lock-open" ></i>
                           </a>
                        {% endif %}
                 <div class="modal fade" id="myModal{{bank.id}}">
