@@ -139,7 +139,7 @@ class Schedule(models.Model):
         max_length=10, choices=status_choices, default=PENDING)
     description = models.CharField(max_length=300, null=True, blank=True)
     priority = models.CharField(
-        max_length=10, choices=priority_choice, blank=True, null=True)
+        max_length=10, choices=priority_choice)
     material_required = models.CharField(max_length=255, null=True,blank=True)
     comment = models.CharField(max_length=255)
     checklist_photo = models.ImageField(null=True, blank=True,upload_to="pm_checklist_pics/")

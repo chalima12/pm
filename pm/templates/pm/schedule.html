@@ -40,8 +40,9 @@
                     <th>TID</th>
                     <th>BANK NAME</th>
                     <th>TERMINAL NAME</th>
-                    <th>START DATE</th>
+                    <!--<th>START DATE</th>-->
                     <th>END DATE</th>
+                    <th>ASSIGNED TO</th>
                     <th>REMAINING DAY</th>
                     <th>STATUS</th>
                     <th>ACTIONS</th>
@@ -49,14 +50,19 @@
                 </thead>
                 <tbody>
                   {% for schedule  in schedules %}
-                   {% if schedule.status != "CO" %}
                     <tr>
                     <td>{{forloop.counter}}</td>
                     <td>{{schedule.terminal_name.tid}}</td>
                     <td>{{schedule.bank_name}}</td>
                     <td>{{schedule.terminal_name}}</td>
-                    <td>{{schedule.start_date|date:'Y-m-d H:i:s'}}</td>
+                    <!-- <td>{{schedule.start_date|date:'Y-m-d H:i:s'}}</td> -->
                     <td>{{schedule.end_date|date:'Y-m-d H:i:s'}}</td>
+                    <td>{% if schedule.assign_to %}
+                         {{schedule.assign_to.first_name}} {{schedule.assign_to.last_name}}
+                         {% else %}
+                         <b>Not Assigned Yet</b>
+                      {% endif %}
+                    </td>
                     <td>
                       {% if schedule.remaining_day < 3%}
                         <span class="badge badge-danger" style="width: 90px"><b>{{schedule.remaining_day}} Days</b></span>
@@ -75,12 +81,15 @@
                           ><b>Onprogress</b></span>
                           {% elif schedule.status == "CO" %}
                           <span class="badge badge-success" style="width: 90px"
-                          ><b>Completed</b></span
-                        >
+                          ><b>Completed</b></span>
                       {% endif %}
                     </td>
                     <td>
-                      {% if schedule.assign_to %}
+                     {% if schedule.status == "CO" %}
+                            <span class="badge badge-success" style="width: 90px"
+                          ><b>Completed</b></span>
+                     {% else %}
+                          {% if schedule.assign_to %}
                         <a href=" {% url "assign-engineer" schedule.id %}"
                           style="width: 90px"
                           class="d-inline p-2 m-2 btn btn-block btn-outline-success"
@@ -96,10 +105,10 @@
                               class="btn btn-block btn-outline-success"
                               ><i class="fa">Assign</i></a>
                       {% endif %}
+                     {% endif %}
                       
                       </td>
                   </tr>
-                   {% endif %}
                   {% endfor %}
                 </tbody>
                 <tfoot>
@@ -108,8 +117,9 @@
                     <th>TID</th>
                     <th>BANK NAME</th>
                     <th>TERMINAL NAME</th>
-                    <th>START DATE</th>
+                     <!--<th>START DATE</th>-->
                     <th>END DATE</th>
+                    <th>ASSIGNED TO</th>
                     <th>REMAINING DAY</th>
                     <th>STATUS</th>
                     <th>ACTIONS</th>
