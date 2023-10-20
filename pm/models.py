@@ -134,7 +134,7 @@ class Schedule(models.Model):
     end_date = models.DateTimeField(
         auto_now_add=False, editable=True)
     assign_to = models.ForeignKey(
-        User, on_delete=models.PROTECT)
+        User, on_delete=models.PROTECT,null=True, blank=True)
     status = models.CharField(
         max_length=10, choices=status_choices, default=PENDING)
     description = models.CharField(max_length=300, null=True, blank=True)
