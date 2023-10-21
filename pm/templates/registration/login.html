@@ -17,9 +17,9 @@
   <link rel="stylesheet" href="{% static "dist/css/adminlte.min.css" %}">
 </head>
 <body class="hold-transition login-page">
-<div class="login-box">
+<div class="login-box" >
   <!-- /.login-logo -->
-  <div class="card card-outline card-primary">
+  <div class="card card-outline card-success">
     <div class="card-header text-center">
       <a href="https://www.motiengineering.com/" class="h1"><b>Moti Engineering |</b>PM Portal</a>
     </div>
@@ -28,15 +28,17 @@
 
       <form action="" method="post">
         {% csrf_token %}
-        
-        {{form.as_p}}
-        <div class="row">
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        <div class="row px-4 ">
+          <div class = "col-9">
+              {{form.as_p}}
           </div>
           <!-- /.col -->
+         
+          <!-- /.col -->
         </div>
+         <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block" style="background-color: rgb(114, 231, 141);color: black;">Sign In</button>
+          </div>
       </form>
     </div>
     <!-- /.card-body -->
