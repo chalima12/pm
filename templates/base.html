@@ -87,7 +87,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
               <i class="far fa-comments"></i>
-              <span class="badge badge-danger navbar-badge">3</span>
+              <span class="badge badge-warning navbar-badge">10</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <a href="#" class="dropdown-item">
@@ -162,30 +162,30 @@
           <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
               <i class="far fa-bell"></i>
-              <span class="badge badge-warning navbar-badge">15</span>
+              <span class="badge badge-danger navbar-badge">{{allSchedule}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <span class="dropdown-item dropdown-header"
-                >15 Notifications</span
+                > </span
               >
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="fas fa-envelope mr-2"></i> 4 new messages
-                <span class="float-right text-muted text-sm">3 mins</span>
+              <a href="#" class="dropdown-item text-danger">
+                <span class ="">Pending Schedule</span>
+                <span class="float-right  text-lg text-danger">{{pendingSchedule}}</span>
+              </a>
+              <div class="dropdown-divide"></div>
+              <a href="#" class="dropdown-item text-warning">
+                <span>OnProgress Schedule</span>
+                <span class="float-right text-lg text-warning">{{onprogressSchedule}}</span>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="fas fa-users mr-2"></i> 8 friend requests
-                <span class="float-right text-muted text-sm">12 hours</span>
+              <a href="#" class="dropdown-item text-success">
+                <span>Completed Schedule</span> 
+                <span class="float-right text-lg text-success">{{commpletedSchedule}}</span>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="fas fa-file mr-2"></i> 3 new reports
-                <span class="float-right text-muted text-sm">2 days</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item dropdown-footer"
-                >See All Notifications</a
+              <a href="{% url "schedules" %}" class="dropdown-item dropdown-footer"
+                >See All  </a
               >
             </div>
           </li>
@@ -233,7 +233,7 @@
               data-accordion="false"
             >
               <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+              with font-awesome or any other icon font library -->
               <li class="nav-item menu-open">
                 <a href="{% url 'home' %}" class="nav-link active">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -249,7 +249,7 @@
 
               <li class="nav-item">
                 <a href="{% url 'banks-page' %}" class="nav-link">
-                 <i class="nav-icon fa fa-university" aria-hidden="true"></i>
+                <i class="nav-icon fa fa-university" aria-hidden="true"></i>
                   <p>Banks</p>
                 </a>
               </li>
@@ -288,9 +288,6 @@
      
       
       {% block content %}{% endblock content %}
-    
-
-  
       <footer class="main-footer">
         <strong>
           <span
