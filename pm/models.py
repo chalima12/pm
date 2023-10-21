@@ -96,7 +96,7 @@ class Terminal(models.Model):
     bank_name = models.ForeignKey(
         Bank, on_delete=models.PROTECT,)
     bank_district = models.CharField(max_length=255, null=True, blank=True)
-    bank_branch = models.CharField(max_length=255,)
+    bank_branch = models.CharField(max_length=255,null=True,blank=True)
     moti_district = models.CharField(
         max_length=50, choices=MOTI_DISTRICT, null=True, blank=True)
     tid = models.CharField(max_length=30, null=True, blank=True)
@@ -105,7 +105,7 @@ class Terminal(models.Model):
     model = models.CharField(max_length=200, null=True, blank=True)
     disspenser_type = models.CharField(max_length=255, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)
-    location = models.CharField(max_length=255)
+    location = models.CharField(max_length=255,null=True,blank=True)
 
     def __str__(self) -> str:
         return self.terminal_name
@@ -113,10 +113,12 @@ class Terminal(models.Model):
 
 class Schedule(models.Model):
     PENDING = 'PE'
+    WAITING = "WT"
     ONPROGRESS = 'OP'
     COMPLETED = 'CO'
     status_choices = [
         (PENDING, 'Pending'),
+        (WAITING,'Waiting'),
         (ONPROGRESS, 'Onprogress'),
         (COMPLETED, 'Completed'),
     ]
@@ -129,22 +131,22 @@ class Schedule(models.Model):
         (LOW, 'Low')
         ]
     bank_name = models.ForeignKey(
-        Bank, on_delete=models.PROTECT)
-    terminal_name = models.ForeignKey(Terminal, on_delete=models.PROTECT)
+        Bank, on_delete=models.PROTECT,null=True,blank=True)
+    terminal_name = models.ForeignKey(Terminal, on_delete=models.PROTECT,null=True,blank=True)
     start_date = models.DateTimeField(
         auto_now_add=False, editable=True, null=True, blank=True)
     end_date = models.DateTimeField(
-        auto_now_add=False, editable=True)
+        auto_now_add=False, editable=True,null=True,blank=True)
     assign_to = models.ForeignKey(
         User, on_delete=models.PROTECT,null=True, blank=True)
     status = models.CharField(
-        max_length=10, choices=status_choices, default=PENDING)
+        max_length=10, choices=status_choices, default=PENDING,null=True,blank=True)
     description = models.CharField(max_length=300, null=True, blank=True)
     priority = models.CharField(
-        max_length=10, choices=priority_choice)
+        max_length=10, choices=priority_choice,null=True,blank=True)
     material_required = models.CharField(max_length=255, null=True,blank=True)
-    comment = models.CharField(max_length=255)
-    checklist_photo = models.ImageField(null=True, blank=True,upload_to="pm_checklist_pics/")
+    comment = models.CharField(max_length=255,null=True,blank=True)
+    checklist_photo = models.FileField(null=True, blank=True,upload_to="pm_checklist_pics/")
     closed_date = models.DateTimeField(blank=True,null=True,default=timezone.now)
     
 

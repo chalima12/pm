@@ -47,7 +47,7 @@ def home(request):
     numOfUsers = User.objects.all().count()
     numberofTerminals = Terminal.objects.all().count()
     pendingTerminals = Schedule.objects.filter(status="PE").count()
-    pendingLists = Schedule.objects.filter(status = "PE").all()
+    pendingLists = Schedule.objects.filter(status="PE").all()
     # cleanedTerminals = Schedule.objects.filter(status="CO").count()
     context = {
         "company": "moti Usering PLC",
@@ -58,7 +58,7 @@ def home(request):
         'numOfUsers': numOfUsers,
         'numberofTerminals': numberofTerminals,
         "pendingTerminals": pendingTerminals,
-        "pendingLists":pendingLists
+        "pendingLists": pendingLists
     }
     return render(request, "pm/index.html", context)
 
@@ -150,13 +150,12 @@ def activate_bank(request, bank_id):
 
 @login_required
 def terminals(request):
-        terminalsQuerySet = Terminal.objects.all()
-        context = {
-            "title": "Terminals",
-            "terminals": terminalsQuerySet,
-        }
-        return render(request, 'pm/terminals.html', context)
-   
+    terminalsQuerySet = Terminal.objects.all()
+    context = {
+        "title": "Terminals",
+        "terminals": terminalsQuerySet,
+    }
+    return render(request, 'pm/terminals.html', context)
 
 
 @login_required
@@ -240,7 +239,7 @@ def assign_engineer(request, id):
 def end_scheduled_task(request, id):
     if request.method == 'POST':
         schedule = Schedule.objects.get(pk=id)
-        form = EndScheduleForm(request.POST, instance=schedule)
+        form = EndScheduleForm(request.POST, request.FILES, instance=schedule)
         if form.is_valid():
             schedule.status = "CO"
             form.save()

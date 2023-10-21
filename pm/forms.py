@@ -91,7 +91,7 @@ class EndScheduleForm(forms.ModelForm):
         fields = ['comment','checklist_photo','closed_date']
         widgets ={
             'comment':forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Comment here...'}),
-            'checklist_photo':forms.ClearableFileInput(attrs={'class': 'form-control',}),
+            'checklist_photo':forms.FileInput(attrs={'class': 'form-control',}),
             'closed_date':forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
 
         }
