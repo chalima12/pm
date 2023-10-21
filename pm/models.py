@@ -94,7 +94,7 @@ class Terminal(models.Model):
     ]
 
     bank_name = models.ForeignKey(
-        Bank, on_delete=models.PROTECT,)
+        Bank, on_delete=models.PROTECT,null=True,blank=True)
     bank_district = models.CharField(max_length=255, null=True, blank=True)
     bank_branch = models.CharField(max_length=255,null=True,blank=True)
     moti_district = models.CharField(
@@ -141,7 +141,7 @@ class Schedule(models.Model):
         User, on_delete=models.PROTECT,null=True, blank=True)
     status = models.CharField(
         max_length=10, choices=status_choices, default=PENDING,null=True,blank=True)
-    description = models.CharField(max_length=300, null=True, blank=True)
+    description = models.CharField(max_length=300,null=True, blank=True)
     priority = models.CharField(
         max_length=10, choices=priority_choice,null=True,blank=True)
     material_required = models.CharField(max_length=255, null=True,blank=True)

@@ -66,7 +66,7 @@ class ScheduleForm(forms.ModelForm):
         fields = ['bank_name', 'terminal_name', 'start_date','end_date', 'description']
         widgets = {
             'bank_name': forms.Select(attrs={'class': 'form-control'}),
-            'terminal_name': forms.Select(attrs={'class': 'form-control'}),
+            'terminal_name': forms.SelectMultiple(attrs={'class': 'form-control'}),
             'start_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
             'end_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
             'description': forms.Textarea(
