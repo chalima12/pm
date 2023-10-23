@@ -210,6 +210,7 @@ def create_schedule(request):
         form = ScheduleForm(request.POST)
         if form.is_valid():
             form.save()
+            
             messages.success(request, "Schedule created successfully!")
             return redirect('schedules')
     else:
