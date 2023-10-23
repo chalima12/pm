@@ -50,7 +50,7 @@
                 </thead>
                 <tbody>
                   {% for schedule  in schedules %}
-                    <tr>
+                    <tr data-widget="expandable-table" aria-expanded="false">
                     <td>{{forloop.counter}}</td>
                     <td>{{schedule.terminal_name.tid}}</td>
                     <td>{{schedule.bank_name}}</td>
@@ -106,9 +106,65 @@
                               ><i class="fa">Assign</i></a>
                       {% endif %}
                      {% endif %}
-                      
+                    
                       </td>
                   </tr>
+                    <tr class="expandable-body">
+                      <td colspan="5">
+                        <p>
+                          <table class="table">
+                              <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>TID</th>
+                                <th>BANK NAME</th>
+                                <th>TERMINAL NAME</th>
+                                <!--<th>START DATE</th>-->
+                                <th>END DATE</th>
+                                <th>ASSIGNED TO</th>
+                                <th>REMAINING DAY</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>@twitter</td>
+                              </tr>
+                            </tbody>
+                              <tfoot>
+                                <tr>
+                                  <th>#</th>
+                                  <th>TID</th>
+                                  <th>BANK NAME</th>
+                                  <th>TERMINAL NAME</th>
+                                  <!--<th>START DATE</th>-->
+                                  <th>END DATE</th>
+                                  <th>ASSIGNED TO</th>
+                                  <th>REMAINING DAY</th>
+                                  <th>STATUS</th>
+                                  <th>ACTIONS</th>
+                                </tr>
+                              </tfoot>
+                          </table>
+                        </p>
+                      </td>
+                    </tr>
                   {% endfor %}
                 </tbody>
                 <tfoot>
