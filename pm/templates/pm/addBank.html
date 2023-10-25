@@ -1,15 +1,4 @@
 {% extends "base.html" %} {% load static %} {% block content %}
-<h3 class="text-center m-4">Add Bank</h3>
-{% if submitted %}
-<div
-  class="alert alert-success"
-  role="alert"
-  style="margin: 0 20%; padding-left: 20%"
->
-  The new Bank added successfully.
-  <a href="{% url 'add-bank' %}" class="alert-link">Add More.</a>
-</div>
-{% else %}
 <div class="content-wrapper ">
   <section class="content">
     <div class="container-fluid">
@@ -49,4 +38,4 @@
     </div>
   </section>
 </div>
-{% endif %} {% endblock content %}
+{% endblock content %}
