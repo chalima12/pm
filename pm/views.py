@@ -278,3 +278,4 @@ def reports(request):
         "terminals":terminals
     }
     return render(request, 'pm/reports.html',context)
+
