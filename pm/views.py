@@ -90,7 +90,19 @@ def add_user(request):
     context = {'form': form}
     return render(request, 'pm/addEngineer.html', context)
 
-
+@login_required
+def edit_user(request, user_id):
+    user = User.objects.get(pk=user_id)
+    form = UserForm(request.POST or None, instance=user)
+    if form.is_valid():
+        form.save()
+        messages.info(request, "Updated Successfully!")
+        return redirect('all-engineers')
+    context = {
+        'user': user,
+        'form': form,
+    }
+    return render(request, 'pm/update_user.html', context)
 @login_required
 def banks(request):
     try:

@@ -1,7 +1,6 @@
 from django import forms
 from pm.models import Terminal, Bank, User, Schedule
 
-
 class TerminalForm(forms.ModelForm):
     class Meta:
         model = Terminal
@@ -61,6 +60,9 @@ class ScheduleForm(forms.ModelForm):
 
 
 class ScheduleForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['bank_name'].required = True
     class Meta:
         model = Schedule
         fields = ['bank_name', 'terminal_name', 'start_date','end_date', 'description']
@@ -72,7 +74,7 @@ class ScheduleForm(forms.ModelForm):
             'description': forms.Textarea(
                 attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter description here...'}),
         }
-
+    
 class AssignEngineerForm(forms.ModelForm):
     class Meta:
         model = Schedule
