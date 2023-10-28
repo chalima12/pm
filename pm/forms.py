@@ -52,20 +52,12 @@ class UserForm(forms.ModelForm):
             'address':forms.TextInput(attrs={'class': 'form-control'})
         }
 
-# class ScheduleForm(forms.ModelForm):
-#     class Meta:
-#         model = Schedule
-#         fields = ['bank_name', 'terminal_name', 'start_date',
-#                   'end_date', 'assign_to', 'status', 'description']
-
-
 class ScheduleForm(forms.ModelForm):
     terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(),widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
     class Meta:
         model = Schedule
-        fields = ['bank_name', 'terminals', 'start_date','end_date', 'description']
+        fields = ['terminals', 'start_date','end_date', 'description']
         widgets = {
-            'bank_name': forms.Select(attrs={'class': 'form-control'}),
             'start_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
             'end_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
             'description': forms.Textarea(
