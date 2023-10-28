@@ -233,7 +233,7 @@ def create_schedule(request):
                     end_date = end_date,
                     description = description,
                 )
-                messages.success(request, "Schedule created successfully!")
+                messages.success(request, "Schedules created successfully!")
                 return redirect('schedules')
     else:
         form = ScheduleForm()
