@@ -18,16 +18,7 @@
 </head>
 <body class="hold-transition login-page">
 <div class="login-box" >
-  <!-- /.login-logo -->
-          <img
-          class=""
-          src="{% static 'dist/img/logo.jfif' %}"
-          alt="AdminLTELogo"
-          height="200"
-          width="200"
-          style="  display: block;
-  margin: 0 auto;padding: 0;"
-        />
+  <h1>Moti Engineering</h1>
       </div>
   <div class="card card-outline card-success">
     <div class="card-header text-center">
@@ -38,8 +29,8 @@
 
       <form action="" method="post">
         {% csrf_token %}
-        <div class="row px-4 ">
-          <div class = "col-9">
+        <div class="row px-5 ">
+          <div class = "col-10">
               {{form.as_p}}
           </div>
           <!-- /.col -->
@@ -51,9 +42,13 @@
           </div>
       </form>
     </div>
+
     <!-- /.card-body -->
   </div>
   <!-- /.card -->
+      <div class ="card-footer text-black display-5 font-weight-bold">
+<p>THE LEADING IT & BANKING AUTOMATION SOLUTION PROVIDER IN ETHIOPIA</p>
+    </div>
 </div>
 <!-- /.login-box -->
 
