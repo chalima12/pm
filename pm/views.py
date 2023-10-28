@@ -264,25 +264,18 @@ def end_scheduled_task(request, id):
     context = {'form': form, 'schedule': schedule}
     return render(request, 'pm/end_schedule.html', context)
 
-
-
-@login_required
-class Reports:
-    def allterminals(request):
-        tQs= ''
-        terminal = request.GET.get('terminals')
-        if terminal !='' and terminal is not None:
-            tQs = Terminal.objects.all()
-        return tQs
-
+@ login_required
+def filter(request):
+    tQs= ''
+    terminal = request.GET.get('terminals')
+    if terminal !='' and terminal is not None:
+        tQs = Terminal.objects.all()
+    return tQs
 @login_required
 def reports(request):
-    report = Reports()
-    terminals = report.allterminals(request)
+    terminals = filter(request)
     context = {
         "terminals":terminals
     }
     return render(request, 'pm/reports.html',context)
 
-
-    
