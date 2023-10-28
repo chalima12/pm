@@ -221,15 +221,50 @@ def create_schedule(request):
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
         if form.is_valid():
-            form.save()
-            
-            messages.success(request, "Schedule created successfully!")
-            return redirect('schedules')
+            bank_name = form.cleaned_data['bank_name']
+            terminals =form.cleaned_data['terminals']
+            start_date = form.cleaned_data['start_date']
+            end_date = form.cleaned_data['end_date']
+            description = form.cleaned_data['description']
+
+            for terminal in terminals:
+                Schedule.objects.create(
+                    bank_name =bank_name,
+                    terminal_name = terminal,
+                    start_date = start_date,
+                    end_date = end_date,
+                    description = description,
+                )
+                messages.success(request, "Schedules created successfully!")
+                return redirect('schedules')
     else:
         form = ScheduleForm()
-
     return render(request, 'pm/addSchedule.html', {'form': form})
+# @login_required
+# def create_meeting_schedule(request):
+#     if request.method == 'POST':
+#         form = MeetingScheduleForm(request.POST)
+#         if form.is_valid():
+#             users = form.cleaned_data['users']
+#             start_date = form.cleaned_data['start_date']
+#             end_date = form.cleaned_data['end_date']
+#             remark = form.cleaned_data['remark']
 
+#             for user in users:
+#                 Meeting_Schedule.objects.create(
+#                     user=user,
+#                     start_date=start_date,
+#                     end_date=end_date,
+#                     remark=remark,
+#                     status=True
+#                 )
+
+#             messages.success(request, "Meeting schedules created successfully!")
+#             return redirect('create_meeting_schedule')
+#     else:
+#         form = MeetingScheduleForm()
+
+#     return render(request, 'meeting_schedule.html', {'form': form})
 
 @login_required
 def assign_engineer(request, id):

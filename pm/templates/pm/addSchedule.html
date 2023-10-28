@@ -23,9 +23,14 @@
           <h3 class="card-title">Make Scheule</h3>
         </div>
         <div class="card-body">
-          <form action="{% url 'create_schedule' %}" method="POST">
+          <form  method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
+              <div class="col-md-6">
+              {{ form.as_p }}
+              </div>
+            </div>
+<!--            <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="{{ form.name.id_for_label }}">Bank Name</label>
@@ -34,8 +39,8 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="{{ form.terminal_name.id_for_label }}">Terminal Name</label>
-                    {{form.terminal_name}}
+                  <label for="{{ form.terminals.id_for_label }}">Select Terminals</label>
+                    {{form.terminals}}
                 </div>
               </div>
               <div class="col-md-6">
@@ -58,7 +63,7 @@
                 </div>
               </div>
 
-            </div>
+            </div>-->
             <button type="submit" class="btn btn-primary swalDefaultSuccess">Add</button>
             <a href="{% url 'schedules' %}" class="btn btn-secondary">Cancel</a>
           </form>
