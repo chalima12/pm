@@ -221,6 +221,7 @@ def create_schedule(request):
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
         if form.is_valid():
+            
             terminals =form.cleaned_data['terminals']
             start_date = form.cleaned_data['start_date']
             end_date = form.cleaned_data['end_date']
@@ -229,10 +230,11 @@ def create_schedule(request):
             for terminal in terminals:
                 Schedule.objects.create(
                     terminal_name = terminal,
-                    start_date = start_date,
-                    end_date = end_date,
-                    description = description,
+                    start_date=start_date,
+                    end_date=end_date,
+                    description =description,
                 )
+                form.save_m2m()
                 messages.success(request, "Schedules created successfully!")
                 return redirect('schedules')
     else:
