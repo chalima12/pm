@@ -159,8 +159,8 @@
             >
               <!-- Add icons to the links using the .nav-icon class
               with font-awesome or any other icon font library -->
-              <li class="nav-item menu-open">
-                <a href="{% url 'home' %}" class="nav-link active">
+              <li class="nav-item">
+                <a href="{% url 'home' %}" class="nav-link">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>Dashboard</p>
                 </a>
@@ -237,6 +237,14 @@
     </div>
     <!-- ./wrapper -->
 
+    <script>
+      document.querySelectorAll(".nav-link").forEach((link) => {
+    if (link.href === window.location.href) {
+        link.classList.add("active");
+        link.setAttribute("aria-current", "page");
+    }
+});
+    </script>
     <!-- jQuery -->
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
     <!-- jQuery UI 1.11.4 -->
