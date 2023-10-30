@@ -120,17 +120,27 @@
                       <th>SERIAL NO</th>
                       <th>LOCATION</th>
                       <th>CITY</th>
+                      <th>REMAINING DAYS</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for terminal in terminals  %}
+                    {% for schedule in schedules  %}
                     <tr>
-                      <td>{{terminal.tid}}</td>
-                      <td>{{terminal.bank_name}}</td>
-                      <td>{{terminal.terminal_name}}</td>
-                      <td>{{terminal.serial_number}}</td>
-                      <td>{{terminal.location}}</td>
-                      <td>{{terminal.city}}</td>
+                      {% if schedule.remaining_day <= 3 %}
+                      <td> {{schedule.terminal_name.tid}}
+                      <td>{{schedule.terminal_name.bank_name}}</td>
+                      <td>{{schedule.terminal_name}}</td>
+                      <td>{{schedule.terminal_name.serial_number}}</td>
+                      <td>{{schedule.terminal_name.location}}</td>
+                      <td>{{schedule.terminal_name.city}}</td>
+                      {% if schedule.remaining_day <= 0 %}
+                      <td> <span class="badge badge-danger " style="width: 90px"
+                          ><b>{{schedule.remaining_day}}</b></span></td>
+                          {% else %}
+                         <td> <span class="badge badge-warning" style="width: 90px"
+                          ><b>{{schedule.remaining_day}}</b></span></td>
+                      {% endif %}
+                      {% endif %}
                       
                     </tr>
                   

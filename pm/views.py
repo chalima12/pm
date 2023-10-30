@@ -48,11 +48,17 @@ def home(request):
     numberofTerminals = Terminal.objects.all().count()
     pendingTerminals = Schedule.objects.filter(status="PE").count()
     pendingLists = Schedule.objects.filter(status="PE").all()
+    scheduleQuerySet = Schedule.objects.all()
+    now = datetime.now(timezone.utc)
+    remaining_day= None
+    for schedule in scheduleQuerySet:
+        schedule.remaining_day = (schedule.end_date-now).days
+    
     # cleanedTerminals = Schedule.objects.filter(status="CO").count()
     context = {
         "company": "moti Usering PLC",
         "projectName": "preventive Maintainace For ATMS",
-        "terminals": terminalsQuerySet,
+        "schedules": scheduleQuerySet,
         'banks': banksQuerySet,
         'numOfBanks': numOfBanks,
         'numOfUsers': numOfUsers,
@@ -152,7 +158,7 @@ def deactivate_bank(request, bank_id):
     bank.save()
     return HttpResponseRedirect(reverse('banks-page'))
 
-
+@login_required
 def activate_bank(request, bank_id):
     bank = Bank.objects.get(pk=bank_id)
     bank.is_active = True
@@ -234,7 +240,7 @@ def create_schedule(request):
                     end_date=end_date,
                     description =description,
                 )
-                form.save_m2m()
+        
                 messages.success(request, "Schedules created successfully!")
                 return redirect('schedules')
     else:
@@ -242,31 +248,6 @@ def create_schedule(request):
 
     return render(request, 'pm/addSchedule.html', {'form': form})
 
-# @login_required
-# def create_meeting_schedule(request):
-#     if request.method == 'POST':
-#         form = MeetingScheduleForm(request.POST)
-#         if form.is_valid():
-#             users = form.cleaned_data['users']
-#             start_date = form.cleaned_data['start_date']
-#             end_date = form.cleaned_data['end_date']
-#             remark = form.cleaned_data['remark']
-
-#             for user in users:
-#                 Meeting_Schedule.objects.create(
-#                     user=user,
-#                     start_date=start_date,
-#                     end_date=end_date,
-#                     remark=remark,
-#                     status=True
-#                 )
-
-#             messages.success(request, "Meeting schedules created successfully!")
-#             return redirect('create_meeting_schedule')
-#     else:
-#         form = MeetingScheduleForm()
-
-#     return render(request, 'meeting_schedule.html', {'form': form})
 
 @login_required
 def assign_engineer(request, id):
