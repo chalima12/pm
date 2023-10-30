@@ -1,6 +1,7 @@
 from django import forms
 from pm.models import Terminal, Bank, User, Schedule
 
+
 class TerminalForm(forms.ModelForm):
     class Meta:
         model = Terminal
@@ -35,59 +36,60 @@ class BankForm(forms.ModelForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name','last_name','gender','username','email','phone','address']
+        fields = ['first_name', 'last_name', 'gender',
+                  'username', 'email', 'phone', 'address']
         MALE = 'M'
         FEMALE = 'F'
         gender_choices = [
             (MALE, 'Male'),
             (FEMALE, 'Female'),
         ]
-        widgets ={
-            'first_name':forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name':forms.TextInput(attrs={'class': 'form-control'}),
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'gender': forms.Select(attrs={'class': 'form-control'}),
-            'username':forms.TextInput(attrs={'class': 'form-control'}),
-            'email':forms.EmailInput(attrs={'class': 'form-control'}),
-            'phone':forms.TextInput(attrs={'class': 'form-control'}),
-            'address':forms.TextInput(attrs={'class': 'form-control'})
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'address': forms.TextInput(attrs={'class': 'form-control'})
         }
-
 
 
 class ScheduleForm(forms.ModelForm):
 
-    terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(),widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
+    terminal_name = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
+    ), widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Schedule
-        fields = ['terminals', 'start_date', 'end_date', 'description']
+        fields = ['terminal_name', 'start_date', 'end_date', 'description']
         widgets = {
             'start_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
             'end_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Type your description here'}),
         }
-    
+
+
 class AssignEngineerForm(forms.ModelForm):
     class Meta:
         model = Schedule
-        fields = ['priority','assign_to','material_required']
-        widgets ={
-            'priority':forms.Select(attrs={'class': 'form-control'}),
-            'assign_to':forms.Select(attrs={'class': 'form-control'}),
-            'material_required':forms.Textarea(
+        fields = ['priority', 'assign_to', 'material_required']
+        widgets = {
+            'priority': forms.Select(attrs={'class': 'form-control'}),
+            'assign_to': forms.Select(attrs={'class': 'form-control'}),
+            'material_required': forms.Textarea(
                 attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Materials Used here...'}),
-        
+
         }
+
 
 class EndScheduleForm(forms.ModelForm):
     class Meta:
         model = Schedule
-        fields = ['comment','checklist_photo','closed_date']
-        widgets ={
-            'comment':forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Comment here...'}),
-            'checklist_photo':forms.FileInput(attrs={'class': 'form-control',}),
-            'closed_date':forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
+        fields = ['comment', 'checklist_photo', 'closed_date']
+        widgets = {
+            'comment': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Comment here...'}),
+            'checklist_photo': forms.FileInput(attrs={'class': 'form-control', }),
+            'closed_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
 
         }
-
-

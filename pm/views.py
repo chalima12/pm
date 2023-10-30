@@ -50,10 +50,10 @@ def home(request):
     pendingLists = Schedule.objects.filter(status="PE").all()
     scheduleQuerySet = Schedule.objects.all()
     now = datetime.now(timezone.utc)
-    remaining_day= None
+    remaining_day = None
     for schedule in scheduleQuerySet:
         schedule.remaining_day = (schedule.end_date-now).days
-    
+
     # cleanedTerminals = Schedule.objects.filter(status="CO").count()
     context = {
         "company": "moti Usering PLC",
@@ -96,6 +96,7 @@ def add_user(request):
     context = {'form': form}
     return render(request, 'pm/addEngineer.html', context)
 
+
 @login_required
 def edit_user(request, user_id):
     user = User.objects.get(pk=user_id)
@@ -109,6 +110,8 @@ def edit_user(request, user_id):
         'form': form,
     }
     return render(request, 'pm/update_user.html', context)
+
+
 @login_required
 def banks(request):
     try:
@@ -157,6 +160,7 @@ def deactivate_bank(request, bank_id):
     bank.is_active = False
     bank.save()
     return HttpResponseRedirect(reverse('banks-page'))
+
 
 @login_required
 def activate_bank(request, bank_id):
@@ -227,20 +231,20 @@ def create_schedule(request):
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
         if form.is_valid():
-            
-            terminals =form.cleaned_data['terminals']
+            print('valid', form)
+            terminal_name = form.cleaned_data['terminal_name']
             start_date = form.cleaned_data['start_date']
             end_date = form.cleaned_data['end_date']
             description = form.cleaned_data['description']
-
-            for terminal in terminals:
+            for terminal in list(terminal_name):
                 Schedule.objects.create(
                     terminal_name = terminal,
                     start_date=start_date,
                     end_date=end_date,
-                    description =description,
+                    description=description,
                 )
-        
+
+
                 messages.success(request, "Schedules created successfully!")
                 return redirect('schedules')
     else:
@@ -282,18 +286,20 @@ def end_scheduled_task(request, id):
     context = {'form': form, 'schedule': schedule}
     return render(request, 'pm/end_schedule.html', context)
 
+
 @ login_required
 def filter(request):
-    tQs= ''
+    tQs = ''
     terminal = request.GET.get('terminals')
-    if terminal !='' and terminal is not None:
+    if terminal != '' and terminal is not None:
         tQs = Terminal.objects.all()
     return tQs
+
+
 @login_required
 def reports(request):
     terminals = filter(request)
     context = {
-        "terminals":terminals
+        "terminals": terminals
     }
-    return render(request, 'pm/reports.html',context)
-
+    return render(request, 'pm/reports.html', context)
