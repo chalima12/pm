@@ -41,7 +41,6 @@ def logoutuser(request):
 
 @login_required
 def home(request):
-    terminalsQuerySet = Terminal.objects.all().order_by('tid')[:10]
     banksQuerySet = Bank.objects.all()
     numOfBanks = Bank.objects.all().count()
     numOfUsers = User.objects.all().count()
@@ -80,7 +79,7 @@ def user(request):
 
 
 def view_user(request, id):
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('all-engineers'))
 
 
 @login_required
