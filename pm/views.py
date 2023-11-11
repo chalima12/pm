@@ -302,3 +302,11 @@ def reports(request):
         "terminals": terminals
     }
     return render(request, 'pm/reports.html', context)
+
+@login_required
+def engineers_list(request):
+    users = User.objects.all()
+    context = {
+        "users": users
+    }
+    return render(request, 'pm/engineers_report.html',context)
