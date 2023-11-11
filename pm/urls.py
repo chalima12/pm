@@ -23,7 +23,10 @@ urlpatterns = [
 
     # Reports URL
 
-    path("report/users_list", views.engineers_list, name="engineers-list" ),
-    path("report/banks_list", views.banks_list, name="bank-list"),
-    path("report/terminals_list", views.terminals_list, name="terminals-list"),
+    path("report/users", views.engineers_list, name="engineers-list" ),
+    path("report/banks", views.banks_list, name="bank-list"),
+    path("report/terminals", views.terminals_list, name="terminals-list"),
+    path("report/schedules", views.schedule_list, name="schedules-list"),
+    
+
 ]
