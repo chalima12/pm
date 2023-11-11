@@ -326,3 +326,10 @@ def terminals_list(request):
         "terminals":terminals
     }
     return render(request, 'pm/terminals_report.html', context)
+
+def schedule_list(request):
+    schedules = Schedule.objects.all()
+    context = {
+        "schedules":schedules
+    }
+    return render(request, 'pm/schedules_report.html',context)
