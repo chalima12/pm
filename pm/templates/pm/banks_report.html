@@ -1,0 +1,139 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>List of Banks</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
+            <li class="breadcrumb-item active">Banks</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <section class="content" >
+    <div class="container-fluid" >
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Banks</h3>
+               <a href="{% url 'add-bank' %}" class="btn btn-success btn-lg float-right"
+                        > <i class="fas fa-plus"></i>
+                     Add Bank
+                </a>
+            </div>
+                  
+               
+            
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id = "example1" class="table table-bordered table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>BANK NAME</th>
+                    <th>Bank Key</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for bank  in banks %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{bank.bank_name}}</td>
+                    <td>{{bank.bank_key}}</td>
+                    <td>{% if bank.is_active %}
+                        <span class="badge badge-success" style="width: 90px"
+                          ><b>Active</b></span
+                        >
+                       {% else %}
+                        <span class="badge badge-danger" style="width: 90px"
+                          ><b>InActive</b></span
+                        >
+                        {% endif %}</td>
+                        </td>
+                    <td><a
+                          href="{% url "update-bank" bank.id %}"
+                          style="width: 80px"
+                          class="d-inline p-2 m-2 btn btn-block btn-outline-success"
+                          title ="Edit bank Information"
+                          ><i class="nav-icon fas fa-edit" ></i></a
+                        >
+                       {% if bank.is_active %}
+                          <a
+                          href="{% url "inactive_bank" bank.id %}"
+                          style="width: 80px"
+                          data-toggle="modal" data-target="#myModal{{bank.id}}"
+                          class="d-inline p-2 m-2 btn btn-block btn-outline-danger"
+                          title="Deactivate Bank"
+                          ><i class="fas fa-lock" ></i>
+                          </a>
+                          {% else %}
+                            <a
+                          href="{% url "active-bank" bank.id %}"
+                          style="width: 80px"
+                          data-toggle="modal" data-target="#myModal{{bank.id}}"
+                          class="d-inline p-2 m-2 btn btn-block btn-outline-success"
+                          title ="Activate bank"
+                          ><i class="fas fa-lock-open" ></i>
+                          </a>
+                       {% endif %}
+                <div class="modal fade" id="myModal{{bank.id}}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">{% if bank.is_active %}Deactivate <span class="text-danger">{{bank.bank_name}}</span> {% else %}Activate  <span class="text-success">{{bank.bank_name}}</span>{% endif %}</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p>Are you sure {% if bank.is_active %}Deactivate {% else %}Activate{% endif %} <strong>{{bank.bank_name}}</strong>?</p>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          {% if bank.is_active %}
+                          <a type="button" class="btn btn-danger" href="{% url "inactive_bank" bank.id %}" >Deactivate</a>
+                          {% else %}
+                          <a type="button" class="btn btn-success" href="{% url "active-bank" bank.id %}" >Activate</a>
+                          {% endif %}
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
+
+                      </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>NO</th>
+                    <th>BANK NAME</th>
+                    <th>BANK Key</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock content %}
+

@@ -23,5 +23,6 @@ urlpatterns = [
 
     # Reports URL
 
-    path("reports/users_list", views.engineers_list, name="engineers-list" )
+    path("report/users_list", views.engineers_list, name="engineers-list" ),
+    path("report/banks_list", views.banks_list, name="bank-list"),
 ]

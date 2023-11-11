@@ -303,6 +303,7 @@ def reports(request):
     }
     return render(request, 'pm/reports.html', context)
 
+# Reports View
 @login_required
 def engineers_list(request):
     users = User.objects.all()
@@ -310,3 +311,14 @@ def engineers_list(request):
         "users": users
     }
     return render(request, 'pm/engineers_report.html',context)
+
+
+def banks_list(request):
+    banks = Bank.objects.all()
+    context = {
+        "banks":banks
+    }
+    return render(request, 'pm/banks_report.html', context)
+
+def terminals_list(request):
+    terminals = Terminal.objects.all()
