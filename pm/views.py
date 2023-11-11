@@ -322,3 +322,7 @@ def banks_list(request):
 
 def terminals_list(request):
     terminals = Terminal.objects.all()
+    context = {
+        "terminals":terminals
+    }
+    return render(request, 'pm/terminals_report.html', context)

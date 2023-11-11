@@ -25,4 +25,5 @@ urlpatterns = [
 
     path("report/users_list", views.engineers_list, name="engineers-list" ),
     path("report/banks_list", views.banks_list, name="bank-list"),
+    path("report/terminals_list", views.terminals_list, name="terminals-list"),
 ]
