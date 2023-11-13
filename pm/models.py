@@ -132,7 +132,7 @@ class Schedule(models.Model):
         ]
     bank_name = models.ForeignKey(
         Bank, on_delete=models.PROTECT,null=True,blank=True)
-    terminal_name = models.ForeignKey(Terminal, on_delete=models.PROTECT,null=True,blank=True)
+    terminals = models.ManyToManyField(Terminal,blank=True)
     start_date = models.DateTimeField(
         auto_now_add=False, editable=True, null=True, blank=True)
     end_date = models.DateTimeField(
@@ -151,4 +151,4 @@ class Schedule(models.Model):
     
 
     def __str__(self) -> str:
-        return str(self.terminal_name)
+        return str(self.terminals)

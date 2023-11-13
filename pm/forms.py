@@ -57,13 +57,14 @@ class UserForm(forms.ModelForm):
 
 class ScheduleForm(forms.ModelForm):
 
-    terminal_name = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
-    ), widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
+    # terminal_name = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
+    # ),  widget=forms.SelectMultiple(attrs={'class': 'form-control'}), required=True, help_text ="Select ATMS")
 
     class Meta:
         model = Schedule
-        fields = ['terminal_name', 'start_date', 'end_date', 'description']
+        fields = ['terminals', 'start_date', 'end_date', 'description']
         widgets = {
+            'terminals':forms.SelectMultiple(attrs={'class':'select'}),
             'start_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
             'end_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Type your description here'}),
