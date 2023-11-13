@@ -55,7 +55,6 @@
                     <td>{{schedule.terminal_name.tid}}</td>
                     <td>{{schedule.terminals}}</td>
                     <td>{{schedule.terminals}}</td>
-                    <!-- <td>{{schedule.start_date|date:'Y-m-d H:i:s'}}</td> -->
                     <td>{{schedule.end_date|date:'Y-m-d'}}</td>
                     <td>{% if schedule.assign_to %}
                          {{schedule.assign_to.first_name}} {{schedule.assign_to.last_name}}
@@ -82,7 +81,7 @@
                           {% elif schedule.status == "CO" %}
                           <span class="badge badge-success" style="width: 90px"
                           >
-                          <!-- <img src="{{schedule.checklist_photo.url}}" alt=""> -->
+                
                           <b>Completed</b></span>
                       {% endif %}
                     </td>

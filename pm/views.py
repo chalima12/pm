@@ -306,11 +306,19 @@ def reports(request):
 # Reports View
 @login_required
 def engineers_list(request):
-    users = User.objects.all()
-    context = {
-        "users": users
-    }
-    return render(request, 'pm/engineers_report.html',context)
+    if request.method == "POST":
+        fname = request.POST['name']
+        users = User.objects.filter(first_name =fname)
+        context = {
+            "users": users
+        }
+        return render(request, 'pm/engineers_report.html', context)
+    else:
+        users = User.objects.all()
+        context = {
+            "users": users
+        }
+        return render(request, 'pm/engineers_report.html', context)
 
 
 def banks_list(request):
