@@ -13,7 +13,7 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Schedule)
 class ScheduleAdmin(admin.ModelAdmin):
-    list_display =['bank_name','end_date','assign_to','status']
+    list_display = ['schedule_name', 'end_date', 'assign_to', 'status']
 
 @admin.register(Terminal)
 class TerminalAdmin(admin.ModelAdmin):
