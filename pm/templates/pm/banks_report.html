@@ -23,11 +23,40 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Banks</h3>
-               <a href="{% url 'add-bank' %}" class="btn btn-success btn-lg float-right"
-                        > <i class="fas fa-plus"></i>
-                     Add Bank
-                </a>
+             <form action="" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-12"> <h3 class="card-title py-4">FILTER BANKS</h3></div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">All Banks</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">Active Banks</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">InActive Banks</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="form-group col-sm-12" id="data_5">
+                  <label class="font-normalll">Select Time Range</label>
+                  <div class="input-group date col-sm-8" id="datepicker">
+                    <span class="input-group-text">
+                      <i class="fa fa-calendar"></i></span>
+                    <input type="date" class="form-control" name="txt_startdate">
+                    <span class="input-group-text">TO</span>
+                    <input type="date" class="form-control" name="txt_enddate">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-info">Generate</button>
+               </form>
             </div>
                   
                
