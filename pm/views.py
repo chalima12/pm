@@ -41,24 +41,15 @@ def logoutuser(request):
 
 @login_required
 def home(request):
-    banksQuerySet = Bank.objects.all()
     numOfBanks = Bank.objects.all().count()
     numOfUsers = User.objects.all().count()
     numberofTerminals = Terminal.objects.all().count()
     pendingTerminals = Schedule.objects.filter(status="PE").count()
     pendingLists = Schedule.objects.filter(status="PE").all()
-    scheduleQuerySet = Schedule.objects.all()
-    now = datetime.now(timezone.utc)
-    remaining_day = None
-    for schedule in scheduleQuerySet:
-        schedule.remaining_day = (schedule.end_date-now).days
-
     # cleanedTerminals = Schedule.objects.filter(status="CO").count()
     context = {
         "company": "moti Usering PLC",
         "projectName": "preventive Maintainace For ATMS",
-        "schedules": scheduleQuerySet,
-        'banks': banksQuerySet,
         'numOfBanks': numOfBanks,
         'numOfUsers': numOfUsers,
         'numberofTerminals': numberofTerminals,
@@ -230,7 +221,7 @@ def create_schedule(request):
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
         if form.is_valid():
-                form.save()
+            form.save()
             # terminal_name = form.cleaned_data['terminal_name']
             # start_date = form.cleaned_data['start_date']
             # end_date = form.cleaned_data['end_date']
@@ -243,9 +234,8 @@ def create_schedule(request):
             #         description=description,
             #     )
 
-
-                messages.success(request, "Schedules created successfully!")
-                return redirect('schedules')
+            messages.success(request, "Schedules created successfully!")
+            return redirect('schedules')
     else:
         form = ScheduleForm()
 
@@ -304,11 +294,13 @@ def reports(request):
     return render(request, 'pm/reports.html', context)
 
 # Reports View
+
+
 @login_required
 def engineers_list(request):
     if request.method == "POST":
         fname = request.POST['name']
-        users = User.objects.filter(first_name =fname)
+        users = User.objects.filter(first_name=fname)
         context = {
             "users": users
         }
@@ -324,20 +316,22 @@ def engineers_list(request):
 def banks_list(request):
     banks = Bank.objects.all()
     context = {
-        "banks":banks
+        "banks": banks
     }
     return render(request, 'pm/banks_report.html', context)
+
 
 def terminals_list(request):
     terminals = Terminal.objects.all()
     context = {
-        "terminals":terminals
+        "terminals": terminals
     }
     return render(request, 'pm/terminals_report.html', context)
+
 
 def schedule_list(request):
     schedules = Schedule.objects.all()
     context = {
-        "schedules":schedules
+        "schedules": schedules
     }
-    return render(request, 'pm/schedules_report.html',context)
+    return render(request, 'pm/schedules_report.html', context)
