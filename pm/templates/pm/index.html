@@ -91,74 +91,32 @@
         <!-- /.row -->
 
 
-</section>
+          </section>
 <div class="content">
-            <div class="row">
-          <div class="col-12">
-            <div class="card">
+      <div class="row">
+        </div>
+              <div class="card card-info">
               <div class="card-header">
-                <h3 class="card-title">List of Terminals</h3>
+                <h3 class="card-title">Schedule Report</h3>
 
                 <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <div class="input-group-append">
-                      <a href ="{% url "schedules" %}"  class="btn btn-lg">
-                       See All Schedules <i class="fas fa-arrow-circle-right text-primary icon-lg"></i>
-                    </a>
-                    </div>
-                  </div>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
                 </div>
               </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>TID</th>
-                      <th>BANK NAME</th>
-                      <th>TERMINAL NAME</th>
-                      <th>SERIAL NO</th>
-                      <th>LOCATION</th>
-                      <th>CITY</th>
-                      <th>REMAINING DAYS</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for schedule in schedules  %}
-                    <tr>
-                      {% if schedule.remaining_day <= 3 %}
-                      <td> {{schedule.terminal_name.tid}}
-                      <td>{{schedule.terminal_name.bank_name}}</td>
-                      <td>{{schedule.terminal_name}}</td>
-                      <td>{{schedule.terminal_name.serial_number}}</td>
-                      <td>{{schedule.terminal_name.location}}</td>
-                      <td>{{schedule.terminal_name.city}}</td>
-                      {% if schedule.remaining_day <= 0 %}
-                      <td> <span class="badge badge-danger " style="width: 90px"
-                          ><b>{{schedule.remaining_day}}</b></span></td>
-                          {% else %}
-                         <td> <span class="badge badge-warning" style="width: 90px"
-                          ><b>{{schedule.remaining_day}}</b></span></td>
-                      {% endif %}
-                      {% endif %}
-                      
-                    </tr>
-                  
-                    {% endfor %}
-                    
-                  </tbody>
-                </table>
+              <div class="card-body">
+                <canvas id="pieChart" style="min-height: 450px; height: 450px; max-height: 450px; max-width: 100%;"></canvas>
               </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
-          </div>
         </div>
-        <!-- Main content heare-->
-       
-        </div>
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
+     
+      </div>
     
     
   </div>
