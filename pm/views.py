@@ -50,6 +50,7 @@ def home(request):
     context = {
         "company": "moti Usering PLC",
         "projectName": "preventive Maintainace For ATMS",
+        'title':"Dashboard",
         'numOfBanks': numOfBanks,
         'numOfUsers': numOfUsers,
         'numberofTerminals': numberofTerminals,
@@ -83,7 +84,7 @@ def add_user(request):
             return redirect('all-engineers')
     else:
         form = UserForm()
-    context = {'form': form}
+    context = {'form': form, "title": "Add User"}
     return render(request, 'pm/addEngineer.html', context)
 
 
@@ -98,6 +99,7 @@ def edit_user(request, user_id):
     context = {
         'user': user,
         'form': form,
+        "title": "edit User"
     }
     return render(request, 'pm/update_user.html', context)
 
@@ -125,7 +127,7 @@ def addBank(request):
             return redirect('banks-page')
     else:
         form = BankForm()
-    context = {"form": form}
+    context = {"form": form, "title": "Add Bank"}
     return render(request, 'pm/addBank.html', context)
 
 
@@ -140,6 +142,7 @@ def updateBank(request, bank_id):
     context = {
         'bank': bank,
         'form': form,
+        "title": "Edit Bank"
     }
     return render(request, 'pm/update_bank.html', context)
 
@@ -185,7 +188,7 @@ def addTerminal(request):
             return redirect('all-terminals')
     else:
         form = TerminalForm()
-    context = {"form": form}
+    context = {"form": form, "title": "Add Terminal"}
     return render(request, 'pm/addTerminal.html', context)
 
 
@@ -199,6 +202,7 @@ def updateTerminal(request, terminal_id):
     context = {
         'bank': terminal,
         'form': form,
+        "title": "Edit Terminal"
     }
     return render(request, 'pm/update_terminal.html', context)
 
@@ -255,7 +259,10 @@ def assign_engineer(request, id):
     else:
         schedule = Schedule.objects.get(pk=id)
         form = AssignEngineerForm(instance=schedule)
-    context = {'form': form, 'schedule': schedule}
+    context = {'form': form,
+               'schedule': schedule,
+               "title": "Assign Engineer"
+               }
     return render(request, 'pm/assign_engineer.html', context)
 
 
@@ -272,7 +279,7 @@ def end_scheduled_task(request, id):
     else:
         schedule = Schedule.objects.get(pk=id)
         form = EndScheduleForm(instance=schedule)
-    context = {'form': form, 'schedule': schedule}
+    context = {'form': form, 'schedule': schedule, "title": "End task"}
     return render(request, 'pm/end_schedule.html', context)
 
 
