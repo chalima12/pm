@@ -23,15 +23,60 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-               <!-- From: <input type="date" name="fromdate"/>
-               To: <input type="date" name="todate"/>
-               <input type="submit" value="Generate"/> -->
+        
                <form action="" method="POST">
                 {% csrf_token %}
-                <input type="text" name="name"/>
-                <input type="submit" value="Generate" />
+                <div class="row">
+                  <div class="col-sm-12">Filter Users</div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">All Users</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">Engineers</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">Bank Users</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <!-- radio -->
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">Active Users</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">InActive Users</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">Super Users</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="form-group col-sm-12" id="data_5">
+                  <label class="font-normalll">Select Time Range</label>
+                  <div class="input-group date col-sm-8" id="datepicker">
+                    <span class="input-group-text">
+                      <i class="fa fa-calendar"></i></span>
+                    <input type="date" class="form-control" name="txt_startdate">
+                    <span class="input-group-text">TO</span>
+                    <input type="date" class="form-control" name="txt_enddate">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-info">Generate</button>
                </form>
             </div>
+            
             <!-- /.card-header -->
             <div class="card-body">
               <table id="example1" class="table table-bordered table-striped table-hover">
