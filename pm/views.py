@@ -356,9 +356,13 @@ def terminals_list(request):
 
 
 def schedule_list(request):
-    schedules = Schedule.objects.all()
+    all_schedules = Schedule.objects.all()
+    pending_schedules = Schedule.objects.filter(status="PE")
+    waiting_tasks = Schedule.objects.filter(status="WT")
+    onprogress_tasks = Schedule.objects.filter(status="OP")
+    completed_tasks = Schedule.objects.filter(status="CO")
     context = {
-        "schedules": schedules,
+        "schedules": all_schedules,
         "title": "Scheduls Report",
     }
     return render(request, 'pm/schedules_report.html', context)
