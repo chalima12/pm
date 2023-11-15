@@ -28,10 +28,9 @@
               <h3 class="card-title">List of Terminals To be Schedule</h3>
               <a href="{% url 'create_schedule' %}" class="btn btn-success btn-lg float-right"
                         > <i class="fas fa-plus"></i>
-                     Make Schedule
+                    Make Schedule
                 </a>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
               <table class="table table-hover">
                 <thead>
@@ -40,7 +39,6 @@
                     <th>TID</th>
                     <th>BANK NAME</th>
                     <th>TERMINAL NAME</th>
-                    <!--<th>START DATE</th>-->
                     <th>END DATE</th>
                     <th>ASSIGNED TO</th>
                     <th>REMAINING DAY</th>
@@ -52,7 +50,7 @@
                   {% for schedule  in schedules %}
                     <tr data-widget="expandable-table" aria-expanded="false">
                     <td>{{forloop.counter}}</td>
-                    <td>{{schedule.terminal_name.tid}}</td>
+                    <td>{{schedule.terminals}}</td>
                     <td>{{schedule.terminals}}</td>
                     <td>{{schedule.terminals}}</td>
                     <td>{{schedule.end_date|date:'Y-m-d'}}</td>
@@ -86,10 +84,10 @@
                       {% endif %}
                     </td>
                     <td>
-                     {% if schedule.status == "CO" %}
+                    {% if schedule.status == "CO" %}
                             <span class="badge badge-success" style="width: 90px"
                           ><b>Completed</b></span>
-                     {% else %}
+                    {% else %}
                           {% if schedule.assign_to %}
                         <a href=" {% url "assign-engineer" schedule.id %}"
                           style="width: 90px"
@@ -106,53 +104,10 @@
                               class="btn btn-block btn-outline-success"
                               ><i class="fa">Assign</i></a>
                       {% endif %}
-                     {% endif %}
+                    {% endif %}
                     
                       </td>
                   </tr>
-                    <tr class="expandable-body">
-                      <td colspan="5">
-                        <p>
-                          <table class="table">
-                              <thead>
-                              <tr>
-                                <th>#</th>
-                                <th>TID</th>
-                                <th>BANK NAME</th>
-                                <th>TERMINAL NAME</th>
-                                <th>END DATE</th>
-                                <th>ASSIGNED TO</th>
-                                <th>REMAINING DAY</th>
-                                <th>STATUS</th>
-                                <th>ACTIONS</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <!--Group Of Schedule is display Here-->
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr>
-                            </tbody>
-                              <tfoot>
-                                <tr>
-                                  <th>#</th>
-                                  <th>TID</th>
-                                  <th>BANK NAME</th>
-                                  <th>TERMINAL NAME</th>
-                                  <th>END DATE</th>
-                                  <th>ASSIGNED TO</th>
-                                  <th>REMAINING DAY</th>
-                                  <th>STATUS</th>
-                                  <th>ACTIONS</th>
-                                </tr>
-                              </tfoot>
-                          </table>
-                        </p>
-                      </td>
-                    </tr>
                   {% endfor %}
                 </tbody>
                 <tfoot>
@@ -161,7 +116,6 @@
                     <th>TID</th>
                     <th>BANK NAME</th>
                     <th>TERMINAL NAME</th>
-                     <!--<th>START DATE</th>-->
                     <th>END DATE</th>
                     <th>ASSIGNED TO</th>
                     <th>REMAINING DAY</th>
