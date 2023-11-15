@@ -66,6 +66,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return str(self.first_name) + " " + str(self.last_name)
+    class Meta:
+        ordering = ['first_name', 'last_name']
 
 
 class Bank(models.Model):
@@ -113,6 +115,9 @@ class Terminal(models.Model):
 
     def __str__(self) -> str:
         return self.terminal_name
+    
+    class Meta:
+        ordering = ['terminal_name']
 
 
 class Schedule(models.Model):
@@ -160,3 +165,5 @@ class Schedule(models.Model):
 
     def __str__(self) -> str:
         return str(self.schedule_name)
+    class Meta:
+        ordering = ['end_date']

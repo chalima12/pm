@@ -55,9 +55,9 @@
                     <td>{{schedule.terminals}}</td>
                     <td>{{schedule.end_date|date:'Y-m-d'}}</td>
                     <td>{% if schedule.assign_to %}
-                         {{schedule.assign_to.first_name}} {{schedule.assign_to.last_name}}
-                         {% else %}
-                         <b>Not Assigned Yet</b>
+                        {{schedule.assign_to.first_name}} {{schedule.assign_to.last_name}}
+                        {% else %}
+                        <b>Not Assigned Yet</b>
                       {% endif %}
                     </td>
                     <td>
