@@ -305,9 +305,17 @@ def reports(request):
 
 @login_required
 def engineers_list(request):
+    #filters 
+    all_users = User.objects.all()
+    active_users = User.objects.filter(is_active=True)
+    inactive_users = User.objects.filter(is_active = False)
+    super_users = User.objects.filter(is_staff =True)
+    engineers = User.objects.filter(is_moti =True)
+    bank_users = User.objects.filter(is_bank = True)
     if request.method == "POST":
         fname = request.POST['name']
         users = User.objects.filter(first_name=fname)
+
         context = {
             "users": users,
             "title":"Users Report",
@@ -323,9 +331,11 @@ def engineers_list(request):
 
 
 def banks_list(request):
-    banks = Bank.objects.all()
+    all_banks = Bank.objects.all()
+    active_banks = Bank.objects.filter(is_active=True)
+    inactive_banks = Bank.objects.filter(is_active=False)
     context = {
-        "banks": banks,
+        "banks": all_banks,
         "title": "Banks Report",
     }
     return render(request, 'pm/banks_report.html', context)
