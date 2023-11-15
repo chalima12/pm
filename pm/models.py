@@ -72,6 +72,8 @@ class Bank(models.Model):
     bank_name = models.CharField(max_length=50, null=True, blank=True)
     bank_key = models.CharField(max_length=40, null=True, blank=True)
     is_active = models.BooleanField(default=True, null=True, blank=True)
+    created_date = models.DateField(
+        auto_now_add=True, null=True, blank=True)
 
 
     def __str__(self):
@@ -106,6 +108,8 @@ class Terminal(models.Model):
     disspenser_type = models.CharField(max_length=255, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)
     location = models.CharField(max_length=255,null=True,blank=True)
+    created_date = models.DateField(
+        auto_now_add=True, null=True, blank=True)
 
     def __str__(self) -> str:
         return self.terminal_name
@@ -149,6 +153,8 @@ class Schedule(models.Model):
     comment = models.CharField(max_length=255,null=True,blank=True)
     checklist_photo = models.FileField(null=True, blank=True,upload_to="pm_checklist_pics/")
     closed_date = models.DateTimeField(blank=True,null=True,default=timezone.now)
+    created_date = models.DateField(
+        auto_now_add=True, null=True, blank=True)
     
 
     def __str__(self) -> str:

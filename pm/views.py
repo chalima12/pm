@@ -334,6 +334,8 @@ def banks_list(request):
     all_banks = Bank.objects.all()
     active_banks = Bank.objects.filter(is_active=True)
     inactive_banks = Bank.objects.filter(is_active=False)
+    
+        
     context = {
         "banks": all_banks,
         "title": "Banks Report",
