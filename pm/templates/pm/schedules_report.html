@@ -82,116 +82,24 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                     <!--<th>START DATE</th>-->
                     <th>END DATE</th>
                     <th>ASSIGNED TO</th>
-                    <th>REMAINING DAY</th>
                     <th>STATUS</th>
-                    <th>ACTIONS</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
                   {% for schedule  in schedules %}
-                    <tr data-widget="expandable-table" aria-expanded="false">
-                    <td>{{forloop.counter}}</td>
-                    <td>{{schedule.terminal_name.tid}}</td>
-                    <td>{{schedule.terminal_name.bank_name}}</td>
-                    <td>{{schedule.terminal_name}}</td>
-                    <!-- <td>{{schedule.start_date|date:'Y-m-d H:i:s'}}</td> -->
-                    <td>{{schedule.end_date|date:'Y-m-d'}}</td>
-                    <td>{% if schedule.assign_to %}
-                         {{schedule.assign_to.first_name}} {{schedule.assign_to.last_name}}
-                         {% else %}
-                         <b>Not Assigned Yet</b>
-                      {% endif %}
-                    </td>
-                    <td>
-                      {% if schedule.remaining_day < 3%}
-                        <span class="badge badge-danger" style="width: 90px"><b>{{schedule.remaining_day}} Days</b></span>
-
-                      {% else %}
-                        {{schedule.remaining_day}} Days
-                      {% endif %}
-                    </td>
-                    <td>
-                    <!--It must have space to compare and not Use else for more than two comparisions-->
-                      {% if schedule.status == "PE" %}
-                          <span class="badge badge-danger" style="width: 90px"
-                          ><b>Pending</b></span>
-                        {% elif schedule.status == "OP" %}
-                        <span class="badge badge-warning" style="width: 90px"
-                          ><b>Onprogress</b></span>
-                          {% elif schedule.status == "CO" %}
-                          <span class="badge badge-success" style="width: 90px"
-                          >
-                          <b>Completed</b></span>
-                      {% endif %}
-                    </td>
-                    <td>
-                     {% if schedule.status == "CO" %}
-                            <span class="badge badge-success" style="width: 90px"
-                          ><b>Completed</b></span>
-                     {% else %}
-                          {% if schedule.assign_to %}
-                        <a href=" {% url "assign-engineer" schedule.id %}"
-                          style="width: 90px"
-                          class="d-inline p-2 m-2 btn btn-block btn-outline-info"
-                          ><i class="fa">Chenge</i></a>
-                        <a href="{% url "end-task" schedule.id %}"
-                          style="width: 90px"
-                          class="d-inline p-2 m-3 btn btn-block btn-danger"
-                          ><i class="fa">End</i></a>
-                          {% else %}
-                          <a
-                              href=" {% url "assign-engineer" schedule.id %}"
-                              style="width: 90px"
-                              class="btn btn-block btn-outline-success"
-                              ><i class="fa">Assign</i></a>
-                      {% endif %}
-                     {% endif %}
-                    
-                      </td>
-                  </tr>
-                    <tr class="expandable-body">
-                      <td colspan="5">
-                        <p>
-                          <table class="table">
-                              <thead>
-                              <tr>
-                                <th>#</th>
-                                <th>TID</th>
-                                <th>BANK NAME</th>
-                                <th>TERMINAL NAME</th>
-                                <th>END DATE</th>
-                                <th>ASSIGNED TO</th>
-                                <th>REMAINING DAY</th>
-                                <th>STATUS</th>
-                                <th>ACTIONS</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <!--Group Of Schedule is display Here-->
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr>
-                            </tbody>
-                              <tfoot>
-                                <tr>
-                                  <th>#</th>
-                                  <th>TID</th>
-                                  <th>BANK NAME</th>
-                                  <th>TERMINAL NAME</th>
-                                  <th>END DATE</th>
-                                  <th>ASSIGNED TO</th>
-                                  <th>REMAINING DAY</th>
-                                  <th>STATUS</th>
-                                  <th>ACTIONS</th>
-                                </tr>
-                              </tfoot>
-                          </table>
-                        </p>
-                      </td>
+                  {% for terminal in schedule.terminals.all%}
+                    <tr>
+                      <td>{{forloop.counter}}</td>
+                      <td>{{terminal.tid}}</td>
+                      <td>{{terminal.bank_name}}</td>
+                      <td>{{terminal.terminal_name}}</td>
+                      <td>{{schedule.end_date}}</td>
+                      <td>{{schedule.assign_to}}</td>
+                      <td>{{schedule.status}}</td>
                     </tr>
+                
+                    {% endfor %}
                   {% endfor %}
                 </tbody>
                 <tfoot>
@@ -203,9 +111,7 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                      <!--<th>START DATE</th>-->
                     <th>END DATE</th>
                     <th>ASSIGNED TO</th>
-                    <th>REMAINING DAY</th>
                     <th>STATUS</th>
-                    <th>ACTIONS</th>
                   </tr>
                 </tfoot>
               </table>
