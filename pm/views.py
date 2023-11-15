@@ -342,9 +342,14 @@ def banks_list(request):
 
 
 def terminals_list(request):
-    terminals = Terminal.objects.all()
+    all_terminals = Terminal.objects.all()
+    north_terminals = Terminal.objects.filter(moti_district="NR")
+    south_terminals = Terminal.objects.filter(moti_district="SR")
+    east_terminals = Terminal.objects.filter(moti_district="ER")
+    west_terminals = Terminal.objects.filter(moti_district="WR")
+    centeral_terminals = Terminal.objects.filter(moti_district="CR")
     context = {
-        "terminals": terminals,
+        "terminals": all_terminals,
         "title": "Terminals Report",
     }
     return render(request, 'pm/terminals_report.html', context)
