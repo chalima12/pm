@@ -48,8 +48,8 @@ def home(request):
     pendingLists = Schedule.objects.filter(status="PE").all()
     # cleanedTerminals = Schedule.objects.filter(status="CO").count()
     context = {
-        "company": "moti Usering PLC",
-        "projectName": "preventive Maintainace For ATMS",
+        "company": "Moti Engineering PLC",
+        "projectName": "Preventive Maintainace For ATMS",
         'title':"Dashboard",
         'numOfBanks': numOfBanks,
         'numOfUsers': numOfUsers,
@@ -309,13 +309,15 @@ def engineers_list(request):
         fname = request.POST['name']
         users = User.objects.filter(first_name=fname)
         context = {
-            "users": users
+            "users": users,
+            "title":"Users Report",
         }
         return render(request, 'pm/engineers_report.html', context)
     else:
         users = User.objects.all()
         context = {
-            "users": users
+            "users": users,
+            
         }
         return render(request, 'pm/engineers_report.html', context)
 
@@ -323,7 +325,8 @@ def engineers_list(request):
 def banks_list(request):
     banks = Bank.objects.all()
     context = {
-        "banks": banks
+        "banks": banks,
+        "title": "Banks Report",
     }
     return render(request, 'pm/banks_report.html', context)
 
@@ -331,7 +334,8 @@ def banks_list(request):
 def terminals_list(request):
     terminals = Terminal.objects.all()
     context = {
-        "terminals": terminals
+        "terminals": terminals,
+        "title": "Terminals Report",
     }
     return render(request, 'pm/terminals_report.html', context)
 
@@ -339,6 +343,7 @@ def terminals_list(request):
 def schedule_list(request):
     schedules = Schedule.objects.all()
     context = {
-        "schedules": schedules
+        "schedules": schedules,
+        "title": "Scheduls Report",
     }
     return render(request, 'pm/schedules_report.html', context)

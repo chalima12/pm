@@ -354,8 +354,12 @@
     //- PIE CHART -
     //-------------
     // Get context with jQuery - using jQuery's .get() method.
-  
-    var dataPie        = {
+    var pending = {{pendingSchedule|safe}}
+    var wating = {{waitingSchedule|safe}}
+    var onprogress = {{onprogressSchedule|safe}}
+    var completed = {{commpletedSchedule|safe}}
+    
+    var dataPie  = {
       labels: [
           'Pending',
           'Waiting',
@@ -364,7 +368,7 @@
       ],
       datasets: [
         {
-          data: [700,500,400,600],
+          data: [pending,wating,onprogress,completed],
           backgroundColor : ['#f56954', '#00c0ef', '#f39c12', '#00a65a'],
         }
       ]
