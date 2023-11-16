@@ -1,43 +1,52 @@
-{% extends "base.html" %} {% load static %} 
 
-{% block content %}
-<div class="content-wrapper ">
+{% extends "base.html" %} {% load static %} {% block content %}
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Add Bank</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url "add-bank" %}">Home</a></li>
+            <li class="breadcrumb-item active">Add Bank</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
   <section class="content">
     <div class="container-fluid">
-      <div class="row ">
-        <div class="col-md-8 ">
-          <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">Add Bank</h3>
-            </div>
-            <!-- /.card-header -->
-            <!-- form start -->
-            <form action="{% url 'add-bank' %}" method="POST">
-              {% csrf_token %}
-              <div class="card-body">
+      <div class="card card-default">
+        <div class="card-header">
+          <h3 class="card-title">Add Bank</h3>
+        </div>
+        <div class="card-body">
+          <form action="{% url 'add-bank' %}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-8">
                 <div class="form-group">
                   <label for="{{ form.bank_name.id_for_label }}">Bank Name</label>
                     {{form.bank_name}}
                 </div>
+              </div>
+              <div class="col-md-8">
                 <div class="form-group">
-                  <label for="{{ form.bank_name.id_for_label }}" >BANK KEY</label>
-                  {{form.bank_key}}
+                  <label for="{{ form.bank_key.id_for_label }}">Bank Key</label>
+                    {{form.bank_key}}
                 </div>
               </div>
-              <!-- /.card-body -->
-
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Add</button>
-                <a href="{% url 'banks-page' %}" class="btn btn-secondary">Cancel</a>
-              </div>
-            </form>
-          </div>
-          <!-- /.card -->
-
-          <!-- general form elements -->
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+            <a href="{% url 'banks-page' %}" class="btn btn-secondary">Cancel</a>
+          </form>
         </div>
       </div>
     </div>
   </section>
 </div>
+ 
 {% endblock content %}
