@@ -87,18 +87,17 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                 </thead>
                 <tbody>
                   {% for schedule  in schedules %}
-                  {% for terminal in schedule.terminals.all%}
                     <tr>
                       <td>{{forloop.counter}}</td>
-                      <td>{{terminal.tid}}</td>
-                      <td>{{terminal.bank_name}}</td>
-                      <td>{{terminal.terminal_name}}</td>
+                      <td>{{schedule.terminal.tid}}</td>
+                      <td>{{schedule.terminal.bank_name}}</td>
+                      <td>{{schedule.terminal.terminal_name}}</td>
                       <td>{{schedule.end_date|date:'Y-m-d'}}</td>
                       <td>{{schedule.assign_to}}</td>
                       <td>{{schedule.status}}</td>
                     </tr>
                 
-                    {% endfor %}
+                    
                   {% endfor %}
                 </tbody>
                 <tfoot>
