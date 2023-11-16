@@ -142,8 +142,8 @@ class Schedule(models.Model):
     schedule_name = models.CharField(max_length=100, null=True,blank=True)
     bank_name = models.ForeignKey(
         Bank, on_delete=models.PROTECT,null=True,blank=True)
-    terminals = models.ManyToManyField(
-        Terminal, blank=True,)  # related_name="schedules"
+    terminal = models.ForeignKey(
+        Terminal, on_delete=models.PROTECT, help_text='Select Terminal', null=True)
     start_date = models.DateTimeField(
         auto_now_add=False, editable=True, null=True, blank=True)
     end_date = models.DateTimeField(

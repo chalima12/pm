@@ -79,7 +79,6 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                     <th>TID</th>
                     <th>BANK NAME</th>
                     <th>TERMINAL NAME</th>
-                    <!--<th>START DATE</th>-->
                     <th>END DATE</th>
                     <th>ASSIGNED TO</th>
                     <th>STATUS</th>
@@ -94,7 +93,7 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                       <td>{{terminal.tid}}</td>
                       <td>{{terminal.bank_name}}</td>
                       <td>{{terminal.terminal_name}}</td>
-                      <td>{{schedule.end_date}}</td>
+                      <td>{{schedule.end_date|date:'Y-m-d'}}</td>
                       <td>{{schedule.assign_to}}</td>
                       <td>{{schedule.status}}</td>
                     </tr>

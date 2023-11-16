@@ -57,9 +57,7 @@ class UserForm(forms.ModelForm):
 
 class ScheduleForm(forms.ModelForm):
 
-    # terminal_name = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
-    # ),  widget=forms.SelectMultiple(attrs={'class': 'form-control'}), required=True, help_text ="Select ATMS")
-
+    terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(),widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
     class Meta:
         model = Schedule
         fields = ['terminals', 'start_date', 'end_date', 'description']

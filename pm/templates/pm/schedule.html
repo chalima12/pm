@@ -48,11 +48,12 @@
                 </thead>
                 <tbody>
                   {% for schedule  in schedules %}
+                  {% for terminal in schedule.terminals.all %}
                   <tr data-widget="expandable-table" aria-expanded="false">
                     <td>{{forloop.counter}}</td>
-                    <td>{{schedule.terminals}}</td>
-                    <td>{{schedule.terminals}}</td>
-                    <td>{{schedule.terminals}}</td>
+                    <td>{{terminal.tid}}</td>
+                    <td>{{terminal.bank_name}}</td>
+                    <td>{{terminal.terminal_name}}</td>
                     <td>{{schedule.end_date|date:'Y-m-d'}}</td>
                     <td>{% if schedule.assign_to %}
                         {{schedule.assign_to.first_name}} {{schedule.assign_to.last_name}}
@@ -79,7 +80,6 @@
                           {% elif schedule.status == "CO" %}
                           <span class="badge badge-success" style="width: 90px"
                           >
-                
                           <b>Completed</b></span>
                       {% endif %}
                     </td>
@@ -105,8 +105,8 @@
                               ><i class="fa">Assign</i></a>
                       {% endif %}
                     {% endif %}
-                    
                       </td>
+                      {% endfor %}
                   </tr>
                   {% endfor %}
                 </tbody>

@@ -225,24 +225,23 @@ def create_schedule(request):
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
         if form.is_valid():
-            form.save()
-            # terminal_name = form.cleaned_data['terminal_name']
-            # start_date = form.cleaned_data['start_date']
-            # end_date = form.cleaned_data['end_date']
-            # description = form.cleaned_data['description']
-            # for terminal in terminal_name:
-            #     Schedule.objects.create(
-            #         terminal_name = terminal,
-            #         start_date=start_date,
-            #         end_date=end_date,
-            #         description=description,
-            #     )
+            terminals = form.cleaned_data['terminals']
+            start_date =form.cleaned_data['start_date']
+            end_date = form.cleaned_data['end_date']
+            description = form.cleaned_data['description']
+            for terminal in terminals:
+                Schedule.objects.create(
+                    terminal=terminal,
+                    start_date=start_date,
+                    end_date=end_date,
+                    description=description,
+                
+                )
 
             messages.success(request, "Schedules created successfully!")
             return redirect('schedules')
     else:
-        form = ScheduleForm()
-
+        form =ScheduleForm()
     return render(request, 'pm/addSchedule.html', {'form': form})
 
 
