@@ -54,10 +54,10 @@
                     <td>{{terminal.serial_number}}</td>
                     <td>{{terminal.location}}</td>
                     <td><a href="{% url "update-terminal" terminal.id %}" style="width: 80px"
-                        class="d-inline p-2 m-2 btn btn-block btn-outline-success" title="Edit Information"><i
+                        class="d-inline  btn btn-block btn-outline-success" title="Edit Information"><i
                           class="nav-icon fas fa-edit"></i></a>
                       <a style="width: 80px" href="{% url "view_terminal" terminal.id %}"
-                        class="d-inline p-1 m-1 btn btn-block btn-outline-primary" data-toggle="modal"
+                        class="d-inline btn btn-block btn-outline-primary" data-toggle="modal"
                         data-target="#myModal{{terminal.id}}" title="View Details"> <i class="fas fa-eye"></i>
                       </a>
 

@@ -270,8 +270,17 @@ def start_task(request, scheule_id):
     schedule = Schedule.objects.get(pk=scheule_id)
     schedule.status = "OP"
     schedule.save()
-    return HttpResponseRedirect(reverse('schedules'))
+    return redirect(reverse('schedules'))
 
+
+# @login_required
+# def end_scheduled_task1(request, scheule_id):
+#         schedule = Schedule.objects.get(pk=scheule_id)
+#         form = EndScheduleForm(request.POST, request.FILES, instance=schedule)
+#         schedule.status = "CO"
+#         form.save()
+#         messages.success(request, "Chenge Updated successfully!")
+#         return redirect(reverse('schedules'))
 
 @login_required
 def end_scheduled_task(request, id):

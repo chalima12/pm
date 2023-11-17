@@ -100,13 +100,13 @@
                           {% elif schedule.status == "WT" %}
                               <a href=" {% url "start-task" schedule.id %}"
                                 style="width: 90px"
-                                class="d-inline p-2 m-2 btn btn-block btn-outline-info"
-                                data-toggle="modal" data-target="#myModal{{schedule.id}}"
+                                class="d-inline  btn btn-block btn-outline-info"
+                                data-toggle="modal" data-target="#startModal{{schedule.id}}"
                                 title ="Start Task"
                                 ><i class="fas fa-play"></i></a>
                                 <a href=" {% url "assign-engineer" schedule.id %}"
                                 style="width: 90px"
-                                class="d-inline p-2 m-2 btn btn-block btn-outline-success"
+                                class="d-inline btn btn-block btn-outline-success"
                                 title ="Change Engineer"
                                 ><i class="fas fa-edit"></i></a>
                           {% elif schedule.status == "OP" %}
@@ -115,8 +115,9 @@
                                 class="btn btn-block btn-danger"
                                 > End </a>
                       {% endif %}
-                  <div class="modal fade" id="myModal{{schedule.id}}">
-                    <div class="modal-dialog">
+                      <!--Start Task Moal-->
+                  <div class="modal fade" id="startModal{{schedule.id}}">
+                    <div class="modal-dialog modal-lg">
                       <div class="modal-content">
                         <div class="modal-header">
                           <h4 class="modal-title">ATM:<b>{{schedule.terminal.terminal_name}}</b></h4>
@@ -125,26 +126,45 @@
                           </button>
                         </div>
                         <div class="modal-body">
-                          <p>Bank Name: {{schedule.terminal.bank_name}}</p>
-                          <hr>
-                          <p>Bank Branch: {{schedule.terminal.bank_branch}}</p>
-                          <hr>
-                          <p>Terminal Name: {{schedule.terminal.terminal_name}}</p>
-                          <hr>
-                          <p>Engineer Name: {{schedule.assign_to}}</p>
-                          <hr>
-                          <p>Engineer's Phone Number: {{schedule.assign_to.phone}}</p>
-                          <hr>
-                          <p>Location: {{schedule.terminal.location}}</p>
-                          <hr>
-                          <p>City: <b>{{schedule.terminal.city}}</b></p>
-                          <hr>
-                          
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p>Bank Name: <b>{{schedule.terminal.bank_name}}</b></p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Bank Branch: <b>{{schedule.terminal.bank_branch}}</b></p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Terminal Name: <b>{{schedule.terminal.terminal_name}}</b></p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Engineer Name: <b>{{schedule.assign_to}}</b></p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Engineer's Phone Number: <b>{{schedule.assign_to.phone}}</b></p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Location: <b>{{schedule.terminal.location}}</b></p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>City: <b>{{schedule.terminal.city}}</b></p>
+                              <hr>
+                            </div>
+                          </div>
                         </div>
-                        <span class="text-center text-danger">Once you Start a task <b>You can not re-assign engineer</b></span>
+                        <span class="text-center text-danger">Once you Start a task <b>You can not re-assign engineer: <a href=" {% url "assign-engineer" schedule.id %}"
+                                style="width: 90px"
+                                class=""
+                                title ="Change Engineer"
+                                ><span class ="text-success">Re-Assign</span></a> </b></span>
                         <div class="modal-footer justify-content-between">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <a type="button" class="btn btn-success" href="{% url "start-task" schedule.id %}" >Start</a>
+                          <a type="button" class="btn btn-info" href="{% url "start-task" schedule.id %}" >Start</a>
                         </div>
                       </div>
                       <!-- /.modal-content -->
@@ -152,7 +172,6 @@
                     <!-- /.modal-dialog -->
                   </div>
                   <!-- /.modal -->
-                
                       </td>
                       </tr>
                     {% endif %}

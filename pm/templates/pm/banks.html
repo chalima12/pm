@@ -63,7 +63,7 @@
                     <td><a
                           href="{% url "update-bank" bank.id %}"
                           style="width: 80px"
-                          class="d-inline p-2 m-2 btn btn-block btn-outline-success"
+                          class="d-inline  btn btn-block btn-outline-success"
                           title ="Edit bank Information"
                           ><i class="nav-icon fas fa-edit" ></i></a
                         >
@@ -72,7 +72,7 @@
                           href="{% url "inactive_bank" bank.id %}"
                           style="width: 80px"
                           data-toggle="modal" data-target="#myModal{{bank.id}}"
-                          class="d-inline p-2 m-2 btn btn-block btn-outline-danger"
+                          class="d-inline  btn btn-block btn-outline-danger"
                           title="Deactivate Bank"
                           ><i class="fas fa-lock" ></i>
                           </a>
@@ -81,7 +81,7 @@
                           href="{% url "active-bank" bank.id %}"
                           style="width: 80px"
                           data-toggle="modal" data-target="#myModal{{bank.id}}"
-                          class="d-inline p-2 m-2 btn btn-block btn-outline-success"
+                          class="d-inline  btn btn-block btn-outline-success"
                           title ="Activate bank"
                           ><i class="fas fa-lock-open" ></i>
                           </a>
