@@ -212,8 +212,9 @@
                 </a>
               </li>
               
-               Report Section-->
-              <li class="nav-item">
+              Report Section-->
+      
+          <li class="nav-item menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>
               <p>
@@ -290,7 +291,6 @@
       document.querySelectorAll(".nav-link").forEach((link) => {
     if (link.href === window.location.href) {
         link.classList.add("active");
-        link.setAttribute("aria-current", "page");
     }
 });
     </script>
