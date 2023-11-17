@@ -7,7 +7,7 @@ def global_context(request):
     commpletedSchedule = Schedule.objects.filter(status ="CO").count()
     pendingSchedule = Schedule.objects.filter(status="PE").count()
     waitingSchedule = Schedule.objects.filter(status="WT").count()
-    allSchedule = onprogressSchedule+commpletedSchedule+pendingSchedule
+    allSchedule = onprogressSchedule+commpletedSchedule+pendingSchedule+waitingSchedule
     context = {
         "allSchedule":allSchedule,
         "pendingSchedule": json.dumps(pendingSchedule),
