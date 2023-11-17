@@ -139,7 +139,6 @@ class Schedule(models.Model):
         (MEDIUM, 'Medium'), 
         (LOW, 'Low')
         ]
-    schedule_name = models.CharField(max_length=100, null=True,blank=True)
     bank_name = models.ForeignKey(
         Bank, on_delete=models.PROTECT,null=True,blank=True)
     terminal = models.ForeignKey(
@@ -164,6 +163,6 @@ class Schedule(models.Model):
     
 
     def __str__(self) -> str:
-        return str(self.schedule_name)
+        return str(self.terminal)
     class Meta:
         ordering = ['end_date']
