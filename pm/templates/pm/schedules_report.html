@@ -94,7 +94,15 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                       <td>{{schedule.terminal.terminal_name}}</td>
                       <td>{{schedule.end_date|date:'Y-m-d'}}</td>
                       <td>{{schedule.assign_to}}</td>
-                      <td>{{schedule.status}}</td>
+                      <td>{% if schedule.status == "PE" %}
+                            <p>Pending</p>
+                          {% elif schedule.status == "WT" %}
+                              <p>Waiting</p>
+                          {% elif schedule.status == "OP" %}
+                            <p>OnProgress</p>
+                          {% elif schedule.status == "CO" %}
+                              <p>Completed</p>
+                      {% endif %}</td>
                     </tr>
                 
                     

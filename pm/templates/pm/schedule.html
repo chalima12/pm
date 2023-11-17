@@ -50,6 +50,7 @@
                   {% for schedule  in schedules %}
                   {% if schedule.terminal.bank_name.is_active %}
                 <tr data-widget="expandable-table" aria-expanded="false">
+                  {% if schedule.status != "CO" %}
                   <td>{{forloop.counter}}</td>
                     <td>{{schedule.terminal.tid}}</td>
                     <td>{{schedule.terminal.bank_name}}</td>
@@ -63,8 +64,11 @@
                     </td>
                     <td>
                       {% if schedule.remaining_day < 3%}
+                        {% if schedule.remaining_day < 0 %}
+                        <span class="badge badge-danger" style="width: 90px"><b>OVER</b></span>
+                        {% else %}
                         <span class="badge badge-danger" style="width: 90px"><b>{{schedule.remaining_day}} Days</b></span>
-
+                        {% endif %}
                       {% else %}
                         {{schedule.remaining_day}} Days
                       {% endif %}
@@ -92,24 +96,24 @@
                             <a href=" {% url "assign-engineer" schedule.id %}"
                                     style="width: 90px"
                                     class="btn btn-block btn-outline-success"
-                                    >Assign</a>
+                                    ><b>Assign</b></a>
                           {% elif schedule.status == "WT" %}
                               <a href=" {% url "start-task" schedule.id %}"
                                 style="width: 90px"
                                 class="d-inline p-2 m-2 btn btn-block btn-outline-info"
                                 data-toggle="modal" data-target="#myModal{{schedule.id}}"
+                                title ="Start Task"
                                 ><i class="fas fa-play"></i></a>
-                          {% elif schedule.status == "OP" %}
-                              <a href=" {% url "assign-engineer" schedule.id %}"
+                                <a href=" {% url "assign-engineer" schedule.id %}"
                                 style="width: 90px"
-                                class="d-inline p-2 m-2 btn btn-block btn-outline-info"
+                                class="d-inline p-2 m-2 btn btn-block btn-outline-success"
+                                title ="Change Engineer"
                                 ><i class="fas fa-edit"></i></a>
+                          {% elif schedule.status == "OP" %}
                               <a href="{% url "end-task" schedule.id %}"
                                 style="width: 90px"
-                                class="d-inline p-2 m-3 btn btn-block btn-danger"
+                                class="btn btn-block btn-danger"
                                 > End </a>
-                          {% elif schedule.status == "CO" %}
-                                <span class="badge badge-success" style="width: 90px"><b>Completed</b></span>
                       {% endif %}
                   <div class="modal fade" id="myModal{{schedule.id}}">
                     <div class="modal-dialog">
@@ -136,6 +140,7 @@
                 
                       </td>
                       </tr>
+                    {% endif %}
                   {% endif %}
                 {% endfor %}
                 </tbody>
