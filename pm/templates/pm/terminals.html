@@ -45,7 +45,8 @@
                 </thead>
                 <tbody>
                   {% for terminal in terminals %}
-                  <tr>
+                  {% if terminal.bank_name.is_active %}
+                    <tr>
                     <td>{{forloop.counter}}</td>
                     <td>{{terminal.tid}}</td>
                     <td>{{terminal.bank_name}}</td>
@@ -142,6 +143,8 @@
 
                     </td>
                   </tr>
+        
+                  {% endif %}
                   {% endfor %}
                 </tbody>
                 <tfoot>
