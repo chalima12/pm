@@ -48,8 +48,9 @@
                 </thead>
                 <tbody>
                   {% for schedule  in schedules %}
-                  <tr data-widget="expandable-table" aria-expanded="false">
-                    <td>{{forloop.counter}}</td>
+                <tr data-widget="expandable-table" aria-expanded="false">
+                  {% if schedule.terminal.bank_name.is_active %}
+                  <td>{{forloop.counter}}</td>
                     <td>{{schedule.terminal.tid}}</td>
                     <td>{{schedule.terminal.bank_name}}</td>
                     <td>{{schedule.terminal.terminal_name}}</td>
@@ -105,7 +106,9 @@
                       {% endif %}
                     {% endif %}
                       </td>
+                      {% endif %}
                   </tr>
+                
                   {% endfor %}
                 </tbody>
                 <tfoot>
