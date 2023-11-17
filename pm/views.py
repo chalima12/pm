@@ -260,10 +260,17 @@ def assign_engineer(request, id):
         schedule = Schedule.objects.get(pk=id)
         form = AssignEngineerForm(instance=schedule)
     context = {'form': form,
-               'schedule': schedule,
-               "title": "Assign Engineer"
-               }
+            'schedule': schedule,
+            "title": "Assign Engineer"
+            }
     return render(request, 'pm/assign_engineer.html', context)
+
+
+def start_task(request, scheule_id):
+    schedule = Schedule.objects.get(pk=scheule_id)
+    schedule.status = "OP"
+    schedule.save()
+    return HttpResponseRedirect(reverse('schedules'))
 
 
 @login_required

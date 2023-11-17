@@ -48,8 +48,8 @@
                 </thead>
                 <tbody>
                   {% for schedule  in schedules %}
-                <tr data-widget="expandable-table" aria-expanded="false">
                   {% if schedule.terminal.bank_name.is_active %}
+                <tr data-widget="expandable-table" aria-expanded="false">
                   <td>{{forloop.counter}}</td>
                     <td>{{schedule.terminal.tid}}</td>
                     <td>{{schedule.terminal.bank_name}}</td>
@@ -88,36 +88,56 @@
                       {% endif %}
                     </td>
                     <td>
-                    {% if schedule.status == "CO" %}
-                            <span class="badge badge-success" style="width: 90px"
-                          ><b>Completed</b></span>
-                    {% else %}
                           {% if schedule.status == "PE" %}
                             <a href=" {% url "assign-engineer" schedule.id %}"
                                     style="width: 90px"
                                     class="btn btn-block btn-outline-success"
-                                    ><i class="fa">Assign</i></a>
+                                    >Assign</a>
                           {% elif schedule.status == "WT" %}
-                              <a href=" {% url "assign-engineer" schedule.id %}"
+                              <a href=" {% url "start-task" schedule.id %}"
                                 style="width: 90px"
                                 class="d-inline p-2 m-2 btn btn-block btn-outline-info"
+                                data-toggle="modal" data-target="#myModal{{schedule.id}}"
                                 ><i class="fas fa-play"></i></a>
                           {% elif schedule.status == "OP" %}
                               <a href=" {% url "assign-engineer" schedule.id %}"
                                 style="width: 90px"
                                 class="d-inline p-2 m-2 btn btn-block btn-outline-info"
-                                ><i class="fa">Chenge</i></a>
+                                ><i class="fas fa-edit"></i></a>
                               <a href="{% url "end-task" schedule.id %}"
                                 style="width: 90px"
                                 class="d-inline p-2 m-3 btn btn-block btn-danger"
-                                ><i class="fa">End</i></a>
+                                > End </a>
+                          {% elif schedule.status == "CO" %}
+                                <span class="badge badge-success" style="width: 90px"><b>Completed</b></span>
                       {% endif %}
-                    {% endif %}
-                      </td>
-                      {% endif %}
-                  </tr>
+                  <div class="modal fade" id="myModal{{schedule.id}}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Deactivate </h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p>Are you sure Deactivate Activate?</p>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <a type="button" class="btn btn-danger" href="{% url "start-task" schedule.id %}" >Start</a>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
                 
-                  {% endfor %}
+                      </td>
+                      </tr>
+                  {% endif %}
+                {% endfor %}
                 </tbody>
                 <tfoot>
                   <tr>

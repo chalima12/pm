@@ -13,6 +13,7 @@ urlpatterns = [
     path('update_terminal/<int:terminal_id>',views.updateTerminal, name='update-terminal'),
     path('schedules/', views.schedule, name='schedules'),
     path('assign_engineer/<int:id>', views.assign_engineer, name='assign-engineer'),
+    path("start_task/<int:scheule_id>", views.start_task, name="start-task"),
     path('end_scheduled_task/<int:id>',views.end_scheduled_task, name='end-task'),
     path('engineers/', views.user, name='all-engineers'),
     path('add-user/', views.add_user, name="add-user"),
