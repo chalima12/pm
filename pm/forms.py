@@ -36,6 +36,7 @@ class BankForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['bank_name'].required = True
         self.fields['bank_key'].required = True
+
     class Meta:
         model = Bank
         fields = ['bank_name', 'bank_key']
@@ -82,12 +83,13 @@ class ScheduleForm(forms.ModelForm):
         self.fields['start_date'].required = True
         self.fields['end_date'].required = True
 
-    terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(),widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
+    terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
+    ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2'}))
+
     class Meta:
         model = Schedule
         fields = ['terminals', 'start_date', 'end_date', 'description']
         widgets = {
-            'terminals': forms.SelectMultiple(attrs={'class': 'form-control'}),
             'start_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
             'end_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Type your description here'}),
@@ -99,6 +101,7 @@ class AssignEngineerForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['priority'].required = True
         self.fields['assign_to'].required = True
+
     class Meta:
         model = Schedule
         fields = ['priority', 'assign_to', 'material_required']
@@ -115,6 +118,7 @@ class EndScheduleForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['comment'].required = True
+
     class Meta:
         model = Schedule
         fields = ['comment', 'checklist_photo', 'closed_date']

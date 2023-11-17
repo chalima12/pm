@@ -222,6 +222,7 @@ def schedule(request):
 
 @login_required
 def create_schedule(request):
+    tqs = Terminal.objects.all()
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
         if form.is_valid():
@@ -242,7 +243,7 @@ def create_schedule(request):
             return redirect('schedules')
     else:
         form =ScheduleForm()
-    return render(request, 'pm/addSchedule.html', {'form': form})
+    return render(request, 'pm/addSchedule.html', {'form': form,"terminals":tqs})
 
 
 @login_required
@@ -251,7 +252,7 @@ def assign_engineer(request, id):
         schedule = Schedule.objects.get(pk=id)
         form = AssignEngineerForm(request.POST, instance=schedule)
         if form.is_valid():
-            schedule.status = "OP"
+            schedule.status = "WT"
             form.save()
             messages.success(request, "Engineer Assigned successfully!")
             return redirect('schedules')

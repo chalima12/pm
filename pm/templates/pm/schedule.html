@@ -74,9 +74,13 @@
                       {% if schedule.status == "PE" %}
                           <span class="badge badge-danger" style="width: 90px"
                           ><b>Pending</b></span>
+                          {% elif schedule.status == "WT" %}
+                          <span class="badge badge-info" style="width: 90px"
+                          ><b>Waiting</b></span>
                         {% elif schedule.status == "OP" %}
                         <span class="badge badge-warning" style="width: 90px"
                           ><b>Onprogress</b></span>
+                        
                           {% elif schedule.status == "CO" %}
                           <span class="badge badge-success" style="width: 90px"
                           >
@@ -88,21 +92,25 @@
                             <span class="badge badge-success" style="width: 90px"
                           ><b>Completed</b></span>
                     {% else %}
-                          {% if schedule.assign_to %}
-                        <a href=" {% url "assign-engineer" schedule.id %}"
-                          style="width: 90px"
-                          class="d-inline p-2 m-2 btn btn-block btn-outline-info"
-                          ><i class="fa">Chenge</i></a>
-                        <a href="{% url "end-task" schedule.id %}"
-                          style="width: 90px"
-                          class="d-inline p-2 m-3 btn btn-block btn-danger"
-                          ><i class="fa">End</i></a>
-                          {% else %}
-                          <a
-                              href=" {% url "assign-engineer" schedule.id %}"
-                              style="width: 90px"
-                              class="btn btn-block btn-outline-success"
-                              ><i class="fa">Assign</i></a>
+                          {% if schedule.status == "PE" %}
+                            <a href=" {% url "assign-engineer" schedule.id %}"
+                                    style="width: 90px"
+                                    class="btn btn-block btn-outline-success"
+                                    ><i class="fa">Assign</i></a>
+                          {% elif schedule.status == "WT" %}
+                              <a href=" {% url "assign-engineer" schedule.id %}"
+                                style="width: 90px"
+                                class="d-inline p-2 m-2 btn btn-block btn-outline-info"
+                                ><i class="fas fa-play"></i></a>
+                          {% elif schedule.status == "OP" %}
+                              <a href=" {% url "assign-engineer" schedule.id %}"
+                                style="width: 90px"
+                                class="d-inline p-2 m-2 btn btn-block btn-outline-info"
+                                ><i class="fa">Chenge</i></a>
+                              <a href="{% url "end-task" schedule.id %}"
+                                style="width: 90px"
+                                class="d-inline p-2 m-3 btn btn-block btn-danger"
+                                ><i class="fa">End</i></a>
                       {% endif %}
                     {% endif %}
                       </td>

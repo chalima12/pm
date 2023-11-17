@@ -35,8 +35,30 @@
           <form  method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="{{ form.terminals.id_for_label }}">Select Terminals</label>
+                    {{form.terminals}}
+                </div>
+              {% comment %} {{ form.as_p }} {% endcomment %}
+              </div>
               <div class="col-md-6">
-              {{ form.as_p }}
+                <div class="form-group">
+                  <label for="{{ form.start_date.id_for_label }}">Start Date</label>
+                    {{form.start_date}}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="{{ form.end_date.id_for_label }}">End Date</label>
+                    {{form.end_date}}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="{{ form.description.id_for_label }}">Description</label>
+                    {{form.description}}
+                </div>
               </div>
             </div>
             <button type="submit" class="btn btn-primary swalDefaultSuccess">Add</button>

@@ -41,3 +41,16 @@ hour = diff.hours
 #     return render(request, 'registration/login.html')
 
 # Login
+
+
+
+
+# Schedlule 96------
+                        # <a href=" {% url "assign-engineer" schedule.id %}"
+                        #   style="width: 90px"
+                        #   class="d-inline p-2 m-2 btn btn-block btn-outline-info"
+                        #   ><i class="fa">Chenge</i></a>
+                        # <a href="{% url "end-task" schedule.id %}"
+                        #   style="width: 90px"
+                        #   class="d-inline p-2 m-3 btn btn-block btn-danger"
+                        #   ><i class="fa">End</i></a>
