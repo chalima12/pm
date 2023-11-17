@@ -49,9 +49,9 @@
                 <tbody>
                   {% for schedule  in schedules %}
                   {% if schedule.terminal.bank_name.is_active %}
+                    {% if schedule.status != "CO" %}
                 <tr data-widget="expandable-table" aria-expanded="false">
-                  {% if schedule.status != "CO" %}
-                  <td>{{forloop.counter}}</td>
+                <td>{{forloop.counter}}</td>
                     <td>{{schedule.terminal.tid}}</td>
                     <td>{{schedule.terminal.bank_name}}</td>
                     <td>{{schedule.terminal.terminal_name}}</td>
@@ -119,14 +119,29 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h4 class="modal-title">Start Task </h4>
+                          <h4 class="modal-title">ATM:<b>{{schedule.terminal.terminal_name}}</b></h4>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
                         <div class="modal-body">
-                          <p>Are you sure Deactivate Activate?</p>
+                          <p>Bank Name: {{schedule.terminal.bank_name}}</p>
+                          <hr>
+                          <p>Bank Branch: {{schedule.terminal.bank_branch}}</p>
+                          <hr>
+                          <p>Terminal Name: {{schedule.terminal.terminal_name}}</p>
+                          <hr>
+                          <p>Engineer Name: {{schedule.assign_to}}</p>
+                          <hr>
+                          <p>Engineer's Phone Number: {{schedule.assign_to.phone}}</p>
+                          <hr>
+                          <p>Location: {{schedule.terminal.location}}</p>
+                          <hr>
+                          <p>City: <b>{{schedule.terminal.city}}</b></p>
+                          <hr>
+                          
                         </div>
+                        <span class="text-center text-danger">Once you Start a task <b>You can not re-assign engineer</b></span>
                         <div class="modal-footer justify-content-between">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                           <a type="button" class="btn btn-success" href="{% url "start-task" schedule.id %}" >Start</a>
