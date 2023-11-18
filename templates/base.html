@@ -302,6 +302,8 @@
     <script>
       $.widget.bridge("uibutton", $.ui.button);
     </script>
+    <!-- Select2 -->
+  <script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
     <!-- Bootstrap 4 -->
     <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <!-- ChartJS -->
@@ -346,7 +348,7 @@
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "responsive": true, "lengthChange": true, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
@@ -403,6 +405,15 @@
 
   })
 </script>
+
+
+<script>
+  $(function () {
+      //Initialize Select2 Elements
+    $('.select2').select2()
+  })
+</script>
+
 
 
   </body>

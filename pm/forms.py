@@ -84,7 +84,7 @@ class ScheduleForm(forms.ModelForm):
         self.fields['end_date'].required = True
 
     terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
-    ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2'}))
+    ), widget=forms.SelectMultiple(attrs={'class': 'select2'}))
 
     class Meta:
         model = Schedule
@@ -126,5 +126,4 @@ class EndScheduleForm(forms.ModelForm):
             'comment': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Comment here...'}),
             'checklist_photo': forms.FileInput(attrs={'class': 'form-control'}),
             'closed_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
-
         }
