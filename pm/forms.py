@@ -84,7 +84,7 @@ class ScheduleForm(forms.ModelForm):
         self.fields['end_date'].required = True
 
     terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
-    ), widget=forms.SelectMultiple(attrs={'class': 'select2'}))
+    ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2'}))
 
     class Meta:
         model = Schedule
