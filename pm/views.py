@@ -322,27 +322,31 @@ def reports(request):
 @login_required
 def engineers_list(request):
     users = None
-    is_checked = False
-    if request.method == "POST":
-        command = request.POST
-        if(command !=None):
-            if(command.get("all-users")):
-                users = User.objects.all()
-            if(command.get('engineers')):
-                users = User.objects.filter(is_moti=True)
-            if(command.get('bank-users')):
-                users = User.objects.filter(is_bank=True)
-            if (command.get('active-users')):
-                users=User.objects.filter(is_active=True)
-            if (command.get('inactive-users')):
-                users = User.objects.filter(is_active=False)
-            if (command.get('super-users')):
-                users = User.objects.filter(is_staff=True)
-
+    title = "Users Report"
+    selected = request.POST.get('options')
+    if (selected == 'All users'):
+        users= User.objects.all()
+        title = "All Users"
+    if (selected == 'Engineers'):
+        users = User.objects.filter(is_moti=True)
+        title = "Engineers"
+    if (selected == 'Active Users'):
+        users = User.objects.filter(is_active=True)
+        title = "Active Users"
+    if (selected == 'InActive Users'):
+        users = User.objects.filter(is_active=False)
+        title ="InActive Users"
+    if (selected == 'Super Users'):
+        users = User.objects.filter(is_staff=True)
+        title="Super Users"
+    if (selected == 'Bank Users'):
+        users = User.objects.filter(is_bank=True)
+        title = "Bank Users"
     context = {
         "users": users,
-        "is_checked":is_checked,
-        "title":"Users Report",
+        "title":title,
+        'selected':selected
+        
     }
     return render(request, 'pm/engineers_report.html', context)
 

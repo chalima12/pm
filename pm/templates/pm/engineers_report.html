@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>List of Engineers</h1>
+          <h1>{% if selected %}List Of <span class="text-success">{{selected}}</span>{% endif %}</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -26,55 +26,34 @@
       <form action="" method="POST">
                 {% csrf_token %}
                 <div class="row">
-                  <div class="col-sm-12">Filter Users</div>
-                    <div class="col-sm-6">
-                      <!-- radio -->
+                    <div class="col-sm-12">
                       <div class="form-group">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox"  name="all-users" {% if is_checked %}checked{% endif %} >
-                          <label class="form-check-label">All Users</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox"  name="engineers" {% if is_checked %}checked{% endif %}>
-                          <label class="form-check-label">Engineers</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" name="bank-users" >
-                          <label class="form-check-label">Bank Users</label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <!-- radio -->
-                      <div class="form-group">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" name="active-users">
-                          <label class="form-check-label">Active Users</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" name="inactive-users">
-                          <label class="form-check-label">InActive Users</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" name="super-users" >
-                          <label class="form-check-label">Super Users</label>
-                        </div>
+                        <label>Filter Users Form the Dropdown</label>
+                        <select class="form-control" name ="options">
+                          <option value ="0"selected >-----Select Users-----</option>
+                          <option value ="All users" >All Users</option>
+                          <option value ="Engineers" >Engineers</option>
+                          <option value ="Active Users" >Active Users</option>
+                          <option value="InActive Users" >InActive Users</option>
+                          <option value="Super Users">Super Users</option>
+                          <option value ="Bank Users" >Bank Users</option>
+                        </select>
                       </div>
                     </div>
                 </div>
-                <hr>
                 <div class="form-group col-sm-12" id="data_5">
                   <label class="font-normalll">Select Time Range</label>
                   <div class="input-group date col-sm-8" id="datepicker">
                     <span class="input-group-text">
-                     From</span>
+                    From</span>
                     <input type="date" class="form-control" name="txt_startdate">
                     <span class="input-group-text">To</span>
                     <input type="date" class="form-control" name="txt_enddate">
                   </div>
                 </div>
                 <button type="submit" class="btn btn-info">Generate</button>
-               </form>
+              </form>
+              <div class="col-sm-12 text-center"><b></b></div> 
             </div>
             
             <!-- /.card-header -->
