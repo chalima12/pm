@@ -321,17 +321,10 @@ def reports(request):
 
 @login_required
 def engineers_list(request):
-    #filters 
-    # all_users = User.objects.all()
-    # active_users = User.objects.filter(is_active=True)
-    # inactive_users = User.objects.filter(is_active = False)
-    # super_users = User.objects.filter(is_staff =True)
-    # engineers = User.objects.filter(is_moti =True)
-    # bank_users = User.objects.filter(is_bank = True)
-    
+    users = None
+    is_checked = False
     if request.method == "POST":
         command = request.POST
-        users = None
         if(command !=None):
             if(command.get("all-users")):
                 users = User.objects.all()
@@ -346,19 +339,12 @@ def engineers_list(request):
             if (command.get('super-users')):
                 users = User.objects.filter(is_staff=True)
 
-        context = {
-            "users": users,
-            "title":"Users Report",
-        }
-        return render(request, 'pm/engineers_report.html', context)
-    else:
-        users = User.objects.all()
-        context = {
-            "users": users,
-            
-        }
-        return render(request, 'pm/engineers_report.html', context)
-
+    context = {
+        "users": users,
+        "is_checked":is_checked,
+        "title":"Users Report",
+    }
+    return render(request, 'pm/engineers_report.html', context)
 
 def banks_list(request):
     all_banks = Bank.objects.all()
