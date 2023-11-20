@@ -372,15 +372,32 @@ def banks_list(request):
 
 
 def terminals_list(request):
-    all_terminals = Terminal.objects.all()
-    north_terminals = Terminal.objects.filter(moti_district="NR")
-    south_terminals = Terminal.objects.filter(moti_district="SR")
-    east_terminals = Terminal.objects.filter(moti_district="ER")
-    west_terminals = Terminal.objects.filter(moti_district="WR")
-    centeral_terminals = Terminal.objects.filter(moti_district="CR")
+    terminals = None
+    title = "Terminals Report"
+    selected = request.POST.get('options')
+    if(selected == "All Terminals"):
+        terminals =Terminal.objects.all()
+        title ="All Terminals"
+    if(selected == "North Terminals"):
+        terminals = Terminal.objects.filter(moti_district="NR")
+        title = "North Terminals"
+    if(selected == "South Terminals"):
+        terminals=Terminal.objects.filter(moti_district="SR")
+        title = "South Terminals"
+    if(selected == "Centeral Terminals"):
+        terminals = Terminal.objects.filter(moti_district="CR")
+        title ="Centeral Terminals"
+    if(selected =="East Terminals"):
+        terminals = Terminal.objects.filter(moti_district="ER")
+        title ="East Terminals"
+    if(selected == "West Terminals"):
+        terminals = Terminal.objects.filter(moti_district="WR")
+        title = "West Terminals"
+
     context = {
-        "terminals": all_terminals,
-        "title": "Terminals Report",
+        "terminals": terminals,
+        "title": title,
+        "selected": selected
     }
     return render(request, 'pm/terminals_report.html', context)
 
