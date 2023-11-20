@@ -6,8 +6,7 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>List of Terminals</h1>
-          
+        <h1 class='text-center'>{% if selected %}List Of <span class="text-success">{{selected}}</span>{% endif %}</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -29,34 +28,20 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                 {% csrf_token %}
                 <div class="row">
                   <div class="col-12"> <h3 class="card-title py-4">FILTER Schedules</h3></div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label">Pending Schedule</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label">Waiting Task</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <!-- radio -->
-                    <div class="form-group">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label">Onprogress Task</label>
-                      </div>
+                    <div class="col-sm-8">
                       <div class="form-group">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label">Completed Task</label>
+                        <label>Filter Filter Form the Dropdown</label>
+                        <select class="form-control" name ="options">
+                          <option value ="0"selected >-----Select-----</option>
+                          <option value ="All Schedule" >All Schedules</option>
+                          <option value ="Pending Schedule" >Pending Schedules</option>
+                          <option value ="Waiting Task" >Waiting Task</option>  
+                          <option value ="OnProgress Task" >OnProgress Task</option>  
+                          <option value ="Completed Task" >Completed Task</option>  
+                         
+                        </select>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <hr>
                 <div class="form-group col-sm-12" id="data_5">
                   <label class="font-normalll">Select Time Range</label>
                   <div class="input-group date col-sm-8" id="datepicker">
