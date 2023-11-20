@@ -44,20 +44,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         auto_now_add=True, null=True, blank=True)
     # Informtion for system access
     is_staff = models.BooleanField(default=False, null=True, blank=True)
+    is_superuser = models.BooleanField(default=False,null=True,blank=True)
     is_active = models.BooleanField(default=True, null=True, blank=True)
-    is_moti = models.BooleanField(default=False, null=True, blank=True)
-    is_bank = models.BooleanField(default=False, null=True, blank=True)
-    system_summary = models.BooleanField(default=False, null=True, blank=True)
-    equipment_usage = models.BooleanField(default=False, null=True, blank=True)
-    view_user_list = models.BooleanField(default=False, null=True, blank=True)
-    edit_user = models.BooleanField(default=False, null=True, blank=True)
-    assign_privilege = models.BooleanField(
-        default=False, null=True, blank=True)
-    see_user_detail = models.BooleanField(default=False, null=True, blank=True)
-    upload_daily_report = models.BooleanField(
-        default=False, null=True, blank=True)
-    view_contact_list = models.BooleanField(
-        default=False, null=True, blank=True)
+    is_engineer = models.BooleanField(default=False, null=True, blank=True)
+    is_bank_user= models.BooleanField(default=False, null=True, blank=True)
+    view_dashboard = models.BooleanField(default=False, null=True, blank=True)
+    view_report = models.BooleanField(default=False, null=True, blank=True)
+    edit_info = models.BooleanField(default=False,null=False,blank=False)
+    
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

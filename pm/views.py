@@ -329,7 +329,7 @@ def engineers_list(request):
         users= User.objects.all()
         title = "All Users"
     if (selected == 'Engineers'):
-        users = User.objects.filter(is_moti=True)
+        users = User.objects.filter(is_engineer=True)
         title = "Engineers"
     if (selected == 'Active Users'):
         users = User.objects.filter(is_active=True)
@@ -338,10 +338,10 @@ def engineers_list(request):
         users = User.objects.filter(is_active=False)
         title ="InActive Users"
     if (selected == 'Super Users'):
-        users = User.objects.filter(is_staff=True)
+        users = User.objects.filter(is_super_user=True)
         title="Super Users"
     if (selected == 'Bank Users'):
-        users = User.objects.filter(is_bank=True)
+        users = User.objects.filter(is_bank_user=True)
         title = "Bank Users"
     context = {
         "users": users,
@@ -406,11 +406,11 @@ def terminals_list(request):
 def schedule_list(request):
     schedules = None
     title = "Schedules Report"
-    start_date = request.POST.get('txt_startdate')
-    end_date = request.POST.get('txt_enddate')
-    rage_filter = Schedule.objects.filter(
-        created_date__range=[str(start_date), str(end_date)])
-    print(f'RANGE FITERE : {rage_filter}')
+    # start_date = request.POST.get('txt_startdate')
+    # end_date = request.POST.get('txt_enddate')
+    # rage_filter = Schedule.objects.filter(
+    #     created_date__range=[str(start_date), str(end_date)])
+    # print(f'RANGE FITERE : {rage_filter}')
     selected = request.POST.get('options')
     if(selected == "All Schedule"):
         schedules = Schedule.objects.all()

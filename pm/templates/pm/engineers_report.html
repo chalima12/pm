@@ -85,12 +85,12 @@
                       <td>{{user.email}}</td>
                       <td>{{user.address}} </td>
                       <!--TODO: Add Profile Picture-->
-                       <td>{% if user.is_staff%}
+                       <td>{% if user.is_superuser%}
                          <span><b>Super User</b></span>
                           
-                          {% elif user.is_moti %}
+                          {% elif user.is_engineer %}
                           <span><b>Engineer</b></span>
-                          {% elif user.is_bank %}
+                          {% elif user.is_bank_user %}
                           <span><b>Bank User</b></span>
                         {% endif %}
                       </td>
