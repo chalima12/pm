@@ -28,41 +28,20 @@
                 {% csrf_token %}
                 <div class="row">
                   <div class="col-12"> <h3 class="card-title py-4">FILTER TERMINALS</h3></div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label">All Terminals</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label">North Terminals</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label">South Terminals</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <!-- radio -->
-                    <div class="form-group">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label">East Terminals</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label">West Terminals</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label">Centeral Terminals</label>
+                     <div class="col-sm-8">
+                      <div class="form-group">
+                        <label>Filter Banks Form the Dropdown</label>
+                        <select class="form-control" name ="options">
+                          <option value ="0"selected >-----Select-----</option>
+                          <option value ="All Terminals" >All Terminals</option>
+                          <option value ="North Terminals" >North Terminals</option>
+                          <option value ="South Terminals" >South Terminals</option>  
+                          <option value ="Centeral Terminals" >Centeral Terminals</option>  
+                          <option value ="East Terminals" >East Terminals</option>  
+                          <option value ="West Terminals" >West Terminals</option>  
+                        </select>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <hr>
                 <div class="form-group col-sm-12" id="data_5">
                   <label class="font-normalll">Select Time Range</label>
                   <div class="input-group date col-sm-8" id="datepicker">
