@@ -6,6 +6,7 @@ from django.http import Http404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone
+from django.db.models import Q
 import json
 from pm.models import Terminal, User, Bank, Schedule
 from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm
@@ -405,6 +406,11 @@ def terminals_list(request):
 def schedule_list(request):
     schedules = None
     title = "Schedules Report"
+    start_date = request.POST.get('txt_startdate')
+    end_date = request.POST.get('txt_enddate')
+    rage_filter = Schedule.objects.filter(
+        created_date__range=[str(start_date), str(end_date)])
+    print(f'RANGE FITERE : {rage_filter}')
     selected = request.POST.get('options')
     if(selected == "All Schedule"):
         schedules = Schedule.objects.all()
