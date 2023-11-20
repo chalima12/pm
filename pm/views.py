@@ -403,13 +403,27 @@ def terminals_list(request):
 
 
 def schedule_list(request):
-    all_schedules = Schedule.objects.all()
-    pending_schedules = Schedule.objects.filter(status="PE")
-    waiting_tasks = Schedule.objects.filter(status="WT")
-    onprogress_tasks = Schedule.objects.filter(status="OP")
-    completed_tasks = Schedule.objects.filter(status="CO")
+    schedules = None
+    title = "Schedules Report"
+    selected = request.POST.get('options')
+    if(selected == "All Schedule"):
+        schedules = Schedule.objects.all()
+        title = "All Tasks"
+    if(selected =="Pending Schedule"):
+        schedules = Schedule.objects.filter(status="PE")
+        title = "Pending Schedule"
+    if(selected == "Waiting Task"):
+        schedules = Schedule.objects.filter(status="WT")
+        title = "Waiting Task"
+    if(selected == "OnProgress Task"):
+        schedules = Schedule.objects.filter(status="OP")
+        title = "OnProgress Task"
+    if(selected == "Completed Task"):
+        schedules = Schedule.objects.filter(status="CO")
+        title ="Completed Task"
     context = {
-        "schedules": all_schedules,
-        "title": "Scheduls Report",
+        "schedules": schedules,
+        "title": title,
+        "selected": selected,
     }
     return render(request, 'pm/schedules_report.html', context)

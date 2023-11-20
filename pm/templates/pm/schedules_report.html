@@ -30,7 +30,7 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                   <div class="col-12"> <h3 class="card-title py-4">FILTER Schedules</h3></div>
                     <div class="col-sm-8">
                       <div class="form-group">
-                        <label>Filter Filter Form the Dropdown</label>
+                        <label>Filter Schedules Form the Dropdown</label>
                         <select class="form-control" name ="options">
                           <option value ="0"selected >-----Select-----</option>
                           <option value ="All Schedule" >All Schedules</option>
@@ -38,7 +38,6 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                           <option value ="Waiting Task" >Waiting Task</option>  
                           <option value ="OnProgress Task" >OnProgress Task</option>  
                           <option value ="Completed Task" >Completed Task</option>  
-                         
                         </select>
                       </div>
                     </div>
@@ -56,6 +55,7 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                </form>
             </div>
             <!-- /.card-header -->
+            {% if selected %}
             <div class="card-body">
               <table id = "example1" class="table table-hover">
                 <thead>
@@ -99,7 +99,7 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                     <th>TID</th>
                     <th>BANK NAME</th>
                     <th>TERMINAL NAME</th>
-                     <!--<th>START DATE</th>-->
+                    <!--<th>START DATE</th>-->
                     <th>END DATE</th>
                     <th>ASSIGNED TO</th>
                     <th>STATUS</th>
@@ -108,6 +108,12 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
               </table>
             </div>
             <!-- /.card-body -->
+            {% else %}
+            <div class="card-body">
+              <hr>
+              <p class= "text-center">Data Will be shown Here!!</p>
+            </div>
+            {% endif %}
           </div>
         </div>
       </div>
