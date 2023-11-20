@@ -347,13 +347,16 @@ def engineers_list(request):
     return render(request, 'pm/engineers_report.html', context)
 
 def banks_list(request):
-    all_banks = Bank.objects.all()
-    active_banks = Bank.objects.filter(is_active=True)
-    inactive_banks = Bank.objects.filter(is_active=False)
-    
-        
+    banks = None
+    command = request.POST
+    if (command.get('all-Banks')):
+        banks = Bank.objects.all()
+    if(command.get('active-banks')):
+        banks = Bank.objects.filter(is_active=True)
+    if(command.get('inactive-banks')):
+        banks = Bank.objects.filter(is_active=False)
     context = {
-        "banks": all_banks,
+        "banks": banks,
         "title": "Banks Report",
     }
     return render(request, 'pm/banks_report.html', context)
