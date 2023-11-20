@@ -352,16 +352,21 @@ def engineers_list(request):
 
 def banks_list(request):
     banks = None
-    command = request.POST
-    if (command.get('all-Banks')):
+    title = "Banks Report"
+    selected = request.POST.get('options')
+    if (selected == 'All Banks'):
         banks = Bank.objects.all()
-    if(command.get('active-banks')):
+        title ="All Banks"
+    if(selected =='Active Banks'):
         banks = Bank.objects.filter(is_active=True)
-    if(command.get('inactive-banks')):
+        title = "Active Banks"
+    if(selected == 'InActive Banks'):
         banks = Bank.objects.filter(is_active=False)
+        title = "InActive Banks"
     context = {
         "banks": banks,
-        "title": "Banks Report",
+        "title": title,
+        "selected": selected
     }
     return render(request, 'pm/banks_report.html', context)
 

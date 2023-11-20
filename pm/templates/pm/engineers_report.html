@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>{% if selected %}List Of <span class="text-success">{{selected}}</span>{% endif %}</h1>
+          <h1 class='text-center'>{% if selected %}List Of <span class="text-success">{{selected}}</span>{% endif %}</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -26,7 +26,7 @@
       <form action="" method="POST">
                 {% csrf_token %}
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-8">
                       <div class="form-group">
                         <label>Filter Users Form the Dropdown</label>
                         <select class="form-control" name ="options">
@@ -57,7 +57,8 @@
             </div>
             
             <!-- /.card-header -->
-            <div class="card-body">
+          {% if selected %}
+          <div class="card-body">
               <table id="example1" class="table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -122,6 +123,12 @@
               </table>
             </div>
             <!-- /.card-body -->
+            {% else %}
+            <div class="card-body">
+              <hr>
+              <p class= "text-center">Data Will be shown Here!!</p>
+            </div>
+          {% endif %}
           </div>
         </div>
       </div>
