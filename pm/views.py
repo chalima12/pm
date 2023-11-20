@@ -322,15 +322,29 @@ def reports(request):
 @login_required
 def engineers_list(request):
     #filters 
-    all_users = User.objects.all()
-    active_users = User.objects.filter(is_active=True)
-    inactive_users = User.objects.filter(is_active = False)
-    super_users = User.objects.filter(is_staff =True)
-    engineers = User.objects.filter(is_moti =True)
-    bank_users = User.objects.filter(is_bank = True)
+    # all_users = User.objects.all()
+    # active_users = User.objects.filter(is_active=True)
+    # inactive_users = User.objects.filter(is_active = False)
+    # super_users = User.objects.filter(is_staff =True)
+    # engineers = User.objects.filter(is_moti =True)
+    # bank_users = User.objects.filter(is_bank = True)
+    
     if request.method == "POST":
-        fname = request.POST['name']
-        users = User.objects.filter(first_name=fname)
+        command = request.POST
+        users = None
+        if(command !=None):
+            if(command.get("all-users")):
+                users = User.objects.all()
+            if(command.get('engineers')):
+                users = User.objects.filter(is_moti=True)
+            if(command.get('bank-users')):
+                users = User.objects.filter(is_bank=True)
+            if (command.get('active-users')):
+                users=User.objects.filter(is_active=True)
+            if (command.get('inactive-users')):
+                users = User.objects.filter(is_active=False)
+            if (command.get('super-users')):
+                users = User.objects.filter(is_staff=True)
 
         context = {
             "users": users,
