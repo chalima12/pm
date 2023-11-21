@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.http import Http404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms  import UserCreationForm
 from datetime import datetime, timezone
 from django.db.models import Q
 import json
@@ -76,7 +77,7 @@ def view_user(request, id):
 
 
 @login_required
-def add_user(request):
+def create_user(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
