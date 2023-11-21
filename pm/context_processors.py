@@ -1,5 +1,4 @@
 from .models import Schedule
-from django.contrib import messages
 import json
 
 
@@ -15,7 +14,5 @@ def global_context(request):
         "waitingSchedule": json.dumps(waitingSchedule),
         "onprogressSchedule": json.dumps(onprogressSchedule),
         "commpletedSchedule": json.dumps(commpletedSchedule),
-        "messages":messages
-
     }
     return context
