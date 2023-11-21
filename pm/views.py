@@ -120,15 +120,17 @@ def banks(request):
 
 @login_required
 def addBank(request):
+    success = False
     if request.method == "POST":
         form = BankForm(request.POST)
         if form.is_valid():
             form.save()
+            success = True
             messages.success(request, "New Bank Add Successfully!")
             return redirect('banks-page')
     else:
         form = BankForm()
-    context = {"form": form, "title": "Add Bank"}
+    context = {"form": form, "title": "Add Bank", "success": success}
     return render(request, 'pm/addBank.html', context)
 
 
@@ -136,14 +138,17 @@ def addBank(request):
 def updateBank(request, bank_id):
     bank = Bank.objects.get(pk=bank_id)
     form = BankForm(request.POST or None, instance=bank)
+    success = False
     if form.is_valid():
         form.save()
+        success = True
         messages.info(request, "Updated Successfully!")
         return redirect('banks-page')
     context = {
         'bank': bank,
         'form': form,
-        "title": "Edit Bank"
+        "title": "Edit Bank",
+        "success": success
     }
     return render(request, 'pm/update_bank.html', context)
 

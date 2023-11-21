@@ -41,7 +41,7 @@
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary swalDefaultSuccess">Update</button>
+            <button type="submit" class="btn btn-primary {% if success %}swalDefaultSuccess{% else %} swalDefaultError{% endif %}">Update</button>
             <a href="{% url 'banks-page' %}" class="btn btn-secondary">Cancel</a>
           </form>
         </div>
