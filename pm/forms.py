@@ -1,5 +1,7 @@
 from django import forms
 from pm.models import Terminal, Bank, User, Schedule
+# from .managers import CustomUserManager
+# from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 
 class TerminalForm(forms.ModelForm):
@@ -58,7 +60,7 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'gender',
-                'username', 'email', 'phone', 'address']
+                  'username', 'email', 'phone', 'address', 'password']
         MALE = 'M'
         FEMALE = 'F'
         gender_choices = [
@@ -73,7 +75,8 @@ class UserForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'phone': forms.TextInput(attrs={'class': 'form-control'}),
             'address': forms.TextInput(attrs={'class': 'form-control'}),
-            
+            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
+
         }
 
 

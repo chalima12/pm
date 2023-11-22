@@ -5,7 +5,6 @@ from django.contrib import messages
 from django.http import Http404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms  import UserCreationForm
 from datetime import datetime, timezone
 from django.db.models import Q
 import json

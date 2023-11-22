@@ -4,9 +4,6 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .managers import CustomUserManager
 # Create your models here.
 
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from .managers import CustomUserManager
-
 # Create your models here.
 
 REGION_CHIOCES = [
