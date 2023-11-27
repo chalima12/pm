@@ -60,7 +60,7 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'gender',
-                  'username', 'email', 'phone', 'address', 'password',]
+                'username', 'email', 'phone', 'address', 'password',]
         MALE = 'M'
         FEMALE = 'F'
         gender_choices = [
