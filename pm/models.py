@@ -157,3 +157,4 @@ class Schedule(models.Model):
         return str(self.terminal)
     class Meta:
         ordering = ['end_date']
+

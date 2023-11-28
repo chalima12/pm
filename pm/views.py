@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.http import Http404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from datetime import datetime, timezone
+from datetime import datetime, timezone,timedelta,date
 from django.db.models import Q
 import json
 from pm.models import Terminal, User, Bank, Schedule
@@ -235,6 +235,10 @@ def create_schedule(request):
             terminals = form.cleaned_data['terminals']
             start_date =form.cleaned_data['start_date']
             end_date = form.cleaned_data['end_date']
+            str_date = str(date.isoformat(start_date))
+            f_str_date = datetime.strptime(str_date, "%Y-%m-%d")
+            t = f_str_date + timedelta(days=90)
+            print(f'Formated Start Date : {t}')
             description = form.cleaned_data['description']
             for terminal in terminals:
                 Schedule.objects.create(
@@ -277,17 +281,6 @@ def start_task(request, scheule_id):
     schedule.status = "OP"
     schedule.save()
     return redirect(reverse('schedules'))
-
-
-# @login_required
-# def end_scheduled_task1(request, scheule_id):
-#         schedule = Schedule.objects.get(pk=scheule_id)
-#         form = EndScheduleForm(request.POST, request.FILES, instance=schedule)
-#         schedule.status = "CO"
-#         form.save()
-#         messages.success(request, "Chenge Updated successfully!")
-#         return redirect(reverse('schedules'))
-
 @login_required
 def end_scheduled_task(request, id):
     if request.method == 'POST':
@@ -411,11 +404,6 @@ def terminals_list(request):
 def schedule_list(request):
     schedules = None
     title = "Schedules Report"
-    # start_date = request.POST.get('txt_startdate')
-    # end_date = request.POST.get('txt_enddate')
-    # rage_filter = Schedule.objects.filter(
-    #     created_date__range=[str(start_date), str(end_date)])
-    # print(f'RANGE FITERE : {rage_filter}')
     selected = request.POST.get('options')
     if(selected == "All Schedule"):
         schedules = Schedule.objects.all()
