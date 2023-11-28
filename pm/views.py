@@ -234,7 +234,6 @@ def create_schedule(request):
         if form.is_valid():
             terminals = form.cleaned_data['terminals']
             start_date =form.cleaned_data['start_date']
-            end_date = form.cleaned_data['end_date']
             string_start_date = str(date.isoformat(start_date))
             formated_start_date = datetime.strptime(string_start_date, "%Y-%m-%d")
             print(f"Start Date: {formated_start_date}")

@@ -85,17 +85,15 @@ class ScheduleForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['terminals'].required = True
         self.fields['start_date'].required = True
-        self.fields['end_date'].required = True
 
     terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
     ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2 select2bs4'}))
 
     class Meta:
         model = Schedule
-        fields = ['terminals', 'start_date', 'end_date', 'description']
+        fields = ['terminals', 'start_date','description']
         widgets = {
             'start_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'end_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Type your description here'}),
         }
 
