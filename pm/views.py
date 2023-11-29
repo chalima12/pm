@@ -217,8 +217,10 @@ def updateTerminal(request, terminal_id):
 def schedule(request):
     scheduleQuerySet = Schedule.objects.all()
     # now = datetime.now(timezone.utc)
+    one_day = timedelta(days=1)
     for schedule in scheduleQuerySet:
-        schedule.remaining_day = (schedule.end_date-schedule.start_date).days
+        schedule.remaining_day = (
+            (schedule.end_date-schedule.start_date)).days
     context = {
         "title": "Scheduled ATMS",
         "schedules": scheduleQuerySet,
@@ -236,7 +238,7 @@ def create_schedule(request):
             start_date =form.cleaned_data['start_date']
             string_start_date = str(date.isoformat(start_date))
             formated_start_date = datetime.strptime(string_start_date, "%Y-%m-%d")
-            print(f"Start Date: {formated_start_date}")
+            # print(f"Start Date: {formated_start_date}")
             end_date = formated_start_date + timedelta(days=90) #TODO: make days select form user 3, 4 or 6 month
             description = form.cleaned_data['description']
             for terminal in terminals:
