@@ -38,12 +38,12 @@
                     {{form.last_name}}
                 </div>
               </div>
-              <div class="col-md-6">
+               <div class="col-md-6">
                 <div class="form-group">
                   <label for="{{ form.gender.id_for_label }}">Gender</label>
                     {{form.gender}}
                 </div>
-              </div>
+              </div> 
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="{{ form.username.id_for_label }}">Username</label>
@@ -57,7 +57,7 @@
                     {{form.email}}
                 </div>
               </div>
-              <div class="col-sm-6">
+             <div class="col-sm-6">
                 <div class="form-group">
                   <label for="{{ form.phone.id_for_label }}">Phone</label>
                     {{form.phone}}
@@ -68,11 +68,17 @@
                   <label for="{{ form.address.id_for_label }}">Address</label>
                     {{form.address}}
                 </div>
+              </div> 
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="{{ form.password1.id_for_label }}">Password</label>
+                    {{form.password1}}
+                </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label for="{{ form.password.id_for_label }}">Password</label>
-                    {{form.password}}
+                  <label for="{{ form.password2.id_for_label }}">Password</label>
+                    {{form.password2}}
                 </div>
               </div>
             </div>

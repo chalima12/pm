@@ -12,13 +12,14 @@ from pm.models import Terminal, User, Bank, Schedule
 from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm
 
 
+
 def login_user(request):
     logout(request)
     resp = {"status": 'failed', 'msg': ''}
     username = ''
     password = ''
     if request.POST:
-        username = request.POST['username']
+        username = request.POST['email']
         password = request.POST['password']
 
         user = authenticate(username=username, password=password)
@@ -87,6 +88,14 @@ def create_user(request):
         form = UserForm()
     context = {'form': form, "title": "Add User"}
     return render(request, 'pm/addEngineer.html', context)
+# def create_user(request):
+#     form = UserCreationForm()
+#     if request.method == "POST":
+#         form= UserCreationForm()
+#         if form.is_valid():
+#             form.save()
+#     context = {'form': form, "title": "Add User"}
+#     return render(request, 'pm/user_registration.html', context)
 
 
 @login_required

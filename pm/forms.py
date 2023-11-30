@@ -1,7 +1,47 @@
 from django import forms
 from pm.models import Terminal, Bank, User, Schedule
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import password_validation
+from django.utils.translation import gettext_lazy as _
 # from .managers import CustomUserManager
 # from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+
+
+class UserForm(UserCreationForm):
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['first_name'].required = True
+    #     self.fields['last_name'].required = True
+    #     self.fields['gender'].required = True
+    #     self.fields['phone'].required = True
+    #     self.fields['address'].required = True
+    first_name = forms.CharField(max_length=12, min_length=4, required=True, help_text='Required: First Name',
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}))
+    last_name = forms.CharField(max_length=12, min_length=4, required=True, help_text='Required: Last Name',widget=(forms.TextInput(attrs={'class': 'form-control'})))
+    email = forms.EmailField(max_length=50, help_text='Required. Inform a valid email address.', widget=(forms.TextInput(attrs={'class': 'form-control'})))
+    password1 = forms.CharField(label=_('Password'),
+                                widget=(forms.PasswordInput(attrs={'class': 'form-control'})),
+                                help_text=password_validation.password_validators_help_text_html())
+    password2 = forms.CharField(label=_('Password Confirmation'), widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+                                help_text=_('Just Enter the same password, for confirmation'))
+    username = forms.CharField(
+        label=_('Username'),
+        max_length=150,
+        error_messages={'unique': _("A user with that username already exists.")},
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'gender', 'phone', 'address', 'username','email', 'password1', 'password2']
+        
+        widgets = {    
+            'gender': forms.Select(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'address': forms.TextInput(attrs={'class': 'form-control'}),
+            
+
+        }
 
 
 class TerminalForm(forms.ModelForm):
@@ -48,38 +88,6 @@ class BankForm(forms.ModelForm):
         }
 
 
-class UserForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['first_name'].required = True
-        self.fields['last_name'].required = True
-        self.fields['gender'].required = True
-        self.fields['phone'].required = True
-        self.fields['address'].required = True
-
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'gender',
-                'username', 'email', 'phone', 'address', 'password',]
-        MALE = 'M'
-        FEMALE = 'F'
-        gender_choices = [
-            (MALE, 'Male'),
-            (FEMALE, 'Female'),
-        ]
-        widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'gender': forms.Select(attrs={'class': 'form-control'}),
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'phone': forms.TextInput(attrs={'class': 'form-control'}),
-            'address': forms.TextInput(attrs={'class': 'form-control'}),
-            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
-
-        }
-
-
 class ScheduleForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -91,7 +99,7 @@ class ScheduleForm(forms.ModelForm):
 
     class Meta:
         model = Schedule
-        fields = ['terminals', 'start_date','description']
+        fields = ['terminals', 'start_date', 'description']
         widgets = {
             'start_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Type your description here'}),
