@@ -1,28 +1,21 @@
 q   {% extends "base.html" %} {% load static %} {% block content %} 
 
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
+  <!-- Content Header (Page header) 
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class='text-center'>{% if selected %}List Of <span class="text-success">{{selected}}</span>{% endif %}</h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
-            <li class="breadcrumb-item active">Schedule</li>
-          </ol>
+        <p class='text-center'>{% if selected %}List Of <span class="text-success">{{selected}}</span>{% endif %}</p>
         </div>
       </div>
     </div>
-    <!-- /.container-fluid -->
-  </section>
+  </section>-->
   <section class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <div class="card border-top border-success">
+          <div class="card border-top border-info">
             <div class="card-header">
               <form action="" method="POST">
                 {% csrf_token %}
