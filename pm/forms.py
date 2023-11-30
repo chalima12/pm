@@ -17,8 +17,10 @@ class UserForm(UserCreationForm):
     #     self.fields['address'].required = True
     first_name = forms.CharField(max_length=12, min_length=4, required=True, help_text='Required: First Name',
                                 widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}))
-    last_name = forms.CharField(max_length=12, min_length=4, required=True, help_text='Required: Last Name',widget=(forms.TextInput(attrs={'class': 'form-control'})))
-    email = forms.EmailField(max_length=50, help_text='Required. Inform a valid email address.', widget=(forms.TextInput(attrs={'class': 'form-control'})))
+    last_name = forms.CharField(max_length=12, min_length=4, required=True, help_text='Required: Last Name', widget=(
+        forms.TextInput(attrs={'class': 'form-control'})))
+    email = forms.EmailField(max_length=50, help_text='Required. Inform a valid email address.', widget=(
+        forms.TextInput(attrs={'class': 'form-control'})))
     password1 = forms.CharField(label=_('Password'),
                                 widget=(forms.PasswordInput(attrs={'class': 'form-control'})),
                                 help_text=password_validation.password_validators_help_text_html())
@@ -30,17 +32,14 @@ class UserForm(UserCreationForm):
         error_messages={'unique': _("A user with that username already exists.")},
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
-
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'gender', 'phone', 'address', 'username','email', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'gender','username', 'email','phone', 'address','password1', 'password2']
         
         widgets = {    
             'gender': forms.Select(attrs={'class': 'form-control'}),
             'phone': forms.TextInput(attrs={'class': 'form-control'}),
             'address': forms.TextInput(attrs={'class': 'form-control'}),
-            
-
         }
 
 
