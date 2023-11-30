@@ -1,4 +1,4 @@
-from .models import Schedule
+from .models import Schedule, User
 import json
 
 
@@ -7,6 +7,7 @@ def global_context(request):
     commpletedSchedule = Schedule.objects.filter(status ="CO").count()
     pendingSchedule = Schedule.objects.filter(status="PE").count()
     waitingSchedule = Schedule.objects.filter(status="WT").count()
+    
     allSchedule = onprogressSchedule+commpletedSchedule+pendingSchedule+waitingSchedule
     context = {
         "allSchedule":allSchedule,

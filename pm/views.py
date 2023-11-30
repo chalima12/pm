@@ -87,17 +87,7 @@ def create_user(request):
     else:
         form = UserForm()
     context = {'form': form, "title": "Add User"}
-    return render(request, 'pm/addEngineer.html', context)
-# def create_user(request):
-#     form = UserCreationForm()
-#     if request.method == "POST":
-#         form= UserCreationForm()
-#         if form.is_valid():
-#             form.save()
-#     context = {'form': form, "title": "Add User"}
-#     return render(request, 'pm/user_registration.html', context)
-
-
+    return render(request, 'pm/add_user.html', context)
 @login_required
 def edit_user(request, user_id):
     user = User.objects.get(pk=user_id)
