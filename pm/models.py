@@ -158,6 +158,8 @@ class ScheduleList(models.Model):
     schedule = models.ForeignKey(AllSchedule, on_delete=models.PROTECT, null=True, blank=True)
     status = models.CharField(
         max_length=10, choices=status_choices, default=PENDING,null=True,blank=True)
+    terminal = models.ForeignKey(
+        Terminal, on_delete=models.PROTECT, help_text='Select Terminal', null=True)
     priority = models.CharField(
         max_length=10, choices=priority_choice,null=True,blank=True)
     material_required = models.CharField(max_length=255, null=True,blank=True)

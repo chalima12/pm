@@ -215,9 +215,12 @@ def updateTerminal(request, terminal_id):
 @login_required
 def schedule(request):
     scheduleQuerySet = AllSchedule.objects.all()
+    now = datetime.now(timezone.utc)
+    
     for schedule in scheduleQuerySet:
         schedule.remaining_day = (
-            (schedule.end_date-schedule.start_date)).days
+            (schedule.end_date-schedule.start_date)).days 
+        schedule.s =(schedule.start_date - now).days
     context = {
         "title": "Scheduled ATMS",
         "schedules": scheduleQuerySet,

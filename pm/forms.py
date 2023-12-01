@@ -1,5 +1,5 @@
 from django import forms
-from pm.models import Terminal, Bank, User, AllSchedule
+from pm.models import Terminal, Bank, User, AllSchedule,ScheduleList
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import password_validation
 from django.utils.translation import gettext_lazy as _
@@ -87,7 +87,7 @@ class BankForm(forms.ModelForm):
         }
 
 
-class ScheduleForm(forms.ModelForm):
+class ScheduleForm():
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['terminals'].required = True
@@ -98,8 +98,7 @@ class ScheduleForm(forms.ModelForm):
 
     class Meta:
         model = AllSchedule
-        fields = ['schedule_name', 'created_by',
-                  'terminals', 'start_date', 'description']
+        fields = ['schedule_name', 'created_by','terminals', 'start_date', 'description']
         widgets = {
             'schedule_name':forms.TextInput(attrs={'class': 'form-control'}),
             'created_by': forms.TextInput(attrs={'class': 'form-control'}),
