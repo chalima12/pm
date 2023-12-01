@@ -131,6 +131,7 @@ class Schedule(models.Model):
         (LOW, 'Low')
         ]
     # We will remove start Date end end Date
+    schedule_name = models.CharField(max_length=200, null=True, blank=False)
     bank_name = models.ForeignKey(
         Bank, on_delete=models.PROTECT,null=True,blank=True)
     terminal = models.ForeignKey(
@@ -160,9 +161,37 @@ class Schedule(models.Model):
         ordering = ['end_date']
     
 class Schedule_List(models.Model):
+    PENDING = 'PE'
+    WAITING = "WT"
+    ONPROGRESS = 'OP'
+    COMPLETED = 'CO'
+    status_choices = [
+        (PENDING, 'Pending'),
+        (WAITING,'Waiting'),
+        (ONPROGRESS, 'Onprogress'),
+        (COMPLETED, 'Completed'),
+    ]
+    HIGH = 'H'
+    MEDIUM = 'M'
+    LOW = 'L'
+    priority_choice = [
+        (HIGH, 'High'), 
+        (MEDIUM, 'Medium'), 
+        (LOW, 'Low')
+        ]
     schedule = models.ForeignKey(Schedule, on_delete=models.PROTECT, null=True, blank=True)
-    start_date = models.DateField(auto_now_add=False, editable=True, null=True, blank=True)
-    end_date = models.DateField(
-        auto_now_add=False, editable=True, null=True, blank=True)
+    assign_to = models.ForeignKey(
+        User, on_delete=models.PROTECT,null=True, blank=True)
+    status = models.CharField(
+        max_length=10, choices=status_choices, default=PENDING,null=True,blank=True)
+    description = models.CharField(max_length=300,null=True, blank=True)
+    priority = models.CharField(
+        max_length=10, choices=priority_choice,null=True,blank=True)
+    material_required = models.CharField(max_length=255, null=True,blank=True)
+    comment = models.CharField(max_length=255,null=True,blank=True)
+    checklist_photo = models.FileField(null=True, blank=True,upload_to="pm_checklist_pics/")
+    closed_date = models.DateTimeField(blank=True,null=True,default=timezone.now)
+
+
     
 
