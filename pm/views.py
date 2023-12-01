@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib import messages
@@ -215,8 +215,6 @@ def updateTerminal(request, terminal_id):
 @login_required
 def schedule(request):
     scheduleQuerySet = AllSchedule.objects.all()
-    # now = datetime.now(timezone.utc)
-    one_day = timedelta(days=1)
     for schedule in scheduleQuerySet:
         schedule.remaining_day = (
             (schedule.end_date-schedule.start_date)).days
@@ -233,6 +231,8 @@ def create_schedule(request):
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
         if form.is_valid():
+            schedule_name = form.cleaned_data['schedule_name'],
+            created_by = form.cleaned_data['created_by'],
             terminals = form.cleaned_data['terminals']
             start_date =form.cleaned_data['start_date']
             string_start_date = str(date.isoformat(start_date))
@@ -242,6 +242,8 @@ def create_schedule(request):
             description = form.cleaned_data['description']
             for terminal in terminals:
                 AllSchedule.objects.create(
+                    schedule_name=schedule_name,
+                    created_by =created_by,
                     terminal=terminal,
                     start_date=start_date,
                     end_date=end_date,

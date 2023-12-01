@@ -45,7 +45,15 @@
                     <td><a href="#"> {{schedule.created_by}} </a></td>
                     <td><a href="#"> {{schedule.start_date}}</a></td>
                     <td><a href="#"> {{schedule.end_date}} </a></td>
-                    <td><a href="#"> {{schedule.remaining_day}} </a></td>
+                    <td><a href="#"> {% if schedule.remaining_day < 3%}
+                        {% if schedule.remaining_day < 0 %}
+                        <span class="badge badge-danger" style="width: 90px"><b>OVER</b></span>
+                        {% else %}
+                        <span class="badge badge-danger" style="width: 90px"><b>{{schedule.remaining_day}} Days</b></span>
+                        {% endif %}
+                      {% else %}
+                        {{schedule.remaining_day}} Days
+                      {% endif %}</a></td>
                     <td><a href="#"> {{schedule.description}} </a></td>
                   </tr>
                   {% endfor %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from pm.models import Bank, AllSchedule, Terminal, User
+from pm.models import Bank, AllSchedule, Terminal, User,ScheduleList
 
 
 @admin.register(Bank)
@@ -18,6 +18,9 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(AllSchedule)
 class AllScheduleAdmin(admin.ModelAdmin):
     list_display = ['terminal', 'start_date', 'end_date', 'description']
+@admin.register(ScheduleList)
+class ScheduleListAdmin(admin.ModelAdmin):
+    list_display = ['schedule', 'status', 'closed_date',]
 
 
 @admin.register(Terminal)

@@ -98,8 +98,11 @@ class ScheduleForm(forms.ModelForm):
 
     class Meta:
         model = AllSchedule
-        fields = ['terminals', 'start_date', 'description']
+        fields = ['schedule_name', 'created_by',
+                  'terminals', 'start_date', 'description']
         widgets = {
+            'schedule_name':forms.TextInput(attrs={'class': 'form-control'}),
+            'created_by': forms.TextInput(attrs={'class': 'form-control'}),
             'start_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Type your description here'}),
         }
