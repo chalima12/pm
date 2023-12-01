@@ -12,9 +12,9 @@ urlpatterns = [
     path('add-terminal/', views.addTerminal, name='add-terminal'),
     path('update_terminal/<int:terminal_id>',views.updateTerminal, name='update-terminal'),
     path('schedules/', views.schedule, name='schedules'),
-    path('assign_engineer/<int:id>', views.assign_engineer, name='assign-engineer'),
-    path("start_task/<int:scheule_id>", views.start_task, name="start-task"),
-    path('end_scheduled_task/<int:id>',views.end_scheduled_task, name='end-task'),
+    # path('assign_engineer/<int:id>', views.assign_engineer, name='assign-engineer'),
+    # path("start_task/<int:scheule_id>", views.start_task, name="start-task"),
+    # path('end_scheduled_task/<int:id>',views.end_scheduled_task, name='end-task'),
     path('users/', views.user, name='all-engineers'),
     path('add-user/', views.create_user, name="add-user"),
     path('edit_user/<int:user_id>', views.edit_user,name='edit-user'),
@@ -27,7 +27,7 @@ urlpatterns = [
     path("report/users", views.engineers_list, name="engineers-list" ),
     path("report/banks", views.banks_list, name="bank-list"),
     path("report/terminals", views.terminals_list, name="terminals-list"),
-    path("report/schedules", views.schedule_list, name="schedules-list"),
+    # path("report/schedules", views.schedule_list, name="schedules-list"),
     
 
 ]
