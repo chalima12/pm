@@ -130,6 +130,7 @@ class Schedule(models.Model):
         (MEDIUM, 'Medium'), 
         (LOW, 'Low')
         ]
+    # We will remove start Date end end Date
     bank_name = models.ForeignKey(
         Bank, on_delete=models.PROTECT,null=True,blank=True)
     terminal = models.ForeignKey(
@@ -157,4 +158,11 @@ class Schedule(models.Model):
         return str(self.terminal)
     class Meta:
         ordering = ['end_date']
+    
+class Schedule_List(models.Model):
+    schedule = models.ForeignKey(Schedule, on_delete=models.PROTECT, null=True, blank=True)
+    start_date = models.DateField(auto_now_add=False, editable=True, null=True, blank=True)
+    end_date = models.DateField(
+        auto_now_add=False, editable=True, null=True, blank=True)
+    
 
