@@ -18,7 +18,7 @@
         <div class="col-12">
           <div class="card border-top border-info">
             <div class="card-header">
-              <a href="{% url "schedules" %}" class="btn btn-info">Back</a>
+              <a href="{% url "schedules" %}" class="btn btn-md btn-info">Back</a>
               <a  class="btn btn-secondary btn-md float-right" data-toggle="modal" data-target="#analysis"
                         >
                     📈Analysis Summary
@@ -38,29 +38,33 @@
                       <div class="modal-body">
                           <div class="row">
                             <div class="col-md-12">
-                              <p>TOTAL: <strong><span class=""> {{all_schedule_count}}</span></strong> </p>
+                              <p>TOTAL: <strong><span class="h5"> {{all_schedule_count}}</span></strong> </p>
                               <hr>
                             </div>
                             <div class="col-md-6">
-                              <p>Pending Schedule Rate: <strong><span class="text-danger"> {{pending_rate}}%</span></strong> </p>
+                              <p>Pending Schedule Rate: <strong><span class="text-danger h5"> {{pending_rate}}%</span></strong> </p>
                               <hr>
                             </div>
                             <div class="col-md-6">
-                              <p>Waiting Task Rate: <strong><span class="text-info">{{waiting_rate}} %</span></strong> </p>
+                              <p>Waiting Task Rate: <strong><span class="text-info h5">{{waiting_rate}} %</span></strong> </p>
                               <hr>
                             </div>
                             <div class="col-md-6">
-                              <p>Onprogress Task Rate: <strong><span class="text-warning">{{onprogress_rate}} %</span> </strong> </p>
+                              <p>Onprogress Task Rate: <strong><span class="text-warning h5">{{onprogress_rate}} %</span> </strong> </p>
                               <hr>
                             </div>
                             <div class="col-md-6">
-                              <p>Completed Task Rate: <strong><span class="text-success">{{completed_rate}} %</span> </strong> </p>
+                              <p>Completed Task Rate: <strong><span class="text-success h5">{{completed_rate}} %</span> </strong> </p>
                               <hr>
+                            </div>
+                            <div class="col-md-12">
+                              <p class="text-center">Engineers Needed: <strong><span class="h5">{{engineer_nedded}} </span> </strong> </p>
+              
                             </div>
                           </div>
                         </div>
                     <div class="modal-footer justify-content-between">
-                      <button type="button text-center" class="btn btn-light" data-dismiss="modal">Close</button>
+                      <button type="button text-center" class="btn btn-default m-4" data-dismiss="modal">Close</button>
 
                     </div>
                   </div>

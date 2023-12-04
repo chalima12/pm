@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone,timedelta,date
 from django.db.models import Q
-import json
+import json, math
 from pm.models import Terminal, User, Bank, Schedule,AllSchedule
 from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm
 
@@ -237,6 +237,7 @@ def detail_schedules_list(request, scheule_id):
     waiting_rate = round(waiting_schedule/specific_schedule_count,2)*100
     onprogress_rate = round(onprogress_schedule/specific_schedule_count,2)*100
     completed_rate = round(completed_schedule/specific_schedule_count,2)*100
+    engineer_nedded = math.ceil(pending_schedule/7)
     context = {
         'schedules': schedules_list,
         "title": "Detial shedule",
@@ -244,7 +245,8 @@ def detail_schedules_list(request, scheule_id):
         "waiting_rate": waiting_rate,
         "onprogress_rate": onprogress_rate,
         "completed_rate": completed_rate,
-        "all_schedule_count": specific_schedule_count
+        "all_schedule_count": specific_schedule_count,
+        "engineer_nedded": engineer_nedded,
         
     }
     return render(request, 'pm/detail_schedules_list.html', context)

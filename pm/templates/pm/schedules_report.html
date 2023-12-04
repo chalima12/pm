@@ -73,13 +73,13 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                       <td>{{schedule.end_date|date:'Y-m-d'}}</td>
                       <td>{{schedule.assign_to}}</td>
                       <td>{% if schedule.status == "PE" %}
-                            <p class="badge badge-danger">Pending</p>
+                            <p class="badge badge-danger" style="width:90px;">Pending</p>
                           {% elif schedule.status == "WT" %}
-                            <p class="badge badge-info">Waiting</p>
+                            <p class="badge badge-info" style="width:90px;">Waiting</p>
                           {% elif schedule.status == "OP" %}
-                            <p class="badge badge-warning">OnProgress</p>
+                            <p class="badge badge-warning" style="width:90px;">OnProgress</p>
                           {% elif schedule.status == "CO" %}
-                            <p class= "badge badge-success">Completed</p>
+                            <p class= "badge badge-success" style="width:90px;">Completed</p>
                       {% endif %}</td>
                     </tr>
                 
