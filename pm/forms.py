@@ -87,18 +87,15 @@ class BankForm(forms.ModelForm):
         }
 
 
-class ScheduleForm():
+class AllScheduleForm():
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['terminals'].required = True
         self.fields['start_date'].required = True
-
-    terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
-    ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2 select2bs4'}))
-
+    # terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
+    # ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2 select2bs4'}))
     class Meta:
         model = AllSchedule
-        fields = ['schedule_name', 'created_by','terminals', 'start_date', 'description']
+        fields = ['schedule_name', 'created_by', 'start_date', 'description']
         widgets = {
             'schedule_name':forms.TextInput(attrs={'class': 'form-control'}),
             'created_by': forms.TextInput(attrs={'class': 'form-control'}),
@@ -107,6 +104,12 @@ class ScheduleForm():
         }
 
 
+class ScheduleListForm(forms.ModelForm):
+    terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
+    ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2 select2bs4'}))
+    class Meta:
+        model = ScheduleList
+        fields = ['terminals']
 # class AssignEngineerForm(forms.ModelForm):
 #     def __init__(self, *args, **kwargs):
 #         super().__init__(*args, **kwargs)

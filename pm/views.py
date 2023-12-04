@@ -9,7 +9,7 @@ from datetime import datetime, timezone,timedelta,date
 from django.db.models import Q
 import json
 from pm.models import Terminal, User, Bank, AllSchedule,ScheduleList
-from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm #AssignEngineerForm, EndScheduleForm
+from pm.forms import TerminalForm, BankForm, AllScheduleForm, UserForm, ScheduleListForm#AssignEngineerForm, EndScheduleForm
 
 
 
@@ -228,38 +228,69 @@ def schedule(request):
     return render(request, 'pm/schedule.html', context)
 
 
+# @login_required
+# def create_schedule(request):
+#     tqs = Terminal.objects.all()
+#     if request.method == 'POST':
+#         form = AllScheduleForm(request.POST)
+#         if form.is_valid():
+#             schedule_name = form.cleaned_data['schedule_name'],
+#             created_by = form.cleaned_data['created_by'],
+#             terminals = form.cleaned_data['terminals']
+#             start_date =form.cleaned_data['start_date']
+#             string_start_date = str(date.isoformat(start_date))
+#             formated_start_date = datetime.strptime(string_start_date, "%Y-%m-%d")
+#             # print(f"Start Date: {formated_start_date}")
+#             end_date = formated_start_date + timedelta(days=90) #TODO: make days select form user 3, 4 or 6 month
+#             description = form.cleaned_data['description']
+#             for terminal in terminals:
+#                 AllSchedule.objects.create(
+#                     schedule_name=schedule_name,
+#                     created_by =created_by,
+#                     terminal=terminal,
+#                     start_date=start_date,
+#                     end_date=end_date,
+#                     description=description,
+                
+#                 )
+
+#             messages.success(request, "Schedules created successfully!")
+#             return redirect('schedules')
+#     else:
+#         form =AllScheduleForm()
+#     return render(request, 'pm/addSchedule.html', {'form': form,"terminals":tqs})
+
+
 @login_required
 def create_schedule(request):
     tqs = Terminal.objects.all()
     if request.method == 'POST':
-        form = ScheduleForm(request.POST)
-        if form.is_valid():
-            schedule_name = form.cleaned_data['schedule_name'],
-            created_by = form.cleaned_data['created_by'],
-            terminals = form.cleaned_data['terminals']
-            start_date =form.cleaned_data['start_date']
+        all_form = AllScheduleForm(request.POST, prefix='all')
+        list_form = ScheduleListForm(request.POST, prefix='list')
+        if all_form.is_valid() and list_form.is_valid():
+            schedule_name = all_form.cleaned_data['schedule_name'],
+            created_by = all_form.cleaned_data['created_by'],
+            terminals = list_form.cleaned_data['terminals']
+            start_date = all_form.cleaned_data['start_date']
             string_start_date = str(date.isoformat(start_date))
-            formated_start_date = datetime.strptime(string_start_date, "%Y-%m-%d")
-            # print(f"Start Date: {formated_start_date}")
-            end_date = formated_start_date + timedelta(days=90) #TODO: make days select form user 3, 4 or 6 month
-            description = form.cleaned_data['description']
+            formated_start_date = datetime.strptime(
+                string_start_date, "%Y-%m-%d")
+            end_date = formated_start_date + timedelta(days=90)
+            description = all_form.cleaned_data['description']
             for terminal in terminals:
-                AllSchedule.objects.create(
-                    schedule_name=schedule_name,
-                    created_by =created_by,
+                ScheduleList.objects.create(
                     terminal=terminal,
                     start_date=start_date,
                     end_date=end_date,
                     description=description,
-                
+
                 )
 
             messages.success(request, "Schedules created successfully!")
             return redirect('schedules')
     else:
-        form =ScheduleForm()
-    return render(request, 'pm/addSchedule.html', {'form': form,"terminals":tqs})
-
+        form = ScheduleForm()
+    return render(request, 'pm/addSchedule.html', {'form': form, "terminals": tqs})
 
 # @login_required
 # def assign_engineer(request, id):

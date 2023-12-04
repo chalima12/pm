@@ -17,7 +17,7 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(AllSchedule)
 class AllScheduleAdmin(admin.ModelAdmin):
-    list_display = ['terminal', 'start_date', 'end_date', 'description']
+    list_display = ['start_date', 'end_date', 'description']
 @admin.register(ScheduleList)
 class ScheduleListAdmin(admin.ModelAdmin):
     list_display = ['schedule', 'status', 'closed_date',]

@@ -115,8 +115,6 @@ class AllSchedule(models.Model):
     schedule_name = models.CharField(max_length=200, null=True, blank=False)
     bank_name = models.ForeignKey(
         Bank, on_delete=models.PROTECT,null=True,blank=True)
-    terminal = models.ForeignKey(
-        Terminal, on_delete=models.PROTECT, help_text='Select Terminal', null=True)
     start_date = models.DateTimeField(
         auto_now_add=False, editable=True, null=True, blank=True)
     end_date = models.DateTimeField(
