@@ -164,8 +164,15 @@ class Schedule(models.Model): #TODO: name this to Shedule List
 
     def __str__(self) -> str:
         return str(self.terminal)
+    
+    # def remaining_days(self):
+    #     today = timezone.now().date()
+    #     days_elapsed = (today - self.start_date).days
+    #     remaining_days = max(0, 90 - days_elapsed)
+    #     return remaining_days
     class Meta:
         ordering = ['end_date']
+        
     
 
 

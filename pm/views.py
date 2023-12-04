@@ -214,8 +214,6 @@ def updateTerminal(request, terminal_id):
 @login_required
 def all_schedule(request):
     all_schedule = AllSchedule.objects.all()
-    # schedule = get_object_or_404(AllSchedule, pk=all_schedule.id)
-    # count = Schedule.objects.filter(schedule=schedule).count()
     context = {
         "title": "Scheduled ATMS",
         "schedules": all_schedule,
@@ -238,6 +236,12 @@ def detail_schedules_list(request, scheule_id):
     onprogress_rate = round(onprogress_schedule/specific_schedule_count,2)*100
     completed_rate = round(completed_schedule/specific_schedule_count,2)*100
     engineer_nedded = math.ceil(pending_schedule/7)
+    # Calcuate Remaining Days
+    now = datetime.now(timezone.utc)
+    for schedule in schedules_list:
+        elapsed_day = (now - schedule.start_date).days
+        schedule.remaining_days = max(0,90-elapsed_day)
+        print(schedule.remaining_days)
     context = {
         'schedules': schedules_list,
         "title": "Detial shedule",
