@@ -233,17 +233,18 @@ def detail_schedules_list(request, scheule_id):
     onprogress_schedule = schedules_list.filter(status="OP").count()
     completed_schedule = schedules_list.filter(status="CO").count()
     # calculating Pending , waiting, onprogress and completed rate
-    pending_rate = round(pending_schedule/specific_schedule_count,2)
-    waiting_rate = round(waiting_schedule/specific_schedule_count,2)
-    onprogress_rate = round(onprogress_schedule/specific_schedule_count,2)
-    completed_rate = round(completed_schedule/specific_schedule_count,2)
+    pending_rate = round(pending_schedule/specific_schedule_count,2)*100
+    waiting_rate = round(waiting_schedule/specific_schedule_count,2)*100
+    onprogress_rate = round(onprogress_schedule/specific_schedule_count,2)*100
+    completed_rate = round(completed_schedule/specific_schedule_count,2)*100
     context = {
         'schedules': schedules_list,
         "title": "Detial shedule",
-        "pe":pending_rate,
-        "wt":waiting_rate,
-        "op":onprogress_rate,
-        "co":completed_rate
+        "pending_rate": pending_rate,
+        "waiting_rate": waiting_rate,
+        "onprogress_rate": onprogress_rate,
+        "completed_rate": completed_rate,
+        "all_schedule_count": specific_schedule_count
         
     }
     return render(request, 'pm/detail_schedules_list.html', context)
