@@ -19,7 +19,7 @@
           <div class="card border-top border-info">
             <div class="card-header">
               <h3 class="card-title">List of Terminals To be Schedule</h3>
-              <a href="{% url 'create_schedule' %}" class="btn btn-success btn-lg float-right"
+              <a href="{% url 'create_schedule' %}" class="btn btn-success btn-md float-right"
                         > <i class="fas fa-plus"></i>
                     Make Schedule
                 </a>
@@ -30,43 +30,29 @@
                   <tr>
                     <th>#</th>
                     <th>SCHEDULE NAME</th>
-                    <th>CREATED BY</th>
-                    <th>START DATE</th>
-                    <th>END DATE</th>
-                    <th>REMAINING DAY</th>
-                    <th>DESCRIPTION</th>
+                    <th>SCHEDULED BY</th>
+                    <th>Count</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for schedule in schedules %}
+                {% for schedule  in schedules %}
                   <tr>
-                    <td><a href="#"> {{forloop.counter}} </a></td>
-                    <td><a href="#"> {{schedule.schedule_name}} </a></td>
-                    <td><a href="#"> {{schedule.created_by}} </a></td>
-                    <td><a href="#"> {{schedule.start_date}}</a></td>
-                    <td><a href="#"> {{schedule.s}} </a></td> 
-                    <td><a href="#"> {% if schedule.remaining_day < 3%}
-                        {% if schedule.remaining_day < 0 %}
-                        <span class="badge badge-danger" style="width: 90px"><b>OVER</b></span>
-                        {% else %}
-                        <span class="badge badge-danger" style="width: 90px"><b>{{schedule.remaining_day}} Days</b></span>
-                        {% endif %}
-                      {% else %}
-                        {{schedule.remaining_day}} Days
-                      {% endif %}</a></td>
-                    <td><a href="#"> {{schedule.description}} </a></td>
+                    <td> {{forloop.counter}} </td>
+                    <td> {{schedule.schedul_name}} </td>
+                    <td> {{schedule.scheduled_by}}</td>
+                    <td>{{schedule.all_schedules.count}}</td>
+                    <td><a href="{% url "detail_schedules_list" schedule.id %}" class='btn-lg' title="Go to Details"><i class="fas fa-arrow-circle-right"></i></a></td>
                   </tr>
-                  {% endfor %}
+                {% endfor %}
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>#</th>
-                    <th>SCHEDULE NAME</th>
-                    <th>CREATED BY</th>
-                    <th>START DATE</th>
-                    <th>END DATE</th>
-                    <th>REMAINING DAY</th>
-                    <th>DESCRIPTION</th>
+                        <th>#</th>
+                        <th>SCHEDULE NAME</th>
+                        <th>SCHEDULED BY</th>
+                        <th>Count</th>
+                        <th></th>
                   </tr>
                 </tfoot>
               </table>

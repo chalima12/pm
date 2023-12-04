@@ -1,5 +1,5 @@
 from django import forms
-from pm.models import Terminal, Bank, User, AllSchedule,ScheduleList
+from pm.models import Terminal, Bank, User, AllSchedule,Schedule
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import password_validation
 from django.utils.translation import gettext_lazy as _
@@ -91,53 +91,52 @@ class AllScheduleForm():
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['start_date'].required = True
-    # terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
-    # ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2 select2bs4'}))
+    terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
+     ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2 select2bs4'}))
     class Meta:
-        model = AllSchedule
-        fields = ['schedule_name', 'created_by', 'start_date', 'description']
+        model = Schedule
+        fields = ['schedule','terminals', 'start_date', 'description']
         widgets = {
-            'schedule_name':forms.TextInput(attrs={'class': 'form-control'}),
-            'created_by': forms.TextInput(attrs={'class': 'form-control'}),
+            'schedule': forms.Select(attrs={'class': 'form-control'}),
             'start_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Type your description here'}),
         }
 
 
-class ScheduleListForm(forms.ModelForm):
-    terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
-    ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2 select2bs4'}))
+# class ScheduleListForm(forms.ModelForm):
+#     terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
+#     ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2 select2bs4'}))
+#     class Meta:
+#         model = ScheduleList
+#         fields = ['terminals']
+class AssignEngineerForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['priority'].required = True
+        self.fields['assign_to'].required = True
+
     class Meta:
-        model = ScheduleList
-        fields = ['terminals']
-# class AssignEngineerForm(forms.ModelForm):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.fields['priority'].required = True
-#         self.fields['assign_to'].required = True
+        model = Schedule
+        fields = ['priority', 'assign_to', 'material_required']
+        widgets = {
+            'priority': forms.Select(attrs={'class': 'form-control'}),
+            'assign_to': forms.Select(attrs={'class': 'form-control'}),
+            'material_required': forms.Textarea(
+                attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Materials Used here...'}),
 
-#     class Meta:
-#         model = Schedule
-#         fields = ['priority', 'assign_to', 'material_required']
-#         widgets = {
-#             'priority': forms.Select(attrs={'class': 'form-control'}),
-#             'assign_to': forms.Select(attrs={'class': 'form-control'}),
-#             'material_required': forms.Textarea(
-#                 attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Materials Used here...'}),
-
-#         }
+        }
 
 
-# class EndScheduleForm(forms.ModelForm):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.fields['comment'].required = True
+class EndScheduleForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['comment'].required = True
 
-#     class Meta:
-#         model = Schedule
-#         fields = ['comment', 'checklist_photo', 'closed_date']
-#         widgets = {
-#             'comment': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Comment here...'}),
-#             'checklist_photo': forms.FileInput(attrs={'class': 'form-control'}),
-#             'closed_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
-#         }
+    class Meta:
+        model = Schedule
+        fields = ['comment', 'checklist_photo', 'closed_date']
+        widgets = {
+            'comment': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Comment here...'}),
+            'checklist_photo': forms.FileInput(attrs={'class': 'form-control'}),
+            'closed_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
+        }

@@ -7,9 +7,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone,timedelta,date
 from django.db.models import Q
-import json
-from pm.models import Terminal, User, Bank, AllSchedule,ScheduleList
-from pm.forms import TerminalForm, BankForm, AllScheduleForm, UserForm, ScheduleListForm#AssignEngineerForm, EndScheduleForm
+import json, math
+from pm.models import Terminal, User, Bank, Schedule,AllSchedule
+from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm
 
 
 
@@ -46,8 +46,8 @@ def home(request):
     numOfBanks = Bank.objects.all().count()
     numOfUsers = User.objects.all().count()
     numberofTerminals = Terminal.objects.all().count()
-    pendingTerminals = ScheduleList.objects.filter(status="PE").count()
-    
+    pendingTerminals = Schedule.objects.filter(status="PE").count()
+    pendingLists = Schedule.objects.filter(status="PE").all()
     # cleanedTerminals = Schedule.objects.filter(status="CO").count()
     context = {
         "company": "Moti Engineering PLC",
@@ -57,7 +57,7 @@ def home(request):
         'numOfUsers': numOfUsers,
         'numberofTerminals': numberofTerminals,
         "pendingTerminals": pendingTerminals,
-        
+        "pendingLists": pendingLists
     }
     return render(request, "pm/index.html", context)
 
@@ -211,16 +211,54 @@ def updateTerminal(request, terminal_id):
     }
     return render(request, 'pm/update_terminal.html', context)
 
+@login_required
+def all_schedule(request):
+    all_schedule = AllSchedule.objects.all()
+    # schedule = get_object_or_404(AllSchedule, pk=all_schedule.id)
+    # count = Schedule.objects.filter(schedule=schedule).count()
+    context = {
+        "title": "Scheduled ATMS",
+        "schedules": all_schedule,
+        # "count":count
+    }
+    return render(request, 'pm/schedule.html', context)
+
+
+def detail_schedules_list(request, scheule_id):
+    schedule = get_object_or_404(AllSchedule, pk=scheule_id)
+    schedules_list = Schedule.objects.filter(schedule=schedule)
+    specific_schedule_count = Schedule.objects.filter(schedule=schedule).count()
+    pending_schedule = schedules_list.filter(status="PE").count()
+    waiting_schedule = schedules_list.filter(status="WT").count()
+    onprogress_schedule = schedules_list.filter(status="OP").count()
+    completed_schedule = schedules_list.filter(status="CO").count()
+    # calculating Pending , waiting, onprogress and completed rate
+    pending_rate = round(pending_schedule/specific_schedule_count,2)*100
+    waiting_rate = round(waiting_schedule/specific_schedule_count,2)*100
+    onprogress_rate = round(onprogress_schedule/specific_schedule_count,2)*100
+    completed_rate = round(completed_schedule/specific_schedule_count,2)*100
+    engineer_nedded = math.ceil(pending_schedule/7)
+    context = {
+        'schedules': schedules_list,
+        "title": "Detial shedule",
+        "pending_rate": pending_rate,
+        "waiting_rate": waiting_rate,
+        "onprogress_rate": onprogress_rate,
+        "completed_rate": completed_rate,
+        "all_schedule_count": specific_schedule_count,
+        "engineer_nedded": engineer_nedded
+        
+    }
+    return render(request, 'pm/detail_schedules_list.html', context)
 
 @login_required
 def schedule(request):
-    scheduleQuerySet = AllSchedule.objects.all()
-    now = datetime.now(timezone.utc)
-    
+    scheduleQuerySet = Schedule.objects.all()
+    # now = datetime.now(timezone.utc)
+    one_day = timedelta(days=1)
     for schedule in scheduleQuerySet:
         schedule.remaining_day = (
-            (schedule.end_date-schedule.start_date)).days 
-        schedule.s =(schedule.start_date - now).days
+            (schedule.end_date-schedule.start_date)).days
     context = {
         "title": "Scheduled ATMS",
         "schedules": scheduleQuerySet,
@@ -228,110 +266,76 @@ def schedule(request):
     return render(request, 'pm/schedule.html', context)
 
 
-# @login_required
-# def create_schedule(request):
-#     tqs = Terminal.objects.all()
-#     if request.method == 'POST':
-#         form = AllScheduleForm(request.POST)
-#         if form.is_valid():
-#             schedule_name = form.cleaned_data['schedule_name'],
-#             created_by = form.cleaned_data['created_by'],
-#             terminals = form.cleaned_data['terminals']
-#             start_date =form.cleaned_data['start_date']
-#             string_start_date = str(date.isoformat(start_date))
-#             formated_start_date = datetime.strptime(string_start_date, "%Y-%m-%d")
-#             # print(f"Start Date: {formated_start_date}")
-#             end_date = formated_start_date + timedelta(days=90) #TODO: make days select form user 3, 4 or 6 month
-#             description = form.cleaned_data['description']
-#             for terminal in terminals:
-#                 AllSchedule.objects.create(
-#                     schedule_name=schedule_name,
-#                     created_by =created_by,
-#                     terminal=terminal,
-#                     start_date=start_date,
-#                     end_date=end_date,
-#                     description=description,
-                
-#                 )
-
-#             messages.success(request, "Schedules created successfully!")
-#             return redirect('schedules')
-#     else:
-#         form =AllScheduleForm()
-#     return render(request, 'pm/addSchedule.html', {'form': form,"terminals":tqs})
-
-
 @login_required
 def create_schedule(request):
     tqs = Terminal.objects.all()
     if request.method == 'POST':
-        all_form = AllScheduleForm(request.POST, prefix='all')
-        list_form = ScheduleListForm(request.POST, prefix='list')
-        if all_form.is_valid() and list_form.is_valid():
-            schedule_name = all_form.cleaned_data['schedule_name'],
-            created_by = all_form.cleaned_data['created_by'],
-            terminals = list_form.cleaned_data['terminals']
-            start_date = all_form.cleaned_data['start_date']
+        form = ScheduleForm(request.POST)
+        if form.is_valid():
+            schedule = form.cleaned_data['schedule']
+            terminals = form.cleaned_data['terminals']
+            start_date =form.cleaned_data['start_date']
             string_start_date = str(date.isoformat(start_date))
-            formated_start_date = datetime.strptime(
-                string_start_date, "%Y-%m-%d")
-            end_date = formated_start_date + timedelta(days=90)
-            description = all_form.cleaned_data['description']
+            formated_start_date = datetime.strptime(string_start_date, "%Y-%m-%d")
+            # print(f"Start Date: {formated_start_date}")
+            end_date = formated_start_date + timedelta(days=90) #TODO: make days select form user 3, 4 or 6 month
+            description = form.cleaned_data['description']
             for terminal in terminals:
-                ScheduleList.objects.create(
+                Schedule.objects.create(
+                    schedule=schedule,
                     terminal=terminal,
                     start_date=start_date,
                     end_date=end_date,
                     description=description,
-
                 )
 
             messages.success(request, "Schedules created successfully!")
             return redirect('schedules')
     else:
-        form = AllScheduleForm()
-    return render(request, 'pm/addSchedule.html', {'form': form, "terminals": tqs})
-
-# @login_required
-# def assign_engineer(request, id):
-#     if request.method == 'POST':
-#         schedule = Schedule.objects.get(pk=id)
-#         form = AssignEngineerForm(request.POST, instance=schedule)
-#         if form.is_valid():
-#             schedule.status = "WT"
-#             form.save()
-#             messages.success(request, "Engineer Assigned successfully!")
-#             return redirect('schedules')
-#     else:
-#         schedule = Schedule.objects.get(pk=id)
-#         form = AssignEngineerForm(instance=schedule)
-#     context = {'form': form,
-#             'schedule': schedule,
-#             "title": "Assign Engineer"
-#             }
-#     return render(request, 'pm/assign_engineer.html', context)
+        form =ScheduleForm()
+    return render(request, 'pm/addSchedule.html', {'form': form,"terminals":tqs})
 
 
-# def start_task(request, scheule_id):
-#     schedule = Schedule.objects.get(pk=scheule_id)
-#     schedule.status = "OP"
-#     schedule.save()
-#     return redirect(reverse('schedules'))
-# @login_required
-# def end_scheduled_task(request, id):
-#     if request.method == 'POST':
-#         schedule = Schedule.objects.get(pk=id)
-#         form = EndScheduleForm(request.POST, request.FILES, instance=schedule)
-#         if form.is_valid():
-#             schedule.status = "CO"
-#             form.save()
-#             messages.success(request, "Chenge Updated successfully!")
-#             return redirect('schedules')
-#     else:
-#         schedule = Schedule.objects.get(pk=id)
-#         form = EndScheduleForm(instance=schedule)
-#     context = {'form': form, 'schedule': schedule, "title": "End task"}
-#     return render(request, 'pm/end_schedule.html', context)
+@login_required
+def assign_engineer(request, id):
+    if request.method == 'POST':
+        schedule = Schedule.objects.get(pk=id)
+        form = AssignEngineerForm(request.POST, instance=schedule)
+        if form.is_valid():
+            schedule.status = "WT"
+            form.save()
+            messages.success(request, "Engineer Assigned successfully!")
+            return redirect('schedules')
+    else:
+        schedule = Schedule.objects.get(pk=id)
+        form = AssignEngineerForm(instance=schedule)
+    context = {'form': form,
+            'schedule': schedule,
+            "title": "Assign Engineer"
+            }
+    return render(request, 'pm/assign_engineer.html', context)
+
+
+def start_task(request, scheule_id):
+    schedule = Schedule.objects.get(pk=scheule_id)
+    schedule.status = "OP"
+    schedule.save()
+    return redirect(reverse('schedules'))
+@login_required
+def end_scheduled_task(request, id):
+    if request.method == 'POST':
+        schedule = Schedule.objects.get(pk=id)
+        form = EndScheduleForm(request.POST, request.FILES, instance=schedule)
+        if form.is_valid():
+            schedule.status = "CO"
+            form.save()
+            messages.success(request, "Chenge Updated successfully!")
+            return redirect('schedules')
+    else:
+        schedule = Schedule.objects.get(pk=id)
+        form = EndScheduleForm(instance=schedule)
+    context = {'form': form, 'schedule': schedule, "title": "End task"}
+    return render(request, 'pm/end_schedule.html', context)
 
 
 @ login_required
@@ -437,28 +441,28 @@ def terminals_list(request):
     return render(request, 'pm/terminals_report.html', context)
 
 
-# def schedule_list(request):
-#     schedules = None
-#     title = "Schedules Report"
-#     selected = request.POST.get('options')
-#     if(selected == "All Schedule"):
-#         schedules = Schedule.objects.all()
-#         title = "All Tasks"
-#     if(selected =="Pending Schedule"):
-#         schedules = Schedule.objects.filter(status="PE")
-#         title = "Pending Schedule"
-#     if(selected == "Waiting Task"):
-#         schedules = Schedule.objects.filter(status="WT")
-#         title = "Waiting Task"
-#     if(selected == "OnProgress Task"):
-#         schedules = Schedule.objects.filter(status="OP")
-#         title = "OnProgress Task"
-#     if(selected == "Completed Task"):
-#         schedules = Schedule.objects.filter(status="CO")
-#         title ="Completed Task"
-#     context = {
-#         "schedules": schedules,
-#         "title": title,
-#         "selected": selected,
-#     }
-#     return render(request, 'pm/schedules_report.html', context)
+def schedule_list(request):
+    schedules = None
+    title = "Schedules Report"
+    selected = request.POST.get('options')
+    if(selected == "All Schedule"):
+        schedules = Schedule.objects.all()
+        title = "All Tasks"
+    if(selected =="Pending Schedule"):
+        schedules = Schedule.objects.filter(status="PE")
+        title = "Pending Schedule"
+    if(selected == "Waiting Task"):
+        schedules = Schedule.objects.filter(status="WT")
+        title = "Waiting Task"
+    if(selected == "OnProgress Task"):
+        schedules = Schedule.objects.filter(status="OP")
+        title = "OnProgress Task"
+    if(selected == "Completed Task"):
+        schedules = Schedule.objects.filter(status="CO")
+        title ="Completed Task"
+    context = {
+        "schedules": schedules,
+        "title": title,
+        "selected": selected,
+    }
+    return render(request, 'pm/schedules_report.html', context)

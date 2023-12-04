@@ -1,10 +1,15 @@
 from django.contrib import admin
-from pm.models import Bank, AllSchedule, Terminal, User,ScheduleList
+from pm.models import Bank, Schedule, Terminal, User, AllSchedule
 
 
 @admin.register(Bank)
 class BankAdmin(admin.ModelAdmin):
     list_display = ['bank_name', 'bank_key']
+    # list_editable =['bank_key']
+    list_per_page = 10
+@admin.register(AllSchedule)
+class AllScheduleAdmin(admin.ModelAdmin):
+    list_display = ['schedul_name', 'scheduled_by']
     # list_editable =['bank_key']
     list_per_page = 10
 

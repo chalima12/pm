@@ -110,31 +110,15 @@ class Terminal(models.Model):
     class Meta:
         ordering = ['terminal_name']
 
-
 class AllSchedule(models.Model):
-    schedule_name = models.CharField(max_length=200, null=True, blank=False)
-    bank_name = models.ForeignKey(
-        Bank, on_delete=models.PROTECT,null=True,blank=True)
-    # terminal = models.ForeignKey(
-    #     Terminal, on_delete=models.PROTECT, help_text='Select Terminal', null=True)
-    start_date = models.DateTimeField(
-        auto_now_add=False, editable=True, null=True, blank=True)
-    end_date = models.DateTimeField(
-        auto_now_add=False, editable=True,null=True,blank=True)
-    assign_to = models.ForeignKey(
-        User, on_delete=models.PROTECT,null=True, blank=True)
-    description = models.CharField(max_length=300,null=True, blank=True)
-    created_by = models.CharField(max_length=150, null=True,blank=True)
-    created_date = models.DateField(
-        auto_now_add=True, null=True, blank=True)
+    schedul_name = models.CharField(max_length=1000, null=True, blank=True)
+    scheduled_by = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True)
+    
+    def __str__(self):
+        return self.schedul_name
     
 
-    def __str__(self) -> str:
-        return str(self.schedule_name)
-    class Meta:
-        ordering = ['end_date']
-    
-class ScheduleList(models.Model):
+class Schedule(models.Model): #TODO: name this to Shedule List
     PENDING = 'PE'
     WAITING = "WT"
     ONPROGRESS = 'OP'
@@ -155,7 +139,18 @@ class ScheduleList(models.Model):
         (MEDIUM, 'Medium'), 
         (LOW, 'Low')
         ]
-    schedule = models.ForeignKey(AllSchedule, on_delete=models.PROTECT, null=True, blank=True)
+    # We will remove start Date end end Date
+    bank_name = models.ForeignKey(
+        Bank, on_delete=models.PROTECT,null=True,blank=True)
+    schedule = models.ForeignKey(AllSchedule, models.PROTECT, related_name='all_schedules',null=True, blank=True)
+    terminal = models.ForeignKey(
+        Terminal, on_delete=models.PROTECT, help_text='Select Terminal', null=True)
+    start_date = models.DateTimeField(
+        auto_now_add=False, editable=True, null=True, blank=True)
+    end_date = models.DateTimeField(
+        auto_now_add=False, editable=True,null=True,blank=True)
+    assign_to = models.ForeignKey(
+        User, on_delete=models.PROTECT,null=True, blank=True)
     status = models.CharField(
         max_length=10, choices=status_choices, default=PENDING,null=True,blank=True)
     terminal = models.ForeignKey(
@@ -169,10 +164,11 @@ class ScheduleList(models.Model):
     created_date = models.DateField(
         auto_now_add=True, null=True, blank=True)
     
-    def __str__(self):
-        return self.schedule
+
+    def __str__(self) -> str:
+        return str(self.terminal)
+    class Meta:
+        ordering = ['end_date']
     
 
-
-    
 
