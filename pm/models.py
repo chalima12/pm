@@ -110,6 +110,9 @@ class Terminal(models.Model):
     class Meta:
         ordering = ['terminal_name']
 
+class AllSchedule(models.Model):
+    schedul_name = models.CharField(max_length=1000, null=True, blank=True)
+    schedule_by = models.CharField(max_length=100,null=True, blank=True)
 
 class Schedule(models.Model):
     PENDING = 'PE'
@@ -133,6 +136,7 @@ class Schedule(models.Model):
     # We will remove start Date end end Date
     bank_name = models.ForeignKey(
         Bank, on_delete=models.PROTECT,null=True,blank=True)
+    schedule = models.ForeignKey(AllSchedule, models.PROTECT, null=True, blank=True)
     terminal = models.ForeignKey(
         Terminal, on_delete=models.PROTECT, help_text='Select Terminal', null=True)
     start_date = models.DateTimeField(
