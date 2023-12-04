@@ -30,7 +30,8 @@
                   <tr>
                     <th>#</th>
                     <th>SCHEDULE NAME</th>
-                    <th>CREATED BY</th>
+                    <th>SCHEDULED BY</th>
+                    <th>Count</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -40,6 +41,7 @@
                     <td><a href="{% url "detail_schedules_list" schedule.id %}"> {{forloop.counter}} </a></td>
                     <td><a href="{% url "detail_schedules_list" schedule.id %}"> {{schedule.schedul_name}} </a></td>
                     <td><a href="{% url "detail_schedules_list" schedule.id %}"> {{schedule.scheduled_by}}</a></td>
+                    <td>{{schedule.all_schedules.count}}</td>
                     <td><a href="{% url "detail_schedules_list" schedule.id %}"><i class="fas fa-arrow-circle-right"></i></a></td>
                   </tr>
                 {% endfor %}
@@ -48,7 +50,8 @@
                   <tr>
                         <th>#</th>
                         <th>SCHEDULE NAME</th>
-                        <th>CREATED BY</th>
+                        <th>SCHEDULED BY</th>
+                        <th>Count</th>
                         <th></th>
                   </tr>
                 </tfoot>

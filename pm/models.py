@@ -140,7 +140,7 @@ class Schedule(models.Model): #TODO: name this to Shedule List
     # We will remove start Date end end Date
     bank_name = models.ForeignKey(
         Bank, on_delete=models.PROTECT,null=True,blank=True)
-    schedule = models.ForeignKey(AllSchedule, models.PROTECT, null=True, blank=True)
+    schedule = models.ForeignKey(AllSchedule, models.PROTECT, related_name='all_schedules',null=True, blank=True)
     terminal = models.ForeignKey(
         Terminal, on_delete=models.PROTECT, help_text='Select Terminal', null=True)
     start_date = models.DateTimeField(

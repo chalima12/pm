@@ -214,9 +214,12 @@ def updateTerminal(request, terminal_id):
 @login_required
 def all_schedule(request):
     all_schedule = AllSchedule.objects.all()
+    # schedule = get_object_or_404(AllSchedule, pk=all_schedule.id)
+    # count = Schedule.objects.filter(schedule=schedule).count()
     context = {
         "title": "Scheduled ATMS",
         "schedules": all_schedule,
+        # "count":count
     }
     return render(request, 'pm/schedule.html', context)
 
@@ -224,9 +227,19 @@ def all_schedule(request):
 def detail_schedules_list(request, scheule_id):
     schedule = get_object_or_404(AllSchedule, pk=scheule_id)
     schedules_list = Schedule.objects.filter(schedule=schedule)
+    specific_schedule_count = Schedule.objects.filter(schedule=schedule).count()
+    pending_schedule = schedules_list.filter(status="PE").count()
+    waiting_schedule = schedules_list.filter(status="WT").count()
+    onprogress_schedule = schedules_list.filter(status="OP").count()
+    completed_schedule = schedules_list.filter(status="CO").count()
     context = {
         'schedules': schedules_list,
-        "title": "Detial shedule"
+        "title": "Detial shedule",
+        "pe":pending_schedule,
+        "wt":waiting_schedule,
+        "op":onprogress_schedule,
+        "co":completed_schedule
+        
     }
     return render(request, 'pm/detail_schedules_list.html', context)
 

@@ -18,13 +18,14 @@
         <div class="col-12">
           <div class="card border-top border-info">
             <div class="card-header">
-              <h3 class="card-title">List of Terminals To be Schedule</h3>
+              <a href="{% url "schedules" %}" class="btn btn-info">Back</a>
               <a href="{% url 'create_schedule' %}" class="btn btn-success btn-lg float-right"
                         > <i class="fas fa-plus"></i>
                     Make Schedule
                 </a>
             </div>
             <div class="card-body">
+              <p class="text-center">{{pe}} --{{wt}} --{{op}}--{{co}}<p/>
               <table id="example2" class="table table-hover">
                 <thead>
                   <tr>
