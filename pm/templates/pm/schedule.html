@@ -19,7 +19,7 @@
           <div class="card border-top border-info">
             <div class="card-header">
               <h3 class="card-title">List of Terminals To be Schedule</h3>
-              <a href="{% url 'create_schedule' %}" class="btn btn-success btn-lg float-right"
+              <a href="{% url 'create_schedule' %}" class="btn btn-success btn-md float-right"
                         > <i class="fas fa-plus"></i>
                     Make Schedule
                 </a>
@@ -38,11 +38,11 @@
                 <tbody>
                 {% for schedule  in schedules %}
                   <tr>
-                    <td><a href="{% url "detail_schedules_list" schedule.id %}"> {{forloop.counter}} </a></td>
-                    <td><a href="{% url "detail_schedules_list" schedule.id %}"> {{schedule.schedul_name}} </a></td>
-                    <td><a href="{% url "detail_schedules_list" schedule.id %}"> {{schedule.scheduled_by}}</a></td>
+                    <td> {{forloop.counter}} </td>
+                    <td> {{schedule.schedul_name}} </td>
+                    <td> {{schedule.scheduled_by}}</td>
                     <td>{{schedule.all_schedules.count}}</td>
-                    <td><a href="{% url "detail_schedules_list" schedule.id %}"><i class="fas fa-arrow-circle-right"></i></a></td>
+                    <td><a href="{% url "detail_schedules_list" schedule.id %}" class='btn-lg' title="Go to Details"><i class="fas fa-arrow-circle-right"></i></a></td>
                   </tr>
                 {% endfor %}
                 </tbody>
