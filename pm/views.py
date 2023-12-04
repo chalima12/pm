@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib import messages
@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone,timedelta,date
 from django.db.models import Q
 import json
-from pm.models import Terminal, User, Bank, Schedule
+from pm.models import Terminal, User, Bank, Schedule,AllSchedule
 from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm
 
 
@@ -211,6 +211,24 @@ def updateTerminal(request, terminal_id):
     }
     return render(request, 'pm/update_terminal.html', context)
 
+@login_required
+def all_schedule(request):
+    all_schedule = AllSchedule.objects.all()
+    context = {
+        "title": "Scheduled ATMS",
+        "schedules": all_schedule,
+    }
+    return render(request, 'pm/schedule.html', context)
+
+
+def detail_schedules_list(request, scheule_id):
+    schedule = get_object_or_404(AllSchedule, pk=scheule_id)
+    schedules_list = Schedule.objects.filter(schedule=schedule)
+    context = {
+        'schedules': schedules_list,
+        "title": "Detial shedule"
+    }
+    return render(request, 'pm/detail_schedules_list.html', context)
 
 @login_required
 def schedule(request):
@@ -233,6 +251,7 @@ def create_schedule(request):
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
         if form.is_valid():
+            schedule = form.cleaned_data['schedule']
             terminals = form.cleaned_data['terminals']
             start_date =form.cleaned_data['start_date']
             string_start_date = str(date.isoformat(start_date))
@@ -242,6 +261,7 @@ def create_schedule(request):
             description = form.cleaned_data['description']
             for terminal in terminals:
                 Schedule.objects.create(
+                    schedule=schedule,
                     terminal=terminal,
                     start_date=start_date,
                     end_date=end_date,

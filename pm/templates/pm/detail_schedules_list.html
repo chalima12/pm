@@ -1,0 +1,196 @@
+{% extends "base.html" %} {% load static %} {% block content %} 
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>List of Terminals</h1>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card border-top border-info">
+            <div class="card-header">
+              <h3 class="card-title">List of Terminals To be Schedule</h3>
+              <a href="{% url 'create_schedule' %}" class="btn btn-success btn-lg float-right"
+                        > <i class="fas fa-plus"></i>
+                    Make Schedule
+                </a>
+            </div>
+            <div class="card-body">
+              <table id="example2" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>TID</th>
+                    <th>BANK NAME</th>
+                    <th>TERMINAL NAME</th>
+                    <th>END DATE</th>
+                    <th>ASSIGNED TO</th>
+                    <th>REMAINING DAY</th>
+                    <th>STATUS</th>
+                    <th>ACTIONS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for schedule  in schedules %}
+                  {% if schedule.terminal.bank_name.is_active %}
+                    {% if schedule.status != "CO" %}
+                <tr data-widget="expandable-table" aria-expanded="false">
+                <td>{{forloop.counter}}</td>
+                    <td>{{schedule.terminal.tid}}</td>
+                    <td>{{schedule.terminal.bank_name}}</td>
+                    <td>{{schedule.terminal.terminal_name}}</td>
+                    <td>{{schedule.end_date|date:'Y-m-d'}}</td>
+                    <td>{% if schedule.assign_to %}
+                        {{schedule.assign_to.first_name}} {{schedule.assign_to.last_name}}
+                        {% else %}
+                        <b>Not Assigned Yet</b>
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if schedule.remaining_day < 3%}
+                        {% if schedule.remaining_day < 0 %}
+                        <span class="badge badge-danger" style="width: 90px"><b>OVER</b></span>
+                        {% else %}
+                        <span class="badge badge-danger" style="width: 90px"><b>{{schedule.remaining_day}} Days</b></span>
+                        {% endif %}
+                      {% else %}
+                        {{schedule.remaining_day}} Days
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if schedule.status == "PE" %}
+                          <span class="badge badge-danger" style="width: 90px"
+                          ><b>Pending</b></span>
+                          {% elif schedule.status == "WT" %}
+                          <span class="badge badge-info" style="width: 90px"
+                          ><b>Waiting</b></span>
+                        {% elif schedule.status == "OP" %}
+                        <span class="badge badge-warning" style="width: 90px"
+                          ><b>Onprogress</b></span>
+                        
+                          {% elif schedule.status == "CO" %}
+                          <span class="badge badge-success" style="width: 90px"
+                          >
+                          <b>Completed</b></span>
+                      {% endif %}
+                    </td>
+                    <td>
+                          {% if schedule.status == "PE" %}
+                            <a href=" {% url "assign-engineer" schedule.id %}"
+                                    style="width: 90px"
+                                    class="btn btn-block btn-outline-success"
+                                    >Assign</a>
+                          {% elif schedule.status == "WT" %}
+                              <a href=" {% url "start-task" schedule.id %}"
+                                style="width: 90px"
+                                class="d-inline  btn btn-block btn-outline-info"
+                                data-toggle="modal" data-target="#startModal{{schedule.id}}"
+                                title ="Start Task"
+                                ><i class="fas fa-play"></i></a>
+                                <a href=" {% url "assign-engineer" schedule.id %}"
+                                style="width: 90px"
+                                class="d-inline btn btn-block btn-outline-success"
+                                title ="Change Engineer"
+                                ><i class="fas fa-edit"></i></a>
+                          {% elif schedule.status == "OP" %}
+                              <a href="{% url "end-task" schedule.id %}"
+                                style="width: 90px"
+                                class="btn btn-block btn-danger"
+                                > End </a>
+                      {% endif %}
+                      <!--Start Task Moal-->
+                  <div class="modal fade" id="startModal{{schedule.id}}">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">ATM:<b>{{schedule.terminal.terminal_name}}</b></h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p>Bank Name: <b>{{schedule.terminal.bank_name}}</b></p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Bank Branch: <b>{{schedule.terminal.bank_branch}}</b></p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Terminal Name: <b>{{schedule.terminal.terminal_name}}</b></p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Engineer Name: <b>{{schedule.assign_to}}</b></p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Engineer's Phone Number: <b>{{schedule.assign_to.phone}}</b></p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Location: <b>{{schedule.terminal.location}}</b></p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>City: <b>{{schedule.terminal.city}}</b></p>
+                              <hr>
+                            </div>
+                          </div>
+                        </div>
+                        <span class="text-center text-danger">Once you Start a task <b>You can not re-assign engineer: <a href=" {% url "assign-engineer" schedule.id %}"
+                                style="width: 90px"
+                                class=""
+                                title ="Change Engineer"
+                                ><span class ="text-success">Re-Assign</span></a> </b></span>
+                        <div class="modal-footer justify-content-between">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <a type="button" class="btn btn-info" href="{% url "start-task" schedule.id %}" >Start</a>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
+                      </td>
+                      </tr>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>#</th>
+                    <th>TID</th>
+                    <th>BANK NAME</th>
+                    <th>TERMINAL NAME</th>
+                    <th>END DATE</th>
+                    <th>ASSIGNED TO</th>
+                    <th>REMAINING DAY</th>
+                    <th>STATUS</th>
+                    <th>ACTIONS</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% endblock content %}
