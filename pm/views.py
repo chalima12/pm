@@ -289,7 +289,7 @@ def create_schedule(request):
             messages.success(request, "Schedules created successfully!")
             return redirect('schedules')
     else:
-        form = ScheduleForm()
+        form = AllScheduleForm()
     return render(request, 'pm/addSchedule.html', {'form': form, "terminals": tqs})
 
 # @login_required
