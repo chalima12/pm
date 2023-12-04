@@ -239,9 +239,12 @@ def detail_schedules_list(request, scheule_id):
     # Calcuate Remaining Days
     now = datetime.now(timezone.utc)
     for schedule in schedules_list:
-        elapsed_day = (now - schedule.start_date).days
-        schedule.remaining_days = max(0,90-elapsed_day)
-        print(schedule.remaining_days)
+        if now< schedule.start_date:
+            schedule.remaining_days =(schedule.start_date -now).days
+        else:
+            days_elapsed = (now - schedule.start_date).days
+            schedule.remaining_days = max(0, 90 - (days_elapsed % 90))
+            print(schedule.remaining_days)
     context = {
         'schedules': schedules_list,
         "title": "Detial shedule",
