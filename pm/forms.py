@@ -128,6 +128,7 @@ class EndScheduleForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['comment'].required = True
+        self.fields['checklist_photo'].required = True
 
     class Meta:
         model = Schedule
@@ -139,6 +140,9 @@ class EndScheduleForm(forms.ModelForm):
         }
 
 class ApprovalScheduleForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['approval_comment'].required = True
     class Meta:
         model = Schedule
         fields = ['approval_comment']

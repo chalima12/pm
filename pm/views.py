@@ -349,17 +349,17 @@ def end_scheduled_task(request, id):
 def task_appoval(request, id):
     if request.method == 'POST':
         schedule = Schedule.objects.get(pk=id)
-        form = EndScheduleForm(request.POST, request.FILES, instance=schedule)
+        form = ApprovalScheduleForm(request.POST, request.FILES, instance=schedule)
         if form.is_valid():
-            schedule.status = "CO"
+            schedule.status = "AP"
             form.save()
             messages.success(request, "Chenge Updated successfully!")
             return redirect('schedules')
     else:
         schedule = Schedule.objects.get(pk=id)
-        form = EndScheduleForm(instance=schedule)
-    context = {'form': form, 'schedule': schedule, "title": "End task"}
-    return render(request, 'pm/end_schedule.html', context)
+        form = ApprovalScheduleForm(instance=schedule)
+    context = {'form': form, 'schedule': schedule, "title": "Approval task"}
+    return render(request, 'pm/task_approval.html', context)
 
 
 @ login_required
