@@ -1,20 +1,16 @@
 from django import forms
-from pm.models import Terminal, Bank, User, Schedule
+from pm.models import Terminal, Bank, User, Schedule,AllSchedule
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import password_validation
 from django.utils.translation import gettext_lazy as _
-# from .managers import CustomUserManager
-# from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-
-
 class UserForm(UserCreationForm):
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['first_name'].required = True
-    #     self.fields['last_name'].required = True
-    #     self.fields['gender'].required = True
-    #     self.fields['phone'].required = True
-    #     self.fields['address'].required = True
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['gender'].required = True
+        self.fields['phone'].required = True
+        self.fields['address'].required = True
     first_name = forms.CharField(max_length=12, min_length=4, required=True, help_text='Required: First Name',
                                 widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}))
     last_name = forms.CharField(max_length=12, min_length=4, required=True, help_text='Required: Last Name', widget=(
@@ -105,6 +101,15 @@ class ScheduleForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Type your description here'}),
         }
 
+class AllScheduleForm(forms.ModelForm):
+    class Meta:
+        model= AllSchedule
+        fields = ['schedul_name', 'scheduled_by']
+        widgets = {
+            'schedul_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'scheduled_by': forms.Select(attrs={'class': 'form-control'}),
+            
+        }
 
 class AssignEngineerForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

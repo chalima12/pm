@@ -505,8 +505,7 @@ def schedule_list(request):
             status="OP", created_date__range=(from_date, to_date))
         title = "OnProgress Task"
     if(selected == "Completed Task"):
-        schedules = Schedule.objects.filter(
-            status="CO", created_date__range=(from_date, to_date))
+        schedules = Schedule.objects.filter(status="CO", created_date__range=(from_date,to_date))
         title ="Completed Task"
     context = {
         "schedules": schedules,
