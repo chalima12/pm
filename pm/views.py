@@ -260,21 +260,6 @@ def detail_schedules_list(request, scheule_id):
     return render(request, 'pm/detail_schedules_list.html', context)
 
 @login_required
-def schedule(request):
-    scheduleQuerySet = Schedule.objects.all()
-    # now = datetime.now(timezone.utc)
-    one_day = timedelta(days=1)
-    for schedule in scheduleQuerySet:
-        schedule.remaining_day = (
-            (schedule.end_date-schedule.start_date)).days
-    context = {
-        "title": "Scheduled ATMS",
-        "schedules": scheduleQuerySet,
-    }
-    return render(request, 'pm/schedule.html', context)
-
-
-@login_required
 def create_schedule(request):
     tqs = Terminal.objects.all()
     if request.method == 'POST':

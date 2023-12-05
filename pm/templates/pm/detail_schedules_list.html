@@ -132,7 +132,7 @@
                           <span class="badge badge-success" style="width: 90px"
                           >
                           <b>Approved</b></span>
-                          {% elif schedule.status == "AP" %}
+                          {% elif schedule.status == "RE" %}
                           <span class="badge badge-danger" style="width: 90px"
                           >
                           <b>Rejectd</b></span>
@@ -144,7 +144,7 @@
                                     style="width: 90px"
                                     class="btn btn-block btn-outline-success"
                                     >Assign</a>
-                          {% elif schedule.status == "WT" %}
+                          {% elif schedule.status == "WT" or  schedule.status == "RE" %}
                               <a href=" {% url "start-task" schedule.id %}"
                                 style="width: 90px"
                                 class="d-inline  btn btn-block btn-outline-info"
