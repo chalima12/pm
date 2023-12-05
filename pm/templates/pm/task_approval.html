@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content-wrapper">
+  <section class="content-header">
+  </section>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card card-default border-top border-info">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-3">
+              <h3 class="card-title">Bank Name: <span class="h5 text-danger font-weight-bold">{{schedule.terminal.bank_name}} </span></h3>
+            </div>
+            <div class="col-md-3">
+            <h3 class="card-title">Terminal Name: <span class="h5 text-danger font-weight-bold">{{schedule.terminal.terminal_name}} </span></h3>
+            </div>
+            <div class="col-md-3">
+            <h3 class="card-title">Location:  <span class="h5 text-danger font-weight-bold">{{schedule.terminal.location}},{{schedule.terminal.city}} </span></h3>
+            </div>
+            <div class="col-md-3">
+            <h3 class="card-title">Terminal ID:  <span class="h5 text-danger font-weight-bold">{{schedule.terminal.tid}}</span></h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form action="" method="POST" enctype='multipart/form-data'>
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="{{ form.comment.id_for_label }}">Comment</label>
+                    {{form.comment}}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="{{ form.checklist_photo.id_for_label }}">Upload CheckList</label>
+                    {{form.checklist_photo}}
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="{{ form.closed_date.id_for_label }}">Closed Date</label>
+                    {{form.closed_date}}
+                </div>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">End</button>
+            <a href="{% url 'schedules' %}" class="btn btn-secondary">Cancel</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% endblock content %}

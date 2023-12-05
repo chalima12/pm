@@ -137,3 +137,12 @@ class EndScheduleForm(forms.ModelForm):
             'checklist_photo': forms.FileInput(attrs={'class': 'form-control'}),
             'closed_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
+
+class ApprovalScheduleForm(forms.ModelForm):
+    class Meta:
+        model = Schedule
+        fields = ['approval_comment']
+        widgets = {
+            'approval_comment': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Comment here...'}),
+            
+        }

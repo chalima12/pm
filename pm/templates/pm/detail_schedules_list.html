@@ -90,7 +90,6 @@
                 <tbody>
                   {% for schedule  in schedules %}
                   {% if schedule.terminal.bank_name.is_active %}
-                    {% if schedule.status != "CO" %}
                 <tr data-widget="expandable-table" aria-expanded="false">
                 <td>{{forloop.counter}}</td>
                     <td>{{schedule.terminal.tid}}</td>
@@ -154,6 +153,11 @@
                                 style="width: 90px"
                                 class="btn btn-block btn-danger"
                                 > End </a>
+                          {% elif schedule.status == "CO" %}
+                              <a href="{% url "end-task" schedule.id %}"
+                                style="width: 90px"
+                                class="btn btn-block btn-info"
+                                > Check </a>
                       {% endif %}
                       <!--Start Task Moal-->
                   <div class="modal fade" id="startModal{{schedule.id}}">
@@ -214,7 +218,7 @@
                   <!-- /.modal -->
                       </td>
                       </tr>
-                    {% endif %}
+                    
                   {% endif %}
                 {% endfor %}
                 </tbody>

@@ -9,7 +9,7 @@ from datetime import datetime, timezone,timedelta,date
 from django.db.models import Q
 import json, math
 from pm.models import Terminal, User, Bank, Schedule,AllSchedule
-from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm
+from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm,ApprovalScheduleForm
 
 
 
@@ -240,7 +240,8 @@ def detail_schedules_list(request, scheule_id):
     now = datetime.now(timezone.utc)
     for schedule in schedules_list:
         if now< schedule.start_date:
-            schedule.remaining_days =(schedule.start_date -now).days
+            schedule.remaining_days = (schedule.start_date - now).days 
+            schedule.remaining_days = 90-schedule.remaining_days
         else:
             days_elapsed = (now - schedule.start_date).days
             schedule.remaining_days = max(0, 90 - (days_elapsed % 90))
@@ -328,8 +329,24 @@ def start_task(request, scheule_id):
     schedule.status = "OP"
     schedule.save()
     return redirect(reverse('schedules'))
+
 @login_required
 def end_scheduled_task(request, id):
+    if request.method == 'POST':
+        schedule = Schedule.objects.get(pk=id)
+        form = EndScheduleForm(request.POST, request.FILES, instance=schedule)
+        if form.is_valid():
+            schedule.status = "CO"
+            form.save()
+            messages.success(request, "Chenge Updated successfully!")
+            return redirect('schedules')
+    else:
+        schedule = Schedule.objects.get(pk=id)
+        form = EndScheduleForm(instance=schedule)
+    context = {'form': form, 'schedule': schedule, "title": "End task"}
+    return render(request, 'pm/end_schedule.html', context)
+@login_required
+def task_appoval(request, id):
     if request.method == 'POST':
         schedule = Schedule.objects.get(pk=id)
         form = EndScheduleForm(request.POST, request.FILES, instance=schedule)
