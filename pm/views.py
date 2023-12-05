@@ -387,23 +387,30 @@ def engineers_list(request):
     users = None
     title = "Users Report"
     selected = request.POST.get('options')
+    from_date = request.POST.get('from_date')
+    to_date = request.POST.get('to_date')
     if (selected == 'All users'):
-        users= User.objects.all()
+        users = User.objects.filter(date_joined__range=(from_date, to_date))
         title = "All Users"
     if (selected == 'Engineers'):
-        users = User.objects.filter(is_engineer=True)
+        users = User.objects.filter(
+            is_engineer=True, date_joined__range=(from_date, to_date))
         title = "Engineers"
     if (selected == 'Active Users'):
-        users = User.objects.filter(is_active=True)
+        users = User.objects.filter(
+            is_active=True, date_joined__range=(from_date, to_date))
         title = "Active Users"
     if (selected == 'InActive Users'):
-        users = User.objects.filter(is_active=False)
+        users = User.objects.filter(
+            is_active=False, date_joined__range=(from_date, to_date))
         title ="InActive Users"
     if (selected == 'Super Users'):
-        users = User.objects.filter(is_super_user=True)
+        users = User.objects.filter(
+            is_super_user=True, date_joined__range=(from_date, to_date))
         title="Super Users"
     if (selected == 'Bank Users'):
-        users = User.objects.filter(is_bank_user=True)
+        users = User.objects.filter(
+            is_bank_user=True, created_date__range=(from_date, to_date))
         title = "Bank Users"
     context = {
         "users": users,
@@ -417,14 +424,16 @@ def banks_list(request):
     banks = None
     title = "Banks Report"
     selected = request.POST.get('options')
+    from_date = request.POST.get('from_date')
+    to_date = request.POST.get('to_date')
     if (selected == 'All Banks'):
-        banks = Bank.objects.all()
+        banks = Bank.objects.filter(created_date__range=(from_date,to_date))
         title ="All Banks"
     if(selected =='Active Banks'):
-        banks = Bank.objects.filter(is_active=True)
+        banks = Bank.objects.filter(is_active=True, created_date__range=(from_date,to_date))
         title = "Active Banks"
     if(selected == 'InActive Banks'):
-        banks = Bank.objects.filter(is_active=False)
+        banks = Bank.objects.filter(is_active=False, created_date__range=(from_date,to_date))
         title = "InActive Banks"
     context = {
         "banks": banks,
@@ -438,23 +447,31 @@ def terminals_list(request):
     terminals = None
     title = "Terminals Report"
     selected = request.POST.get('options')
+    from_date = request.POST.get('from_date')
+    to_date = request.POST.get('to_date')
     if(selected == "All Terminals"):
-        terminals =Terminal.objects.all()
+        terminals = Terminal.objects.filter(
+            created_date__range=(from_date, to_date))
         title ="All Terminals"
     if(selected == "North Terminals"):
-        terminals = Terminal.objects.filter(moti_district="NR")
+        terminals = Terminal.objects.filter(
+            moti_district="NR", created_date__range=(from_date, to_date))
         title = "North Terminals"
     if(selected == "South Terminals"):
-        terminals=Terminal.objects.filter(moti_district="SR")
+        terminals = Terminal.objects.filter(
+            moti_district="SR", created_date__range=(from_date, to_date))
         title = "South Terminals"
     if(selected == "Centeral Terminals"):
-        terminals = Terminal.objects.filter(moti_district="CR")
+        terminals = Terminal.objects.filter(
+            moti_district="CR", created_date__range=(from_date, to_date))
         title ="Centeral Terminals"
     if(selected =="East Terminals"):
-        terminals = Terminal.objects.filter(moti_district="ER")
+        terminals = Terminal.objects.filter(
+            moti_district="ER", created_date__range=(from_date, to_date))
         title ="East Terminals"
     if(selected == "West Terminals"):
-        terminals = Terminal.objects.filter(moti_district="WR")
+        terminals = Terminal.objects.filter(
+            moti_district="WR", created_date__range=(from_date, to_date))
         title = "West Terminals"
 
     context = {
@@ -469,20 +486,27 @@ def schedule_list(request):
     schedules = None
     title = "Schedules Report"
     selected = request.POST.get('options')
+    from_date = request.POST.get('from_date')
+    to_date = request.POST.get('to_date')
     if(selected == "All Schedule"):
-        schedules = Schedule.objects.all()
+        schedules = Schedule.objects.filter(
+            created_date__range=(from_date, to_date))
         title = "All Tasks"
     if(selected =="Pending Schedule"):
-        schedules = Schedule.objects.filter(status="PE")
+        schedules = Schedule.objects.filter(
+            status="PE", created_date__range=(from_date, to_date))
         title = "Pending Schedule"
     if(selected == "Waiting Task"):
-        schedules = Schedule.objects.filter(status="WT")
+        schedules = Schedule.objects.filter(
+            status="WT", created_date__range=(from_date, to_date))
         title = "Waiting Task"
     if(selected == "OnProgress Task"):
-        schedules = Schedule.objects.filter(status="OP")
+        schedules = Schedule.objects.filter(
+            status="OP", created_date__range=(from_date, to_date))
         title = "OnProgress Task"
     if(selected == "Completed Task"):
-        schedules = Schedule.objects.filter(status="CO")
+        schedules = Schedule.objects.filter(
+            status="CO", created_date__range=(from_date, to_date))
         title ="Completed Task"
     context = {
         "schedules": schedules,
