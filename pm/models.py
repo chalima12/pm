@@ -66,7 +66,7 @@ class Bank(models.Model):
     bank_key = models.CharField(max_length=40, null=True, blank=True)
     is_active = models.BooleanField(default=True, null=True, blank=True)
     created_date = models.DateField(
-        auto_now_add=True, null=True, blank=True)
+        auto_now_add=True)
 
 
     def __str__(self):
@@ -102,7 +102,7 @@ class Terminal(models.Model):
     city = models.CharField(max_length=255, null=True, blank=True)
     location = models.CharField(max_length=255,null=True,blank=True)
     created_date = models.DateField(
-        auto_now_add=True, null=True, blank=True)
+        auto_now_add=True)
     
 
     def __str__(self) -> str:
@@ -114,7 +114,6 @@ class Terminal(models.Model):
 class AllSchedule(models.Model):
     schedul_name = models.CharField(max_length=1000, null=True, blank=True)
     scheduled_by = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True)
-    
     def __str__(self):
         return self.schedul_name
     
@@ -167,7 +166,7 @@ class Schedule(models.Model): #TODO: name this to Shedule List
     approval_comment = models.CharField(max_length=100, null=True, blank=True)
     
     created_date = models.DateField(
-        auto_now_add=True, null=True, blank=True)
+        auto_now_add=True)
     
 
     def __str__(self) -> str:
