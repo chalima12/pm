@@ -132,6 +132,10 @@
                           <span class="badge badge-success" style="width: 90px"
                           >
                           <b>Approved</b></span>
+                          {% elif schedule.status == "AP" %}
+                          <span class="badge badge-danger" style="width: 90px"
+                          >
+                          <b>Rejectd</b></span>
                       {% endif %}
                     </td>
                     <td>
@@ -160,8 +164,12 @@
                           {% elif schedule.status == "CO" %}
                               <a href="{% url "task_approval" schedule.id %}"
                                 style="width: 90px"
-                                class="btn btn-block btn-info"
-                                > Check </a>
+                                class="btn  btn-success mr-2"
+                                > Approve </a>
+                              <a href="{% url "reject_task" schedule.id %}"
+                                style="width: 90px"
+                                class="btn  btn-danger"
+                                > Rejectd </a>
                       {% endif %}
                       <!--Start Task Moal-->
                   <div class="modal fade" id="startModal{{schedule.id}}">

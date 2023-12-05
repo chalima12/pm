@@ -346,7 +346,7 @@ def end_scheduled_task(request, id):
     context = {'form': form, 'schedule': schedule, "title": "End task"}
     return render(request, 'pm/end_schedule.html', context)
 @login_required
-def task_appoval(request, id):
+def approve_task(request, id):
     if request.method == 'POST':
         schedule = Schedule.objects.get(pk=id)
         form = ApprovalScheduleForm(request.POST, request.FILES, instance=schedule)
@@ -359,7 +359,22 @@ def task_appoval(request, id):
         schedule = Schedule.objects.get(pk=id)
         form = ApprovalScheduleForm(instance=schedule)
     context = {'form': form, 'schedule': schedule, "title": "Approval task"}
-    return render(request, 'pm/task_approval.html', context)
+    return render(request, 'pm/approve_task.html', context)
+
+def reject_task(request, id):
+    if request.method == 'POST':
+        schedule = Schedule.objects.get(pk=id)
+        form = ApprovalScheduleForm(request.POST, request.FILES, instance=schedule)
+        if form.is_valid():
+            schedule.status = "RE"
+            form.save()
+            messages.success(request, "Chenge Updated successfully!")
+            return redirect('schedules')
+    else:
+        schedule = Schedule.objects.get(pk=id)
+        form = ApprovalScheduleForm(instance=schedule)
+    context = {'form': form, 'schedule': schedule, "title": "Reject task"}
+    return render(request, 'pm/reject_task.html', context)
 
 
 @ login_required

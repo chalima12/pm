@@ -51,13 +51,12 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="{{ form.approval_comment.id_for_label }}">Approval Message</label>
+                  <label for="{{ form.approval_comment.id_for_label }}">Commnet</label>
                     {{form.approval_comment}}
                 </div>
               </div>
             </div>
             <button type="submit" class="btn btn-primary">Approved</button>
-            <button type="submit" class="btn btn-danger">Rejectd</button>
             <a href="{% url 'schedules' %}" class="btn btn-secondary">Cancel</a>
           </form>
         </div>
