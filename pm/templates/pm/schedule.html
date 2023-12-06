@@ -26,12 +26,13 @@
              
             </div>
             <div class="card-body">
-              <table id="example2" class="table table-hover">
+              <table id="example2" class="table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
                     <th>#</th>
                     <th>SCHEDULE NAME</th>
                     <th>SCHEDULED BY</th>
+                    <th>DESCRIPTION</th>
                     <th>Count</th>
                     <th></th>
                   </tr>
@@ -42,6 +43,7 @@
                     <td> {{forloop.counter}} </td>
                     <td> {{schedule.schedul_name}} </td>
                     <td> {{schedule.scheduled_by}}</td>
+                    <td> {{schedule.description}}</td>
                     <td>{{schedule.all_schedules.count}}</td>
                     <td>{% if  schedule.all_schedules.count%}
                       <a href="{% url "detail_schedules_list" schedule.id %}" class='btn-lg' title="Go to Details"><i class="fas fa-arrow-circle-right"></i></a>
@@ -54,6 +56,7 @@
                         <th>#</th>
                         <th>SCHEDULE NAME</th>
                         <th>SCHEDULED BY</th>
+                        <th>DESCRIPTION</th>
                         <th>Count</th>
                         <th></th>
                   </tr>

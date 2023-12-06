@@ -83,28 +83,25 @@ class BankForm(forms.ModelForm):
         }
 
 
-class ScheduleForm():
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['start_date'].required = True
+class ScheduleForm(forms.ModelForm):
     terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
      ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2 select2bs4'}))
     class Meta:
         model = Schedule
-        fields = ['schedule','terminals', 'start_date', 'description']
+        fields = ['schedule', 'terminals', 'start_date', ]
         widgets = {
             'schedule': forms.Select(attrs={'class': 'form-control'}),
             'start_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Type your description here'}),
         }
 
 class AllScheduleForm(forms.ModelForm):
     class Meta:
         model= AllSchedule
-        fields = ['schedul_name', 'scheduled_by']
+        fields = ['schedul_name', 'scheduled_by', 'description']
         widgets = {
             'schedul_name': forms.TextInput(attrs={'class': 'form-control'}),
             'scheduled_by': forms.Select(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Type your description here'}),
             
         }
 

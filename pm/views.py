@@ -254,38 +254,36 @@ def detail_schedules_list(request, pk):
     }
     return render(request, 'pm/detail_schedules_list.html', context)
 
+
 @login_required
 def create_schedule(request):
     tqs = Terminal.objects.all()
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
-        form1= AllScheduleForm(request.POST)
+        form1 = AllScheduleForm(request.POST)
         if form.is_valid() and form1.is_valid():
             form1.clean()
             form1_instance = form1.save()
             terminals = form.cleaned_data['terminals']
-            start_date =form.cleaned_data['start_date']
+            start_date = form.cleaned_data['start_date']
             string_start_date = str(date.isoformat(start_date))
-            formated_start_date = datetime.strptime(string_start_date, "%Y-%m-%d")
-            # print(f"Start Date: {formated_start_date}")
-            end_date = formated_start_date + timedelta(days=90) #TODO: make days select form user 3, 4 or 6 month
-            description = form.cleaned_data['description']
+            formated_start_date = datetime.strptime(
+                string_start_date, "%Y-%m-%d")
+            end_date = formated_start_date + timedelta(days=90)
             for terminal in terminals:
                 Schedule.objects.create(
                     schedule=form1_instance,
                     terminal=terminal,
                     start_date=start_date,
                     end_date=end_date,
-                    description=description,
                 )
 
             messages.success(request, "Schedules created successfully!")
             return redirect('schedules')
     else:
-        form =ScheduleForm()
+        form = ScheduleForm()
         form1 = AllScheduleForm()
-    return render(request, 'pm/addSchedule.html', {'form': form,"terminals":tqs,"form1":form1})
-
+    return render(request, 'pm/addSchedule.html', {'form': form, "terminals": tqs, "form1": form1})
 
 @login_required
 def assign_engineer(request, id):
