@@ -9,7 +9,7 @@ from datetime import datetime, timezone,timedelta,date
 from django.db.models import Q
 import json, math
 from pm.models import Terminal, User, Bank, Schedule,AllSchedule
-from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm,ApprovalScheduleForm
+from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm,ApprovalScheduleForm,AllScheduleForm
 
 
 
@@ -217,7 +217,6 @@ def all_schedule(request):
     context = {
         "title": "Scheduled ATMS",
         "schedules": all_schedule,
-        # "count":count
     }
     return render(request, 'pm/schedule.html', context)
 
@@ -230,22 +229,18 @@ def detail_schedules_list(request, pk):
     waiting_schedule = schedules_list.filter(status="WT").count()
     onprogress_schedule = schedules_list.filter(status="OP").count()
     completed_schedule = schedules_list.filter(status="CO").count()
+
     # calculating Pending , waiting, onprogress and completed rate
-    pending_rate = round(pending_schedule/specific_schedule_count,2)*100
-    waiting_rate = round(waiting_schedule/specific_schedule_count,2)*100
-    onprogress_rate = round(onprogress_schedule/specific_schedule_count,2)*100
-    completed_rate = round(completed_schedule/specific_schedule_count,2)*100
+    pending_rate = round(pending_schedule/specific_schedule_count,1)*100
+    waiting_rate = round(waiting_schedule/specific_schedule_count,1)*100
+    onprogress_rate = round(onprogress_schedule/specific_schedule_count,1)*100
+    completed_rate = round(completed_schedule/specific_schedule_count,1)*100
     engineer_nedded = math.ceil(pending_schedule/7)
     # Calcuate Remaining Days
     now = datetime.now(timezone.utc)
     for schedule in schedules_list:
-        # if now< schedule.start_date:
-            schedule.remaining_days = (schedule.end_date - now).days 
-            # schedule.remaining_days = 90-schedule.remaining_days
-        # else:
-        #     days_elapsed = (now - schedule.start_date).days
-        #     schedule.remaining_days = max(0, 90 - (days_elapsed % 90))
-        #     print(schedule.remaining_days)
+        schedule.remaining_days = (schedule.end_date - now).days 
+        
     context = {
         'schedules': schedules_list,
         "title": "Detial shedule",
@@ -264,8 +259,10 @@ def create_schedule(request):
     tqs = Terminal.objects.all()
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
-        if form.is_valid():
-            schedule = form.cleaned_data['schedule']
+        form1= AllScheduleForm(request.POST)
+        if form.is_valid() and form1.is_valid():
+            form1.clean()
+            form1_instance = form1.save()
             terminals = form.cleaned_data['terminals']
             start_date =form.cleaned_data['start_date']
             string_start_date = str(date.isoformat(start_date))
@@ -275,7 +272,7 @@ def create_schedule(request):
             description = form.cleaned_data['description']
             for terminal in terminals:
                 Schedule.objects.create(
-                    schedule=schedule,
+                    schedule=form1_instance,
                     terminal=terminal,
                     start_date=start_date,
                     end_date=end_date,
@@ -286,7 +283,8 @@ def create_schedule(request):
             return redirect('schedules')
     else:
         form =ScheduleForm()
-    return render(request, 'pm/addSchedule.html', {'form': form,"terminals":tqs})
+        form1 = AllScheduleForm()
+    return render(request, 'pm/addSchedule.html', {'form': form,"terminals":tqs,"form1":form1})
 
 
 @login_required

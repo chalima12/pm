@@ -19,13 +19,19 @@
           <form  method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="form-group">
-                  <label for="{{ form.schedule.id_for_label }}">Schedule Name</label>
-                    {{form.schedule}}
+                  <label for="{{ form.schedul_name.id_for_label }}">Schedule Name</label>
+                    {{form1.schedul_name}}
                 </div>
               </div>
-              <div class="col-md-12">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="{{ form.scheduled_by.id_for_label }}">Scheduled by</label>
+                    {{form1.scheduled_by}}
+                </div>
+              </div>
+              <div class="col-md-6">
                 <div class="form-group">
                   <label for="{{ form.terminals.id_for_label }}">Select Terminals</label>
                     {{form.terminals}}
@@ -37,7 +43,7 @@
                     {{form.start_date}}
                 </div>
               </div>
-              <div class="col-md-12">
+              <div class="col-md-8">
                 <div class="form-group">
                   <label for="{{ form.description.id_for_label }}">Description</label>
                     {{form.description}}
