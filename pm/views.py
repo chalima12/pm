@@ -222,8 +222,8 @@ def all_schedule(request):
     return render(request, 'pm/schedule.html', context)
 
 
-def detail_schedules_list(request, scheule_id):
-    schedule = get_object_or_404(AllSchedule, pk=scheule_id)
+def detail_schedules_list(request, pk):
+    schedule = get_object_or_404(AllSchedule, pk=pk)
     schedules_list = Schedule.objects.filter(schedule=schedule)
     specific_schedule_count = Schedule.objects.filter(schedule=schedule).count()
     pending_schedule = schedules_list.filter(status="PE").count()
@@ -239,13 +239,13 @@ def detail_schedules_list(request, scheule_id):
     # Calcuate Remaining Days
     now = datetime.now(timezone.utc)
     for schedule in schedules_list:
-        if now< schedule.start_date:
-            schedule.remaining_days = (schedule.start_date - now).days 
-            schedule.remaining_days = 90-schedule.remaining_days
-        else:
-            days_elapsed = (now - schedule.start_date).days
-            schedule.remaining_days = max(0, 90 - (days_elapsed % 90))
-            print(schedule.remaining_days)
+        # if now< schedule.start_date:
+            schedule.remaining_days = (schedule.end_date - now).days 
+            # schedule.remaining_days = 90-schedule.remaining_days
+        # else:
+        #     days_elapsed = (now - schedule.start_date).days
+        #     schedule.remaining_days = max(0, 90 - (days_elapsed % 90))
+        #     print(schedule.remaining_days)
     context = {
         'schedules': schedules_list,
         "title": "Detial shedule",
@@ -293,72 +293,87 @@ def create_schedule(request):
 def assign_engineer(request, id):
     if request.method == 'POST':
         schedule = Schedule.objects.get(pk=id)
+        all_schedule_id = schedule.schedule.id
         form = AssignEngineerForm(request.POST, instance=schedule)
         if form.is_valid():
             schedule.status = "WT"
             form.save()
             messages.success(request, "Engineer Assigned successfully!")
-            return redirect('schedules')
+            return redirect(f'/detail_schedule/{all_schedule_id}')
+
     else:
         schedule = Schedule.objects.get(pk=id)
+        all_schedule_id = schedule.schedule.id
         form = AssignEngineerForm(instance=schedule)
     context = {'form': form,
             'schedule': schedule,
-            "title": "Assign Engineer"
+            "title": "Assign Engineer",
+            'all_schedule_id': all_schedule_id
+            
             }
     return render(request, 'pm/assign_engineer.html', context)
 
 
 def start_task(request, scheule_id):
     schedule = Schedule.objects.get(pk=scheule_id)
+    all_schedule_id = schedule.schedule.id
     schedule.status = "OP"
     schedule.save()
-    return redirect(reverse('schedules'))
+    return redirect(f'/detail_schedule/{all_schedule_id}')
 
 @login_required
 def end_scheduled_task(request, id):
     if request.method == 'POST':
         schedule = Schedule.objects.get(pk=id)
+        all_schedule_id = schedule.schedule.id
         form = EndScheduleForm(request.POST, request.FILES, instance=schedule)
         if form.is_valid():
             schedule.status = "CO"
             form.save()
             messages.success(request, "Chenge Updated successfully!")
-            return redirect('schedules')
+            return redirect(f'/detail_schedule/{all_schedule_id}')
     else:
         schedule = Schedule.objects.get(pk=id)
+        all_schedule_id = schedule.schedule.id
         form = EndScheduleForm(instance=schedule)
-    context = {'form': form, 'schedule': schedule, "title": "End task"}
+    context = {'form': form, 'schedule': schedule,
+               "title": "End task", "all_schedule_id": all_schedule_id}
     return render(request, 'pm/end_schedule.html', context)
+
 @login_required
 def approve_task(request, id):
     if request.method == 'POST':
         schedule = Schedule.objects.get(pk=id)
+        all_schedule_id = schedule.schedule.id
         form = ApprovalScheduleForm(request.POST, request.FILES, instance=schedule)
         if form.is_valid():
             schedule.status = "AP"
             form.save()
             messages.success(request, "Chenge Updated successfully!")
-            return redirect('schedules')
+            return redirect(f'/detail_schedule/{all_schedule_id}')
     else:
         schedule = Schedule.objects.get(pk=id)
         form = ApprovalScheduleForm(instance=schedule)
-    context = {'form': form, 'schedule': schedule, "title": "Approval task"}
+        all_schedule_id = schedule.schedule.id
+    context = {'form': form, 'schedule': schedule, "title": "Approval task","all_schedule_id":all_schedule_id}
     return render(request, 'pm/approve_task.html', context)
 
 def reject_task(request, id):
     if request.method == 'POST':
         schedule = Schedule.objects.get(pk=id)
+        all_schedule_id = schedule.schedule.id
+         
         form = ApprovalScheduleForm(request.POST, request.FILES, instance=schedule)
         if form.is_valid():
             schedule.status = "RE"
             form.save()
             messages.success(request, "Chenge Updated successfully!")
-            return redirect('schedules')
+            return redirect(f'/detail_schedule/{all_schedule_id}')
     else:
         schedule = Schedule.objects.get(pk=id)
         form = ApprovalScheduleForm(instance=schedule)
-    context = {'form': form, 'schedule': schedule, "title": "Reject task"}
+        all_schedule_id = schedule.schedule.id
+    context = {'form': form, 'schedule': schedule, "title": "Reject task","all_schedule_id":all_schedule_id}
     return render(request, 'pm/reject_task.html', context)
 
 
