@@ -1,9 +1,5 @@
 from django import forms
-<<<<<<< HEAD
-from pm.models import Terminal, Bank, User, AllSchedule,Schedule
-=======
 from pm.models import Terminal, Bank, User, Schedule,AllSchedule
->>>>>>> latest
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import password_validation
 from django.utils.translation import gettext_lazy as _
@@ -87,7 +83,7 @@ class BankForm(forms.ModelForm):
         }
 
 
-class AllScheduleForm():
+class ScheduleForm():
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['start_date'].required = True

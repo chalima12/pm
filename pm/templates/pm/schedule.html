@@ -43,13 +43,9 @@
                     <td> {{schedule.schedul_name}} </td>
                     <td> {{schedule.scheduled_by}}</td>
                     <td>{{schedule.all_schedules.count}}</td>
-<<<<<<< HEAD
-                    <td><a href="{% url "detail_schedules_list" schedule.id %}" class='btn-lg' title="Go to Details"><i class="fas fa-arrow-circle-right"></i></a></td>
-=======
                     <td>{% if  schedule.all_schedules.count%}
                       <a href="{% url "detail_schedules_list" schedule.id %}" class='btn-lg' title="Go to Details"><i class="fas fa-arrow-circle-right"></i></a>
                       {% endif %}</td>
->>>>>>> latest
                   </tr>
                 {% endfor %}
                 </tbody>

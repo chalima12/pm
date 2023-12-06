@@ -114,10 +114,6 @@ class Terminal(models.Model):
 class AllSchedule(models.Model):
     schedul_name = models.CharField(max_length=1000, null=True, blank=True)
     scheduled_by = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True)
-<<<<<<< HEAD
-    
-=======
->>>>>>> latest
     def __str__(self):
         return self.schedul_name
     
@@ -136,11 +132,8 @@ class Schedule(models.Model): #TODO: name this to Shedule List
         (ONPROGRESS, 'Onprogress'),
         (COMPLETED, 'Completed'),
         (APPROVED, 'Approved'),
-<<<<<<< HEAD
-=======
         (REJECTED, 'Rejected'),
 
->>>>>>> latest
     ]
     HIGH = 'H'
     MEDIUM = 'M'
@@ -188,12 +181,7 @@ class Schedule(models.Model): #TODO: name this to Shedule List
     #     return remaining_days
     class Meta:
         ordering = ['end_date']
-<<<<<<< HEAD
-    
-
-=======
         
     
->>>>>>> latest
 
 

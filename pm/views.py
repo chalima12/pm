@@ -9,11 +9,7 @@ from datetime import datetime, timezone,timedelta,date
 from django.db.models import Q
 import json, math
 from pm.models import Terminal, User, Bank, Schedule,AllSchedule
-<<<<<<< HEAD
-from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm
-=======
 from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm,ApprovalScheduleForm,AllScheduleForm
->>>>>>> latest
 
 
 

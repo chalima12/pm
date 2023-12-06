@@ -20,10 +20,8 @@ class UserAdmin(admin.ModelAdmin):
                     'gender', 'phone', 'email', 'address']
 
 
-@admin.register(AllSchedule)
-class AllScheduleAdmin(admin.ModelAdmin):
-    list_display = ['start_date', 'end_date', 'description']
-@admin.register(ScheduleList)
+
+@admin.register(Schedule)
 class ScheduleListAdmin(admin.ModelAdmin):
     list_display = ['schedule', 'status', 'closed_date',]
 

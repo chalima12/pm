@@ -11,12 +11,6 @@ urlpatterns = [
     path('terminals/', views.terminals, name="all-terminals"),
     path('view_terminal/<int:id>', views.view_terminal, name='view_terminal'),
     path('add-terminal/', views.addTerminal, name='add-terminal'),
-<<<<<<< HEAD
-    path('update_terminal/<int:terminal_id>',views.updateTerminal, name='update-terminal'),
-    # path('schedules/', views.schedule, name='schedules'),
-    path('all-schedules', views.all_schedule, name='schedules'),
-    path('detail_schedule/<int:scheule_id>',views.detail_schedules_list, name='detail_schedules_list'),
-=======
     path('update_terminal/<int:terminal_id>',
          views.updateTerminal, name='update-terminal'),
     # path('schedules/', views.schedule, name='schedules'),
@@ -24,7 +18,6 @@ urlpatterns = [
     path('detail_schedule/<int:pk>',
          views.detail_schedules_list, name='detail_schedules_list'),
 
->>>>>>> latest
     path('assign_engineer/<int:id>', views.assign_engineer, name='assign-engineer'),
     path("start_task/<int:scheule_id>", views.start_task, name="start-task"),
     path('end_scheduled_task/<int:id>',
@@ -43,12 +36,7 @@ urlpatterns = [
     path("report/users", views.engineers_list, name="engineers-list"),
     path("report/banks", views.banks_list, name="bank-list"),
     path("report/terminals", views.terminals_list, name="terminals-list"),
-<<<<<<< HEAD
-    # path("report/schedules", views.schedule_list, name="schedules-list"),
-    
-=======
     path("report/schedules", views.schedule_list, name="schedules-list"),
 
->>>>>>> latest
 
 ]
