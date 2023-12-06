@@ -1,12 +1,12 @@
 from django import forms
+<<<<<<< HEAD
 from pm.models import Terminal, Bank, User, AllSchedule,Schedule
+=======
+from pm.models import Terminal, Bank, User, Schedule,AllSchedule
+>>>>>>> latest
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import password_validation
 from django.utils.translation import gettext_lazy as _
-# from .managers import CustomUserManager
-# from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-
-
 class UserForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -102,6 +102,15 @@ class AllScheduleForm():
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Type your description here'}),
         }
 
+class AllScheduleForm(forms.ModelForm):
+    class Meta:
+        model= AllSchedule
+        fields = ['schedul_name', 'scheduled_by']
+        widgets = {
+            'schedul_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'scheduled_by': forms.Select(attrs={'class': 'form-control'}),
+            
+        }
 
 # class ScheduleListForm(forms.ModelForm):
 #     terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
@@ -131,6 +140,7 @@ class EndScheduleForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['comment'].required = True
+        self.fields['checklist_photo'].required = True
 
     class Meta:
         model = Schedule
@@ -139,4 +149,16 @@ class EndScheduleForm(forms.ModelForm):
             'comment': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Comment here...'}),
             'checklist_photo': forms.FileInput(attrs={'class': 'form-control'}),
             'closed_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
+        }
+
+class ApprovalScheduleForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['approval_comment'].required = True
+    class Meta:
+        model = Schedule
+        fields = ['approval_comment']
+        widgets = {
+            'approval_comment': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Comment here...'}),
+            
         }

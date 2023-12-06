@@ -66,7 +66,7 @@ class Bank(models.Model):
     bank_key = models.CharField(max_length=40, null=True, blank=True)
     is_active = models.BooleanField(default=True, null=True, blank=True)
     created_date = models.DateField(
-        auto_now_add=True, null=True, blank=True)
+        auto_now_add=True)
 
 
     def __str__(self):
@@ -102,7 +102,8 @@ class Terminal(models.Model):
     city = models.CharField(max_length=255, null=True, blank=True)
     location = models.CharField(max_length=255,null=True,blank=True)
     created_date = models.DateField(
-        auto_now_add=True, null=True, blank=True)
+        auto_now_add=True)
+    
 
     def __str__(self) -> str:
         return self.terminal_name
@@ -113,7 +114,10 @@ class Terminal(models.Model):
 class AllSchedule(models.Model):
     schedul_name = models.CharField(max_length=1000, null=True, blank=True)
     scheduled_by = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True)
+<<<<<<< HEAD
     
+=======
+>>>>>>> latest
     def __str__(self):
         return self.schedul_name
     
@@ -122,6 +126,8 @@ class Schedule(models.Model): #TODO: name this to Shedule List
     PENDING = 'PE'
     WAITING = "WT"
     ONPROGRESS = 'OP'
+    APPROVED ='AP'
+    REJECTED='RE'
     COMPLETED = 'CO'
     APPROVED ="AP"
     status_choices = [
@@ -130,6 +136,11 @@ class Schedule(models.Model): #TODO: name this to Shedule List
         (ONPROGRESS, 'Onprogress'),
         (COMPLETED, 'Completed'),
         (APPROVED, 'Approved'),
+<<<<<<< HEAD
+=======
+        (REJECTED, 'Rejected'),
+
+>>>>>>> latest
     ]
     HIGH = 'H'
     MEDIUM = 'M'
@@ -161,14 +172,28 @@ class Schedule(models.Model): #TODO: name this to Shedule List
     comment = models.CharField(max_length=255,null=True,blank=True)
     checklist_photo = models.FileField(null=True, blank=True,upload_to="pm_checklist_pics/")
     closed_date = models.DateTimeField(blank=True,null=True,default=timezone.now)
+    approval_comment = models.CharField(max_length=100, null=True, blank=True)
+    
     created_date = models.DateField(
-        auto_now_add=True, null=True, blank=True)
+        auto_now_add=True)
     
 
     def __str__(self) -> str:
         return str(self.terminal)
+    
+    # def remaining_days(self):
+    #     today = timezone.now().date()
+    #     days_elapsed = (today - self.start_date).days
+    #     remaining_days = max(0, 90 - days_elapsed)
+    #     return remaining_days
     class Meta:
         ordering = ['end_date']
+<<<<<<< HEAD
     
+
+=======
+        
+    
+>>>>>>> latest
 
 

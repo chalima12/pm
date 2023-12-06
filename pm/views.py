@@ -9,7 +9,11 @@ from datetime import datetime, timezone,timedelta,date
 from django.db.models import Q
 import json, math
 from pm.models import Terminal, User, Bank, Schedule,AllSchedule
+<<<<<<< HEAD
 from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm
+=======
+from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm,ApprovalScheduleForm,AllScheduleForm
+>>>>>>> latest
 
 
 
@@ -211,6 +215,7 @@ def updateTerminal(request, terminal_id):
     }
     return render(request, 'pm/update_terminal.html', context)
 
+<<<<<<< HEAD
 @login_required
 def all_schedule(request):
     all_schedule = AllSchedule.objects.all()
@@ -251,28 +256,65 @@ def detail_schedules_list(request, scheule_id):
     }
     return render(request, 'pm/detail_schedules_list.html', context)
 
+=======
+>>>>>>> latest
 @login_required
-def schedule(request):
-    scheduleQuerySet = Schedule.objects.all()
-    # now = datetime.now(timezone.utc)
-    one_day = timedelta(days=1)
-    for schedule in scheduleQuerySet:
-        schedule.remaining_day = (
-            (schedule.end_date-schedule.start_date)).days
+def all_schedule(request):
+    all_schedule = AllSchedule.objects.all()
     context = {
         "title": "Scheduled ATMS",
-        "schedules": scheduleQuerySet,
+        "schedules": all_schedule,
     }
     return render(request, 'pm/schedule.html', context)
 
+
+def detail_schedules_list(request, pk):
+    schedule = get_object_or_404(AllSchedule, pk=pk)
+    schedules_list = Schedule.objects.filter(schedule=schedule)
+    specific_schedule_count = Schedule.objects.filter(schedule=schedule).count()
+    pending_schedule = schedules_list.filter(status="PE").count()
+    waiting_schedule = schedules_list.filter(status="WT").count()
+    onprogress_schedule = schedules_list.filter(status="OP").count()
+    completed_schedule = schedules_list.filter(status="CO").count()
+
+    # calculating Pending , waiting, onprogress and completed rate
+    pending_rate = round(pending_schedule/specific_schedule_count,1)*100
+    waiting_rate = round(waiting_schedule/specific_schedule_count,1)*100
+    onprogress_rate = round(onprogress_schedule/specific_schedule_count,1)*100
+    completed_rate = round(completed_schedule/specific_schedule_count,1)*100
+    engineer_nedded = math.ceil(pending_schedule/7)
+    # Calcuate Remaining Days
+    now = datetime.now(timezone.utc)
+    for schedule in schedules_list:
+        schedule.remaining_days = (schedule.end_date - now).days 
+        
+    context = {
+        'schedules': schedules_list,
+        "title": "Detial shedule",
+        "pending_rate": pending_rate,
+        "waiting_rate": waiting_rate,
+        "onprogress_rate": onprogress_rate,
+        "completed_rate": completed_rate,
+        "all_schedule_count": specific_schedule_count,
+        "engineer_nedded": engineer_nedded,
+        
+    }
+    return render(request, 'pm/detail_schedules_list.html', context)
 
 @login_required
 def create_schedule(request):
     tqs = Terminal.objects.all()
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
+<<<<<<< HEAD
         if form.is_valid():
             schedule = form.cleaned_data['schedule']
+=======
+        form1= AllScheduleForm(request.POST)
+        if form.is_valid() and form1.is_valid():
+            form1.clean()
+            form1_instance = form1.save()
+>>>>>>> latest
             terminals = form.cleaned_data['terminals']
             start_date =form.cleaned_data['start_date']
             string_start_date = str(date.isoformat(start_date))
@@ -282,7 +324,11 @@ def create_schedule(request):
             description = form.cleaned_data['description']
             for terminal in terminals:
                 Schedule.objects.create(
+<<<<<<< HEAD
                     schedule=schedule,
+=======
+                    schedule=form1_instance,
+>>>>>>> latest
                     terminal=terminal,
                     start_date=start_date,
                     end_date=end_date,
@@ -293,49 +339,96 @@ def create_schedule(request):
             return redirect('schedules')
     else:
         form =ScheduleForm()
-    return render(request, 'pm/addSchedule.html', {'form': form,"terminals":tqs})
+        form1 = AllScheduleForm()
+    return render(request, 'pm/addSchedule.html', {'form': form,"terminals":tqs,"form1":form1})
 
 
 @login_required
 def assign_engineer(request, id):
     if request.method == 'POST':
         schedule = Schedule.objects.get(pk=id)
+        all_schedule_id = schedule.schedule.id
         form = AssignEngineerForm(request.POST, instance=schedule)
         if form.is_valid():
             schedule.status = "WT"
             form.save()
             messages.success(request, "Engineer Assigned successfully!")
-            return redirect('schedules')
+            return redirect(f'/detail_schedule/{all_schedule_id}')
+
     else:
         schedule = Schedule.objects.get(pk=id)
+        all_schedule_id = schedule.schedule.id
         form = AssignEngineerForm(instance=schedule)
     context = {'form': form,
             'schedule': schedule,
-            "title": "Assign Engineer"
+            "title": "Assign Engineer",
+            'all_schedule_id': all_schedule_id
+            
             }
     return render(request, 'pm/assign_engineer.html', context)
 
 
 def start_task(request, scheule_id):
     schedule = Schedule.objects.get(pk=scheule_id)
+    all_schedule_id = schedule.schedule.id
     schedule.status = "OP"
     schedule.save()
-    return redirect(reverse('schedules'))
+    return redirect(f'/detail_schedule/{all_schedule_id}')
+
 @login_required
 def end_scheduled_task(request, id):
     if request.method == 'POST':
         schedule = Schedule.objects.get(pk=id)
+        all_schedule_id = schedule.schedule.id
         form = EndScheduleForm(request.POST, request.FILES, instance=schedule)
         if form.is_valid():
             schedule.status = "CO"
             form.save()
             messages.success(request, "Chenge Updated successfully!")
-            return redirect('schedules')
+            return redirect(f'/detail_schedule/{all_schedule_id}')
     else:
         schedule = Schedule.objects.get(pk=id)
+        all_schedule_id = schedule.schedule.id
         form = EndScheduleForm(instance=schedule)
-    context = {'form': form, 'schedule': schedule, "title": "End task"}
+    context = {'form': form, 'schedule': schedule,
+               "title": "End task", "all_schedule_id": all_schedule_id}
     return render(request, 'pm/end_schedule.html', context)
+
+@login_required
+def approve_task(request, id):
+    if request.method == 'POST':
+        schedule = Schedule.objects.get(pk=id)
+        all_schedule_id = schedule.schedule.id
+        form = ApprovalScheduleForm(request.POST, request.FILES, instance=schedule)
+        if form.is_valid():
+            schedule.status = "AP"
+            form.save()
+            messages.success(request, "Chenge Updated successfully!")
+            return redirect(f'/detail_schedule/{all_schedule_id}')
+    else:
+        schedule = Schedule.objects.get(pk=id)
+        form = ApprovalScheduleForm(instance=schedule)
+        all_schedule_id = schedule.schedule.id
+    context = {'form': form, 'schedule': schedule, "title": "Approval task","all_schedule_id":all_schedule_id}
+    return render(request, 'pm/approve_task.html', context)
+
+def reject_task(request, id):
+    if request.method == 'POST':
+        schedule = Schedule.objects.get(pk=id)
+        all_schedule_id = schedule.schedule.id
+         
+        form = ApprovalScheduleForm(request.POST, request.FILES, instance=schedule)
+        if form.is_valid():
+            schedule.status = "RE"
+            form.save()
+            messages.success(request, "Chenge Updated successfully!")
+            return redirect(f'/detail_schedule/{all_schedule_id}')
+    else:
+        schedule = Schedule.objects.get(pk=id)
+        form = ApprovalScheduleForm(instance=schedule)
+        all_schedule_id = schedule.schedule.id
+    context = {'form': form, 'schedule': schedule, "title": "Reject task","all_schedule_id":all_schedule_id}
+    return render(request, 'pm/reject_task.html', context)
 
 
 @ login_required
@@ -363,23 +456,30 @@ def engineers_list(request):
     users = None
     title = "Users Report"
     selected = request.POST.get('options')
+    from_date = request.POST.get('from_date')
+    to_date = request.POST.get('to_date')
     if (selected == 'All users'):
-        users= User.objects.all()
+        users = User.objects.filter(date_joined__range=(from_date, to_date))
         title = "All Users"
     if (selected == 'Engineers'):
-        users = User.objects.filter(is_engineer=True)
+        users = User.objects.filter(
+            is_engineer=True, date_joined__range=(from_date, to_date))
         title = "Engineers"
     if (selected == 'Active Users'):
-        users = User.objects.filter(is_active=True)
+        users = User.objects.filter(
+            is_active=True, date_joined__range=(from_date, to_date))
         title = "Active Users"
     if (selected == 'InActive Users'):
-        users = User.objects.filter(is_active=False)
+        users = User.objects.filter(
+            is_active=False, date_joined__range=(from_date, to_date))
         title ="InActive Users"
     if (selected == 'Super Users'):
-        users = User.objects.filter(is_super_user=True)
+        users = User.objects.filter(
+            is_super_user=True, date_joined__range=(from_date, to_date))
         title="Super Users"
     if (selected == 'Bank Users'):
-        users = User.objects.filter(is_bank_user=True)
+        users = User.objects.filter(
+            is_bank_user=True, created_date__range=(from_date, to_date))
         title = "Bank Users"
     context = {
         "users": users,
@@ -393,14 +493,16 @@ def banks_list(request):
     banks = None
     title = "Banks Report"
     selected = request.POST.get('options')
+    from_date = request.POST.get('from_date')
+    to_date = request.POST.get('to_date')
     if (selected == 'All Banks'):
-        banks = Bank.objects.all()
+        banks = Bank.objects.filter(created_date__range=(from_date,to_date))
         title ="All Banks"
     if(selected =='Active Banks'):
-        banks = Bank.objects.filter(is_active=True)
+        banks = Bank.objects.filter(is_active=True, created_date__range=(from_date,to_date))
         title = "Active Banks"
     if(selected == 'InActive Banks'):
-        banks = Bank.objects.filter(is_active=False)
+        banks = Bank.objects.filter(is_active=False, created_date__range=(from_date,to_date))
         title = "InActive Banks"
     context = {
         "banks": banks,
@@ -414,23 +516,31 @@ def terminals_list(request):
     terminals = None
     title = "Terminals Report"
     selected = request.POST.get('options')
+    from_date = request.POST.get('from_date')
+    to_date = request.POST.get('to_date')
     if(selected == "All Terminals"):
-        terminals =Terminal.objects.all()
+        terminals = Terminal.objects.filter(
+            created_date__range=(from_date, to_date))
         title ="All Terminals"
     if(selected == "North Terminals"):
-        terminals = Terminal.objects.filter(moti_district="NR")
+        terminals = Terminal.objects.filter(
+            moti_district="NR", created_date__range=(from_date, to_date))
         title = "North Terminals"
     if(selected == "South Terminals"):
-        terminals=Terminal.objects.filter(moti_district="SR")
+        terminals = Terminal.objects.filter(
+            moti_district="SR", created_date__range=(from_date, to_date))
         title = "South Terminals"
     if(selected == "Centeral Terminals"):
-        terminals = Terminal.objects.filter(moti_district="CR")
+        terminals = Terminal.objects.filter(
+            moti_district="CR", created_date__range=(from_date, to_date))
         title ="Centeral Terminals"
     if(selected =="East Terminals"):
-        terminals = Terminal.objects.filter(moti_district="ER")
+        terminals = Terminal.objects.filter(
+            moti_district="ER", created_date__range=(from_date, to_date))
         title ="East Terminals"
     if(selected == "West Terminals"):
-        terminals = Terminal.objects.filter(moti_district="WR")
+        terminals = Terminal.objects.filter(
+            moti_district="WR", created_date__range=(from_date, to_date))
         title = "West Terminals"
 
     context = {
@@ -445,20 +555,26 @@ def schedule_list(request):
     schedules = None
     title = "Schedules Report"
     selected = request.POST.get('options')
+    from_date = request.POST.get('from_date')
+    to_date = request.POST.get('to_date')
     if(selected == "All Schedule"):
-        schedules = Schedule.objects.all()
+        schedules = Schedule.objects.filter(
+            created_date__range=(from_date, to_date))
         title = "All Tasks"
     if(selected =="Pending Schedule"):
-        schedules = Schedule.objects.filter(status="PE")
+        schedules = Schedule.objects.filter(
+            status="PE", created_date__range=(from_date, to_date))
         title = "Pending Schedule"
     if(selected == "Waiting Task"):
-        schedules = Schedule.objects.filter(status="WT")
+        schedules = Schedule.objects.filter(
+            status="WT", created_date__range=(from_date, to_date))
         title = "Waiting Task"
     if(selected == "OnProgress Task"):
-        schedules = Schedule.objects.filter(status="OP")
+        schedules = Schedule.objects.filter(
+            status="OP", created_date__range=(from_date, to_date))
         title = "OnProgress Task"
     if(selected == "Completed Task"):
-        schedules = Schedule.objects.filter(status="CO")
+        schedules = Schedule.objects.filter(status="CO", created_date__range=(from_date,to_date))
         title ="Completed Task"
     context = {
         "schedules": schedules,

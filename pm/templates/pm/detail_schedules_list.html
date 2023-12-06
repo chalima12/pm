@@ -90,7 +90,6 @@
                 <tbody>
                   {% for schedule  in schedules %}
                   {% if schedule.terminal.bank_name.is_active %}
-                    {% if schedule.status != "CO" %}
                 <tr data-widget="expandable-table" aria-expanded="false">
                 <td>{{forloop.counter}}</td>
                     <td>{{schedule.terminal.tid}}</td>
@@ -104,14 +103,14 @@
                       {% endif %}
                     </td>
                     <td>
-                      {% if schedule.remaining_day < 3%}
-                        {% if schedule.remaining_day < 0 %}
+                      {% if schedule.remaining_days < 3%}
+                        {% if schedule.remaining_days < 0 %}
                         <span class="badge badge-danger" style="width: 90px"><b>OVER</b></span>
                         {% else %}
-                        <span class="badge badge-danger" style="width: 90px"><b>{{schedule.remaining_day}} Days</b></span>
+                        <span class="badge badge-danger" style="width: 90px"><b>{{schedule.remaining_days}} Days</b></span>
                         {% endif %}
                       {% else %}
-                        {{schedule.remaining_day}} Days
+                        {{schedule.remaining_days}} Days
                       {% endif %}
                     </td>
                     <td>
@@ -129,6 +128,14 @@
                           <span class="badge badge-success" style="width: 90px"
                           >
                           <b>Completed</b></span>
+                          {% elif schedule.status == "AP" %}
+                          <span class="badge badge-success" style="width: 90px"
+                          >
+                          <b>Approved</b></span>
+                          {% elif schedule.status == "RE" %}
+                          <span class="badge badge-danger" style="width: 90px"
+                          >
+                          <b>Rejectd</b></span>
                       {% endif %}
                     </td>
                     <td>
@@ -137,7 +144,7 @@
                                     style="width: 90px"
                                     class="btn btn-block btn-outline-success"
                                     >Assign</a>
-                          {% elif schedule.status == "WT" %}
+                          {% elif schedule.status == "WT" or  schedule.status == "RE" %}
                               <a href=" {% url "start-task" schedule.id %}"
                                 style="width: 90px"
                                 class="d-inline  btn btn-block btn-outline-info"
@@ -154,6 +161,15 @@
                                 style="width: 90px"
                                 class="btn btn-block btn-danger"
                                 > End </a>
+                          {% elif schedule.status == "CO" %}
+                              <a href="{% url "task_approval" schedule.id %}"
+                                style="width: 90px"
+                                class="btn  btn-success mr-2"
+                                > Approve </a>
+                              <a href="{% url "reject_task" schedule.id %}"
+                                style="width: 90px"
+                                class="btn  btn-danger"
+                                > Rejectd </a>
                       {% endif %}
                       <!--Start Task Moal-->
                   <div class="modal fade" id="startModal{{schedule.id}}">
@@ -214,7 +230,7 @@
                   <!-- /.modal -->
                       </td>
                       </tr>
-                    {% endif %}
+                    
                   {% endif %}
                 {% endfor %}
                 </tbody>
