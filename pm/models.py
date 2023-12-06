@@ -125,13 +125,13 @@ class Schedule(models.Model): #TODO: name this to Shedule List
     ONPROGRESS = 'OP'
     APPROVED ='AP'
     REJECTED='RE'
-    COMPLETED = 'CO'
+    SUBMITTED = 'SB'
     APPROVED ="AP"
     status_choices = [
         (PENDING, 'Pending'),
         (WAITING,'Waiting'),
         (ONPROGRESS, 'Onprogress'),
-        (COMPLETED, 'Completed'),
+        (SUBMITTED, 'Sumitted'),
         (APPROVED, 'Approved'),
         (REJECTED, 'Rejected'),
 

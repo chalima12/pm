@@ -124,10 +124,10 @@
                         <span class="badge badge-warning" style="width: 90px"
                           ><b>Onprogress</b></span>
                         
-                          {% elif schedule.status == "CO" %}
+                          {% elif schedule.status == "SB" %}
                           <span class="badge badge-success" style="width: 90px"
                           >
-                          <b>Completed</b></span>
+                          <b>Submitted</b></span>
                           {% elif schedule.status == "AP" %}
                           <span class="badge badge-success" style="width: 90px"
                           >
@@ -161,7 +161,7 @@
                                 style="width: 90px"
                                 class="btn btn-block btn-danger"
                                 > End </a>
-                          {% elif schedule.status == "CO" %}
+                          {% elif schedule.status == "SB" %}
                               <a href="{% url "task_approval" schedule.id %}"
                                 style="width: 90px"
                                 class="btn  btn-success mr-2"

@@ -228,7 +228,7 @@ def detail_schedules_list(request, pk):
     pending_schedule = schedules_list.filter(status="PE").count()
     waiting_schedule = schedules_list.filter(status="WT").count()
     onprogress_schedule = schedules_list.filter(status="OP").count()
-    completed_schedule = schedules_list.filter(status="CO").count()
+    completed_schedule = schedules_list.filter(status="SB").count()
 
     # calculating Pending , waiting, onprogress and completed rate
     pending_rate = round(pending_schedule/specific_schedule_count,1)*100
@@ -324,7 +324,7 @@ def end_scheduled_task(request, id):
         all_schedule_id = schedule.schedule.id
         form = EndScheduleForm(request.POST, request.FILES, instance=schedule)
         if form.is_valid():
-            schedule.status = "CO"
+            schedule.status = "SB"
             form.save()
             messages.success(request, "Chenge Updated successfully!")
             return redirect(f'/detail_schedule/{all_schedule_id}')
@@ -516,7 +516,8 @@ def schedule_list(request):
             status="OP", created_date__range=(from_date, to_date))
         title = "OnProgress Task"
     if(selected == "Completed Task"):
-        schedules = Schedule.objects.filter(status="CO", created_date__range=(from_date,to_date))
+        schedules = Schedule.objects.filter(
+            status="SB", created_date__range=(from_date, to_date))
         title ="Completed Task"
     context = {
         "schedules": schedules,
