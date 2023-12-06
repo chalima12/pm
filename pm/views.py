@@ -215,49 +215,6 @@ def updateTerminal(request, terminal_id):
     }
     return render(request, 'pm/update_terminal.html', context)
 
-<<<<<<< HEAD
-@login_required
-def all_schedule(request):
-    all_schedule = AllSchedule.objects.all()
-    # schedule = get_object_or_404(AllSchedule, pk=all_schedule.id)
-    # count = Schedule.objects.filter(schedule=schedule).count()
-    context = {
-        "title": "Scheduled ATMS",
-        "schedules": all_schedule,
-        # "count":count
-    }
-    return render(request, 'pm/schedule.html', context)
-
-
-def detail_schedules_list(request, scheule_id):
-    schedule = get_object_or_404(AllSchedule, pk=scheule_id)
-    schedules_list = Schedule.objects.filter(schedule=schedule)
-    specific_schedule_count = Schedule.objects.filter(schedule=schedule).count()
-    pending_schedule = schedules_list.filter(status="PE").count()
-    waiting_schedule = schedules_list.filter(status="WT").count()
-    onprogress_schedule = schedules_list.filter(status="OP").count()
-    completed_schedule = schedules_list.filter(status="CO").count()
-    # calculating Pending , waiting, onprogress and completed rate
-    pending_rate = round(pending_schedule/specific_schedule_count,2)*100
-    waiting_rate = round(waiting_schedule/specific_schedule_count,2)*100
-    onprogress_rate = round(onprogress_schedule/specific_schedule_count,2)*100
-    completed_rate = round(completed_schedule/specific_schedule_count,2)*100
-    engineer_nedded = math.ceil(pending_schedule/7)
-    context = {
-        'schedules': schedules_list,
-        "title": "Detial shedule",
-        "pending_rate": pending_rate,
-        "waiting_rate": waiting_rate,
-        "onprogress_rate": onprogress_rate,
-        "completed_rate": completed_rate,
-        "all_schedule_count": specific_schedule_count,
-        "engineer_nedded": engineer_nedded
-        
-    }
-    return render(request, 'pm/detail_schedules_list.html', context)
-
-=======
->>>>>>> latest
 @login_required
 def all_schedule(request):
     all_schedule = AllSchedule.objects.all()
@@ -306,15 +263,10 @@ def create_schedule(request):
     tqs = Terminal.objects.all()
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
-<<<<<<< HEAD
-        if form.is_valid():
-            schedule = form.cleaned_data['schedule']
-=======
         form1= AllScheduleForm(request.POST)
         if form.is_valid() and form1.is_valid():
             form1.clean()
             form1_instance = form1.save()
->>>>>>> latest
             terminals = form.cleaned_data['terminals']
             start_date =form.cleaned_data['start_date']
             string_start_date = str(date.isoformat(start_date))
@@ -324,11 +276,7 @@ def create_schedule(request):
             description = form.cleaned_data['description']
             for terminal in terminals:
                 Schedule.objects.create(
-<<<<<<< HEAD
-                    schedule=schedule,
-=======
                     schedule=form1_instance,
->>>>>>> latest
                     terminal=terminal,
                     start_date=start_date,
                     end_date=end_date,
