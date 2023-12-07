@@ -124,7 +124,21 @@ hour = diff.hours
 
 
 
+print(selected_bank_name)
 
+    if selected_bank_name:
+        selected_bank = banks.filter(bank_name=selected_bank_name).first()
+        print(selected_bank)
+
+        if selected_bank:
+            schedules = Bank.objects.filter(bank_name=selected_bank)
+            print(schedules)
+            selected = True
+        else:
+            schedules = Schedule.objects.none()
+    else:
+        schedules = Schedule.objects.all()
+        selected = False
 
 # {% comment %} <div class="form-group">
 #                         <label>Filter Schedules Form the Dropdown</label>
