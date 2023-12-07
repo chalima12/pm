@@ -22,23 +22,12 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                 <div class="row">
                   <div class="col-12"> <h3 class="card-title py-4">FILTER Schedules</h3></div>
                     <div class="col-sm-8">
-                      {% comment %} <div class="form-group">
-                        <label>Filter Schedules Form the Dropdown</label>
-                        <select class="form-control" name ="options">
-                          <option value ="0"selected >-----Select-----</option>
-                          <option value ="All Schedule" >All Schedules</option>
-                          <option value ="Pending Schedule" >Pending Schedules</option>
-                          <option value ="Waiting Task" >Waiting Task</option>  
-                          <option value ="OnProgress Task" >OnProgress Task</option>  
-                          <option value ="Completed Task" >Completed Task</option>  
-                        </select>
-                      </div> {% endcomment %}
                       <div class="form-group">
                         <label>Filter Schedules Form the Dropdown</label>
                         <select class="form-control" name ="options">
                           <option value ="0" selected >-----Select-----</option>
                           {% for bank in banks %}
-                          <option value ="{{ bank.bank_key }}" >{{bank.bank_name}}</option>
+                          <option value ="{{bank.bank_name}}" >{{bank.bank_name}}</option>
                           {% endfor %}  
                         </select>
                       </div>

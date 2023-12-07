@@ -492,20 +492,24 @@ def terminals_list(request):
     }
     return render(request, 'pm/terminals_report.html', context)
 
-
+@login_required
 def schedule_list(request):
-    schedules = None
+    schedules = Schedule.objects.all()
     title = "Schedules Report"
     banks= Bank.objects.all()
     selected = False
-    selected_bank = request.POST.get('options')
-    for bank in banks:
-        if( selected_bank == bank.bank_key):
-            selected = True
-            selected_bank  = bank.bank_key
-            print(selected_bank)
-            schedules = Schedule.objects.filter(bank_name__bank_key=selected_bank)
+    selected_bank = request.POST.get('options') 
+    for s in schedules:
+        
+        if selected_bank == s.terminal.bank_name.bank_name:
+            bank_id = s.terminal.bank_name.id
+            schedules = Schedule.objects.filter(bank_name_id=bank_id)
             print(schedules)
+        #    print(selected_bank)
+    # if selected_bank:
+    #     schedules = Schedule.objects.filter(bank_name=selected_bank)
+
+    # print(schedules)
     # selected = request.POST.get('options')
     # selected_bank = request.POST.get('options')
     # print(f"Selected ----------- {selected} :Selected Bank --------- {selected_bank}")
