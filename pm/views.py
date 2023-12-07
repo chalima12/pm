@@ -496,32 +496,51 @@ def terminals_list(request):
 def schedule_list(request):
     schedules = None
     title = "Schedules Report"
-    selected = request.POST.get('options')
-    from_date = request.POST.get('from_date')
-    to_date = request.POST.get('to_date')
-    if(selected == "All Schedule"):
-        schedules = Schedule.objects.filter(
-            created_date__range=(from_date, to_date))
-        title = "All Tasks"
-    if(selected =="Pending Schedule"):
-        schedules = Schedule.objects.filter(
-            status="PE", created_date__range=(from_date, to_date))
-        title = "Pending Schedule"
-    if(selected == "Waiting Task"):
-        schedules = Schedule.objects.filter(
-            status="WT", created_date__range=(from_date, to_date))
-        title = "Waiting Task"
-    if(selected == "OnProgress Task"):
-        schedules = Schedule.objects.filter(
-            status="OP", created_date__range=(from_date, to_date))
-        title = "OnProgress Task"
-    if(selected == "Completed Task"):
-        schedules = Schedule.objects.filter(
-            status="SB", created_date__range=(from_date, to_date))
-        title ="Completed Task"
+    banks= Bank.objects.all()
+    selected = False
+    selected_bank = request.POST.get('options')
+    for bank in banks:
+        if( selected_bank == bank.bank_key):
+            selected = True
+            selected_bank  = bank.bank_key
+            print(selected_bank)
+            schedules = Schedule.objects.filter(bank_name__bank_key=selected_bank)
+            print(schedules)
+    # selected = request.POST.get('options')
+    # selected_bank = request.POST.get('options')
+    # print(f"Selected ----------- {selected} :Selected Bank --------- {selected_bank}")
+    # from_date = request.POST.get('from_date')
+    # to_date = request.POST.get('to_date')
+    # if selected_bank:
+    #     schedules = Schedule.objects.filter(
+    #         bank_name=selected_bank,
+    #         created_date__range=(from_date, to_date)
+    #     )
+    #     title = f"Schedules for {selected_bank}"
+    # if(selected == "All Schedule"):
+    #     schedules = Schedule.objects.filter(
+    #         created_date__range=(from_date, to_date))
+    #     title = "All Tasks"
+    # if(selected =="Pending Schedule"):
+    #     schedules = Schedule.objects.filter(
+    #         status="PE", created_date__range=(from_date, to_date))
+    #     title = "Pending Schedule"
+    # if(selected == "Waiting Task"):
+    #     schedules = Schedule.objects.filter(
+    #         status="WT", created_date__range=(from_date, to_date))
+    #     title = "Waiting Task"
+    # if(selected == "OnProgress Task"):
+    #     schedules = Schedule.objects.filter(
+    #         status="OP", created_date__range=(from_date, to_date))
+    #     title = "OnProgress Task"
+    # if(selected == "Completed Task"):
+    #     schedules = Schedule.objects.filter(
+    #         status="SB", created_date__range=(from_date, to_date))
+    #     title ="Completed Task"
     context = {
         "schedules": schedules,
         "title": title,
         "selected": selected,
+        'banks':banks,
     }
     return render(request, 'pm/schedules_report.html', context)

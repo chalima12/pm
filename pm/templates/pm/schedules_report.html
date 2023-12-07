@@ -22,7 +22,7 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                 <div class="row">
                   <div class="col-12"> <h3 class="card-title py-4">FILTER Schedules</h3></div>
                     <div class="col-sm-8">
-                      <div class="form-group">
+                      {% comment %} <div class="form-group">
                         <label>Filter Schedules Form the Dropdown</label>
                         <select class="form-control" name ="options">
                           <option value ="0"selected >-----Select-----</option>
@@ -32,6 +32,15 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                           <option value ="OnProgress Task" >OnProgress Task</option>  
                           <option value ="Completed Task" >Completed Task</option>  
                         </select>
+                      </div> {% endcomment %}
+                      <div class="form-group">
+                        <label>Filter Schedules Form the Dropdown</label>
+                        <select class="form-control" name ="options">
+                          <option value ="0" selected >-----Select-----</option>
+                          {% for bank in banks %}
+                          <option value ="{{ bank.bank_key }}" >{{bank.bank_name}}</option>
+                          {% endfor %}  
+                        </select>
                       </div>
                     </div>
                 <div class="form-group col-sm-12" id="data_5">
@@ -39,9 +48,9 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                   <div class="input-group date col-sm-8" id="datepicker">
                     <span class="input-group-text">
                       From</span>
-                    <input type="date" class="form-control" name="from_date" required>
+                    <input type="date" class="form-control" name="from_date" >
                     <span class="input-group-text">To</span>
-                    <input type="date" class="form-control" name="to_date" required>
+                    <input type="date" class="form-control" name="to_date">
                   </div>
                 </div>
                 <button type="submit" class="btn btn-info">Generate</button>
