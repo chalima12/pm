@@ -48,7 +48,14 @@ def home(request):
     numberofTerminals = Terminal.objects.all().count()
     pendingTerminals = Schedule.objects.filter(status="PE").count()
     pendingLists = Schedule.objects.filter(status="PE").all()
-    # cleanedTerminals = Schedule.objects.filter(status="CO").count()
+    pendingSchedule = Schedule.objects.filter(status="PE").count()
+    waitingSchedule = Schedule.objects.filter(status="WT").count()
+    onprogressSchedule = Schedule.objects.filter(status="OP").count()
+    submittedSchedule = Schedule.objects.filter(status="SB").count()
+    approvedSchedule = Schedule.objects.filter(status="AP").count()
+    rejectedSchedule = Schedule.objects.filter(status="RE").count()
+    
+    allSchedule = pendingSchedule + waitingSchedule + onprogressSchedule + submittedSchedule + approvedSchedule + rejectedSchedule
     context = {
         "company": "Moti Engineering PLC",
         "projectName": "Preventive Maintainace For ATMS",
@@ -57,7 +64,8 @@ def home(request):
         'numOfUsers': numOfUsers,
         'numberofTerminals': numberofTerminals,
         "pendingTerminals": pendingTerminals,
-        "pendingLists": pendingLists
+        "pendingLists": pendingLists,
+        'allSchedule': allSchedule,
     }
     return render(request, "pm/index.html", context)
 

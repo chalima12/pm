@@ -355,6 +355,7 @@
     <!-- AdminLTE App -->
     <script src="{% static 'dist/js/adminlte.js' %}"></script>
     <script src="{% static 'dist/js/pages/dashboard.js' %}"></script>
+    <script src="{% static "plugins/flot/jquery.flot.js" %}"></script>
 
     
 <!-- Page specific script -->
@@ -420,65 +421,50 @@
       data: pieData,
       options: pieOptions
     })
-
-    //-------------
-    //- BAR CHART -
-    //-------------
-    var areaChartData = {
-      labels  : ['Schedules Task'],
-      datasets: [
-        { 
-          label               : 'Pending',
-          backgroundColor     : '#cf5500',
-          pointRadius          : false,
-          data                : [pending]
-        },
-        {
-          label               : 'Waiting',
-          backgroundColor     : '#3498db',
-          pointRadius         : false,
-          data                : [wating]
-        },
-         {
-          label               : 'OnProgress',
-          backgroundColor     : '#FFD700',
-          pointRadius         : false,
-          data                : [onprogress]
-        },
-         {
-          label               : 'Submitted',
-          backgroundColor     : '#81e7ac',
-          pointRadius         : false,
-          data                : [submitted]
-        },
-        {
-          label               : 'Approved',
-          backgroundColor     : '#00a65a',
-          pointRadius         : false,
-          data                : [approved]
-        },
-         {
-          label               : 'Rejected',
-          backgroundColor     : '#FF0000',
-          pointRadius         : false,
-          data                : [rejected]
-        },
-      ]
-    }
-    var barChartCanvas = $('#barChart').get(0).getContext('2d')
-    var barChartData = $.extend(true, {}, areaChartData)
-    var temp0 = areaChartData.datasets[0]
-    var barChartOptions = {
-      responsive              : true,
-      maintainAspectRatio     : false,
-      datasetFill             : false
-    }
-    new Chart(barChartCanvas, {
-      type: 'bar',
-      data: barChartData,
-      options: barChartOptions
-    })
   })
+</script>
+<script>
+  $(function () {
+    /*
+     * BAR CHART
+     * ---------
+     */
+    var pending = {{pendingSchedule|safe}}
+    var wating = {{waitingSchedule|safe}}
+    var onprogress = {{onprogressSchedule|safe}}
+    var submitted = {{submittedSchedule|safe}}
+    var approved = {{approvedSchedule|safe}}
+    var rejected = {{rejectedSchedule|safe}}
+      var bar_data = [
+        {data: [[1, pending]], color: '#cf5438'},   
+        {data: [[2, wating]], color: '#3498db'},    
+        {data: [[3, onprogress]], color: '#FFD700'},    
+        {data: [[4, submitted]], color: '#81e7ac'},   
+        {data: [[5, approved]], color: '#00a65a'},  
+        {data: [[6, rejected]], color: '#FF0000'} 
+    ];
+
+    $.plot('#bar-chart', bar_data, {
+        grid  : {
+            borderWidth: 1,
+            borderColor: '#f3f3f3',
+            tickColor  : '#f3f3f3'
+        },
+        series: {
+            bars: {
+                show: true, barWidth: 0.5, align: 'center'
+            },
+        },
+        xaxis : {
+            ticks: [[1,'Pending'], [2,'Waiting'], [3,'OnProgress'], [4,'Submitted'], [5,'Approved'], [6,'Rejected']]
+        }
+    });
+
+
+})
+
+
+  
 </script>
 
 <script>
@@ -519,5 +505,6 @@
       });
     });
 </script>
+
   </body>
 </html>

@@ -92,7 +92,7 @@
         <div class="row">
           <div class="col-md-6">
             <!-- PIE CHART -->
-            <div class="card card-deffault">
+            <div class="card card-info card-outline">
               <div class="card-header">
                 <h3 class="card-title">Schedule Report</h3>
                 <div class="card-tools">
@@ -117,9 +117,12 @@
 
         <div class="col-md-6">
               <!-- BAR CHART -->
-            <div class="card card-info">
+            <!-- Bar chart -->
+            <div class="card card-info card-outline">
               <div class="card-header">
-                <h3 class="card-title">Schedule Report</h3>
+                <h3 class="card-title">
+                  TOTAL :{{allSchedule}}
+                </h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -131,11 +134,9 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="chart">
-                  <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
+                <div id="bar-chart" style="height: 300px;"></div>
               </div>
-              <!-- /.card-body -->
+              <!-- /.card-body-->
             </div>
             <!-- /.card -->
 
