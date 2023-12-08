@@ -238,6 +238,8 @@ def detail_schedules_list(request, pk):
     waiting_rate = round(waiting_schedule/specific_schedule_count,1)*100
     onprogress_rate = round(onprogress_schedule/specific_schedule_count,1)*100
     submitted_rate = round(submitted_schedule/specific_schedule_count, 1)*100
+    approved_rate = round(approved_schedule/specific_schedule_count,1)*100
+    rejected_rate = round(rejected_schedule/specific_schedule_count,1)*100
 
     engineer_nedded = math.ceil(pending_schedule/7)
     # Calcuate Remaining Days
@@ -252,6 +254,8 @@ def detail_schedules_list(request, pk):
         "waiting_rate": waiting_rate,
         "onprogress_rate": onprogress_rate,
         "submitted_rate": submitted_rate,
+        "approved_rate":approved_rate,
+        "rejected_rate":rejected_rate,
         "all_schedule_count": specific_schedule_count,
         "engineer_nedded": engineer_nedded,
         
