@@ -88,6 +88,7 @@ def create_user(request):
         form = UserForm()
     context = {'form': form, "title": "Add User"}
     return render(request, 'pm/add_user.html', context)
+
 @login_required
 def edit_user(request, user_id):
     user = User.objects.get(pk=user_id)
@@ -228,13 +229,16 @@ def detail_schedules_list(request, pk):
     pending_schedule = schedules_list.filter(status="PE").count()
     waiting_schedule = schedules_list.filter(status="WT").count()
     onprogress_schedule = schedules_list.filter(status="OP").count()
-    completed_schedule = schedules_list.filter(status="SB").count()
+    submitted_schedule = schedules_list.filter(status="SB").count()
+    approved_schedule = schedules_list.filter(status="AP").count()
+    rejected_schedule = schedules_list.filter(status="RE").count()
 
     # calculating Pending , waiting, onprogress and completed rate
     pending_rate = round(pending_schedule/specific_schedule_count,1)*100
     waiting_rate = round(waiting_schedule/specific_schedule_count,1)*100
     onprogress_rate = round(onprogress_schedule/specific_schedule_count,1)*100
-    completed_rate = round(completed_schedule/specific_schedule_count,1)*100
+    submitted_rate = round(submitted_schedule/specific_schedule_count, 1)*100
+
     engineer_nedded = math.ceil(pending_schedule/7)
     # Calcuate Remaining Days
     now = datetime.now(timezone.utc)
@@ -247,7 +251,7 @@ def detail_schedules_list(request, pk):
         "pending_rate": pending_rate,
         "waiting_rate": waiting_rate,
         "onprogress_rate": onprogress_rate,
-        "completed_rate": completed_rate,
+        "submitted_rate": submitted_rate,
         "all_schedule_count": specific_schedule_count,
         "engineer_nedded": engineer_nedded,
         
