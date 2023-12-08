@@ -108,24 +108,34 @@
                 > </span
               >
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item text-danger">
+              <a href="#" class="dropdown-item ">
                 <span class ="">Pending Schedule</span>
-                <span class="float-right  text-lg text-danger">{{pendingSchedule}}</span>
+                <span class="float-right  text-lg " style="color: #cf5438;">{{pendingSchedule}}</span>
               </a>
               <div class="dropdown-divide"></div>
-              <a href="#" class="dropdown-item text-info">
+              <a href="#" class="dropdown-item ">
                 <span>Waiting Task</span>
-                <span class="float-right text-lg text-info">{{waitingSchedule}}</span>
+                <span class="float-right text-lg" style="color: #3498db;">{{waitingSchedule}}</span>
               </a>
               <div class="dropdown-divide"></div>
-              <a href="#" class="dropdown-item text-warning">
+              <a href="#" class="dropdown-item" >
                 <span>OnProgress Task</span>
-                <span class="float-right text-lg text-warning">{{onprogressSchedule}}</span>
+                <span class="float-right text-lg " style="color: #FFD700;">{{onprogressSchedule}}</span>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item text-success">
-                <span>Completed Task</span> 
-                <span class="float-right text-lg text-success">{{commpletedSchedule}}</span>
+              <a href="#" class="dropdown-item ">
+                <span>Submitted Task</span> 
+                <span class="float-right text-lg " style="color: #81e7ac;">{{submittedSchedule}}</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item ">
+                <span>Rejected Task</span> 
+                <span class="float-right text-lg " style="color: #FF0000;">{{rejectedSchedule}}</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item ">
+                <span>Approved Task</span> 
+                <span class="float-right text-lg " style="color: #00a65a;">{{approvedSchedule}}</span>
               </a>
               <div class="dropdown-divider"></div>
               <a href="{% url "schedules" %}" class="dropdown-item dropdown-footer"

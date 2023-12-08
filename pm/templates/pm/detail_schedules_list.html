@@ -123,25 +123,25 @@
                     </td>
                     <td>
                       {% if schedule.status == "PE" %}
-                          <span class="badge badge-danger" style="width: 90px"
+                          <span class="badge " style="width: 90px; background-color: #cf5438 ;"
                           ><b>Pending</b></span>
                           {% elif schedule.status == "WT" %}
-                          <span class="badge badge-info" style="width: 90px"
+                          <span class="badge " style="width: 90px; background-color: #3498db ;"
                           ><b>Waiting</b></span>
                         {% elif schedule.status == "OP" %}
-                        <span class="badge badge-warning" style="width: 90px"
+                        <span class="badge " style="width: 90px;background-color: #FFD700 ;"
                           ><b>Onprogress</b></span>
                         
                           {% elif schedule.status == "SB" %}
-                          <span class="badge badge-success" style="width: 90px"
+                          <span class="badge " style="width: 90px; background-color: #81e7ac ;"
                           >
                           <b>Submitted</b></span>
                           {% elif schedule.status == "AP" %}
-                          <span class="badge badge-success" style="width: 90px"
+                          <span class="badge " style="width: 90px; background-color: #00a65a ;"
                           >
                           <b>Approved</b></span>
                           {% elif schedule.status == "RE" %}
-                          <span class="badge badge-danger" style="width: 90px"
+                          <span class="badge" style="width: 90px; background-color: #FF0000 ;"
                           >
                           <b>Rejectd</b></span>
                       {% endif %}
