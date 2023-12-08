@@ -7,7 +7,7 @@ def global_context(request):
     pendingSchedule = Schedule.objects.filter(status="PE").count()
     waitingSchedule = Schedule.objects.filter(status="WT").count()
     onprogressSchedule = Schedule.objects.filter(status="OP").count()
-    submittedSchedule = Schedule.objects.filter(status ="CO").count()
+    submittedSchedule = Schedule.objects.filter(status="SB").count()
     approvedSchedule = Schedule.objects.filter(status="AP").count()
     rejectedSchedule = Schedule.objects.filter(status="RE").count()
     
