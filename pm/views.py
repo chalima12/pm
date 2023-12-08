@@ -381,23 +381,6 @@ def reject_task(request, id):
     return render(request, 'pm/reject_task.html', context)
 
 
-@ login_required
-def filter(request):
-    tQs = ''
-    terminal = request.GET.get('terminals')
-    if terminal != '' and terminal is not None:
-        tQs = Terminal.objects.all()
-    return tQs
-
-
-@login_required
-def reports(request):
-    terminals = filter(request)
-    context = {
-        "terminals": terminals
-    }
-    return render(request, 'pm/reports.html', context)
-
 # Reports View
 
 

@@ -29,7 +29,6 @@ urlpatterns = [
     path('edit_user/<int:user_id>', views.edit_user, name='edit-user'),
     path('view-user/<int:id>', views.view_user, name='view-user'),
     path('create_schedule/', views.create_schedule, name='create_schedule'),
-    path('reports/', views.reports, name='reports'),
 
     # Reports URL
 
