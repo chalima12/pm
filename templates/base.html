@@ -392,19 +392,23 @@
     var pending = {{pendingSchedule|safe}}
     var wating = {{waitingSchedule|safe}}
     var onprogress = {{onprogressSchedule|safe}}
-    var completed = {{commpletedSchedule|safe}}
+    var submitted = {{submittedSchedule|safe}}
+    var approved = {{approvedSchedule|safe}}
+    var rejected = {{rejectedSchedule|safe}}
     
     var dataPie  = {
       labels: [
           'Pending',
           'Waiting',
           'OnProgress',
-          'Completed',
+          'Submitted',
+          'Rejected',
+          'Approved',
       ],
       datasets: [
         {
-          data: [pending,wating,onprogress,completed],
-          backgroundColor : ['#f56960', '#00c0ef', '#f39c12', '#00a65a'],
+          data: [pending,wating,onprogress,submitted,rejected,approved],
+          backgroundColor : ['#cf5438', '#3498db', '#FFD700', '#81e7ac','#FF0000','#00a65a'],
         }
       ]
     }
