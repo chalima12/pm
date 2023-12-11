@@ -57,6 +57,7 @@
                     <th>BANK NAME</th>
                     <th>Bank Key</th>
                     <th>STATUS</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -75,6 +76,7 @@
                         >
                         {% endif %}</td>
                         </td>
+                      <td><a href="{% url "schedules-report" bank.id %}" class='btn-lg' title="Go to Details"><i class="fas fa-arrow-circle-right"></i></a></td> 
                     
                   </tr>
                   {% endfor %}
@@ -85,6 +87,7 @@
                     <th>BANK NAME</th>
                     <th>BANK Key</th>
                     <th>STATUS</th>
+                    <th></th>
                   
                   </tr>
                 </tfoot>

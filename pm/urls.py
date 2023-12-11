@@ -35,7 +35,7 @@ urlpatterns = [
     path("report/users", views.engineers_list, name="engineers-list"),
     path("report/banks", views.banks_list, name="bank-list"),
     path("report/terminals", views.terminals_list, name="terminals-list"),
-    path("report/schedules", views.schedule_list, name="schedules-list"),
+    path("banks/<int:bank_id>", views.schedules_detail_report, name="schedules-report"),
 
 
 ]
