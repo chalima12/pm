@@ -89,7 +89,7 @@ class Terminal(models.Model):
     ]
 
     bank_name = models.ForeignKey(
-        Bank, on_delete=models.PROTECT,null=True,blank=True)
+        Bank, on_delete=models.PROTECT,null=True,blank=True,related_name='banks')
     bank_district = models.CharField(max_length=255, null=True, blank=True)
     bank_branch = models.CharField(max_length=255,null=True,blank=True)
     moti_district = models.CharField(
@@ -144,9 +144,6 @@ class Schedule(models.Model): #TODO: name this to Shedule List
         (MEDIUM, 'Medium'), 
         (LOW, 'Low')
         ]
-    # We will remove start Date end end Date
-    bank_name = models.ForeignKey(
-        Bank, on_delete=models.PROTECT,null=True,blank=True, related_name='banks')
     schedule = models.ForeignKey(AllSchedule, models.PROTECT, related_name='all_schedules',null=True, blank=True)
     terminal = models.ForeignKey(
         Terminal, on_delete=models.PROTECT, help_text='Select Terminal', related_name='terminals', null=True)

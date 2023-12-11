@@ -481,8 +481,8 @@ def schedules_detail_report(request, bank_id):
         "waiting_rate": waiting_rate,
         "onprogress_rate": onprogress_rate,
         "submitted_rate": submitted_rate,
-        "approved_rate": approved_rate,
-        "rejected_rate": rejected_rate,
+        "approved_rate":approved_rate,
+        "rejected_rate":rejected_rate,
     }
     return render(request, 'pm/schedules_report.html', context)
 
