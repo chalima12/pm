@@ -13,7 +13,24 @@
     <div class="container-fluid">
       <div class="card card-default border-top border-info">
         <div class="card-header">
+          {% if form.errors %}
+          <div class="container alert alert-danger alert-dismissible" role="alert">
+            <strong>Error!</strong> Please correct the following errors:
+                  <ul>
+                  {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                      <li> {{ error }}</li>
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+
+            <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% else %} 
           <h3 class="card-title">Make Scheule</h3>
+          {% endif %}
         </div>
         <div class="card-body">
           <form  method="POST" enctype="multipart/form-data">
