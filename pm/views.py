@@ -456,7 +456,6 @@ def schedules_detail_report(request, bank_id):
     bank = get_object_or_404(Bank, pk=bank_id)
     # schedule_list_by_bank = Schedule.objects.filter(terminal__bank_name = bank)
     terminals_in_bank = Terminal.objects.filter(bank_name=bank)
-
     # Filter schedules associated with the terminals in the bank
     schedule_list_by_bank = Schedule.objects.filter(
         terminal__in=terminals_in_bank)
