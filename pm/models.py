@@ -149,7 +149,7 @@ class Schedule(models.Model): #TODO: name this to Shedule List
     #     Bank, on_delete=models.PROTECT,null=True,blank=True, related_name='banks')
     schedule = models.ForeignKey(AllSchedule, models.PROTECT, related_name='all_schedules',null=True, blank=True)
     terminal = models.ForeignKey(
-        Terminal, on_delete=models.PROTECT, help_text='Select Terminal', null=True)
+        Terminal, on_delete=models.PROTECT, help_text='Select Terminal', related_name='terminals', null=True)
     start_date = models.DateTimeField(
         auto_now_add=False, editable=True, null=True, blank=True)
     end_date = models.DateTimeField(

@@ -452,6 +452,15 @@ def banks_list(request):
     }
     return render(request, 'pm/banks_report.html', context)
 
+@login_required
+def schedules_detail_report(request, bank_id):
+    bank = get_object_or_404(Bank, pk=bank_id)
+    schedule_list_by_bank = Schedule.objects.filter(terminal__bank_name = bank)
+    context = {
+        "schedules": schedule_list_by_bank,
+    }
+    return render(request, 'pm/schedules_report.html', context)
+
 
 def terminals_list(request):
     terminals = None
@@ -491,24 +500,22 @@ def terminals_list(request):
     }
     return render(request, 'pm/terminals_report.html', context)
 
-@login_required
-def schedule_list(request):
-    title = "Schedules Report"
-    banks = Bank.objects.all()
-    schedules = Schedule.objects.all()
-    bank_name = request.POST.get('options')
-    print(f'form bank_id {bank_name}')
-    # print(bank_id)
-    for s in schedules:
-       
-           print(f'form loop{ s.terminal.bank_name}')
 
-    selected= False
+# @login_required
+# def schedule_list(request):
+#     title = "Schedules Report"
+#     banks = Bank.objects.all()
+#     schedules = Schedule.objects.all()
+#     bank_name = request.POST.get('options')
+#     for s in schedules:
+#            print(f'form loop{ s.terminal.bank_name}')
 
-    context = {
-        "schedules": schedules,
-        "title": title,
-        "selected": selected,
-        'banks': banks,
-    }
-    return render(request, 'pm/schedules_report.html', context)
+#     selected= False
+
+#     context = {
+#         "schedules": schedules,
+#         "title": title,
+#         "selected": selected,
+#         'banks': banks,
+#     }
+#     return render(request, 'pm/schedules_report.html', context)
