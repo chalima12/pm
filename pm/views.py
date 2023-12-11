@@ -431,7 +431,7 @@ def engineers_list(request):
     return render(request, 'pm/engineers_report.html', context)
 
 def banks_list(request):
-    banks = None
+    banks = Bank.objects.all()
     title = "Banks Report"
     selected = request.POST.get('options')
     from_date = request.POST.get('from_date')
@@ -458,6 +458,7 @@ def schedules_detail_report(request, bank_id):
     schedule_list_by_bank = Schedule.objects.filter(terminal__bank_name = bank)
     context = {
         "schedules": schedule_list_by_bank,
+        "bank":bank,
     }
     return render(request, 'pm/schedules_report.html', context)
 

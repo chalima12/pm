@@ -16,8 +16,66 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
       <div class="row">
         <div class="col-12">
           <div class="card border-top border-info">
-            <div class="card-header"> List of Schedule</div>
+            <div class="card-header"><a href="{% url "bank-list" %}" class="btn btn-md btn-info">Back</a>
+              <a  class="btn btn-secondary btn-md float-right" data-toggle="modal" data-target="#analysis"
+                        >
+                    📈Analysis Summary
+                </a></div>
             <!-- /.card-header -->
+            <div class="modal fade" id="analysis">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">{{bank.bank_name}}</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                      <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p>TOTAL: <strong><span class="h5"> {{all_schedule_count}}</span></strong> </p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Pending Schedule Rate: <strong><span class="text-danger h5"> {{pending_rate}}%</span></strong> </p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Waiting Task Rate: <strong><span class="text-info h5">{{waiting_rate}} %</span></strong> </p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Onprogress Task Rate: <strong><span class="text-warning h5">{{onprogress_rate}} %</span> </strong> </p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Submitted Task Rate: <strong><span class="text-success h5">{{submitted_rate}} %</span> </strong> </p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Rejectd Task Rate: <strong><span class="text-success h5">{{rejected_rate}} %</span> </strong> </p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Approved Task Rate: <strong><span class="text-success h5">{{approved_rate}} %</span> </strong> </p>
+                              <hr>
+                            </div>
+                            <div class="col-md-12">
+                              <p class="text-center">Engineers Needed: <strong><span class="h5">{{engineer_nedded}} </span> </strong> </p>
+              
+                            </div>
+                          </div>
+                        </div>
+                    <div class="modal-footer justify-content-between">
+                      <button type="button text-center" class="btn btn-default m-4" data-dismiss="modal">Close</button>
+
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
             
             <div class="card-body">
               <table id = "example1" class="table table-hover">
