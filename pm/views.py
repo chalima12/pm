@@ -66,6 +66,7 @@ def home(request):
         "pendingTerminals": pendingTerminals,
         "pendingLists": pendingLists,
         'allSchedule': allSchedule,
+       
     }
     return render(request, "pm/index.html", context)
 
@@ -454,6 +455,7 @@ def banks_list(request):
 @login_required
 def schedules_detail_report(request, bank_id):
     bank = get_object_or_404(Bank, pk=bank_id)
+    title ="Schedules List"
     # schedule_list_by_bank = Schedule.objects.filter(terminal__bank_name = bank)
     terminals_in_bank = Terminal.objects.filter(bank_name=bank)
     # Filter schedules associated with the terminals in the bank
@@ -475,10 +477,9 @@ def schedules_detail_report(request, bank_id):
     submitted_rate = round(submitted_schedule/total_specific_schedules, 2)*100
     approved_rate = round(approved_schedule/total_specific_schedules, 2)*100
     rejected_rate = round(rejected_schedule/total_specific_schedules, 2)*100
-    
-    
     context = {
         "schedules": schedule_list_by_bank,
+        "title":title,
         "bank":bank,
         "total_count":total_specific_schedules,
         "pending_rate": pending_rate,
