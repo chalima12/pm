@@ -454,7 +454,12 @@ def banks_list(request):
 @login_required
 def schedules_detail_report(request, bank_id):
     bank = get_object_or_404(Bank, pk=bank_id)
-    schedule_list_by_bank = Schedule.objects.filter(terminal__bank_name = bank)
+    # schedule_list_by_bank = Schedule.objects.filter(terminal__bank_name = bank)
+    terminals_in_bank = Terminal.objects.filter(bank_name=bank)
+
+    # Filter schedules associated with the terminals in the bank
+    schedule_list_by_bank = Schedule.objects.filter(
+        terminal__in=terminals_in_bank)
     total_specific_schedules = schedule_list_by_bank.count()
     pending_schedule = schedule_list_by_bank.filter(status="PE").count()
     waiting_schedule = schedule_list_by_bank.filter(status="WT").count()

@@ -44,12 +44,14 @@
                         >
                         {% endif %}</td>
                         </td>
-                      <td><a href="{% url "schedules-report" bank.id %}" class='btn-lg badge badge-light' title="Go to Details">
+                      <td>
+                        <a href="{% url "schedules-report" bank.id %}" class='btn-lg badge badge-light' title="Go to Details">
                         <span  class="btn btn-info">
-                            <i class="far fa-calendar-alt"></i><span class="badge badge-light">{{bank.count}}</span>
+                            <i class="far fa-calendar-alt"></i><span class="badge badge-light"></span>
                             <span class="sr-only">Total Schedules </span>
                       </span>
-                      </a></td> 
+                      </a>
+                      </td> 
                       {% comment %} <td><a href="{% url "schedules-report" bank.id %}" class='btn-lg badge badge-light' title="Go to Details"><i class="fas fa-arrow-circle-right"> 4</i></a></td>  {% endcomment %}
                     
                   </tr>

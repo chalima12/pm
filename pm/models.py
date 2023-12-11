@@ -89,7 +89,7 @@ class Terminal(models.Model):
     ]
 
     bank_name = models.ForeignKey(
-        Bank, on_delete=models.PROTECT,null=True,blank=True,related_name='banks')
+        Bank, on_delete=models.PROTECT,null=True,blank=True,related_name='terminalBanks')
     bank_district = models.CharField(max_length=255, null=True, blank=True)
     bank_branch = models.CharField(max_length=255,null=True,blank=True)
     moti_district = models.CharField(
