@@ -14,10 +14,25 @@
     <div class="container-fluid">
       <div class="card card-default border-top border-info">
         <div class="card-header">
-          <h3 class="card-title">Add User</h3>
+          {% if form.errors %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> Please correct the following errors:
+                  <ul>
+                  {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                      <li> {{ error }}</li>
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endif %}
         </div>
         <div class="card-body">
-          <form action="{% url 'add-user' %}" method="POST">
+          <form action="" method="POST">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6">

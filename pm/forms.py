@@ -105,12 +105,6 @@ class AllScheduleForm(forms.ModelForm):
             
         }
 
-# class ScheduleListForm(forms.ModelForm):
-#     terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
-#     ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2 select2bs4'}))
-#     class Meta:
-#         model = ScheduleList
-#         fields = ['terminals']
 class AssignEngineerForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
