@@ -233,7 +233,7 @@ def all_schedule(request):
 def detail_schedules_list(request, pk):
     schedule = get_object_or_404(AllSchedule, pk=pk)
     schedules_list = Schedule.objects.filter(schedule=schedule)
-    specific_schedule_count = Schedule.objects.filter(schedule=schedule).count()
+    specific_schedule_count = schedules_list.count()
     pending_schedule = schedules_list.filter(status="PE").count()
     waiting_schedule = schedules_list.filter(status="WT").count()
     onprogress_schedule = schedules_list.filter(status="OP").count()
@@ -242,12 +242,12 @@ def detail_schedules_list(request, pk):
     rejected_schedule = schedules_list.filter(status="RE").count()
 
     # calculating Pending , waiting, onprogress and completed rate
-    pending_rate = round(pending_schedule/specific_schedule_count,1)*100
-    waiting_rate = round(waiting_schedule/specific_schedule_count,1)*100
-    onprogress_rate = round(onprogress_schedule/specific_schedule_count,1)*100
-    submitted_rate = round(submitted_schedule/specific_schedule_count, 1)*100
-    approved_rate = round(approved_schedule/specific_schedule_count,1)*100
-    rejected_rate = round(rejected_schedule/specific_schedule_count,1)*100
+    pending_rate = round(pending_schedule/specific_schedule_count,2)*100
+    waiting_rate = round(waiting_schedule/specific_schedule_count,2)*100
+    onprogress_rate = round(onprogress_schedule/specific_schedule_count,2)*100
+    submitted_rate = round(submitted_schedule/specific_schedule_count, 2)*100
+    approved_rate = round(approved_schedule/specific_schedule_count,2)*100
+    rejected_rate = round(rejected_schedule/specific_schedule_count,2)*100
 
     engineer_nedded = math.ceil(pending_schedule/7)
     # Calcuate Remaining Days
@@ -433,22 +433,21 @@ def engineers_list(request):
 def banks_list(request):
     banks = Bank.objects.all()
     title = "Banks Report"
-    selected = request.POST.get('options')
-    from_date = request.POST.get('from_date')
-    to_date = request.POST.get('to_date')
-    if (selected == 'All Banks'):
-        banks = Bank.objects.filter(created_date__range=(from_date,to_date))
-        title ="All Banks"
-    if(selected =='Active Banks'):
-        banks = Bank.objects.filter(is_active=True, created_date__range=(from_date,to_date))
-        title = "Active Banks"
-    if(selected == 'InActive Banks'):
-        banks = Bank.objects.filter(is_active=False, created_date__range=(from_date,to_date))
-        title = "InActive Banks"
+    # selected = request.POST.get('options')
+    # from_date = request.POST.get('from_date')
+    # to_date = request.POST.get('to_date')
+    # if (selected == 'All Banks'):
+    #     banks = Bank.objects.filter(created_date__range=(from_date,to_date))
+    #     title ="All Banks"
+    # if(selected =='Active Banks'):
+    #     banks = Bank.objects.filter(is_active=True, created_date__range=(from_date,to_date))
+    #     title = "Active Banks"
+    # if(selected == 'InActive Banks'):
+    #     banks = Bank.objects.filter(is_active=False, created_date__range=(from_date,to_date))
+    #     title = "InActive Banks"
     context = {
         "banks": banks,
         "title": title,
-        "selected": selected
     }
     return render(request, 'pm/banks_report.html', context)
 
@@ -456,9 +455,34 @@ def banks_list(request):
 def schedules_detail_report(request, bank_id):
     bank = get_object_or_404(Bank, pk=bank_id)
     schedule_list_by_bank = Schedule.objects.filter(terminal__bank_name = bank)
+    total_specific_schedules = schedule_list_by_bank.count()
+    pending_schedule = schedule_list_by_bank.filter(status="PE").count()
+    waiting_schedule = schedule_list_by_bank.filter(status="WT").count()
+    onprogress_schedule = schedule_list_by_bank.filter(status="OP").count()
+    submitted_schedule = schedule_list_by_bank.filter(status="SB").count()
+    approved_schedule = schedule_list_by_bank.filter(status="AP").count()
+    rejected_schedule = schedule_list_by_bank.filter(status="RE").count()
+
+    # calculating Pending , waiting, onprogress and completed rate
+    pending_rate = round(pending_schedule/total_specific_schedules, 2)*100
+    waiting_rate = round(waiting_schedule/total_specific_schedules, 2)*100
+    onprogress_rate = round(onprogress_schedule /
+                            total_specific_schedules, 2)*100
+    submitted_rate = round(submitted_schedule/total_specific_schedules, 2)*100
+    approved_rate = round(approved_schedule/total_specific_schedules, 2)*100
+    rejected_rate = round(rejected_schedule/total_specific_schedules, 2)*100
+    
+    
     context = {
         "schedules": schedule_list_by_bank,
         "bank":bank,
+        "total_count":total_specific_schedules,
+        "pending_rate": pending_rate,
+        "waiting_rate": waiting_rate,
+        "onprogress_rate": onprogress_rate,
+        "submitted_rate": submitted_rate,
+        "approved_rate": approved_rate,
+        "rejected_rate": rejected_rate,
     }
     return render(request, 'pm/schedules_report.html', context)
 

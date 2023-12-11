@@ -26,7 +26,7 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="modal-title">{{bank.bank_name}}</h4>
+                      <h4 class="modal-title">Bank Name: <b class="text-info">{{bank.bank_name}}</b></h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -34,36 +34,32 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                       <div class="modal-body">
                           <div class="row">
                             <div class="col-md-12">
-                              <p>TOTAL: <strong><span class="h5"> {{all_schedule_count}}</span></strong> </p>
+                              <p>TOTAL: <strong><span class="h3"> {{total_count}}</span></strong> </p>
                               <hr>
                             </div>
                             <div class="col-md-6">
-                              <p>Pending Schedule Rate: <strong><span class="text-danger h5"> {{pending_rate}}%</span></strong> </p>
+                              <p>Pending Schedule Rate: <strong><span class=" h4" style="color:#cf5438"> {{pending_rate}}%</span></strong> </p>
                               <hr>
                             </div>
                             <div class="col-md-6">
-                              <p>Waiting Task Rate: <strong><span class="text-info h5">{{waiting_rate}} %</span></strong> </p>
+                              <p>Waiting Task Rate: <strong><span class=" h4" style="color:#3498db">{{waiting_rate}} %</span></strong> </p>
                               <hr>
                             </div>
                             <div class="col-md-6">
-                              <p>Onprogress Task Rate: <strong><span class="text-warning h5">{{onprogress_rate}} %</span> </strong> </p>
+                              <p>Onprogress Task Rate: <strong><span class="h4" style="color:#FFD700">{{onprogress_rate}} %</span> </strong> </p>
                               <hr>
                             </div>
                             <div class="col-md-6">
-                              <p>Submitted Task Rate: <strong><span class="text-success h5">{{submitted_rate}} %</span> </strong> </p>
+                              <p>Submitted Task Rate: <strong><span class="h4" style="color:#81e7ac">{{submitted_rate}} %</span> </strong> </p>
                               <hr>
                             </div>
                             <div class="col-md-6">
-                              <p>Rejectd Task Rate: <strong><span class="text-success h5">{{rejected_rate}} %</span> </strong> </p>
+                              <p>Rejectd Task Rate: <strong><span class="h4" style="color:#FF0000">{{rejected_rate}} %</span> </strong> </p>
                               <hr>
                             </div>
                             <div class="col-md-6">
-                              <p>Approved Task Rate: <strong><span class="text-success h5">{{approved_rate}} %</span> </strong> </p>
+                              <p>Approved Task Rate: <strong><span class="h4" style="color:#00a65a">{{approved_rate}} %</span> </strong> </p>
                               <hr>
-                            </div>
-                            <div class="col-md-12">
-                              <p class="text-center">Engineers Needed: <strong><span class="h5">{{engineer_nedded}} </span> </strong> </p>
-              
                             </div>
                           </div>
                         </div>
@@ -101,13 +97,17 @@ q   {% extends "base.html" %} {% load static %} {% block content %}
                       <td>{{schedule.end_date|date:'Y-m-d'}}</td>
                       <td>{{schedule.assign_to}}</td>
                       <td>{% if schedule.status == "PE" %}
-                            <p class="badge badge-danger" style="width:90px;">Pending</p>
+                            <p class="badge " style="width:90px;background-color: #cf5438 ;">Pending</p>
                           {% elif schedule.status == "WT" %}
-                            <p class="badge badge-info" style="width:90px;">Waiting</p>
+                            <p class="badge " style="width:90px; background-color: #3498db ;">Waiting</p>
                           {% elif schedule.status == "OP" %}
-                            <p class="badge badge-warning" style="width:90px;">OnProgress</p>
-                          {% elif schedule.status == "CO" %}
-                            <p class= "badge badge-success" style="width:90px;">Completed</p>
+                            <p class="badge " style="width:90px; background-color: #FFD700 ;">OnProgress</p>
+                          {% elif schedule.status == "SB" %}
+                            <p class= "badge " style="width:90px; background-color: #81e7ac ;">Submitted</p>
+                          {% elif schedule.status == "RE" %}
+                            <p class= "badge " style="width:90px; background-color: #FF0000 ; ">Rejectd</p>
+                          {% elif schedule.status == "AP" %}
+                            <p class= "badge " style="width:90px; background-color: #00a65a ;">Approved</p>
                       {% endif %}</td>
                     </tr>
                 

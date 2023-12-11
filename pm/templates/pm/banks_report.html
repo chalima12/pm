@@ -15,38 +15,7 @@
       <div class="row">
         <div class="col-12">
           <div class="card border-top border-info">
-            <div class="card-header">
-             <form action="" method="POST">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-sm-8">
-                      <div class="form-group">
-                        <label>Filter Banks Form the Dropdown</label>
-                        <select class="form-control" name ="options">
-                          <option value ="0"selected >-----Select-----</option>
-                          <option value ="All Banks" >All Banks</option>
-                          <option value ="Active Banks" >Active Banks</option>
-                          <option value ="InActive Banks" >InActive Banks</option>  
-                        </select>
-                      </div>
-                    </div>
-                <hr>
-                <div class="form-group col-sm-12" id="data_5">
-                  <label class="font-normalll">Select Time Range</label>
-                  <div class="input-group date col-sm-8" id="datepicker">
-                    <span class="input-group-text">
-                    From</span>
-                    <input type="date" class="form-control" name="from_date" required>
-                    <span class="input-group-text">To</span>
-                    <input type="date" class="form-control" name="to_date" required>
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-info">Generate</button>
-               </form>
-            </div>
-                  
-               
-            
+            <div class="card-header">List of Banks</div>
             <!-- /.card-header -->
             <div class="card-body">
               <table id = "example1" class="table table-bordered table-striped table-hover">
@@ -75,7 +44,13 @@
                         >
                         {% endif %}</td>
                         </td>
-                      <td><a href="{% url "schedules-report" bank.id %}" class='btn-lg' title="Go to Details"><i class="fas fa-arrow-circle-right"></i></a></td> 
+                      <td><a href="{% url "schedules-report" bank.id %}" class='btn-lg badge badge-light' title="Go to Details">
+                        <span  class="btn btn-info">
+                            <i class="far fa-calendar-alt"></i><span class="badge badge-light">{{bank.id}}</span>
+                            <span class="sr-only">Total Schedules </span>
+                      </span>
+                      </a></td> 
+                      {% comment %} <td><a href="{% url "schedules-report" bank.id %}" class='btn-lg badge badge-light' title="Go to Details"><i class="fas fa-arrow-circle-right"> 4</i></a></td>  {% endcomment %}
                     
                   </tr>
                   {% endfor %}
