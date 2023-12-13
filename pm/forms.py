@@ -30,12 +30,32 @@ class UserForm(UserCreationForm):
     )
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'gender','username', 'email','phone', 'address','password1', 'password2']
+        fields = ['first_name', 'last_name', 'gender', 'username', 'email',
+                'phone', 'address', 'password1', 'password2', 'user_type',
+                'view_dashboard', 'view_users', 'view_banks', 'view_terminals', 
+                'view_scheules', 'view_report', 'edit_user', 'edit_bank', 'edit_terminal',
+                'add_user', 'add_bank', 'add_terminals'
+                ]
         
         widgets = {    
             'gender': forms.Select(attrs={'class': 'form-control'}),
             'phone': forms.TextInput(attrs={'class': 'form-control'}),
             'address': forms.TextInput(attrs={'class': 'form-control'}),
+            'user_type': forms.Select(attrs={'class': 'form-control'}),
+            'view_dashboard': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'view_users': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'view_banks': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'view_terminals': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'view_scheules': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'view_report': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+
+            'edit_user': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'edit_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'edit_terminal': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'add_user': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'add_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'add_terminals': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+
         }
 
 

@@ -52,10 +52,10 @@
                         </div>
                         <div class="col-7 col-sm-9">
                             <form action="" method="POST">
+                                {% csrf_token %}
                             <div class="tab-content" id="vert-tabs-tabContent">
                                 <div class="tab-pane text-left fade show active" id="vert-tabs-home" role="tabpanel"
                                     aria-labelledby="vert-tabs-home-tab">
-                                        {% csrf_token %}
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -117,19 +117,120 @@
                                 </div>
                                 <div class="tab-pane fade" id="vert-tabs-permissions" role="tabpanel"
                                     aria-labelledby="vert-tabs-permissions-tab">
-
-                                    <button type="submit" class="btn btn-primary">Add User</button>
-                                    <a href="{% url 'all-engineers' %}" class="btn btn-secondary">Cancel</a>
+                                    <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="{{ form.user_type.id_for_label }}">Select User Role</label>
+                                                    {{form.user_type}}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.view_dashboard}}
+                                                    <label for="{{ form.view_dashboard.id_for_label }}">View Dashboard</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.view_users}}
+                                                    <label for="{{ form.view_users.id_for_label }}">View Users</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.view_banks}}
+                                                    <label for="{{ form.view_banks.id_for_label }}">View Banks</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.view_terminals}}
+                                                    <label for="{{ form.view_terminals.id_for_label }}">View Terminals</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.view_scheules}}
+                                                    <label for="{{ form.view_scheules.id_for_label }}">View Schedules</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.view_report}}
+                                                    <label for="{{ form.view_report.id_for_label }}">View Reports</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.edit_user}}
+                                                    <label for="{{ form.edit_user.id_for_label }}">Edit User</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.edit_bank}}
+                                                    <label for="{{ form.edit_bank.id_for_label }}">Edit Bank</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.edit_terminal}}
+                                                    <label for="{{ form.edit_terminal.id_for_label }}">Edit Terminal</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.add_user}}
+                                                    <label for="{{ form.add_user.id_for_label }}">Add User</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.add_bank}}
+                                                    <label for="{{ form.add_bank.id_for_label }}">Add Bank</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.add_terminals}}
+                                                    <label for="{{ form.add_terminals.id_for_label }}">Add Terminal</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <h4>Task Based Permissions</h4>
+                                            </div>
+                                            
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Add User</button>
+                                        <a href="{% url 'all-engineers' %}" class="btn btn-secondary">Cancel</a>
                                 </div>
                                 <div class="tab-pane fade" id="vert-tabs-settings" role="tabpanel"
                                     aria-labelledby="vert-tabs-settings-tab">
-                                    Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis
-                                    tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque
-                                    tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum
-                                    consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra.
-                                    Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut
-                                    nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet
-                                    accumsan ex sit amet facilisis.
+                                    ..........Done Later.........
                                 </div>
                             </div>
                             </form>
