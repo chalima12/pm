@@ -43,6 +43,8 @@ def logoutuser(request):
 
 @login_required
 def home(request):
+    logged_in_user = request.user.password
+    print(logged_in_user)
     numOfBanks = Bank.objects.all().count()
     numOfUsers = User.objects.all().count()
     numberofTerminals = Terminal.objects.all().count()

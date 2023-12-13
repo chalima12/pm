@@ -15,7 +15,6 @@ REGION_CHIOCES = [
     ("NN", "None")
 ]
 
-
 class User(AbstractBaseUser, PermissionsMixin):
     MALE = 'M'
     FEMALE = 'F'
@@ -23,6 +22,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         (MALE, 'Male'),
         (FEMALE, 'Female'),
     ]
+    MANAGER ="MA"
+    SCHEDULER ="SC"
+    ENGINEER ="EN"
+    BANKER= "BA"
+    user_type = [(MANAGER, "Manager"),
+                (SCHEDULER, "Scheduler"),
+                (ENGINEER, "Engineer"),
+                (BANKER, "Bank User"),
+                ]
     # Basic information
     email = models.EmailField(("email address"), unique=True, null=True)
     username = models.CharField(
@@ -39,17 +47,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=50, help_text='Address', null=True, blank=True)
     date_joined = models.DateTimeField(
         auto_now_add=True, null=True, blank=True)
-    # Informtion for system access
     is_staff = models.BooleanField(default=False, null=True, blank=True)
     is_superuser = models.BooleanField(default=False,null=True,blank=True)
-    is_active = models.BooleanField(default=True, null=True, blank=True)
-    is_engineer = models.BooleanField(default=False, null=True, blank=True)
-    is_bank_user= models.BooleanField(default=False, null=True, blank=True)
+    user_type = models.CharField(max_length=40,choices=user_type, default=ENGINEER)
     view_dashboard = models.BooleanField(default=False, null=True, blank=True)
     view_report = models.BooleanField(default=False, null=True, blank=True)
-    edit_info = models.BooleanField(default=False,null=False,blank=False)
-    
-
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
