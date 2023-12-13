@@ -49,7 +49,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         auto_now_add=True, null=True, blank=True)
     is_staff = models.BooleanField(default=False, null=True, blank=True)
     is_superuser = models.BooleanField(default=False,null=True,blank=True)
-    user_type = models.CharField(max_length=40,choices=user_type, default=ENGINEER)
+    # user_type = models.CharField(max_length=40,choices=user_type, default=MANAGER)
     view_dashboard = models.BooleanField(default=False, null=True, blank=True)
     view_report = models.BooleanField(default=False, null=True, blank=True)
     USERNAME_FIELD = "email"
