@@ -49,9 +49,33 @@ class User(AbstractBaseUser, PermissionsMixin):
         auto_now_add=True, null=True, blank=True)
     is_staff = models.BooleanField(default=False, null=True, blank=True)
     is_superuser = models.BooleanField(default=False,null=True,blank=True)
-    # user_type = models.CharField(max_length=40,choices=user_type, default=MANAGER)
+    user_type = models.CharField(max_length=40,choices=user_type, default=MANAGER)
+
+    # Permissions and Roles
     view_dashboard = models.BooleanField(default=False, null=True, blank=True)
+    view_users = models.BooleanField(default=False, null=True, blank=True)
+    view_banks = models.BooleanField(default=False, null=True, blank=True)
+    view_terminals = models.BooleanField(default=False, null=True, blank=True)
+    view_scheules = models.BooleanField(default=False, null=True, blank=True)
     view_report = models.BooleanField(default=False, null=True, blank=True)
+    # edit Permissions
+    edit_user = models.BooleanField(default=False, null=True, blank=True)
+    edit_bank = models.BooleanField(default=False, null=True, blank=True)
+    edit_terminal = models.BooleanField(default=False, null=True, blank=True)
+    
+    # Add Permissions
+    add_user = models.BooleanField(default=False, null=True, blank=True)
+    add_bank = models.BooleanField(default=False, null=True, blank=True)
+    add_terminals = models.BooleanField(default=False, null=True, blank=True)
+
+    # Funtional based Permissions
+    make_schedule = models.BooleanField(default=False, null=True, blank=True)
+    assign_engineer = models.BooleanField(default=False, null=True, blank=True)
+    start_task = models.BooleanField(default=False, null=True, blank=True)
+    re_assign_engineer = models.BooleanField(default=False, null=True, blank=True)
+    end_task = models.BooleanField(default=False, null=True, blank=True)
+    approve_task = models.BooleanField(default=False, null=True, blank=True)
+    reject_task = models.BooleanField(default=False, null=True, blank=True)
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
