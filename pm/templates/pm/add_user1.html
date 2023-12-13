@@ -1,4 +1,7 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block content %}
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -34,29 +37,20 @@
                     {% endif %}
                 </div>
                 <div class="card-body">
-
                     <div class="row">
-                        <div class="col-2 col-sm-2 ">
-                            <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist"
-                                aria-orientation="vertical">
-                                <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill"
-                                    href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home"
-                                    aria-selected="true">Basic Information</a>
-                                <a class="nav-link" id="vert-tabs-permissions-tab" data-toggle="pill"
-                                    href="#vert-tabs-permissions" role="tab" aria-controls="vert-tabs-permissions"
-                                    aria-selected="false">Permissions and Roles</a>
-                                <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill"
-                                    href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings"
-                                    aria-selected="false">Settings</a>
+                        <div class="col-2 col-sm-2">
+                            <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home" aria-selected="true">Basic Information</a>
+                                <a class="nav-link" id="vert-tabs-permissions-tab" data-toggle="pill" href="#vert-tabs-permissions" role="tab" aria-controls="vert-tabs-permissions" aria-selected="false">Permissions and Roles</a>
+                                <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings" aria-selected="false">Settings</a>
                             </div>
                         </div>
                         <div class="col-7 col-sm-9">
                             <form action="" method="POST">
                                 {% csrf_token %}
-                            <div class="tab-content" id="vert-tabs-tabContent">
-                                <div class="tab-pane text-left fade show active" id="vert-tabs-home" role="tabpanel"
-                                    aria-labelledby="vert-tabs-home-tab">
-                                        <div class="row">
+                                <div class="tab-content" id="vert-tabs-tabContent">
+                                    <div class="tab-pane text-left fade show active" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
+                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="{{ form.first_name.id_for_label }}">First Name</label>
@@ -113,17 +107,21 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                </div>
-                                <div class="tab-pane fade" id="vert-tabs-permissions" role="tabpanel"
-                                    aria-labelledby="vert-tabs-permissions-tab">
-                                    <div class="row">
+                                    </div>
+                                    <div class="tab-pane fade" id="vert-tabs-permissions" role="tabpanel" aria-labelledby="vert-tabs-permissions-tab">
+                                        <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="{{ form.user_type.id_for_label }}">Select User Role</label>
                                                     {{form.user_type}}
                                                 </div>
                                             </div>
+                                            
+                                            <div class="col-md-12">
+                                                <hr>
+                                                <p class="">Select Permissions (Mark ✔️)</p>
+                                                <hr>
+                                            </div> 
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div class="form-check">
@@ -220,27 +218,78 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
-                                                <h4>Task Based Permissions</h4>
+                                            
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.make_schedule}}
+                                                    <label for="{{ form.make_schedule.id_for_label }}">Make Schedules</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.assign_engineer}}
+                                                    <label for="{{ form.assign_engineer.id_for_label }}">Assign Engineer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.start_task}}
+                                                    <label for="{{ form.start_task.id_for_label }}">Start Task</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.re_assign_engineer}}
+                                                    <label for="{{ form.re_assign_engineer.id_for_label }}">Re-Assign Engineer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.end_task}}
+                                                    <label for="{{ form.end_task.id_for_label }}">End Task</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.approve_task}}
+                                                    <label for="{{ form.approve_task.id_for_label }}">Approve Task</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.reject_task}}
+                                                    <label for="{{ form.reject_task.id_for_label }}">Reject Task</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                             
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Add User</button>
-                                        <a href="{% url 'all-engineers' %}" class="btn btn-secondary">Cancel</a>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Add User</button>
+                                    <a href="{% url 'all-engineers' %}" class="btn btn-secondary">Cancel</a>
                                 </div>
-                                <div class="tab-pane fade" id="vert-tabs-settings" role="tabpanel"
-                                    aria-labelledby="vert-tabs-settings-tab">
-                                    ..........Done Later.........
-                                </div>
-                            </div>
                             </form>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
 </div>
-
 {% endblock content %}
+
+
+

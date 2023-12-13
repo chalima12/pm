@@ -34,7 +34,8 @@ class UserForm(UserCreationForm):
                 'phone', 'address', 'password1', 'password2', 'user_type',
                 'view_dashboard', 'view_users', 'view_banks', 'view_terminals', 
                 'view_scheules', 'view_report', 'edit_user', 'edit_bank', 'edit_terminal',
-                'add_user', 'add_bank', 'add_terminals'
+                'add_user', 'add_bank', 'add_terminals', 'make_schedule', 'assign_engineer', 'start_task',
+                're_assign_engineer', 'end_task', 'approve_task', 'reject_task'
                 ]
         
         widgets = {    
@@ -55,6 +56,14 @@ class UserForm(UserCreationForm):
             'add_user': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'add_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'add_terminals': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+
+            'make_schedule': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'assign_engineer': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'start_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            're_assign_engineer': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'end_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'approve_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'reject_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
 
         }
 
