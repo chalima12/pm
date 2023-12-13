@@ -62,7 +62,7 @@
                       <th>PHONE NUMBER</th>
                       <th>EMAIL</th>
                       <th>ADDRESS</th>
-                      <th>WHO</th>
+                      <th>ROLE</th>
                       <th>STATUS</th>
                       
                   </tr>
@@ -78,14 +78,15 @@
                       <td>{{user.email}}</td>
                       <td>{{user.address}} </td>
                       <!--TODO: Add Profile Picture-->
-                       <td>{% if user.is_superuser%}
-                         <span><b>Super User</b></span>
-                          
-                          {% elif user.is_engineer %}
-                          <span><b>Engineer</b></span>
-                          {% elif user.is_bank_user %}
-                          <span><b>Bank User</b></span>
-                        {% endif %}
+                       <td>{% if user.user_type == "MA" %}
+                              <p>Manager</p> 
+                              {% elif user.user_type == "EN" %}
+                              <p>Engineer</p> 
+                              {% elif use.user_type == "SC" %}
+                              <p>Scheduler</p> 
+                              {% elif use.user_type == "BA" %}
+                              <p>Bank User</p> 
+                              {% endif %}
                       </td>
                       <td>{% if user.is_active %}
                         <span class="badge badge-success" style="width: 90px"
@@ -108,7 +109,7 @@
                       <th>PHONE NUMBER</th>
                       <th>EMAIL</th>
                       <th>ADDRESS</th>
-                      <th>WHO</th>
+                      <th>ROLE</th>
                       <th>STATUS</th>
                       
                   </tr>
