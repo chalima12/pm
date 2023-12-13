@@ -106,11 +106,13 @@
                             <hr>
                           </div>
                           <div class="col-md-6">
-                            <p>Role:{% if user.is_staff %}
-                              <strong>Super User</strong> 
-                              {% elif user.is_moti %}
+                            <p>Role:{% if user.user_type == "MA" %}
+                              <strong>Manager</strong> 
+                              {% elif user.user_type == "EN" %}
                               <strong>Engineer</strong> 
-                              {% elif use.bank %}
+                              {% elif use.user_type == "SC" %}
+                              <strong>Scheduler</strong> 
+                              {% elif use.user_type == "BA" %}
                               <strong>Bank User</strong> 
                               {% endif %}</p>
                             <hr>
