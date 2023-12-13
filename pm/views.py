@@ -85,6 +85,18 @@ def user(request):
 def view_user(request, id):
     return HttpResponseRedirect(reverse('all-engineers'))
 
+def add_user(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "New User created successfully!")
+            return redirect('all-engineers')
+    else:
+        form = UserForm()
+    context = {'form': form, "title": "Add User"}
+    return render(request, 'pm/add_user1.html',context)
+
 
 @login_required
 def create_user(request):
