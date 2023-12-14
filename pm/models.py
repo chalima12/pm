@@ -47,7 +47,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=50, help_text='Address', null=True, blank=True)
     date_joined = models.DateTimeField(
         auto_now_add=True, null=True, blank=True)
-    is_staff = models.BooleanField(default=False, null=True, blank=True)
+    is_staff = models.BooleanField(default=True, null=True, blank=True)
+    is_active = models.BooleanField(default=True, null=True, blank=True)
     is_superuser = models.BooleanField(default=False,null=True,blank=True)
     user_type = models.CharField(max_length=40,choices=user_type, default=MANAGER)
 
