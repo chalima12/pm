@@ -50,7 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=True, null=True, blank=True)
     is_active = models.BooleanField(default=True, null=True, blank=True)
     is_superuser = models.BooleanField(default=False,null=True,blank=True)
-    user_type = models.CharField(max_length=40,choices=user_type, default=MANAGER)
+    user_type = models.CharField(max_length=40,choices=user_type)
 
     # Permissions and Roles
     view_dashboard = models.BooleanField(default=False, null=True, blank=True)
