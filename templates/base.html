@@ -190,7 +190,7 @@
             >
               <!-- Add icons to the links using the .nav-icon class
               with font-awesome or any other icon font library -->
-              {% if user_type == "MA" %}
+              {% if user_type == "MA" or user.view_dashboard%}
               <li class="nav-item">
                 <a href="{% url 'home' %}" class="nav-link">
                   <i class="nav-icon fas fa-tachometer-alt"></i>

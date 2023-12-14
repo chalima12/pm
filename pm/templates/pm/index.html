@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 {% if user.is_authenticated %}
-{% if user_type == "MA" %}
+{% if user_type == "MA" or user.view_dashboard%}
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">

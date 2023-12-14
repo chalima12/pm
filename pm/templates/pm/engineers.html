@@ -18,7 +18,7 @@
           <div class="card border-top border-info">
             <div class="card-header">
               <h3 class="card-title">List of System Users</h3>
-                    {% if user.user_type == "TL" %}
+                    {% if user.user_type == "MA" or user.add_user %}
                 <a href="{% url 'create_user' %}" class="btn btn-success btn-md float-right"
                         > <i class="fas fa-plus"></i>
                      Add User
