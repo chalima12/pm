@@ -490,13 +490,21 @@ def schedules_detail_report(request, bank_id):
     rejected_schedule = schedule_list_by_bank.filter(status="RE").count()
 
     # calculating Pending , waiting, onprogress and completed rate
-    pending_rate = round(pending_schedule/total_specific_schedules, 2)*100
-    waiting_rate = round(waiting_schedule/total_specific_schedules, 2)*100
-    onprogress_rate = round(onprogress_schedule /
-                            total_specific_schedules, 2)*100
-    submitted_rate = round(submitted_schedule/total_specific_schedules, 2)*100
-    approved_rate = round(approved_schedule/total_specific_schedules, 2)*100
-    rejected_rate = round(rejected_schedule/total_specific_schedules, 2)*100
+    if total_specific_schedules>0:
+        pending_rate = round(pending_schedule/total_specific_schedules, 2)*100
+        waiting_rate = round(waiting_schedule/total_specific_schedules, 2)*100
+        onprogress_rate = round(onprogress_schedule /
+                                total_specific_schedules, 2)*100
+        submitted_rate = round(submitted_schedule/total_specific_schedules, 2)*100
+        approved_rate = round(approved_schedule/total_specific_schedules, 2)*100
+        rejected_rate = round(rejected_schedule/total_specific_schedules, 2)*100
+    else:
+        pending_rate = 0
+        waiting_rate = 0
+        onprogress_rate =0
+        submitted_rate = 0
+        approved_rate = 0
+        rejected_rate = 0
     context = {
         "schedules": schedule_list_by_bank,
         "title":title,

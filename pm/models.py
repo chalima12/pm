@@ -23,11 +23,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         (FEMALE, 'Female'),
     ]
     MANAGER ="MA"
-    SCHEDULER ="SC"
+    TEAM_LEADER ="TL"
     ENGINEER ="EN"
     BANKER= "BA"
     user_type = [(MANAGER, "Manager"),
-                (SCHEDULER, "Scheduler"),
+                (TEAM_LEADER, "Team Leader"),
                 (ENGINEER, "Engineer"),
                 (BANKER, "Bank User"),
                 ]
@@ -62,6 +62,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     # edit Permissions
     edit_user = models.BooleanField(default=False, null=True, blank=True)
     edit_bank = models.BooleanField(default=False, null=True, blank=True)
+    activate_bank = models.BooleanField(default=False, null=True, blank=True)
+    inactivate_bank = models.BooleanField(default=False, null=True, blank=True)
     edit_terminal = models.BooleanField(default=False, null=True, blank=True)
     
     # Add Permissions

@@ -33,7 +33,7 @@ class UserForm(UserCreationForm):
         fields = ['first_name', 'last_name', 'gender', 'username', 'email',
                 'phone', 'address', 'password1', 'password2', 'user_type',
                 'view_dashboard', 'view_users', 'view_banks', 'view_terminals', 
-                'view_scheules', 'view_report', 'edit_user', 'edit_bank', 'edit_terminal',
+                  'view_scheules', 'view_report', 'edit_user', 'edit_bank', 'activate_bank', 'inactivate_bank', 'edit_terminal',
                 'add_user', 'add_bank', 'add_terminals', 'make_schedule', 'assign_engineer', 'start_task',
                 're_assign_engineer', 'end_task', 'approve_task', 'reject_task'
                 ]
@@ -52,6 +52,8 @@ class UserForm(UserCreationForm):
 
             'edit_user': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'edit_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'activate_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'inactivate_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'edit_terminal': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'add_user': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'add_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
