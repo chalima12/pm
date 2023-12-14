@@ -2,13 +2,14 @@
 {% load static %}
 {% block content %}
 {% if user.is_authenticated %}
+{% if user_type == "MA" %}
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+            <h1 class="m-0"><span class="text-success">{{logged_in_user}}</span> Welecome To Moti PM Portal</h1>
           </div><!-- /.col -->
         
         </div><!-- /.row -->
@@ -21,6 +22,7 @@
       
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
+        
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -82,7 +84,9 @@
           </div>
           <!-- ./col -->
         </div>
+        
         <!-- /.row -->
+
 
 
           </section>
@@ -152,7 +156,22 @@
     
     
   </div>
+  {% else %}
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0"><span class="text-success">{{logged_in_user}}</span> Welecome To Moti PM Portal</h1>
+          </div><!-- /.col -->
+        
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+  </div>
 
+{% endif %}
 {% else %}
 <p>Please Try again!!</p>
 <a href="{% url "login" %}">Login</a>

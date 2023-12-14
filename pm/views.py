@@ -72,6 +72,8 @@ def home(request):
         "pendingTerminals": pendingTerminals,
         "pendingLists": pendingLists,
         'allSchedule': allSchedule,
+        "logged_in_user": logged_in_user,
+        "user_type": loggedin_user_type,
        
     }
     return render(request, "pm/index.html", context)
