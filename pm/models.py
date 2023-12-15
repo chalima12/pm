@@ -42,7 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(
         max_length=100, help_text='Phone Number', null=True, blank=True)
     Photo = models.ImageField(
-        help_text='Photo', null=True, blank=True, default='atm_U2G9mVp.png')
+        help_text='Photo', null=True, blank=True, upload_to="profile_pics")
     address = models.TextField(
         max_length=50, help_text='Address', null=True, blank=True)
     date_joined = models.DateTimeField(

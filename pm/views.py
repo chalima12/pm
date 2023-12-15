@@ -1,3 +1,4 @@
+from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -6,12 +7,9 @@ from django.http import Http404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone,timedelta,date
-from django.db.models import Q
 import json, math
 from pm.models import Terminal, User, Bank, Schedule,AllSchedule
-from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm,ApprovalScheduleForm,AllScheduleForm
-
-
+from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm, ApprovalScheduleForm, AllScheduleForm, CustomePasswordChangeForm
 
 def login_user(request):
     logout(request)
@@ -118,20 +116,31 @@ def create_user(request):
     context = {'form': form, "title": "Add User"}
     return render(request, 'pm/add_user.html', context)
 
+
 @login_required
 def edit_user(request, user_id):
     user = User.objects.get(pk=user_id)
-    form = UserForm(request.POST or None, instance=user)
-    if form.is_valid():
-        form.save()
-        messages.info(request, "Updated Successfully!")
-        return redirect('all-engineers')
+    user_form = UserForm(request.POST or None, instance=user)
+    password_form = CustomePasswordChangeForm(request.user, request.POST or None)
+    if request.method == 'POST':
+        if user_form.is_valid() and password_form.is_valid():
+            user_form.save()
+            password_form.save()
+            # Important to keep the user logged in
+            update_session_auth_hash(request, request.user)
+            messages.success(request, "User information updated successfully!")
+            return redirect('all-engineers')
+        else:
+            messages.error(request, "Please correct the errors in the form.")
+
     context = {
         'user': user,
-        'form': form,
-        "title": "edit User"
+        'form': user_form,
+        'password_form': password_form,
+        "title": "Edit User"
     }
     return render(request, 'pm/update_user.html', context)
+
 
 
 @login_required

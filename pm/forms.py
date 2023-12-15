@@ -1,6 +1,7 @@
+from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
 from pm.models import Terminal, Bank, User, Schedule,AllSchedule
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
 from django.contrib.auth import password_validation
 from django.utils.translation import gettext_lazy as _
 class UserForm(UserCreationForm):
@@ -25,7 +26,7 @@ class UserForm(UserCreationForm):
     username = forms.CharField(
         label=_('Username'),
         max_length=150,
-        error_messages={'unique': _("A user with that username already exists.")},
+        # error_messages={'unique': _("A user with that username already exists.")},
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     class Meta:
@@ -67,6 +68,17 @@ class UserForm(UserCreationForm):
             'approve_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'reject_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
 
+        }
+
+
+class CustomePasswordChangeForm(PasswordChangeForm):
+    class Meta:
+        model = User
+        fields = ['old_password', 'new_password1', 'new_password2']
+        widgets = {
+            'old_password': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'new_password1': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'new_password2': forms.PasswordInput(attrs={'class': 'form-control'}),
         }
 
 

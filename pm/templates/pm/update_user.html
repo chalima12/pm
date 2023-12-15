@@ -23,7 +23,7 @@
                         <ul>
                             {% for field, errors in form.errors.items %}
                             {% for error in errors %}
-                            <li> {{field}}:{{ error }}</li>
+                            <li> {{ error }}</li>
                             {% endfor %}
                             {% endfor %}
                         </ul>
@@ -42,7 +42,7 @@
                             <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                                 <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home" aria-selected="true">Basic Information</a>
                                 <a class="nav-link" id="vert-tabs-permissions-tab" data-toggle="pill" href="#vert-tabs-permissions" role="tab" aria-controls="vert-tabs-permissions" aria-selected="false">Permissions and Roles</a>
-                                <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings" aria-selected="false">Settings</a>
+    
                             </div>
                         </div>
                         <div class="col-7 col-sm-9">
@@ -94,6 +94,26 @@
                                                     {{form.address}}
                                                 </div>
                                             </div>
+                                            {% comment %} <h3 class="card-title">Change Password</h3>
+                                            {{ password_form.non_field_errors }} {% endcomment %}
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="{{ password_form.old_password.id_for_label }}">Old Password</label>
+                                                    {{ password_form.old_password }}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="{{ password_form.new_password1.id_for_label }}">New Password</label>
+                                                    {{ password_form.new_password1 }}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="{{ password_form.new_password2.id_for_label }}">Confirm New Password</label>
+                                                    {{ password_form.new_password2 }}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="vert-tabs-permissions" role="tabpanel" aria-labelledby="vert-tabs-permissions-tab">
@@ -131,6 +151,22 @@
                                                     <div class="form-check">
                                                     {{form.view_banks}}
                                                     <label for="{{ form.view_banks.id_for_label }}">View Banks</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.activate_bank}}
+                                                    <label for="{{ form.activate_bank.id_for_label }}">Activate Bank</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.inactivate_bank}}
+                                                    <label for="{{ form.inactivate_bank.id_for_label }}">Deactivate Banks</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -266,7 +302,7 @@
                                             
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Add User</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                     <a href="{% url 'all-engineers' %}" class="btn btn-secondary">Cancel</a>
                                 </div>
                             </form>
@@ -278,6 +314,3 @@
     </section>
 </div>
 {% endblock content %}
-
-
-
