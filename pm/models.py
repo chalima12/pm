@@ -41,7 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=100, choices=gender_choices, help_text="Gender", null=True, blank=True)
     phone = models.CharField(
         max_length=100, help_text='Phone Number', null=True, blank=True)
-    Photo = models.ImageField(
+    photo = models.ImageField(
         help_text='Photo', null=True, blank=True, upload_to="profile_pics")
     address = models.TextField(
         max_length=50, help_text='Address', null=True, blank=True)
@@ -54,6 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # Permissions and Roles
     view_dashboard = models.BooleanField(default=False, null=True, blank=True)
+    view_analysis = models.BooleanField(default=False, null=True, blank=True)
     view_users = models.BooleanField(default=False, null=True, blank=True)
     view_banks = models.BooleanField(default=False, null=True, blank=True)
     view_terminals = models.BooleanField(default=False, null=True, blank=True)
