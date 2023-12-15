@@ -141,7 +141,8 @@ def edit_user(request, user_id):
     }
     return render(request, 'pm/update_user.html', context)
 
-
+def userProfile(request):
+    return render(request, 'pm/profile.html')
 
 @login_required
 def banks(request):
