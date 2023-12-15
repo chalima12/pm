@@ -227,46 +227,49 @@
                   <p>Schedules</p>
                 </a>
               </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
-              <p>
-              Report
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{% url "engineers-list" %}" class="nav-link">
-                  <p class = "ml-4">Engineers</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url "bank-list" %}" class="nav-link">
-                  <p class = "ml-4">Bank List</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url "terminals-list" %}" class="nav-link">
+        {% if user.view_report %}
+            <li class="nav-item menu-open">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-columns"></i>
+                <p>
+                Report
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{% url "engineers-list" %}" class="nav-link">
+                    <p class = "ml-4">Engineers</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url "bank-list" %}" class="nav-link">
+                    <p class = "ml-4">Bank List</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url "terminals-list" %}" class="nav-link">
+                    
+                    <p class = "ml-4">Terminal List</p>
+                  </a>
+                </li>
+              
+                {% comment %} <li class="nav-item">
+                  <a href="{% url "schedules-list" %}" class="nav-link">
                   
-                  <p class = "ml-4">Terminal List</p>
-                </a>
-              </li>
-              {% comment %} <li class="nav-item">
-                <a href="{% url "schedules-list" %}" class="nav-link">
-                 
-                  <p class = "ml-4">Schedules</p>
-                </a>
-              </li> {% endcomment %}
-            </ul>
+                    <p class = "ml-4">Schedules</p>
+                  </a>
+                </li> {% endcomment %}
+              </ul>
           </li>
-          <li class="nav-item">
+          {% endif %}
+          {% comment %} <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-map-marker-alt"></i>
                   <p>Map</p>
                 </a>
               </li>
-            </ul>
+            </ul> {% endcomment %}
           </nav>
           <!-- /.sidebar-menu -->
         </div>
