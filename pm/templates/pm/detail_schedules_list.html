@@ -148,36 +148,50 @@
                     </td>
                     <td>
                           {% if schedule.status == "PE" %}
-                            <a href=" {% url "assign-engineer" schedule.id %}"
-                                    style="width: 90px"
-                                    class="btn btn-block btn-outline-success"
-                                    >Assign</a>
+                            {% if user.assign_engineer %}
+                              <a href=" {% url "assign-engineer" schedule.id %}"
+                                      style="width: 90px"
+                                      class="btn btn-block btn-outline-success"
+                                      >Assign</a>
+                              {% endif %}
                           {% elif schedule.status == "WT" or  schedule.status == "RE" %}
-                              <a href=" {% url "start-task" schedule.id %}"
-                                style="width: 90px"
-                                class="d-inline  btn btn-block btn-outline-info"
-                                data-toggle="modal" data-target="#startModal{{schedule.id}}"
-                                title ="Start Task"
-                                ><i class="fas fa-play"></i></a>
-                                <a href=" {% url "assign-engineer" schedule.id %}"
-                                style="width: 90px"
-                                class="d-inline btn btn-block btn-outline-success"
-                                title ="Change Engineer"
-                                ><i class="fas fa-edit"></i></a>
+                              {% if user.start_task %}
+                                <a href=" {% url "start-task" schedule.id %}"
+                                  style="width: 90px"
+                                  class="d-inline  btn btn-block btn-outline-info"
+                                  data-toggle="modal" data-target="#startModal{{schedule.id}}"
+                                  title ="Start Task"
+                                  ><i class="fas fa-play"></i>
+                                </a>
+                              {% endif %}
+                              {% if user.re_assign_engineer %}
+                                  <a href=" {% url "assign-engineer" schedule.id %}"
+                                  style="width: 90px"
+                                  class="d-inline btn btn-block btn-outline-success"
+                                  title ="Change Engineer"
+                                  ><i class="fas fa-edit"></i>
+                                </a>
+                              {% endif %}
                           {% elif schedule.status == "OP" %}
+                            {% if user.end_task %}
                               <a href="{% url "end-task" schedule.id %}"
                                 style="width: 90px"
                                 class="btn btn-block btn-danger"
                                 > End </a>
+                              {% endif %}
                           {% elif schedule.status == "SB" %}
-                              <a href="{% url "task_approval" schedule.id %}"
-                                style="width: 90px"
-                                class="btn  btn-success mr-2"
-                                > Approve </a>
+                              {% if user.approve_task %}
+                                <a href="{% url "task_approval" schedule.id %}"
+                                  style="width: 90px"
+                                  class="btn  btn-success mr-2"
+                                  > Approve </a>
+                                {% endif %}
+                              {% if user.reject_task %}
                               <a href="{% url "reject_task" schedule.id %}"
                                 style="width: 90px"
                                 class="btn  btn-danger"
                                 > Rejectd </a>
+                              {% endif %}
                       {% endif %}
                       <!--Start Task Moal-->
                   <div class="modal fade" id="startModal{{schedule.id}}">
