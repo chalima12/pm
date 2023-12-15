@@ -213,13 +213,14 @@
                 </a>
               </li>
             {% endif %}
+            {% if user.view_terminals%}
               <li class="nav-item">
                 <a href="{% url 'all-terminals' %}" class="nav-link">
-                 <i class=" nav-icon fa fa-cubes" aria-hidden="true"></i>
+                <i class=" nav-icon fa fa-cubes" aria-hidden="true"></i>
                   <p>Terminals</p>
                 </a>
               </li>
-
+             {% endif %}
               <li class="nav-item">
                 <a href="{% url 'schedules' %}" class="nav-link">
                   <i class="nav-icon far fa-calendar-alt"></i>
