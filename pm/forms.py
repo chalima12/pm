@@ -72,14 +72,18 @@ class UserForm(UserCreationForm):
 
 
 class CustomePasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(label=_('Old Password'),
+                                widget=(forms.PasswordInput(attrs={'class': 'form-control'})),
+                                help_text=password_validation.password_validators_help_text_html())
+    new_password1 = forms.CharField(label=_('New Password'), widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+                                help_text=_('Just Enter the same password, for confirmation'))
+    new_password2 = forms.CharField(label=_('New Password Confirmation'), widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+                                help_text=_('Just Enter the same password, for confirmation'))
+    exclude = ['password1', 'password2']
     class Meta:
         model = User
         fields = ['old_password', 'new_password1', 'new_password2']
-        widgets = {
-            'old_password': forms.PasswordInput(attrs={'class': 'form-control'}),
-            'new_password1': forms.PasswordInput(attrs={'class': 'form-control'}),
-            'new_password2': forms.PasswordInput(attrs={'class': 'form-control'}),
-        }
+        
 
 
 class TerminalForm(forms.ModelForm):

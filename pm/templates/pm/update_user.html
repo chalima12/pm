@@ -23,7 +23,7 @@
                         <ul>
                             {% for field, errors in form.errors.items %}
                             {% for error in errors %}
-                            <li> {{ error }}</li>
+                            <li> {{field}}{{ error }}</li>
                             {% endfor %}
                             {% endfor %}
                         </ul>
@@ -99,7 +99,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="{{ password_form.old_password.id_for_label }}">Old Password</label>
-                                                    {{ password_form.old_password }}
+                                                    {{ password_form.old_password}}
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
@@ -111,7 +111,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="{{ password_form.new_password2.id_for_label }}">Confirm New Password</label>
-                                                    {{ password_form.new_password2 }}
+                                                    {{ password_form.new_password2}}
                                                 </div>
                                             </div>
                                         </div>

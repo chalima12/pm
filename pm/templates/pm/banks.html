@@ -18,14 +18,17 @@
           <div class="card border-top border-info">
             <div class="card-header">
               <h3 class="card-title">Banks</h3>
+              {% if user.add_bank %}
                <a href="{% url 'add-bank' %}" class="btn btn-success btn-md float-right"
                         > <i class="fas fa-plus"></i>
-                     Add Bank
+                    Add Bank
                 </a>
+              {% endif %}
             </div>
                   
             
             <!-- /.card-header -->
+            
             <div class="card-body">
               <table id="example2" class="table table-bordered table-striped table-hover">
                 <thead>
@@ -53,7 +56,9 @@
                         >
                         {% endif %}</td>
                         </td>
-                    <td><a
+                    <td>
+                      
+                      <a
                           href="{% url "update-bank" bank.id %}"
                           style="width: 80px"
                           class="d-inline  btn btn-block btn-outline-success"
