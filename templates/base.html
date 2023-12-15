@@ -198,19 +198,21 @@
                 </a>
               </li>
             {% endif %}
+            
               <li class="nav-item">
                 <a href="{% url 'all-engineers' %}" class="nav-link">
                   <i class="nav-icon fas fa-users"></i>
                   <p>Users</p>
                 </a>
               </li>
-
+            {% if user.view_banks %}
               <li class="nav-item">
                 <a href="{% url 'banks-page' %}" class="nav-link">
                 <i class="nav-icon fa fa-university" aria-hidden="true"></i>
                   <p>Banks</p>
                 </a>
               </li>
+            {% endif %}
               <li class="nav-item">
                 <a href="{% url 'all-terminals' %}" class="nav-link">
                  <i class=" nav-icon fa fa-cubes" aria-hidden="true"></i>
