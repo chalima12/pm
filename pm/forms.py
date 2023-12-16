@@ -1,6 +1,7 @@
+from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
 from pm.models import Terminal, Bank, User, Schedule,AllSchedule
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
 from django.contrib.auth import password_validation
 from django.utils.translation import gettext_lazy as _
 class UserForm(UserCreationForm):
@@ -25,7 +26,7 @@ class UserForm(UserCreationForm):
     username = forms.CharField(
         label=_('Username'),
         max_length=150,
-        error_messages={'unique': _("A user with that username already exists.")},
+        # error_messages={'unique': _("A user with that username already exists.")},
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     class Meta:
@@ -33,7 +34,7 @@ class UserForm(UserCreationForm):
         fields = ['first_name', 'last_name', 'gender', 'username', 'email',
                 'phone', 'address', 'password1', 'password2', 'user_type',
                 'view_dashboard', 'view_users', 'view_banks', 'view_terminals', 
-                'view_scheules', 'view_report', 'edit_user', 'edit_bank', 'edit_terminal',
+                  'view_scheules', 'view_report', 'edit_user', 'edit_bank', 'activate_bank', 'inactivate_bank', 'edit_terminal',
                 'add_user', 'add_bank', 'add_terminals', 'make_schedule', 'assign_engineer', 'start_task',
                 're_assign_engineer', 'end_task', 'approve_task', 'reject_task'
                 ]
@@ -52,6 +53,8 @@ class UserForm(UserCreationForm):
 
             'edit_user': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'edit_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'activate_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'inactivate_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'edit_terminal': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'add_user': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'add_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
@@ -66,6 +69,21 @@ class UserForm(UserCreationForm):
             'reject_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
 
         }
+
+
+class CustomePasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(label=_('Old Password'),
+                                widget=(forms.PasswordInput(attrs={'class': 'form-control'})),
+                                help_text=password_validation.password_validators_help_text_html())
+    new_password1 = forms.CharField(label=_('New Password'), widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+                                help_text=_('Just Enter the same password, for confirmation'))
+    new_password2 = forms.CharField(label=_('New Password Confirmation'), widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+                                help_text=_('Just Enter the same password, for confirmation'))
+    exclude = ['password1', 'password2']
+    class Meta:
+        model = User
+        fields = ['old_password', 'new_password1', 'new_password2']
+        
 
 
 class TerminalForm(forms.ModelForm):

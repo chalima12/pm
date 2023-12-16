@@ -19,11 +19,12 @@
           <div class="card border-top border-info">
             <div class="card-header">
               <h3 class="card-title">List of Terminals To be Schedule</h3>
-              <a href="{% url 'create_schedule' %}" class="btn btn-success btn-md float-right"
-                        > <i class="fas fa-plus"></i>
-                    Make Schedule
-                </a>
-             
+              {% if user.make_schedule %}
+                  <a href="{% url 'create_schedule' %}" class="btn btn-success btn-md float-right"
+                            > <i class="fas fa-plus"></i>
+                        Make Schedule
+                    </a>
+              {% endif %}
             </div>
             <div class="card-body">
               <table id="example2" class="table table-bordered table-striped table-hover">
@@ -34,7 +35,7 @@
                     <th>SCHEDULED BY</th>
                     <th>DESCRIPTION</th>
                     <th>COUNT</th>
-                    <th></th>
+                    <th>GO To DATAILS</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -58,7 +59,7 @@
                         <th>SCHEDULED BY</th>
                         <th>DESCRIPTION</th>
                         <th>COUNT</th>
-                        <th></th>
+                        <th>GO To DATAILS</th>
                   </tr>
                 </tfoot>
               </table>

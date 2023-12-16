@@ -18,14 +18,17 @@
           <div class="card border-top border-info">
             <div class="card-header">
               <h3 class="card-title">Banks</h3>
+              {% if user.add_bank %}
                <a href="{% url 'add-bank' %}" class="btn btn-success btn-md float-right"
                         > <i class="fas fa-plus"></i>
-                     Add Bank
+                    Add Bank
                 </a>
+              {% endif %}
             </div>
                   
             
             <!-- /.card-header -->
+            
             <div class="card-body">
               <table id="example2" class="table table-bordered table-striped table-hover">
                 <thead>
@@ -34,7 +37,9 @@
                     <th>BANK NAME</th>
                     <th>Bank Key</th>
                     <th>STATUS</th>
+                    {% if  user.activate_bank or user.inactivate_bank%}
                     <th>ACTION</th>
+                    {% endif %}
                   </tr>
                 </thead>
                 <tbody>
@@ -53,31 +58,39 @@
                         >
                         {% endif %}</td>
                         </td>
-                    <td><a
+                {% if  user.activate_bank or user.inactivate_bank%}
+                    <td>
+                      {% if user.edit_bank %}
+                      <a
                           href="{% url "update-bank" bank.id %}"
                           style="width: 80px"
                           class="d-inline  btn btn-block btn-outline-success"
                           title ="Edit bank Information"
                           ><i class="nav-icon fas fa-edit" ></i></a
                         >
-                       {% if bank.is_active %}
-                          <a
-                          href="{% url "inactive_bank" bank.id %}"
-                          style="width: 80px"
-                          data-toggle="modal" data-target="#myModal{{bank.id}}"
-                          class="d-inline  btn btn-block btn-outline-danger"
-                          title="Deactivate Bank"
-                          ><i class="fas fa-lock" ></i>
-                          </a>
+                      {% endif %}
+                      {% if bank.is_active %}
+                            {% if user.inactivate_bank %}
+                              <a
+                              href="{% url "inactive_bank" bank.id %}"
+                              style="width: 80px"
+                              data-toggle="modal" data-target="#myModal{{bank.id}}"
+                              class="d-inline  btn btn-block btn-outline-danger"
+                              title="Deactivate Bank"
+                              ><i class="fas fa-lock" ></i>
+                              </a>
+                              {% endif %}
                           {% else %}
-                            <a
-                          href="{% url "active-bank" bank.id %}"
-                          style="width: 80px"
-                          data-toggle="modal" data-target="#myModal{{bank.id}}"
-                          class="d-inline  btn btn-block btn-outline-success"
-                          title ="Activate bank"
-                          ><i class="fas fa-lock-open" ></i>
-                          </a>
+                              {% if user.activate_bank %}
+                              <a
+                                href="{% url "active-bank" bank.id %}"
+                                style="width: 80px"
+                                data-toggle="modal" data-target="#myModal{{bank.id}}"
+                                class="d-inline  btn btn-block btn-outline-success"
+                                title ="Activate bank"
+                                ><i class="fas fa-lock-open" ></i>
+                            </a>
+                            {% endif %}
                        {% endif %}
                 <div class="modal fade" id="myModal{{bank.id}}">
                     <div class="modal-dialog">
@@ -107,6 +120,7 @@
                   <!-- /.modal -->
 
                       </td>
+                  {% endif %}
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -116,7 +130,9 @@
                     <th>BANK NAME</th>
                     <th>BANK Key</th>
                     <th>STATUS</th>
+                    {% if  user.activate_bank or user.inactivate_bank%}
                     <th>ACTION</th>
+                    {% endif %}
                   </tr>
                 </tfoot>
               </table>

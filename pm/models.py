@@ -23,11 +23,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         (FEMALE, 'Female'),
     ]
     MANAGER ="MA"
-    SCHEDULER ="SC"
+    TEAM_LEADER ="TL"
     ENGINEER ="EN"
     BANKER= "BA"
     user_type = [(MANAGER, "Manager"),
-                (SCHEDULER, "Scheduler"),
+                (TEAM_LEADER, "Team Leader"),
                 (ENGINEER, "Engineer"),
                 (BANKER, "Bank User"),
                 ]
@@ -41,8 +41,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=100, choices=gender_choices, help_text="Gender", null=True, blank=True)
     phone = models.CharField(
         max_length=100, help_text='Phone Number', null=True, blank=True)
-    Photo = models.ImageField(
-        help_text='Photo', null=True, blank=True, default='atm_U2G9mVp.png')
+    photo = models.ImageField(
+        help_text='Photo', null=True, blank=True, upload_to="profile_pics")
     address = models.TextField(
         max_length=50, help_text='Address', null=True, blank=True)
     date_joined = models.DateTimeField(
@@ -50,10 +50,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=True, null=True, blank=True)
     is_active = models.BooleanField(default=True, null=True, blank=True)
     is_superuser = models.BooleanField(default=False,null=True,blank=True)
-    user_type = models.CharField(max_length=40,choices=user_type, default=MANAGER)
+    user_type = models.CharField(max_length=40,choices=user_type)
 
     # Permissions and Roles
     view_dashboard = models.BooleanField(default=False, null=True, blank=True)
+    view_analysis = models.BooleanField(default=False, null=True, blank=True)
     view_users = models.BooleanField(default=False, null=True, blank=True)
     view_banks = models.BooleanField(default=False, null=True, blank=True)
     view_terminals = models.BooleanField(default=False, null=True, blank=True)
@@ -62,6 +63,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     # edit Permissions
     edit_user = models.BooleanField(default=False, null=True, blank=True)
     edit_bank = models.BooleanField(default=False, null=True, blank=True)
+    activate_bank = models.BooleanField(default=False, null=True, blank=True)
+    inactivate_bank = models.BooleanField(default=False, null=True, blank=True)
     edit_terminal = models.BooleanField(default=False, null=True, blank=True)
     
     # Add Permissions

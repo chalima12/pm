@@ -42,7 +42,7 @@
                             <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                                 <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home" aria-selected="true">Basic Information</a>
                                 <a class="nav-link" id="vert-tabs-permissions-tab" data-toggle="pill" href="#vert-tabs-permissions" role="tab" aria-controls="vert-tabs-permissions" aria-selected="false">Permissions and Roles</a>
-                                <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings" aria-selected="false">Settings</a>
+    
                             </div>
                         </div>
                         <div class="col-7 col-sm-9">
@@ -143,6 +143,22 @@
                                                     <div class="form-check">
                                                     {{form.view_banks}}
                                                     <label for="{{ form.view_banks.id_for_label }}">View Banks</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.activate_bank}}
+                                                    <label for="{{ form.activate_bank.id_for_label }}">Activate Bank</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                    {{form.inactivate_bank}}
+                                                    <label for="{{ form.inactivate_bank.id_for_label }}">Deactivate Banks</label>
                                                     </div>
                                                 </div>
                                             </div>

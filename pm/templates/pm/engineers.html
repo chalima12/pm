@@ -12,15 +12,18 @@
   </section>
   <section class="content">
     <div class="container-fluid">
+      {% if user.user_type == "MA" or user.view_users %}
       <div class="row">
         <div class="col-12">
           <div class="card border-top border-info">
             <div class="card-header">
-              <h3 class="card-title">Users</h3>
-               <a href="{% url 'create_user' %}" class="btn btn-success btn-md float-right"
+              <h3 class="card-title">List of System Users</h3>
+                    {% if user.user_type == "MA" or user.add_user %}
+                <a href="{% url 'create_user' %}" class="btn btn-success btn-md float-right"
                         > <i class="fas fa-plus"></i>
                      Add User
                 </a>
+               {% endif %}
             </div>
                   
                
@@ -53,26 +56,29 @@
                         <span class="badge badge-success" style="width: 90px"
                           ><b>Active</b></span
                         >
-                       {% else %}
+                      {% else %}
                         <span class="badge badge-danger" style="width: 90px"
                           ><b>InActive</b></span
                         >
                         {% endif %}</td>
-                    <td><a
-                          href="{% url "edit-user" user.id %}"
-                          style="width: 80px"
-                          class="d-inline btn btn-block btn-outline-success"
-                          title= "Edit Information"
-                          ><i class="nav-icon fas fa-edit"></i></a
-                        >
+                    <td>
+                        <a
+                            href="{% url "edit-user" user.id %}"
+                            style="width: 80px"
+                            class="d-inline btn btn-block btn-outline-success"
+                            title= "Edit Information"
+                            ><i class="nav-icon fas fa-edit"></i></a
+                          >
+                        
                           <a
                           href="{% url "view-user" user.id %}"
                           style="width: 80px"
                           data-toggle="modal" data-target="#myModal{{user.id}}"
                           class="d-inline btn btn-block btn-outline-primary"
                           title="View Details"
-                          > <i class="fas fa-eye"></i>
+                          ><i class="fas fa-eye"></i>
                           </a>
+                          
                           <!--Modal-->
                     <div class="modal fade" id="myModal{{user.id}}">
                     <div class="modal-dialog modal-lg">
@@ -85,7 +91,7 @@
                         </div>
                         <div class="modal-body">
                           <div class="row">
-                            <div class="col-md-6">
+                          <div class="col-md-6">
                           <p>Name:<strong>{{user.first_name}} {{user.last_name}}</strong> </p>
                           <hr>
                             </div>
@@ -110,9 +116,9 @@
                               <strong>Manager</strong> 
                               {% elif user.user_type == "EN" %}
                               <strong>Engineer</strong> 
-                              {% elif use.user_type == "SC" %}
-                              <strong>Scheduler</strong> 
-                              {% elif use.user_type == "BA" %}
+                              {% elif user.user_type == "TL" %}
+                              <strong>Team Leader</strong> 
+                              {% elif user.user_type == "BA" %}
                               <strong>Bank User</strong> 
                               {% endif %}</p>
                             <hr>
@@ -151,6 +157,134 @@
           </div>
         </div>
       </div>
+      {% else %} 
+      <div class="row">
+      <div class="col-12">
+          <div class="card border-top border-info">
+            <div class="card-header">
+              <h3 class="card-title">Your Information</h3>
+                    {% if user.add_user %}
+                <a href="{% url 'create_user' %}" class="btn btn-success btn-md float-right"
+                        > <i class="fas fa-plus"></i>
+                    Add User
+                </a>
+              {% endif %}
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table class="table table-bordered table-striped table-hover">
+                <thead>
+                  <tr>
+                      <th>FIRST NAME</th>
+                      <th>LAST NAME</th>
+                      <th>GENDER</th>
+                      <th>PHONE NUMBER</th>
+                      <th>EMAIL</th>
+                      <th>STATUS</th>
+                      <th>ACTIONS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                      <td>{{user.first_name}}</td>
+                      <td>{{user.last_name}}</td>
+                      <td>{{user.gender}}</td>
+                      <td>{{user.phone}}</td>
+                      <td>{{user.email}}</td>
+                    <td>{% if user.is_active %}
+                        <span class="badge badge-success" style="width: 90px"
+                          ><b>Active</b></span
+                        >
+                      {% else %}
+                        <span class="badge badge-danger" style="width: 90px"
+                          ><b>InActive</b></span
+                        >
+                        {% endif %}</td>
+                    <td>
+                        <a
+                            href="{% url "edit-user" user.id %}"
+                            style="width: 80px"
+                            class="d-inline btn btn-block btn-outline-success"
+                            title= "Edit Information"
+                            ><i class="nav-icon fas fa-edit"></i></a
+                          >
+                        
+                          <a
+                          href="{% url "view-user" user.id %}"
+                          style="width: 80px"
+                          data-toggle="modal" data-target="#myModal{{user.id}}"
+                          class="d-inline btn btn-block btn-outline-primary"
+                          title="View Details"
+                          ><i class="fas fa-eye"></i>
+                          </a>
+                          
+                          <!--Modal-->
+                    <div class="modal fade" id="myModal{{user.id}}">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">User Information</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-6">
+                          <p>Name:<strong>{{user.first_name}} {{user.last_name}}</strong> </p>
+                          <hr>
+                            </div>
+                          <div class="col-md-6">
+                            <p>Gender:<strong>{{user.gender}}</strong> </p>
+                            <hr>
+                          </div>
+                          <div class="col-md-6">
+                            <p>Email:<strong>{{user.email}}</strong> </p>
+                            <hr>
+                          </div>
+                          <div class="col-md-6">
+                            <p>Phone Number:<strong>{{user.phone}}</strong> </p>
+                            <hr>
+                          </div>
+                          <div class="col-md-6">
+                            <p>Address:<strong>{{user.address}}</strong> </p>
+                            <hr>
+                          </div>
+                          <div class="col-md-6">
+                            <p>Role:{% if user.user_type == "MA" %}
+                              <strong>Manager</strong> 
+                              {% elif user.user_type == "EN" %}
+                              <strong>Engineer</strong> 
+                              {% elif user.user_type == "TL" %}
+                              <strong>Team Leader</strong> 
+                              {% elif user.user_type == "BA" %}
+                              <strong>Bank User</strong> 
+                              {% endif %}</p>
+                            <hr>
+                          </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                          <button type="button" class="btn btn-default m-4" data-dismiss="modal">Close</button>
+                          
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+      </div>
+
+      {% endif %}
     </div>
   </section>
 </div>

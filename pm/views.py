@@ -1,3 +1,4 @@
+from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -6,12 +7,9 @@ from django.http import Http404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone,timedelta,date
-from django.db.models import Q
 import json, math
 from pm.models import Terminal, User, Bank, Schedule,AllSchedule
-from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm,ApprovalScheduleForm,AllScheduleForm
-
-
+from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm, ApprovalScheduleForm, AllScheduleForm, CustomePasswordChangeForm
 
 def login_user(request):
     logout(request)
@@ -42,8 +40,13 @@ def logoutuser(request):
 
 @login_required
 def home(request):
-    # logged_in_user = request.user.password
-    # print(logged_in_user)
+    if request.user.is_authenticated:
+        loggedin_user_type = request.user.user_type
+        print(loggedin_user_type)
+        logged_in_user = request.user
+    else:
+        loggedin_user_type = None
+        logged_in_user = None
     numOfBanks = Bank.objects.all().count()
     numOfUsers = User.objects.all().count()
     numberofTerminals = Terminal.objects.all().count()
@@ -67,6 +70,8 @@ def home(request):
         "pendingTerminals": pendingTerminals,
         "pendingLists": pendingLists,
         'allSchedule': allSchedule,
+        "logged_in_user": logged_in_user,
+        "user_type": loggedin_user_type,
        
     }
     return render(request, "pm/index.html", context)
@@ -111,21 +116,33 @@ def create_user(request):
     context = {'form': form, "title": "Add User"}
     return render(request, 'pm/add_user.html', context)
 
+
 @login_required
 def edit_user(request, user_id):
     user = User.objects.get(pk=user_id)
-    form = UserForm(request.POST or None, instance=user)
-    if form.is_valid():
-        form.save()
-        messages.info(request, "Updated Successfully!")
-        return redirect('all-engineers')
+    user_form = UserForm(request.POST or None, instance=user)
+    password_form = CustomePasswordChangeForm(request.user, request.POST or None)
+    if request.method == 'POST':
+        if user_form.is_valid() and password_form.is_valid():
+            user_form.save()
+            password_form.save()
+            # Important to keep the user logged in
+            update_session_auth_hash(request, request.user)
+            messages.success(request, "User information updated successfully!")
+            return redirect('all-engineers')
+        else:
+            messages.error(request, "Please correct the errors in the form.")
+
     context = {
         'user': user,
-        'form': form,
-        "title": "edit User"
+        'form': user_form,
+        'password_form': password_form,
+        "title": "Edit User"
     }
     return render(request, 'pm/update_user.html', context)
 
+def userProfile(request):
+    return render(request, 'pm/profile.html')
 
 @login_required
 def banks(request):
@@ -483,13 +500,21 @@ def schedules_detail_report(request, bank_id):
     rejected_schedule = schedule_list_by_bank.filter(status="RE").count()
 
     # calculating Pending , waiting, onprogress and completed rate
-    pending_rate = round(pending_schedule/total_specific_schedules, 2)*100
-    waiting_rate = round(waiting_schedule/total_specific_schedules, 2)*100
-    onprogress_rate = round(onprogress_schedule /
-                            total_specific_schedules, 2)*100
-    submitted_rate = round(submitted_schedule/total_specific_schedules, 2)*100
-    approved_rate = round(approved_schedule/total_specific_schedules, 2)*100
-    rejected_rate = round(rejected_schedule/total_specific_schedules, 2)*100
+    if total_specific_schedules>0:
+        pending_rate = round(pending_schedule/total_specific_schedules, 2)*100
+        waiting_rate = round(waiting_schedule/total_specific_schedules, 2)*100
+        onprogress_rate = round(onprogress_schedule /
+                                total_specific_schedules, 2)*100
+        submitted_rate = round(submitted_schedule/total_specific_schedules, 2)*100
+        approved_rate = round(approved_schedule/total_specific_schedules, 2)*100
+        rejected_rate = round(rejected_schedule/total_specific_schedules, 2)*100
+    else:
+        pending_rate = 0
+        waiting_rate = 0
+        onprogress_rate =0
+        submitted_rate = 0
+        approved_rate = 0
+        rejected_rate = 0
     context = {
         "schedules": schedule_list_by_bank,
         "title":title,

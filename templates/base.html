@@ -176,7 +176,7 @@
               class="img-circle elevation-2" alt="User Image" />
             </div>
             <div class="info">
-              <a href="#" class="d-block">{{logged_in_user}}</a>
+              <a href="{% url "profile" %}" class="d-block">{{user}}</a>
             </div>
           </div>
 
@@ -190,78 +190,86 @@
             >
               <!-- Add icons to the links using the .nav-icon class
               with font-awesome or any other icon font library -->
+              {% if user_type == "MA" or user.view_dashboard%}
               <li class="nav-item">
                 <a href="{% url 'home' %}" class="nav-link">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>Dashboard</p>
                 </a>
               </li>
+            {% endif %}
+            
               <li class="nav-item">
                 <a href="{% url 'all-engineers' %}" class="nav-link">
                   <i class="nav-icon fas fa-users"></i>
                   <p>Users</p>
                 </a>
               </li>
-
+            {% if user.view_banks %}
               <li class="nav-item">
                 <a href="{% url 'banks-page' %}" class="nav-link">
                 <i class="nav-icon fa fa-university" aria-hidden="true"></i>
                   <p>Banks</p>
                 </a>
               </li>
+            {% endif %}
+            {% if user.view_terminals%}
               <li class="nav-item">
                 <a href="{% url 'all-terminals' %}" class="nav-link">
-                 <i class=" nav-icon fa fa-cubes" aria-hidden="true"></i>
+                <i class=" nav-icon fa fa-cubes" aria-hidden="true"></i>
                   <p>Terminals</p>
                 </a>
               </li>
-
+             {% endif %}
               <li class="nav-item">
                 <a href="{% url 'schedules' %}" class="nav-link">
                   <i class="nav-icon far fa-calendar-alt"></i>
                   <p>Schedules</p>
                 </a>
               </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
-              <p>
-              Report
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{% url "engineers-list" %}" class="nav-link">
-                  <p class = "ml-4">Engineers</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url "bank-list" %}" class="nav-link">
-                  <p class = "ml-4">Bank List</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url "terminals-list" %}" class="nav-link">
+        {% if user.view_report %}
+            <li class="nav-item menu-open">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-columns"></i>
+                <p>
+                Report
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{% url "engineers-list" %}" class="nav-link">
+                    <p class = "ml-4">Engineers</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url "bank-list" %}" class="nav-link">
+                    <p class = "ml-4">Bank List</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url "terminals-list" %}" class="nav-link">
+                    
+                    <p class = "ml-4">Terminal List</p>
+                  </a>
+                </li>
+              
+                {% comment %} <li class="nav-item">
+                  <a href="{% url "schedules-list" %}" class="nav-link">
                   
-                  <p class = "ml-4">Terminal List</p>
-                </a>
-              </li>
-              {% comment %} <li class="nav-item">
-                <a href="{% url "schedules-list" %}" class="nav-link">
-                 
-                  <p class = "ml-4">Schedules</p>
-                </a>
-              </li> {% endcomment %}
-            </ul>
+                    <p class = "ml-4">Schedules</p>
+                  </a>
+                </li> {% endcomment %}
+              </ul>
           </li>
-          <li class="nav-item">
+          {% endif %}
+          {% comment %} <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-map-marker-alt"></i>
                   <p>Map</p>
                 </a>
               </li>
-            </ul>
+            </ul> {% endcomment %}
           </nav>
           <!-- /.sidebar-menu -->
         </div>

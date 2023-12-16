@@ -4,7 +4,12 @@ import json
 
 def global_context(request):
     #TODO: Context Passed form Schedule LIst and 
-    logged_in_user = request.user
+    if request.user.is_authenticated:
+        loggedin_user_type = request.user.user_type
+        logged_in_user = request.user
+    else:
+        loggedin_user_type = None
+        logged_in_user = None
     pendingSchedule = Schedule.objects.filter(status="PE").count()
     waitingSchedule = Schedule.objects.filter(status="WT").count()
     onprogressSchedule = Schedule.objects.filter(status="OP").count()
@@ -22,6 +27,7 @@ def global_context(request):
         "approvedSchedule": json.dumps(approvedSchedule),
         "rejectedSchedule": json.dumps(rejectedSchedule),
         "logged_in_user":logged_in_user,
+        "user_type":loggedin_user_type,
     }
     return context 
     

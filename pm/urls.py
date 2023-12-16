@@ -27,6 +27,7 @@ urlpatterns = [
     path('users/', views.user, name='all-engineers'),
     path('add-user/', views.create_user, name="add-user"),
     path('create_user/', views.add_user, name = "create_user"),
+    path('profile/', views.userProfile, name="profile"),
     path('edit_user/<int:user_id>', views.edit_user, name='edit-user'),
     path('view-user/<int:id>', views.view_user, name='view-user'),
     path('create_schedule/', views.create_schedule, name='create_schedule'),
