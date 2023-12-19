@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone,timedelta,date
 import json, math
 from pm.models import Terminal, User, Bank, Schedule,AllSchedule
-from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm, ApprovalScheduleForm, AllScheduleForm, CustomePasswordChangeForm
+from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm, ApprovalScheduleForm, AllScheduleForm, CustomePasswordChangeForm,AssignPermissionsForm
 
 def login_user(request):
     logout(request)
@@ -143,6 +143,19 @@ def edit_user(request, user_id):
 
 def userProfile(request):
     return render(request, 'pm/profile.html')
+
+
+def assign_permissions(request,user_id):
+    user = get_object_or_404(User, id=user_id)
+    if request.method == 'POST':
+        form = AssignPermissionsForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('all-engineers')  # Redirect to the desired URL after successful update
+    else:
+        form = AssignPermissionsForm(instance=user)
+    context = {'form': form, "title": "Add Permissions","user":user}
+    return render(request, 'pm/assign_permissions.html', context)
 
 @login_required
 def banks(request):

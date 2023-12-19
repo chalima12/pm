@@ -78,6 +78,13 @@
                           title="View Details"
                           ><i class="fas fa-eye"></i>
                           </a>
+                          <a
+                          href="{% url "assign-permisions" user.id %}"
+                          style="width: 80px"
+                          class="d-inline btn btn-block btn-outline-info"
+                          title="View Details"
+                          >Permissions
+                          </a>
                           
                           <!--Modal-->
                     <div class="modal fade" id="myModal{{user.id}}">

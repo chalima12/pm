@@ -38,6 +38,6 @@ urlpatterns = [
     path("report/banks", views.banks_list, name="bank-list"),
     path("report/terminals", views.terminals_list, name="terminals-list"),
     path("banks/<int:bank_id>", views.schedules_detail_report, name="schedules-report"),
-
-
+    path('assign_permissions/<int:user_id>',
+         views.assign_permissions, name="assign-permisions")
 ]

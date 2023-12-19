@@ -71,6 +71,42 @@ class UserForm(UserCreationForm):
         }
 
 
+class AssignPermissionsForm(forms.ModelForm):
+    # user = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.Select(
+    #     attrs={'class': 'select2 form-control'}))
+    class Meta:
+        model = User
+        fields = [
+                'user_type','view_dashboard', 'view_users', 'view_banks', 'view_terminals', 
+                'view_scheules', 'view_report', 'edit_user', 'edit_bank', 'activate_bank', 'inactivate_bank', 'edit_terminal',
+                'add_user', 'add_bank', 'add_terminals', 'make_schedule', 'assign_engineer', 'start_task',
+                're_assign_engineer', 'end_task', 'approve_task', 'reject_task'
+                ]
+        widgets = {
+            'user_type': forms.Select(attrs={'class': 'form-control'}),
+            'view_dashboard': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'view_users': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'view_banks': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'view_terminals': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'view_scheules': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'view_report': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'edit_user': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'edit_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'activate_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'inactivate_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'edit_terminal': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'add_user': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'add_bank': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'add_terminals': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'make_schedule': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'assign_engineer': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'start_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            're_assign_engineer': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'end_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'approve_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'reject_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+    
 class CustomePasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(label=_('Old Password'),
                                 widget=(forms.PasswordInput(attrs={'class': 'form-control'})),
