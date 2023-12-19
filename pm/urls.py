@@ -31,6 +31,7 @@ urlpatterns = [
     path('profile/', views.userProfile, name="profile"),
     path('edit_user/<int:user_id>', views.edit_user, name='edit-user'),
     path('view-user/<int:id>', views.view_user, name='view-user'),
+    path('change_password/', views.change_password, name="change-password"),
     path('create_schedule/', views.create_schedule, name='create_schedule'),
 
     # Reports URL

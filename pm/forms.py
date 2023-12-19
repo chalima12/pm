@@ -55,6 +55,26 @@ class UserEditForm(UserChangeForm):
             'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'}),
             'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
         }
+class UserPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        label=_("Old Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password', 'class': 'form-control'}),
+    )
+    new_password1 = forms.CharField(
+        label=_("New Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'class': 'form-control'}),
+        help_text=password_validation.password_validators_help_text_html(),
+    )
+    new_password2 = forms.CharField(
+        label=_("Confirm New Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'class': 'form-control'}),
+    )
+    class Meta:
+        model = User
+        fields = ['old_password', 'new_password1', 'new_password2']
 class AssignPermissionsForm(forms.ModelForm):
     class Meta:
         model = User
@@ -88,21 +108,6 @@ class AssignPermissionsForm(forms.ModelForm):
             'approve_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'reject_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
-    
-class CustomePasswordChangeForm(PasswordChangeForm):
-    old_password = forms.CharField(label=_('Old Password'),
-                                widget=(forms.PasswordInput(attrs={'class': 'form-control'})),
-                                help_text=password_validation.password_validators_help_text_html())
-    new_password1 = forms.CharField(label=_('New Password'), widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-                                help_text=_('Just Enter the same password, for confirmation'))
-    new_password2 = forms.CharField(label=_('New Password Confirmation'), widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-                                help_text=_('Just Enter the same password, for confirmation'))
-    exclude = ['password1', 'password2']
-    class Meta:
-        model = User
-        fields = ['old_password', 'new_password1', 'new_password2']
-        
-
 
 class TerminalForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

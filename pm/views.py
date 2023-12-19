@@ -152,6 +152,26 @@ def edit_user(request, user_id):
     return render(request, 'pm/update_user.html', context)
 
 
+
+@login_required
+def change_password(request):
+    password_form = UserPasswordChangeForm(
+        request.user, request.POST or None)
+    if request.method == 'POST':
+        if password_form.is_valid():
+            password_form.save()
+            update_session_auth_hash(request, request.user)
+            messages.success(request, "Password changed successfully!")
+            return redirect('all-engineers')
+        else:
+            messages.error(request, "Please correct the errors in the form.")
+    context = {
+        'form': password_form,
+        "title": "Change Password"
+    }
+    return render(request, 'pm/password_change.html', context)
+
+@login_required
 def userProfile(request):
     return render(request, 'pm/profile.html')
 
