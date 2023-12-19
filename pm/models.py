@@ -42,7 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(
         max_length=100, help_text='Phone Number', null=True, blank=True)
     photo = models.ImageField(
-        help_text='Photo', null=True, blank=True, upload_to="profile_pics")
+        help_text='Photo', null=True, blank=True, upload_to="profile_pics", default='placeholder.jpg')
     address = models.TextField(
         max_length=50, help_text='Address', null=True, blank=True)
     date_joined = models.DateTimeField(
@@ -60,6 +60,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     view_terminals = models.BooleanField(default=False, null=True, blank=True)
     view_scheules = models.BooleanField(default=False, null=True, blank=True)
     view_report = models.BooleanField(default=False, null=True, blank=True)
+    assign_roles = models.BooleanField(default=False, null=True, blank=True)
     # edit Permissions
     edit_user = models.BooleanField(default=False, null=True, blank=True)
     edit_bank = models.BooleanField(default=False, null=True, blank=True)
@@ -81,7 +82,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     approve_task = models.BooleanField(default=False, null=True, blank=True)
     reject_task = models.BooleanField(default=False, null=True, blank=True)
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'gender', 'phone']
 
     objects = CustomUserManager()
 

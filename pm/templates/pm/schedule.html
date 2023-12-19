@@ -26,6 +26,7 @@
                     </a>
               {% endif %}
             </div>
+            {% if schedules %}
             <div class="card-body">
               <table id="example2" class="table table-bordered table-striped table-hover">
                 <thead>
@@ -64,6 +65,11 @@
                 </tfoot>
               </table>
             </div>
+            {% else %}
+             <div class="card-body">
+              <p class='text-center'>No Schedules Yet. List of Schedules Will display Here!</p>
+            </div>
+            {% endif %}
             <!-- /.card-body -->
           </div>
         </div>
