@@ -10,7 +10,7 @@ from datetime import datetime, timezone, timedelta, date
 import json
 import math
 from pm.models import Terminal, User, Bank, Schedule, AllSchedule
-from pm.forms import TerminalForm, BankForm, ScheduleForm, UserForm, AssignEngineerForm, EndScheduleForm, ApprovalScheduleForm, AllScheduleForm, CustomePasswordChangeForm, AssignPermissionsForm
+from pm.forms import *
 
 
 def login_user(request):
@@ -136,24 +136,17 @@ def create_user(request):
 @login_required
 def edit_user(request, user_id):
     user = User.objects.get(pk=user_id)
-    user_form = UserForm(request.POST or None, instance=user)
-    password_form = CustomePasswordChangeForm(
-        request.user, request.POST or None)
+    user_form = UserEditForm(request.POST or None, instance=user)
     if request.method == 'POST':
-        if user_form.is_valid() and password_form.is_valid():
+        if user_form.is_valid():
             user_form.save()
-            password_form.save()
-            # Important to keep the user logged in
-            update_session_auth_hash(request, request.user)
             messages.success(request, "User information updated successfully!")
             return redirect('all-engineers')
         else:
             messages.error(request, "Please correct the errors in the form.")
-
     context = {
         'user': user,
         'form': user_form,
-        'password_form': password_form,
         "title": "Edit User"
     }
     return render(request, 'pm/update_user.html', context)

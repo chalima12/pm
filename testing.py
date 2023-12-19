@@ -122,89 +122,108 @@ hour = diff.hours
 # </html>
 
 
+# {% comment %} <h3 class="card-title">Change Password</h3>
+#                                             {{ password_form.non_field_errors }} {% endcomment %}
+#                                             {% comment %} <div class="col-sm-6">
+#                                                 <div class="form-group">
+#                                                     <label for="{{ password_form.old_password.id_for_label }}">Old Password</label>
+#                                                     {{ password_form.old_password}}
+#                                                 </div>
+#                                             </div>
+#                                             <div class="col-sm-6">
+#                                                 <div class="form-group">
+#                                                     <label for="{{ password_form.new_password1.id_for_label }}">New Password</label>
+#                                                     {{ password_form.new_password1 }}
+#                                                 </div>
+#                                             </div>
+#                                             <div class="col-sm-6">
+#                                                 <div class="form-group">
+#                                                     <label for="{{ password_form.new_password2.id_for_label }}">Confirm New Password</label>
+#                                                     {{ password_form.new_password2}}
+#                                                 </div>
+#                                             </div> {% endcomment %}
 
+# print(selected_bank_name)
 
-print(selected_bank_name)
+#     if selected_bank_name:
+#         selected_bank = banks.filter(bank_name=selected_bank_name).first()
+#         print(selected_bank)
 
-    if selected_bank_name:
-        selected_bank = banks.filter(bank_name=selected_bank_name).first()
-        print(selected_bank)
+#         if selected_bank:
+#             schedules = Bank.objects.filter(bank_name=selected_bank)
+#             print(schedules)
+#             selected = True
+#         else:
+#             schedules = Schedule.objects.none()
+#     else:
+#         schedules = Schedule.objects.all()
+#         selected = False
 
-        if selected_bank:
-            schedules = Bank.objects.filter(bank_name=selected_bank)
-            print(schedules)
-            selected = True
-        else:
-            schedules = Schedule.objects.none()
-    else:
-        schedules = Schedule.objects.all()
-        selected = False
+# # {% comment %} <div class="form-group">
+# #                         <label>Filter Schedules Form the Dropdown</label>
+# #                         <select class="form-control" name ="options">
+# #                           <option value ="0"selected >-----Select-----</option>
+# #                           <option value ="All Schedule" >All Schedules</option>
+# #                           <option value ="Pending Schedule" >Pending Schedules</option>
+# #                           <option value ="Waiting Task" >Waiting Task</option>  
+# #                           <option value ="OnProgress Task" >OnProgress Task</option>  
+# #                           <option value ="Completed Task" >Completed Task</option>  
+# #                         </select>
+# #                       </div> {% endcomment %}
 
-# {% comment %} <div class="form-group">
-#                         <label>Filter Schedules Form the Dropdown</label>
-#                         <select class="form-control" name ="options">
-#                           <option value ="0"selected >-----Select-----</option>
-#                           <option value ="All Schedule" >All Schedules</option>
-#                           <option value ="Pending Schedule" >Pending Schedules</option>
-#                           <option value ="Waiting Task" >Waiting Task</option>  
-#                           <option value ="OnProgress Task" >OnProgress Task</option>  
-#                           <option value ="Completed Task" >Completed Task</option>  
-#                         </select>
-#                       </div> {% endcomment %}
+# @login_required
+# def schedule_list(request):
+#     schedules = Schedule.objects.all()
+#     title = "Schedules Report"
+#     banks = Bank.objects.all()
+#     selected = False
+#     selected_bank = request.POST.get('options')
+#     for s in schedules:
 
-@login_required
-def schedule_list(request):
-    schedules = Schedule.objects.all()
-    title = "Schedules Report"
-    banks = Bank.objects.all()
-    selected = False
-    selected_bank = request.POST.get('options')
-    for s in schedules:
+#         if selected_bank == s.terminal.bank_name.bank_name:
+#             bank_id = s.terminal.bank_name.id
+#             schedules = Schedule.objects.filter(bank_name_id=bank_id)
+#             print(schedules)
+#         #    print(selected_bank)
+#     # if selected_bank:
+#     #     schedules = Schedule.objects.filter(bank_name=selected_bank)
 
-        if selected_bank == s.terminal.bank_name.bank_name:
-            bank_id = s.terminal.bank_name.id
-            schedules = Schedule.objects.filter(bank_name_id=bank_id)
-            print(schedules)
-        #    print(selected_bank)
-    # if selected_bank:
-    #     schedules = Schedule.objects.filter(bank_name=selected_bank)
-
-    # print(schedules)
-    # selected = request.POST.get('options')
-    # selected_bank = request.POST.get('options')
-    # print(f"Selected ----------- {selected} :Selected Bank --------- {selected_bank}")
-    # from_date = request.POST.get('from_date')
-    # to_date = request.POST.get('to_date')
-    # if selected_bank:
-    #     schedules = Schedule.objects.filter(
-    #         bank_name=selected_bank,
-    #         created_date__range=(from_date, to_date)
-    #     )
-    #     title = f"Schedules for {selected_bank}"
-    # if(selected == "All Schedule"):
-    #     schedules = Schedule.objects.filter(
-    #         created_date__range=(from_date, to_date))
-    #     title = "All Tasks"
-    # if(selected =="Pending Schedule"):
-    #     schedules = Schedule.objects.filter(
-    #         status="PE", created_date__range=(from_date, to_date))
-    #     title = "Pending Schedule"
-    # if(selected == "Waiting Task"):
-    #     schedules = Schedule.objects.filter(
-    #         status="WT", created_date__range=(from_date, to_date))
-    #     title = "Waiting Task"
-    # if(selected == "OnProgress Task"):
-    #     schedules = Schedule.objects.filter(
-    #         status="OP", created_date__range=(from_date, to_date))
-    #     title = "OnProgress Task"
-    # if(selected == "Completed Task"):
-    #     schedules = Schedule.objects.filter(
-    #         status="SB", created_date__range=(from_date, to_date))
-    #     title ="Completed Task"
-    context = {
-        "schedules": schedules,
-        "title": title,
-        "selected": selected,
-        'banks': banks,
-    }
-    return render(request, 'pm/schedules_report.html', context)
+#     # print(schedules)
+#     # selected = request.POST.get('options')
+#     # selected_bank = request.POST.get('options')
+#     # print(f"Selected ----------- {selected} :Selected Bank --------- {selected_bank}")
+#     # from_date = request.POST.get('from_date')
+#     # to_date = request.POST.get('to_date')
+#     # if selected_bank:
+#     #     schedules = Schedule.objects.filter(
+#     #         bank_name=selected_bank,
+#     #         created_date__range=(from_date, to_date)
+#     #     )
+#     #     title = f"Schedules for {selected_bank}"
+#     # if(selected == "All Schedule"):
+#     #     schedules = Schedule.objects.filter(
+#     #         created_date__range=(from_date, to_date))
+#     #     title = "All Tasks"
+#     # if(selected =="Pending Schedule"):
+#     #     schedules = Schedule.objects.filter(
+#     #         status="PE", created_date__range=(from_date, to_date))
+#     #     title = "Pending Schedule"
+#     # if(selected == "Waiting Task"):
+#     #     schedules = Schedule.objects.filter(
+#     #         status="WT", created_date__range=(from_date, to_date))
+#     #     title = "Waiting Task"
+#     # if(selected == "OnProgress Task"):
+#     #     schedules = Schedule.objects.filter(
+#     #         status="OP", created_date__range=(from_date, to_date))
+#     #     title = "OnProgress Task"
+#     # if(selected == "Completed Task"):
+#     #     schedules = Schedule.objects.filter(
+#     #         status="SB", created_date__range=(from_date, to_date))
+#     #     title ="Completed Task"
+#     context = {
+#         "schedules": schedules,
+#         "title": title,
+#         "selected": selected,
+#         'banks': banks,
+#     }
+#     return render(request, 'pm/schedules_report.html', context)

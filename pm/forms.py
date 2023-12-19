@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
 from django import forms
 from pm.models import Terminal, Bank, User, Schedule,AllSchedule
 from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
@@ -34,6 +34,27 @@ class UserForm(UserCreationForm):
             'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
         }
 
+
+class UserEditForm(UserChangeForm):
+    first_name = forms.CharField(max_length=12, min_length=4, required=True, help_text='Required: First Name',widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}))
+    last_name = forms.CharField(max_length=12, min_length=4, required=True, help_text='Required: Last Name', widget=(
+        forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'})))
+    email = forms.EmailField(max_length=50, help_text='Required. Inform a valid email address.', widget=(
+        forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email Address'})))
+    username = forms.CharField(
+        label=_('Username'),
+        max_length=150,
+        widget=forms.TextInput(
+            attrs={'class': 'form-control', 'placeholder': 'User Name'})
+    )
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'gender','username', 'email', 'phone', 'address']
+        widgets = {
+            'gender': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Select Gender'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'}),
+            'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
+        }
 class AssignPermissionsForm(forms.ModelForm):
     class Meta:
         model = User
