@@ -60,7 +60,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     view_terminals = models.BooleanField(default=False, null=True, blank=True)
     view_scheules = models.BooleanField(default=False, null=True, blank=True)
     view_report = models.BooleanField(default=False, null=True, blank=True)
-    assign_roles = models.BooleanField(default=False, null=True, blank=True)
+    assign_permissions = models.BooleanField(default=False, null=True, blank=True)
     # edit Permissions
     edit_user = models.BooleanField(default=False, null=True, blank=True)
     edit_bank = models.BooleanField(default=False, null=True, blank=True)
