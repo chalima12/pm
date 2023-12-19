@@ -1,12 +1,14 @@
 from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
 from django import forms
-from pm.models import Terminal, Bank, User, Schedule,AllSchedule
-from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
+from pm.models import Terminal, Bank, User, Schedule, AllSchedule
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth import password_validation
 from django.utils.translation import gettext_lazy as _
+
+
 class UserForm(UserCreationForm):
     first_name = forms.CharField(max_length=12, min_length=4, required=True, help_text='Required: First Name',
-                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}))
+                                 widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}))
     last_name = forms.CharField(max_length=12, min_length=4, required=True, help_text='Required: Last Name', widget=(
         forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'})))
     email = forms.EmailField(max_length=50, help_text='Required. Inform a valid email address.', widget=(
@@ -15,7 +17,7 @@ class UserForm(UserCreationForm):
                                 widget=(forms.PasswordInput(
                                     attrs={'class': 'form-control', 'placeholder': 'Password'})),
                                 help_text=password_validation.password_validators_help_text_html())
-    password2 = forms.CharField(label=_('Password Confirmation'), widget=forms.PasswordInput(attrs={'class': 'form-control','placeholder': 'Confirm Password'}),
+    password2 = forms.CharField(label=_('Password Confirmation'), widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm Password'}),
                                 help_text=_('Just Enter the same password, for confirmation'))
     username = forms.CharField(
         label=_('Username'),
@@ -23,20 +25,23 @@ class UserForm(UserCreationForm):
         widget=forms.TextInput(
             attrs={'class': 'form-control', 'placeholder': 'User Name'})
     )
+
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'gender', 'username', 'email',
-                'phone', 'address', 'password1', 'password2'
-                ]
-        widgets = {    
+                  'phone', 'address', 'password1', 'password2', 'photo'
+                  ]
+        widgets = {
             'gender': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Select Gender'}),
             'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'}),
             'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
+            'photo': forms.FileInput(attrs={'class': 'form-control'}),
         }
 
 
 class UserEditForm(UserChangeForm):
-    first_name = forms.CharField(max_length=12, min_length=4, required=True, help_text='Required: First Name',widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}))
+    first_name = forms.CharField(max_length=12, min_length=4, required=True, help_text='Required: First Name',
+                                 widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}))
     last_name = forms.CharField(max_length=12, min_length=4, required=True, help_text='Required: Last Name', widget=(
         forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'})))
     email = forms.EmailField(max_length=50, help_text='Required. Inform a valid email address.', widget=(
@@ -47,43 +52,54 @@ class UserEditForm(UserChangeForm):
         widget=forms.TextInput(
             attrs={'class': 'form-control', 'placeholder': 'User Name'})
     )
+
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'gender','username', 'email', 'phone', 'address']
+        fields = ['first_name', 'last_name', 'gender',
+                  'username', 'email', 'phone', 'address', 'photo']
         widgets = {
             'gender': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Select Gender'}),
             'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'}),
             'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
+            'photo': forms.FileInput(attrs={'class': 'form-control'}),
         }
+
+
 class UserPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(
         label=_("Old Password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password', 'class': 'form-control'}),
+        widget=forms.PasswordInput(
+            attrs={'autocomplete': 'current-password', 'class': 'form-control', 'placeholder': 'Old Password'}),
     )
     new_password1 = forms.CharField(
         label=_("New Password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'class': 'form-control'}),
+        widget=forms.PasswordInput(
+            attrs={'autocomplete': 'new-password', 'class': 'form-control', 'placeholder': 'New Password'}),
         help_text=password_validation.password_validators_help_text_html(),
     )
     new_password2 = forms.CharField(
         label=_("Confirm New Password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'class': 'form-control'}),
+        widget=forms.PasswordInput(
+            attrs={'autocomplete': 'new-password', 'class': 'form-control', 'placeholder': 'Confirm New Password'}),
     )
+
     class Meta:
         model = User
         fields = ['old_password', 'new_password1', 'new_password2']
+
+
 class AssignPermissionsForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
-                'user_type','view_dashboard', 'view_users', 'view_banks', 'view_terminals', 
-                'view_scheules', 'view_report', 'edit_user', 'edit_bank', 'activate_bank', 'inactivate_bank', 'edit_terminal',
-                'add_user', 'add_bank', 'add_terminals', 'make_schedule', 'assign_engineer', 'start_task',
-                're_assign_engineer', 'end_task', 'approve_task', 'reject_task'
-                ]
+            'user_type', 'view_dashboard', 'view_users', 'view_banks', 'view_terminals',
+            'view_scheules', 'view_report', 'edit_user', 'edit_bank', 'activate_bank', 'inactivate_bank', 'edit_terminal',
+            'add_user', 'add_bank', 'add_terminals', 'make_schedule', 'assign_engineer', 'start_task',
+            're_assign_engineer', 'end_task', 'approve_task', 'reject_task'
+        ]
         widgets = {
             'user_type': forms.Select(attrs={'class': 'form-control'}),
             'view_dashboard': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
@@ -108,6 +124,7 @@ class AssignPermissionsForm(forms.ModelForm):
             'approve_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'reject_task': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
+
 
 class TerminalForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -155,7 +172,8 @@ class BankForm(forms.ModelForm):
 
 class ScheduleForm(forms.ModelForm):
     terminals = forms.ModelMultipleChoiceField(queryset=Terminal.objects.all(
-     ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2 select2bs4'}))
+    ), widget=forms.SelectMultiple(attrs={'class': 'form-control select2 select2bs4'}))
+
     class Meta:
         model = Schedule
         fields = ['schedule', 'terminals', 'start_date', ]
@@ -164,16 +182,18 @@ class ScheduleForm(forms.ModelForm):
             'start_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
 
+
 class AllScheduleForm(forms.ModelForm):
     class Meta:
-        model= AllSchedule
+        model = AllSchedule
         fields = ['schedul_name', 'scheduled_by', 'description']
         widgets = {
             'schedul_name': forms.TextInput(attrs={'class': 'form-control'}),
             'scheduled_by': forms.Select(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Type your description here'}),
-            
+
         }
+
 
 class AssignEngineerForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -208,14 +228,16 @@ class EndScheduleForm(forms.ModelForm):
             'closed_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
 
+
 class ApprovalScheduleForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['approval_comment'].required = True
+
     class Meta:
         model = Schedule
         fields = ['approval_comment']
         widgets = {
             'approval_comment': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Enter Comment here...'}),
-            
+
         }

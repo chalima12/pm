@@ -122,7 +122,7 @@ def add_user(request):
 @login_required
 def create_user(request):
     if request.method == 'POST':
-        form = UserForm(request.POST)
+        form = UserForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, "New User created successfully!")
@@ -136,7 +136,9 @@ def create_user(request):
 @login_required
 def edit_user(request, user_id):
     user = User.objects.get(pk=user_id)
-    user_form = UserEditForm(request.POST or None, instance=user)
+    user_form = UserEditForm(request.POST or None,
+                             request.FILES or None, instance=user)
+
     if request.method == 'POST':
         if user_form.is_valid():
             user_form.save()
@@ -144,14 +146,13 @@ def edit_user(request, user_id):
             return redirect('all-engineers')
         else:
             messages.error(request, "Please correct the errors in the form.")
+
     context = {
         'user': user,
         'form': user_form,
         "title": "Edit User"
     }
     return render(request, 'pm/update_user.html', context)
-
-
 
 @login_required
 def change_password(request):

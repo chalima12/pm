@@ -62,15 +62,15 @@
                     <td>
                         <a
                             href="{% url "edit-user" user.id %}"
-                            style="width: 80px"
+                            style="width: 100px"
                             class="d-inline btn btn-block btn-outline-success"
                             title= "Edit Information"
-                            ><i class="nav-icon fas fa-edit"></i></a
+                            ><i class="fa-solid fa-user-pen"></i></a
                           >
                         
                           <a
                           href="{% url "view-user" user.id %}"
-                          style="width: 80px"
+                          style="width: 100px"
                           data-toggle="modal" data-target="#myModal{{user.id}}"
                           class="d-inline btn btn-block btn-outline-primary"
                           title="View Details"
@@ -78,10 +78,10 @@
                           </a>
                           <a
                           href="{% url "assign-permisions" user.id %}"
-                          style="width: 80px"
-                          class="d-inline btn btn-block btn-outline-info"
-                          title="View Details"
-                          >Permissions
+                          style="width: 100px"
+                          class="d-inline btn btn-block btn-outline-info mx-1"
+                          title="Permisions"
+                          ><i class="fa-solid fa-key"></i>
                           </a>
                           
                           <!--Modal-->
@@ -211,9 +211,8 @@
                             style="width: 80px"
                             class="d-inline btn btn-block btn-outline-success"
                             title= "Edit Information"
-                            ><i class="nav-icon fas fa-edit"></i></a
-                          >
-                        
+                            ><i class="nav-icon fas fa-edit"></i>
+                          </a>
                           <a
                           href="{% url "view-user" user.id %}"
                           style="width: 80px"

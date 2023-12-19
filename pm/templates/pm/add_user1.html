@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <div class="col-7 col-sm-9">
-                            <form action="" method="POST">
+                            <form action="" method="POST" enctype='multipart/form-data'>
                                 {% csrf_token %}
                                 <div class="tab-content" id="vert-tabs-tabContent">
                                     <div class="tab-pane text-left fade show active" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
@@ -102,6 +102,12 @@
                                                 <div class="form-group">
                                                     <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
                                                     {{form.password2}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="{{ form.photo.id_for_label }}">Profile Picture</label>
+                                                    {{form.photo}}
                                                 </div>
                                             </div>
                                         </div>
