@@ -152,10 +152,12 @@
         </div>
         {% if schedules %}
         <div class="card border-top">
+        <div class="card-header">
+          <h5 class="text-center">List High Priority Tasks</h5>
+        </div>
         <table id="example12" class="table table-hover">
                 <thead>
                   <tr>
-                    <th>#</th>
                     <th>TID</th>
                     <th>BANK NAME</th>
                     <th>TERMINAL NAME</th>
@@ -167,9 +169,8 @@
                 </thead>
                 <tbody>
                   {% for schedule  in schedules %}
-                  {% if schedule.terminal.bank_name.is_active %}
+                  {% if schedule.terminal.bank_name.is_active and schedule.status != "AP" %}
                 <tr data-widget="expandable-table" aria-expanded="false">
-                <td>{{forloop.counter}}</td>
                     <td>{{schedule.terminal.tid}}</td>
                     <td>{{schedule.terminal.bank_name}}</td>
                     <td>{{schedule.terminal.terminal_name}}</td>
@@ -218,13 +219,11 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>#</th>
                     <th>TID</th>
                     <th>BANK NAME</th>
                     <th>TERMINAL NAME</th>
                     <th>END DATE</th>
                     <th>ASSIGNED TO</th>
-                    <th>REMAINING DAY</th>
                     <th>STATUS</th>
                     <th>PRIORITY<th>
                   </tr>

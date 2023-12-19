@@ -25,6 +25,7 @@ urlpatterns = [
     path('approve_task/<int:id>', views.approve_task, name='task_approval'),
     path('reject_task/<int:id>', views.reject_task, name='reject_task'),
     path('users/', views.user, name='all-engineers'),
+    path('users_list', views.user_card_display, name ="users-card"),
     path('add-user/', views.create_user, name="add-user"),
     path('create_user/', views.add_user, name = "create_user"),
     path('profile/', views.userProfile, name="profile"),
