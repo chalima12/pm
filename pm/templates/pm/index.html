@@ -95,7 +95,8 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-6">
-            <!-- PIE CHART -->
+            <!-- PIE CHART --> 
+            {% if allSchedule %}
             <div class="card card-info card-outline">
               <div class="card-header">
                 <h3 class="card-title">Schedule Report</h3>
@@ -109,19 +110,20 @@
                 </div>
               </div>
               <div class="card-body">
+               
                 <canvas id="pieChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+               
               </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
-
+          {% endif %}
           </div>
           <!-- /.col (LEFT) -->
-
-
         <div class="col-md-6">
               <!-- BAR CHART -->
             <!-- Bar chart -->
+            {% if allSchedule %}
             <div class="card card-info card-outline">
               <div class="card-header">
                 <h3 class="card-title">
@@ -142,11 +144,94 @@
               </div>
               <!-- /.card-body-->
             </div>
+            {% endif %}
             <!-- /.card -->
 
             <!-- BAR CHART -->
           </div>
         </div>
+        {% if schedules %}
+        <div class="card border-top">
+        <table id="example12" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>TID</th>
+                    <th>BANK NAME</th>
+                    <th>TERMINAL NAME</th>
+                    <th>END DATE</th>
+                    <th>ASSIGNED TO</th>
+                    <th>STATUS</th>
+                    <th>PRIORITY<th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for schedule  in schedules %}
+                  {% if schedule.terminal.bank_name.is_active %}
+                <tr data-widget="expandable-table" aria-expanded="false">
+                <td>{{forloop.counter}}</td>
+                    <td>{{schedule.terminal.tid}}</td>
+                    <td>{{schedule.terminal.bank_name}}</td>
+                    <td>{{schedule.terminal.terminal_name}}</td>
+                    <td>{{schedule.end_date|date:'Y-m-d'}}</td>
+                    <td>{% if schedule.assign_to %}
+                        {{schedule.assign_to.first_name}} {{schedule.assign_to.last_name}}
+                        {% else %}
+                        <b>Not Assigned Yet</b>
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if schedule.status == "PE" %}
+                          <span class="badge " style="width: 90px; background-color: #cf5438 ;"
+                          ><b>Pending</b></span>
+                          {% elif schedule.status == "WT" %}
+                          <span class="badge " style="width: 90px; background-color: #3498db ;"
+                          ><b>Waiting</b></span>
+                        {% elif schedule.status == "OP" %}
+                        <span class="badge " style="width: 90px;background-color: #FFD700 ;"
+                          ><b>Onprogress</b></span>
+                        
+                          {% elif schedule.status == "SB" %}
+                          <span class="badge " style="width: 90px; background-color: #81e7ac ;"
+                          >
+                          <b>Submitted</b></span>
+                          {% elif schedule.status == "AP" %}
+                          <span class="badge " style="width: 90px; background-color: #00a65a ;"
+                          >
+                          <b>Approved</b></span>
+                          {% elif schedule.status == "RE" %}
+                          <span class="badge" style="width: 90px; background-color: #FF0000 ;"
+                          >
+                          <b>Rejectd</b></span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if schedule.priority == "H" %}
+                      <span class="badge" style="width: 90px; background-color: #FF0000 ;"
+                          >
+                          <b>High</b></span>
+                      {% endif %}
+                    </td>
+                    </tr>
+                  {% endif %}
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>#</th>
+                    <th>TID</th>
+                    <th>BANK NAME</th>
+                    <th>TERMINAL NAME</th>
+                    <th>END DATE</th>
+                    <th>ASSIGNED TO</th>
+                    <th>REMAINING DAY</th>
+                    <th>STATUS</th>
+                    <th>PRIORITY<th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          {% endif %}
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
@@ -163,7 +248,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0"><span class="text-success">{{logged_in_user}}</span> Welecome To Moti PM Portal</h1>
+            <h1 class="m-0"><span class="text-success">{{user.first_name}}</span>, Welecome To Moti PM Portal</h1>
           </div><!-- /.col -->
         
         </div><!-- /.row -->

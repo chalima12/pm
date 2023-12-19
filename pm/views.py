@@ -58,6 +58,7 @@ def home(request):
     submittedSchedule = Schedule.objects.filter(status="SB").count()
     approvedSchedule = Schedule.objects.filter(status="AP").count()
     rejectedSchedule = Schedule.objects.filter(status="RE").count()
+    high_priority_schedules = Schedule.objects.filter(priority ="H")
     
     allSchedule = pendingSchedule + waitingSchedule + onprogressSchedule + submittedSchedule + approvedSchedule + rejectedSchedule
     context = {
@@ -72,6 +73,7 @@ def home(request):
         'allSchedule': allSchedule,
         "logged_in_user": logged_in_user,
         "user_type": loggedin_user_type,
+        "schedules":high_priority_schedules,
        
     }
     return render(request, "pm/index.html", context)
