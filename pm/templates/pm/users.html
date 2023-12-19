@@ -2,10 +2,12 @@
 <!-- Main content -->
 <div class="wrapper">
   <div class="content-wrapper">
-    <!--You can add Header-->
-    <section class="content">
-      <!-- Default box -->
-      <div class="card card-solid">
+      <!--You can add Header-->
+      <section class="content">
+          <div class="card card-solid">
+          <a href="{% url "all-engineers" %}" class="nav-link" title ="Table View">
+                    <i class="nav-icon fas fa-table"></i>
+                  </a>
         <div class="card-body pb-0">
           <div class="row">
             {% for user in users %}
