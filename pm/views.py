@@ -349,6 +349,47 @@ def detail_schedules_list(request, pk):
     }
     return render(request, 'pm/detail_schedules_list.html', context)
 
+@login_required
+def user_specific_tasks(request):
+    user_id = request.user.id
+    schedules_list = Schedule.objects.filter(assign_to=user_id)
+    specific_schedule_count = schedules_list.count()
+    pending_schedule = schedules_list.filter(status="PE").count()
+    waiting_schedule = schedules_list.filter(status="WT").count()
+    onprogress_schedule = schedules_list.filter(status="OP").count()
+    submitted_schedule = schedules_list.filter(status="SB").count()
+    approved_schedule = schedules_list.filter(status="AP").count()
+    rejected_schedule = schedules_list.filter(status="RE").count()
+
+    # calculating Pending , waiting, onprogress and completed rate
+    pending_rate = round(pending_schedule/specific_schedule_count, 2)*100
+    waiting_rate = round(waiting_schedule/specific_schedule_count, 2)*100
+    onprogress_rate = round(onprogress_schedule/specific_schedule_count, 2)*100
+    submitted_rate = round(submitted_schedule/specific_schedule_count, 2)*100
+    approved_rate = round(approved_schedule/specific_schedule_count, 2)*100
+    rejected_rate = round(rejected_schedule/specific_schedule_count, 2)*100
+
+    engineer_nedded = math.ceil(pending_schedule/7)
+    # Calcuate Remaining Days
+    now = datetime.now(timezone.utc)
+    for schedule in schedules_list:
+        schedule.remaining_days = (schedule.end_date - now).days
+
+    context = {
+        'schedules': schedules_list,
+        "title": "Detial shedule",
+        "pending_rate": pending_rate,
+        "waiting_rate": waiting_rate,
+        "onprogress_rate": onprogress_rate,
+        "submitted_rate": submitted_rate,
+        "approved_rate": approved_rate,
+        "rejected_rate": rejected_rate,
+        "all_schedule_count": specific_schedule_count,
+        "engineer_nedded": engineer_nedded,
+
+    }
+    return render(request, 'pm/user_tasks.html', context)
+
 
 @login_required
 def create_schedule(request):

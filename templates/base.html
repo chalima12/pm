@@ -222,12 +222,22 @@
                 </a>
               </li>
              {% endif %}
+             {% if user.user_type != "EN"%} 
               <li class="nav-item">
                 <a href="{% url 'schedules' %}" class="nav-link">
                   <i class="nav-icon far fa-calendar-alt"></i>
                   <p>Schedules</p>
                 </a>
               </li>
+              {% endif %}
+              {% if user.user_type == "EN" %}
+              <li class="nav-item">
+                <a href="{% url 'your-task' %}" class="nav-link">
+                  <i class="nav-icon far fa-calendar-alt"></i>
+                  <p>Tasks</p>
+                </a>
+              </li>
+              {% endif %}
         {% if user.view_report %}
             <li class="nav-item menu-open">
               <a href="#" class="nav-link">

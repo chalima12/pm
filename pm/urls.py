@@ -28,6 +28,7 @@ urlpatterns = [
     path('users_list', views.user_card_display, name ="users-card"),
     path('add-user/', views.create_user, name="add-user"),
     path('create_user/', views.add_user, name = "create_user"),
+    path('your_task/', views.user_specific_tasks, name='your-task' ),
     path('profile/', views.userProfile, name="profile"),
     path('edit_user/<int:user_id>', views.edit_user, name='edit-user'),
     path('view-user/<int:id>', views.view_user, name='view-user'),

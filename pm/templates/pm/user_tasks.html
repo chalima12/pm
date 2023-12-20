@@ -18,7 +18,7 @@
         <div class="col-12">
           <div class="card border-top border-info">
             <div class="card-header">
-              <a href="{% url "schedules" %}" class="btn btn-md btn-info">Back</a>
+              {% comment %} <a href="{% url "schedules" %}" class="btn btn-md btn-info">Back</a> {% endcomment %}
               <a  class="btn btn-secondary btn-md float-right" data-toggle="modal" data-target="#analysis"
                         >
                     📈Analysis Summary
@@ -252,6 +252,7 @@
                   <!-- /.modal -->
                       </td>
                       </tr>
+                    
                   {% endif %}
                 {% endfor %}
                 </tbody>
