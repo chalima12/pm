@@ -173,7 +173,7 @@
                                 </a>
                               {% endif %}
                           {% elif schedule.status == "OP" %}
-                            {% if user.end_task %}
+                            {% if user.end_task  %}
                               <a href="{% url "end-task" schedule.id %}"
                                 style="width: 90px"
                                 class="btn btn-block btn-danger"

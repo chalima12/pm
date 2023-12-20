@@ -1,4 +1,5 @@
 from . import views
+from django.contrib.auth.decorators import permission_required
 from django.urls import path
 urlpatterns = [
     path('', views.home, name='home'),
@@ -15,8 +16,8 @@ urlpatterns = [
          views.updateTerminal, name='update-terminal'),
     # path('schedules/', views.schedule, name='schedules'),
     path('all-schedules', views.all_schedule, name='schedules'),
-    path('detail_schedule/<int:pk>',
-         views.detail_schedules_list, name='detail_schedules_list'),
+    path('all-schedules/', permission_required('view_scheules')(views.all_schedule), name='schedules'),
+    path('detail_schedule/<int:pk>',views.detail_schedules_list, name='detail_schedules_list'),
 
     path('assign_engineer/<int:id>', views.assign_engineer, name='assign-engineer'),
     path("start_task/<int:scheule_id>", views.start_task, name="start-task"),
@@ -28,7 +29,7 @@ urlpatterns = [
     path('users_list', views.user_card_display, name ="users-card"),
     path('add-user/', views.create_user, name="add-user"),
     path('create_user/', views.add_user, name = "create_user"),
-    path('your_task/', views.user_specific_tasks, name='your-task' ),
+    path('your_tasks/', views.user_specific_tasks, name='your-task' ),
     path('profile/', views.userProfile, name="profile"),
     path('edit_user/<int:user_id>', views.edit_user, name='edit-user'),
     path('view-user/<int:id>', views.view_user, name='view-user'),
