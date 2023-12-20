@@ -362,14 +362,22 @@ def user_specific_tasks(request):
     rejected_schedule = schedules_list.filter(status="RE").count()
 
     # calculating Pending , waiting, onprogress and completed rate
-    pending_rate = round(pending_schedule/specific_schedule_count, 2)*100
-    waiting_rate = round(waiting_schedule/specific_schedule_count, 2)*100
-    onprogress_rate = round(onprogress_schedule/specific_schedule_count, 2)*100
-    submitted_rate = round(submitted_schedule/specific_schedule_count, 2)*100
-    approved_rate = round(approved_schedule/specific_schedule_count, 2)*100
-    rejected_rate = round(rejected_schedule/specific_schedule_count, 2)*100
-
-    engineer_nedded = math.ceil(pending_schedule/7)
+    if specific_schedule_count>0:
+        pending_rate = round(pending_schedule/specific_schedule_count, 2)*100
+        waiting_rate = round(waiting_schedule/specific_schedule_count, 2)*100
+        onprogress_rate = round(onprogress_schedule/specific_schedule_count, 2)*100
+        submitted_rate = round(submitted_schedule/specific_schedule_count, 2)*100
+        approved_rate = round(approved_schedule/specific_schedule_count, 2)*100
+        rejected_rate = round(rejected_schedule/specific_schedule_count, 2)*100
+    else:
+        pending_rate = 0
+        waiting_rate = 0
+        onprogress_rate =0
+        submitted_rate = 0
+        approved_rate =0
+        rejected_rate = 0
+    tasks = pending_schedule+ waiting_schedule+ onprogress_schedule + rejected_schedule
+    days_needed = round(tasks/7,2)
     # Calcuate Remaining Days
     now = datetime.now(timezone.utc)
     for schedule in schedules_list:
@@ -385,7 +393,7 @@ def user_specific_tasks(request):
         "approved_rate": approved_rate,
         "rejected_rate": rejected_rate,
         "all_schedule_count": specific_schedule_count,
-        "engineer_nedded": engineer_nedded,
+        "days_needed": days_needed,
 
     }
     return render(request, 'pm/user_tasks.html', context)
