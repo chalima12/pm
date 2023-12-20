@@ -163,6 +163,7 @@
                     <th>TERMINAL NAME</th>
                     <th>END DATE</th>
                     <th>ASSIGNED TO</th>
+                    <th>LOCATION</th>
                     <th>STATUS</th>
                     <th>PRIORITY<th>
                   </tr>
@@ -181,6 +182,7 @@
                         <b>Not Assigned Yet</b>
                       {% endif %}
                     </td>
+                    <td>{{schedule.terminal.location}}</td>
                     <td>
                       {% if schedule.status == "PE" %}
                           <span class="badge " style="width: 90px; background-color: #cf5438 ;"
@@ -224,6 +226,7 @@
                     <th>TERMINAL NAME</th>
                     <th>END DATE</th>
                     <th>ASSIGNED TO</th>
+                    <th>LOCATION</th>
                     <th>STATUS</th>
                     <th>PRIORITY<th>
                   </tr>

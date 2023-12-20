@@ -68,8 +68,8 @@
                 </div>
                 <div class="card-footer">
                   <div class="text-right">
-                    <a href="#" class="btn btn-sm bg-teal">
-                      <i class="fas fa-comments"></i>
+                    <a href="{% url "edit-user" user.id %}" class="btn btn-sm bg-teal">
+                      <i class="fa-solid fa-user-pen"></i>Edit
                     </a>
                     <a href="{% url "change-password" %}" class="btn btn-sm btn-primary">
                       <i class="fas fa-user"></i> Change Password

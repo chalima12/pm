@@ -69,10 +69,17 @@
                     </div>
                   </div>
                 </div>
+                 {% comment %} <a
+                          href="{% url "assign-permisions" user.id %}"
+                          style="width: 100px"
+                          class="d-inline btn btn-block btn-outline-info mx-1"
+                          title="Permisions"
+                          ><i class="fa-solid fa-key"></i>
+                          </a> {% endcomment %}
                 <div class="card-footer">
                   <div class="text-right">
-                    <a href="#" class="btn btn-sm bg-teal">
-                      <i class="fas fa-comments"></i>
+                    <a href="{% url "assign-permisions" user.id %}" class="btn btn-sm bg-teal">
+                      <i class="fa-solid fa-key"></i>Permisions
                     </a>
                     <a href="{% url "edit-user" user.id %}" class="btn btn-sm btn-primary">
                       <i class="fa-solid fa-user-pen"></i> Edit Profile
