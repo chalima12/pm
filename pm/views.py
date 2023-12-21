@@ -540,7 +540,7 @@ def engineers_list(request):
         title = "All Users"
     if (selected == 'Engineers'):
         users = User.objects.filter(
-            is_engineer=True, date_joined__range=(from_date, to_date))
+            user_type="EN", date_joined__range=(from_date, to_date))
         title = "Engineers"
     if (selected == 'Active Users'):
         users = User.objects.filter(
@@ -552,11 +552,11 @@ def engineers_list(request):
         title = "InActive Users"
     if (selected == 'Super Users'):
         users = User.objects.filter(
-            is_super_user=True, date_joined__range=(from_date, to_date))
+            is_superuser=True, date_joined__range=(from_date, to_date))
         title = "Super Users"
     if (selected == 'Bank Users'):
         users = User.objects.filter(
-            is_bank_user=True, created_date__range=(from_date, to_date))
+            user_type = "BA", created_date__range=(from_date, to_date))
         title = "Bank Users"
     context = {
         "users": users,
