@@ -12,7 +12,7 @@
   </section>
   <section class="content">
     <div class="container-fluid">
-    {% if user.user_type == "MA"%}
+    {% if user.user_type == "MA" or user.is_superuser%}
       <div class="row">
         <div class="col-12">
           <div class="card border-top border-info">

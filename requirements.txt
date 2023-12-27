@@ -4,12 +4,14 @@ distlib==0.3.7
 Django==4.2.5
 django-debug-toolbar==4.2.0
 django-filter==23.3
+django-mathfilters==1.0.0
 djangorestframework==3.14.0
 filelock==3.12.4
 Markdown==3.4.4
 Pillow==10.0.1
 pipenv==2023.9.8
 platformdirs==3.10.0
+psycopg2==2.9.9
 python-dateutil==2.8.2
 pytz==2023.3.post1
 six==1.16.0
