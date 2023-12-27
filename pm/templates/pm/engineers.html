@@ -17,7 +17,7 @@
         <div class="col-12">
           <div class="card border-top border-info">
             <div class="card-header">
-              {% if user.user_type == "MA" or user.add_user %}
+              {% if user.add_user %}
               <a href="{% url "users-card" %}" title ="View In Grid"><i class="fas fa-th-large"></i></a>
                 <a href="{% url 'create_user' %}" class="btn btn-success btn-md float-right"
                         > <i class="fas fa-plus"></i>

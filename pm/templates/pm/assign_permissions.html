@@ -81,20 +81,31 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div class="form-check">
-                                                        {{form.view_dashboard}}
-                                                        <label for="{{ form.view_dashboard.id_for_label }}">View
-                                                            Dashboard</label>
+                                                        {{form.view_users}}
+                                                        <label for="{{ form.view_users.id_for_label }}">View
+                                                            Users</label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div class="form-check">
-                                                        {{form.view_users}}
-                                                        <label for="{{ form.view_users.id_for_label }}">View
-                                                            Users</label>
+                                                        {{form.add_user}}
+                                                        <label for="{{ form.add_user.id_for_label }}">Add User</label>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        {{form.edit_user}}
+                                                        <label for="{{ form.edit_user.id_for_label }}">Edit User</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                                            
+                                            <div class="col-md-12">
+                                                <hr>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
@@ -105,6 +116,22 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        {{form.add_bank}}
+                                                        <label for="{{ form.add_bank.id_for_label }}">Add Bank</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        {{form.edit_bank}}
+                                                        <label for="{{ form.edit_bank.id_for_label }}">Edit Bank</label>
+                                                    </div>
+                                                </div>
+                                            </div> 
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div class="form-check">
@@ -123,14 +150,38 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-12">
+                                                <hr>
+                                            </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div class="form-check">
                                                         {{form.view_terminals}}
                                                         <label for="{{ form.view_terminals.id_for_label }}">View
-                                                            Terminals</label>
+                                                            ATMs</label>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        {{form.add_terminals}}
+                                                        <label for="{{ form.add_terminals.id_for_label }}">Add
+                                                            ATMs</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        {{form.edit_terminal}}
+                                                        <label for="{{ form.edit_terminal.id_for_label }}">Edit
+                                                            ATMs</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <hr>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
@@ -141,66 +192,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form-check">
-                                                        {{form.view_report}}
-                                                        <label for="{{ form.view_report.id_for_label }}">View
-                                                            Reports</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form-check">
-                                                        {{form.edit_user}}
-                                                        <label for="{{ form.edit_user.id_for_label }}">Edit User</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form-check">
-                                                        {{form.edit_bank}}
-                                                        <label for="{{ form.edit_bank.id_for_label }}">Edit Bank</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form-check">
-                                                        {{form.edit_terminal}}
-                                                        <label for="{{ form.edit_terminal.id_for_label }}">Edit
-                                                            Terminal</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form-check">
-                                                        {{form.add_user}}
-                                                        <label for="{{ form.add_user.id_for_label }}">Add User</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form-check">
-                                                        {{form.add_bank}}
-                                                        <label for="{{ form.add_bank.id_for_label }}">Add Bank</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form-check">
-                                                        {{form.add_terminals}}
-                                                        <label for="{{ form.add_terminals.id_for_label }}">Add
-                                                            Terminal</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div class="form-check">
@@ -264,7 +256,27 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <div class="col-md-12">
+                                                <hr>
+                                            </div>
+                                        <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        {{form.view_dashboard}}
+                                                        <label for="{{ form.view_dashboard.id_for_label }}">View
+                                                            Dashboard</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        {{form.view_report}}
+                                                        <label for="{{ form.view_report.id_for_label }}">View
+                                                            Reports</label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Give/Take away Permissions</button>
                                         <a href="{% url 'all-engineers' %}" class="btn btn-secondary">Cancel</a>
