@@ -116,22 +116,7 @@ def add_user(request):
     else:
         form = UserForm()
     context = {'form': form, "title": "Add User"}
-    return render(request, 'pm/add_user1.html', context)
-
-
-@login_required
-def create_user(request):
-    if request.method == 'POST':
-        form = UserForm(request.POST,request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "New User created successfully!")
-            return redirect('all-engineers')
-    else:
-        form = UserForm()
-    context = {'form': form, "title": "Add User"}
     return render(request, 'pm/add_user.html', context)
-
 
 @login_required
 def edit_user(request, user_id):

@@ -1,105 +1,129 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block content %}
 <div class="content-wrapper">
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1>Add User</h1>
-        </div>
-      </div>
-    </div><!-- /.container-fluid -->
-  </section>
-
-  <section class="content">
-    <div class="container-fluid">
-      <div class="card card-default border-top border-info">
-        <div class="card-header">
-          {% if form.errors %}
-          <div class="container alert alert-danger alert-dismissible" role="alert">
-            <strong>Error!</strong> Please correct the following errors:
-                  <ul>
-                  {% for field, errors in form.errors.items %}
-                    {% for error in errors %}
-                      <li> {{ error }}</li>
-                    {% endfor %}
-                  {% endfor %}
-                </ul>
-
-            <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          {% else %} 
-          <h3 class="card-title">Add User</h3>
-          {% endif %}
-        </div>
-        <div class="card-body">
-          <form action="" method="POST">
-            {% csrf_token %}
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="{{ form.first_name.id_for_label }}">First Name</label>
-                    {{form.first_name}}
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Add User</h1>
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="{{ form.last_name.id_for_label }}">Last Name</label>
-                    {{form.last_name}}
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="{{ form.gender.id_for_label }}">Gender</label>
-                    {{form.gender}}
-                </div>
-              </div> 
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="{{ form.username.id_for_label }}">Username</label>
-                    {{form.username}}
-                </div>
-              </div>
-
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="{{ form.email.id_for_label }}">email</label>
-                    {{form.email}}
-                </div>
-              </div>
-             <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="{{ form.phone.id_for_label }}">Phone</label>
-                    {{form.phone}}
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="{{ form.address.id_for_label }}">Address</label>
-                    {{form.address}}
-                </div>
-              </div> 
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="{{ form.password1.id_for_label }}">Password</label>
-                    {{form.password1}}
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
-                    {{form.password2}}
-                </div>
-              </div>
             </div>
-            <button type="submit" class="btn btn-primary">Add</button>
-            <a href="{% url 'all-engineers' %}" class="btn btn-secondary">Cancel</a>
-          </form>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-default border-top border-info">
+                <div class="card-header">
+                    {% if form.errors %}
+                    <div class="container alert alert-danger alert-dismissible" role="alert">
+                        <strong>Error!</strong> Please correct the following errors:
+                        <ul>
+                            {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                            <li> {{ error }}</li>
+                            {% endfor %}
+                            {% endfor %}
+                        </ul>
+
+                        <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% else %}
+                    <h3 class="card-title">Add User</h3>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2 col-sm-2">
+                            <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home" aria-selected="true">Basic Information</a>
+                            </div>
+                        </div>
+                        <div class="col-7 col-sm-9">
+                            <form action="" method="POST" enctype='multipart/form-data'>
+                                {% csrf_token %}
+                                <div class="tab-content" id="vert-tabs-tabContent">
+                                    <div class="tab-pane text-left fade show active" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                                                    {{form.first_name}}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                                                    {{form.last_name}}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="{{ form.gender.id_for_label }}">Gender</label>
+                                                    {{form.gender}}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="{{ form.username.id_for_label }}">Username</label>
+                                                    {{form.username}}
+                                                </div>
+                                            </div>
+                                    
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="{{ form.email.id_for_label }}">email</label>
+                                                    {{form.email}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="{{ form.phone.id_for_label }}">Phone</label>
+                                                    {{form.phone}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="{{ form.address.id_for_label }}">Address</label>
+                                                    {{form.address}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="{{ form.password1.id_for_label }}">Password</label>
+                                                    {{form.password1}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                                                    {{form.password2}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="{{ form.photo.id_for_label }}">Profile Picture</label>
+                                                    {{form.photo}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Add User</button>
+                                    <a href="{% url 'all-engineers' %}" class="btn btn-secondary">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 </div>
- 
 {% endblock content %}
+
+
+
