@@ -37,7 +37,7 @@
                     <th>BANK NAME</th>
                     <th>Bank Key</th>
                     <th>STATUS</th>
-                    {% if  user.activate_bank or user.inactivate_bank%}
+                    {% if  user.activate_bank or user.inactivate_bank or user.edit_bank%}
                     <th>ACTION</th>
                     {% endif %}
                   </tr>
@@ -58,7 +58,7 @@
                         >
                         {% endif %}</td>
                         </td>
-                {% if  user.activate_bank or user.inactivate_bank%}
+                {% if  user.activate_bank or user.inactivate_bank or user.edit_bank%}
                     <td>
                       {% if user.edit_bank %}
                       <a
@@ -130,7 +130,7 @@
                     <th>BANK NAME</th>
                     <th>BANK Key</th>
                     <th>STATUS</th>
-                    {% if  user.activate_bank or user.inactivate_bank%}
+                    {% if  user.activate_bank or user.inactivate_bank or user.edit_bank%}
                     <th>ACTION</th>
                     {% endif %}
                   </tr>
