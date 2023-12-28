@@ -100,7 +100,7 @@ def user_card_display(request):
         "title": "All Users",
         "users": UsersQuerySet
     }
-    return render(request, 'pm/users.html', context)
+    return render(request, 'pm/user_card_display.html', context)
 
 def view_user(request, id):
     return HttpResponseRedirect(reverse('all-engineers'))
@@ -292,7 +292,6 @@ def all_schedule(request):
         "schedules": all_schedule,
     }
     return render(request, 'pm/schedule.html', context)
-
 
 def detail_schedules_list(request, pk):
     schedule = get_object_or_404(AllSchedule, pk=pk)
