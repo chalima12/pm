@@ -159,14 +159,14 @@
                                   style="width: 90px"
                                   class="d-inline  btn btn-block btn-outline-info mx-1"
                                   data-toggle="modal" data-target="#startModal{{schedule.id}}"
-                                  title ="Start Task"
-                                  ><i class="fas fa-play"></i>
+                                  ><i class="fas fa-play"  data-toggle="tooltip" data-placement="bottom" title ="Start Task" ></i>
                                 </a>
                               {% endif %}
                               {% if user.re_assign_engineer %}
                                   <a href=" {% url "assign-engineer" schedule.id %}"
                                   style="width: 90px"
                                   class="d-inline btn btn-block btn-outline-success"
+                                  data-toggle="tooltip" data-placement="bottom" 
                                   title ="Change Engineer"
                                   ><i class="fas fa-edit"></i>
                                 </a>

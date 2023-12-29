@@ -105,6 +105,8 @@ class Bank(models.Model):
     class Meta:
         ordering = ['bank_name']
 
+
+
 class Terminal(models.Model):
     NORTH = "NR"
     SOUTH = "SR"

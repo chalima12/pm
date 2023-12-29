@@ -48,7 +48,7 @@
                     <td> {{schedule.description}}</td>
                     <td>{{schedule.all_schedules.count}}</td>
                     <td>{% if  schedule.all_schedules.count%}
-                      <a href="{% url "detail_schedules_list" schedule.id %}" class='btn-lg' title="Go to Details"><i class="fas fa-arrow-circle-right"></i></a>
+                      <a href="{% url "detail_schedules_list" schedule.id %}" class='btn-lg'  data-toggle="tooltip" data-placement="bottom"  title="Go to Details Schedules"><i class="fas fa-arrow-circle-right"></i></a>
                       {% endif %}</td>
                   </tr>
                 {% endfor %}

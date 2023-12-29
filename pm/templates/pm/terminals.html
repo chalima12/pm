@@ -53,6 +53,7 @@
                     <td>
                       {% if user.edit_terminal %}
                       <a href="{% url "update-terminal" terminal.id %}" style="width: 80px"
+                        data-toggle="tooltip" data-placement="bottom" 
                         class="d-inline  btn btn-block btn-outline-success" title="Edit Information"><i
                           class="nav-icon fas fa-edit"></i>
                         </a>
@@ -60,7 +61,7 @@
 
                       <a style="width: 80px" href="{% url "view_terminal" terminal.id %}"
                         class="d-inline btn btn-block btn-outline-primary mx-1" data-toggle="modal"
-                        data-target="#myModal{{terminal.id}}" title="View Details"> <i class="fas fa-eye"></i>
+                        data-target="#myModal{{terminal.id}}"> <i class="fas fa-eye"  data-toggle="tooltip" data-placement="bottom"  title="View Details"></i>
                       </a>
 
                       <!--Modal -->

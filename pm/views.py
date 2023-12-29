@@ -45,7 +45,7 @@ def logoutuser(request):
 def home(request):
     if request.user.is_authenticated:
         loggedin_user_type = request.user.user_type
-        print(loggedin_user_type)
+        # print(loggedin_user_type)
         logged_in_user = request.user
     else:
         loggedin_user_type = None
