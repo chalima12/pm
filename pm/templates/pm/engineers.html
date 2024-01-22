@@ -63,7 +63,7 @@
                         <a
                             href="{% url "edit-user" user.id %}"
                             style="width: 100px"
-                            class="d-inline btn btn-block btn-outline-success mx-1"
+                            class="d-inline  btn-outline-success mx-1"
                             data-toggle="tooltip" data-placement="bottom" 
                             title= "Edit Information"
                             ><i class="fa-solid fa-user-pen"></i>
@@ -73,14 +73,14 @@
                           href="{% url "view-user" user.id %}"
                           style="width: 100px"
                           data-toggle="modal" data-target="#myModal{{user.id}}"
-                          class="d-inline btn btn-block btn-outline-primary"
+                          class="d-inline btn-outline-primary"
                           ><i class="fas fa-eye"  data-toggle="tooltip" data-placement="bottom" title="View Details" ></i>
                           </a>
 
                           <a
                           href="{% url "assign-permisions" user.id %}"
                           style="width: 100px"
-                          class="d-inline btn btn-block btn-outline-info mx-1"
+                          class="d-inline  btn-outline-info mx-1"
                           data-toggle="tooltip" data-placement="bottom" 
                           title="Give/Take away Permissions"
                           ><i class="fa-solid fa-key"></i>
