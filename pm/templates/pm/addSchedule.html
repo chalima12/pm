@@ -42,11 +42,13 @@
                     {{form1.schedul_name}}
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="{{ form.scheduled_by.id_for_label }}">Scheduled by</label>
-                    {{form1.scheduled_by}}
-                </div>
+            <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="{{ form1.scheduled_by.id_for_label }}">Scheduled by</label>
+                      <input type="text" id="{{ form1.scheduled_by.id_for_label }}"
+                            name="{{ form1.scheduled_by.name}}" value="{{ user.first_name }} {{ user.last_name }}"
+                            class="form-control" readonly>
+                  </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">

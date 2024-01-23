@@ -186,10 +186,9 @@ class ScheduleForm(forms.ModelForm):
 class AllScheduleForm(forms.ModelForm):
     class Meta:
         model = AllSchedule
-        fields = ['schedul_name', 'scheduled_by', 'description']
+        fields = ['schedul_name','description']
         widgets = {
             'schedul_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'scheduled_by': forms.Select(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Type your description here'}),
 
         }

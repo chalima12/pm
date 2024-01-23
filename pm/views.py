@@ -390,8 +390,9 @@ def create_schedule(request):
         form = ScheduleForm(request.POST)
         form1 = AllScheduleForm(request.POST)
         if form.is_valid() and form1.is_valid():
-            form1.clean()
-            form1_instance = form1.save()
+            form1_instance = form1.save(commit=False)
+            form1_instance.scheduled_by = request.user
+            form1_instance.save()
             terminals = form.cleaned_data['terminals']
             start_date = form.cleaned_data['start_date']
             string_start_date = str(date.isoformat(start_date))
