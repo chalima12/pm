@@ -1,5 +1,5 @@
 from . import views
-from django.contrib.auth.decorators import permission_required
+# from django.contrib.auth.decorators import permission_required
 from django.urls import path
 urlpatterns = [
     path('', views.home, name='home'),
@@ -16,7 +16,7 @@ urlpatterns = [
          views.updateTerminal, name='update-terminal'),
     # path('schedules/', views.schedule, name='schedules'),
     path('all-schedules', views.all_schedule, name='schedules'),
-    path('all-schedules/', permission_required('view_scheules')(views.all_schedule), name='schedules'),
+    path('all-schedules/', views.all_schedule, name='schedules'),
     path('detail_schedule/<int:pk>',views.detail_schedules_list, name='detail_schedules_list'),
 
     path('assign_engineer/<int:id>', views.assign_engineer, name='assign-engineer'),

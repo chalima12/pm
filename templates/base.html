@@ -202,12 +202,21 @@
                 </a>
               </li>
             {% endif %}
+            {% if user.user_type == "MA" %}
               <li class="nav-item">
                 <a href="{% url 'all-engineers' %}" class="nav-link">
                   <i class="nav-icon fas fa-users"></i>
                   <p>Users</p>
                 </a>
               </li>
+              {% else %}
+              <li class="nav-item">
+                <a href="{% url 'all-engineers' %}" class="nav-link">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>Profile</p>
+                </a>
+              </li>
+              {% endif %}
             {% if user.view_banks %}
               <li class="nav-item">
                 <a href="{% url 'banks-page' %}" class="nav-link">
@@ -316,13 +325,36 @@
     </div>
     <!-- ./wrapper -->
 
-    <script>
+    {% comment %} <script>
       document.querySelectorAll(".nav-link").forEach((link) => {
     if (link.href === window.location.href) {
         link.classList.add("active");
     }
 });
-    </script>
+    </script> {% endcomment %}
+<script>
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    // Check if the current page URL is exactly equal to the link's URL
+    if (window.location.href === link.href) {
+      link.classList.add("active");
+    }
+  });
+
+  // For sublinks
+  document.querySelectorAll(".nav-treeview a").forEach((sublink) => {
+    // Check if the current page URL is exactly equal to the sublink's URL
+    if (window.location.href === sublink.href) {
+      sublink.classList.add("active-sublink");
+
+      // Find the main nav link associated with the sublink
+      const mainNavLink = sublink.closest(".nav-item").querySelector(".nav-link");
+      if (mainNavLink) {
+        mainNavLink.classList.add("active");
+      }
+    }
+  });
+</script>
+
     <!-- jQuery -->
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
     <!-- jQuery UI 1.11.4 -->
