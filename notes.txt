@@ -1,2 +1,12 @@
   <td>{{schedule.start_date|date:'Y-m-d H:i:s'}}</td>
   <td>{{schedule.end_date|date:'Y-m-d H:i:s'}}</td>
+
+
+
+   {% comment %} <script>
+      document.querySelectorAll(".nav-link").forEach((link) => {
+    if (link.href === window.location.href) {
+        link.classList.add("active");
+    }
+});
+    </script> {% endcomment %}

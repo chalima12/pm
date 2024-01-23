@@ -328,35 +328,30 @@
     </div>
     <!-- ./wrapper -->
 
-    {% comment %} <script>
+
+    <script>
       document.querySelectorAll(".nav-link").forEach((link) => {
-    if (link.href === window.location.href) {
-        link.classList.add("active");
-    }
-});
-    </script> {% endcomment %}
-<script>
-  document.querySelectorAll(".nav-link").forEach((link) => {
-    // Check if the current page URL is exactly equal to the link's URL
-    if (window.location.href === link.href) {
-      link.classList.add("active");
-    }
-  });
+        // Check if the current page URL is exactly equal to the link's URL
+        if (window.location.href === link.href) {
+          link.classList.add("active");
+        }
+      });
 
-  // For sublinks
-  document.querySelectorAll(".nav-treeview a").forEach((sublink) => {
-    // Check if the current page URL is exactly equal to the sublink's URL
-    if (window.location.href === sublink.href) {
-      sublink.classList.add("active-sublink");
+        
+      // For sublinks
+      document.querySelectorAll(".nav-treeview a").forEach((sublink) => {
+        // Check if the current page URL is exactly equal to the sublink's URL
+        if (window.location.href === sublink.href) {
+          sublink.classList.add("active-sublink");
 
-      // Find the main nav link associated with the sublink
-      const mainNavLink = sublink.closest(".nav-item").querySelector(".nav-link");
-      if (mainNavLink) {
-        mainNavLink.classList.add("active");
-      }
-    }
-  });
-</script>
+          // Find the main nav link associated with the sublink
+          const mainNavLink = sublink.closest(".nav-item").querySelector(".nav-link");
+          if (mainNavLink) {
+            mainNavLink.classList.add("active");
+          }
+        }
+      });
+    </script>
 
     <!-- jQuery -->
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
