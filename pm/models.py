@@ -6,14 +6,18 @@ from .managers import CustomUserManager
 
 # Create your models here.
 
-REGION_CHIOCES = [
-    ("NR", "North"),
-    ("SR", "South"),
-    ("ER", "East"),
-    ("WR", "West"),
-    ("CR", "Centeral"),
-    ("NN", "None")
-]
+NORTH = "NR"
+SOUTH = "SR"
+EAST = "ER"
+WEST = "WR"
+CENTERAL = "CR"
+MOTI_DISTRICT = [
+        (NORTH, "North"),
+        (SOUTH, "South"),
+        (EAST, "East"),
+        (WEST, "West"),
+        (CENTERAL, "Centeral"),
+    ]
 
 class User(AbstractBaseUser, PermissionsMixin):
     MALE = 'M'
@@ -106,27 +110,23 @@ class Bank(models.Model):
         ordering = ['bank_name']
 
 
+class Moti_district(models.Model):   
+    district_name = models.CharField(max_length=100, null= True, blank=True)
+    location = models.CharField(max_length=100, null= True, blank=True)
+    region = models.CharField(
+        max_length=50, choices=MOTI_DISTRICT, null=True, blank=True)
+    def __str__(self):
+        return self.district_name
+    
 
 class Terminal(models.Model):
-    NORTH = "NR"
-    SOUTH = "SR"
-    EAST = "ER"
-    WEST = "WR"
-    CENTERAL = "CR"
-    MOTI_DISTRICT = [
-        (NORTH, "North"),
-        (SOUTH, "South"),
-        (EAST, "East"),
-        (WEST, "West"),
-        (CENTERAL, "Centeral"),
-    ]
-
     bank_name = models.ForeignKey(
         Bank, on_delete=models.PROTECT,null=True,blank=True,related_name='terminalBanks')
     bank_district = models.CharField(max_length=255, null=True, blank=True)
     bank_branch = models.CharField(max_length=255,null=True,blank=True)
     moti_district = models.CharField(
         max_length=50, choices=MOTI_DISTRICT, null=True, blank=True)
+    district =models.ForeignKey(Moti_district,on_delete=models.PROTECT,null=True,blank=True)
     tid = models.CharField(max_length=30, null=True, blank=True)
     terminal_name = models.CharField(max_length=255, null=True, blank=True)
     serial_number = models.CharField(max_length=200, null=True, blank=True)
