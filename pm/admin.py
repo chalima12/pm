@@ -1,5 +1,5 @@
 from django.contrib import admin
-from pm.models import Bank, Schedule, Terminal, User, AllSchedule
+from pm.models import Bank, Schedule, Terminal, User, AllSchedule, Moti_district
 
 
 @admin.register(Bank)
@@ -30,3 +30,7 @@ class ScheduleListAdmin(admin.ModelAdmin):
 class TerminalAdmin(admin.ModelAdmin):
     list_display = ['bank_name', 'moti_district', 'tid',
                     'terminal_name', 'serial_number', 'location', 'city']
+
+@admin.register(Moti_district)
+class Moti_districtAdmin(admin.ModelAdmin):
+    list_display=["district_name","location","region"]

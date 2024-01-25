@@ -137,12 +137,13 @@ class TerminalForm(forms.ModelForm):
 
     class Meta:
         model = Terminal
-        fields = ['bank_name', 'bank_district', 'bank_branch', 'moti_district', 'tid',
+        fields = ['bank_name', 'bank_district', 'bank_branch', 'district', 'moti_district', 'tid',
                   'terminal_name', 'serial_number', 'model', 'disspenser_type', 'city', 'location']
         widgets = {
             'bank_name': forms.Select(attrs={'class': 'form-control'}),
             'bank_district': forms.TextInput(attrs={'class': 'form-control'}),
             'bank_branch': forms.TextInput(attrs={'class': 'form-control'}),
+            'district': forms.Select(attrs={'class': 'form-control'}),
             'moti_district': forms.Select(attrs={'class': 'form-control'}),
             'tid': forms.TextInput(attrs={'class': 'form-control'}),
             'terminal_name': forms.TextInput(attrs={'class': 'form-control'}),
