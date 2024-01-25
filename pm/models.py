@@ -139,7 +139,7 @@ class Terminal(models.Model):
     
 
     def __str__(self) -> str:
-        return f'{self.terminal_name} ({self.bank_name.bank_name})'
+        return f'{self.terminal_name} ({self.tid}) ({self.bank_name.bank_name})'
     
     class Meta:
         ordering = ['terminal_name']
