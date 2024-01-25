@@ -555,18 +555,7 @@ def engineers_list(request):
 def banks_list(request):
     banks = Bank.objects.all()
     title = "Banks Report"
-    # selected = request.POST.get('options')
-    # from_date = request.POST.get('from_date')
-    # to_date = request.POST.get('to_date')
-    # if (selected == 'All Banks'):
-    #     banks = Bank.objects.filter(created_date__range=(from_date,to_date))
-    #     title ="All Banks"
-    # if(selected =='Active Banks'):
-    #     banks = Bank.objects.filter(is_active=True, created_date__range=(from_date,to_date))
-    #     title = "Active Banks"
-    # if(selected == 'InActive Banks'):
-    #     banks = Bank.objects.filter(is_active=False, created_date__range=(from_date,to_date))
-    #     title = "InActive Banks"
+  
     context = {
         "banks": banks,
         "title": title,
