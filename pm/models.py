@@ -195,7 +195,7 @@ class Schedule(models.Model): #TODO: name this to Shedule List
     material_required = models.CharField(max_length=255, null=True,blank=True)
     comment = models.CharField(max_length=255,null=True,blank=True)
     checklist_photo = models.FileField(null=True, blank=True,upload_to="pm_checklist_pics/")
-    closed_date = models.DateTimeField(blank=True,null=True,default=timezone.now)
+    closed_date = models.DateTimeField(blank=True,null=True)
     approval_comment = models.CharField(max_length=100, null=True, blank=True)
     
     created_date = models.DateField(

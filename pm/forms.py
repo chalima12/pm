@@ -218,6 +218,7 @@ class EndScheduleForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['comment'].required = True
         self.fields['checklist_photo'].required = True
+        self.fields['closed_date'].required = True
 
     class Meta:
         model = Schedule
