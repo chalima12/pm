@@ -183,7 +183,7 @@
                                 > End </a>
                               {% endif %}
                           {% elif schedule.status == "SB" %}
-                              {% if user.approve_task %}
+                              {% comment %} {% if user.approve_task %}
                                 <a href="{% url "task_approval" schedule.id %}"
                                   style="width: 90px"
                                   class="btn  btn-success mr-2"
@@ -194,7 +194,9 @@
                                 style="width: 90px"
                                 class="btn  btn-danger"
                                 > Rejectd </a>
-                              {% endif %}
+                              {% endif %}  {% endcomment %}
+                              <a href="{% url "task_approval" schedule.id %}" style="width: 90px"
+                                class="btn btn-block btn-outline-primary" >Approval</a>
                       {% endif %}
                       <!--Start Task Moal-->
                   <div class="modal fade" id="startModal{{schedule.id}}">

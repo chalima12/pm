@@ -486,7 +486,7 @@ def approve_task(request, id):
         all_schedule_id = schedule.schedule.id
     context = {'form': form, 'schedule': schedule,
                "title": "Approval task", "all_schedule_id": all_schedule_id}
-    return render(request, 'pm/approve_task.html', context)
+    return render(request, 'pm/task_approval.html', context)
 
 
 def reject_task(request, id):
@@ -506,8 +506,8 @@ def reject_task(request, id):
         form = ApprovalScheduleForm(instance=schedule)
         all_schedule_id = schedule.schedule.id
     context = {'form': form, 'schedule': schedule,
-               "title": "Reject task", "all_schedule_id": all_schedule_id}
-    return render(request, 'pm/reject_task.html', context)
+            "title": "Reject task", "all_schedule_id": all_schedule_id}
+    return render(request, 'pm/task_approval.html', context)
 
 
 # Reports View
