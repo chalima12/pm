@@ -8,8 +8,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone, timedelta, date
 import json
+from pm.models import Terminal, User, Bank, Schedule, AllSchedule,Moti_district
 import math
-from pm.models import Terminal, User, Bank, Schedule, AllSchedule
 from pm.forms import *
 
 
@@ -175,7 +175,26 @@ def assign_permissions(request, user_id):
     context = {'form': form, "title": "Add Permissions", "user": user}
     return render(request, 'pm/assign_permissions.html', context)
 
-
+@login_required
+def add_moti_district(request):
+    if request.method == "POST":
+        form = MotiDistrictForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Moti District Add Successfully")
+            return redirect('districts-list')
+    else:
+        form = MotiDistrictForm()
+    context ={"form":form,"title":"Add Moti District"}
+    return render(request,"pm/add_district.html",context)
+@login_required
+def moti_districts(request):
+        districts = Moti_district.objects.all()
+        context = {
+            "title": "Moti Districts",
+            "districts": districts
+        }
+        return render(request, 'pm/moti_districts.html', context)
 @login_required
 def banks(request):
     try:
@@ -188,18 +207,8 @@ def banks(request):
     except:
         raise Http404()
 
-@login_required
-def add_moti_district(request):
-    if request.POST == "POST":
-        form = MotiDistrictForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request,"Moti District Add Successfully")
-            return redirect('district-list')
-    else:
-        form = BankForm()
-    context ={"form":form,"title":"Add Moti District"}
-    return render(request,"pm/add_district.html",context)
+
+    
 @login_required
 def addBank(request):
     success = False

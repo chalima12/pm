@@ -33,19 +33,31 @@
           {% endif %}
         </div>
         <div class="card-body">
-          <form action="{% url 'add-bank' %}" method="POST">
+          <form action="{% url 'add-moti-district' %}" method="POST">
             {% csrf_token %}
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-6">
                 <div class="form-group">
-                  <label for="{{ form.bank_name.id_for_label }}">Bank Name</label>
-                    {{form.bank_name}}
+                  <label for="{{ form.district_name.id_for_label }}">District Name</label>
+                    {{form.district_name}}
                 </div>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-6">
                 <div class="form-group">
-                  <label for="{{ form.bank_key.id_for_label }}">Bank Key</label>
-                    {{form.bank_key}}
+                  <label for="{{ form.region.id_for_label }}">Region</label>
+                    {{form.region}}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="{{ form.location.id_for_label }}">Location</label>
+                    {{form.location}}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="{{ form.district_key.id_for_label }}">District Key</label>
+                    {{form.district_key}}
                 </div>
               </div>
             </div>
@@ -54,7 +66,7 @@
             swalDefaultSuccess 
             {% endif %}">
             Add</button>
-            <a href="{% url 'banks-page' %}" class="btn btn-secondary">Cancel</a>
+            <a href="{% url 'districts-list' %}" class="btn btn-secondary">Cancel</a>
           </form>
         </div>
       </div>

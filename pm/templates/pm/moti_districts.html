@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>List of Banks</h1>
+          <h1>List of Moti Districts</h1>
         </div>
       </div>
     </div>
@@ -17,128 +17,75 @@
         <div class="col-12">
           <div class="card border-top border-info">
             <div class="card-header">
-              <h3 class="card-title">Banks</h3>
-              {% if user.add_bank %}
-               <a href="{% url 'add-bank' %}" class="btn btn-success btn-md float-right"
+              <h3 class="card-title">Districts</h3>
+               <a href="{% url 'add-moti-district' %}" class="btn btn-success btn-md float-right"
                         > <i class="fas fa-plus"></i>
-                    Add Bank
+                    Add District
                 </a>
-              {% endif %}
             </div>
-                  
-            
+    
             <!-- /.card-header -->
-            {% if banks %}
+            {% if districts %}
             <div class="card-body">
               <table id="example2" class="table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>BANK NAME</th>
-                    <th>Bank Key</th>
-                    <th>STATUS</th>
-                    {% if  user.activate_bank or user.inactivate_bank or user.edit_bank%}
-                    <th>ACTION</th>
-                    {% endif %}
+                    <th>DISTRICT KEY</th>
+                    <th>DISTRICT NAME</th>
+                    <th>REGION</th>
+                    <th>LOCATION</th>
+                    <th>ACTIONS</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
-                  {% for bank  in banks %}
+                  {% for district  in districts %}
                   <tr>
                     <td>{{forloop.counter}}</td>
-                    <td>{{bank.bank_name}}</td>
-                    <td>{{bank.bank_key}}</td>
-                    <td>{% if bank.is_active %}
-                        <span class="badge badge-success" style="width: 90px"
-                          ><b>Active</b></span
-                        >
-                      {% else %}
-                        <span class="badge badge-danger" style="width: 90px"
-                          ><b>InActive</b></span
-                        >
-                        {% endif %}</td>
-                        </td>
-                {% if  user.activate_bank or user.inactivate_bank or user.edit_bank%}
+                    <td>{{district.district_key}}</td>
+                    <td>{{district.district_name}}</td>
+                    <td>{% if district.region == "NR" %}
+                        North
+                        {% elif district.region == "SR" %}
+                        South
+                        {% elif district.region == "ER" %}
+                        East
+                        {% elif district.region == "WR" %}
+                        West
+                        {% elif district.region == "CR" %}
+                        Centeral
+                        {% endif %}
+                    </td>
+                    <td>{{district.location}}</td>
                     <td>
-                      {% if user.edit_bank %}
                       <a
-                          href="{% url "update-bank" bank.id %}"
+                          href="#"
                           style="width: 80px"
                           class="d-inline  btn btn-block btn-outline-success"
                           data-toggle="tooltip" data-placement="bottom" 
-                          title ="Edit bank Information"
+                          title ="Edit District Information"
                           ><i class="nav-icon fas fa-edit" ></i></a>
-                      {% endif %}
-                      {% if bank.is_active %}
-                            {% if user.inactivate_bank %}
-                              <a
-                              href="{% url "inactive_bank" bank.id %}"
-                              style="width: 80px"
-                              data-toggle="modal" data-target="#myModal{{bank.id}}"
-                              class="d-inline  btn btn-block btn-outline-danger"
-                              ><i class="fas fa-lock" data-toggle="tooltip" data-placement="bottom" title="Deactivate Bank" ></i>
-                              </a>
-                              {% endif %}
-                          {% else %}
-                              {% if user.activate_bank %}
-                              <a
-                                href="{% url "active-bank" bank.id %}"
-                                style="width: 80px"
-                                data-toggle="modal" data-target="#myModal{{bank.id}}"
-                                class="d-inline  btn btn-block btn-outline-success"
-                                
-                                ><i class="fas fa-lock-open" data-toggle="tooltip" data-placement="bottom" title ="Activate bank" ></i>
-                            </a>
-                            {% endif %}
-                      {% endif %}
-                <div class="modal fade" id="myModal{{bank.id}}">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h4 class="modal-title">{% if bank.is_active %}Deactivate <span class="text-danger">{{bank.bank_name}}</span> {% else %}Activate  <span class="text-success">{{bank.bank_name}}</span>{% endif %}</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <p>Are you sure {% if bank.is_active %}Deactivate {% else %}Activate{% endif %} <strong>{{bank.bank_name}}</strong>?</p>
-                        </div>
-                        <div class="modal-footer justify-content-between">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          {% if bank.is_active %}
-                          <a type="button" class="btn btn-danger" href="{% url "inactive_bank" bank.id %}" >Deactivate</a>
-                          {% else %}
-                          <a type="button" class="btn btn-success" href="{% url "active-bank" bank.id %}" >Activate</a>
-                          {% endif %}
-                        </div>
-                      </div>
-                      <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                  </div>
-                  <!-- /.modal -->
-
-                      </td>
-                  {% endif %}
-                  </tr>
-                  {% endfor %}
+                    </td>
+                {% endfor %}
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>NO</th>
-                    <th>BANK NAME</th>
-                    <th>BANK Key</th>
-                    <th>STATUS</th>
-                    {% if  user.activate_bank or user.inactivate_bank or user.edit_bank%}
-                    <th>ACTION</th>
-                    {% endif %}
+                  <tr>
+                    <th>#</th>
+                    <th>DISTRICT KEY</th>
+                    <th>DISTRICT NAME</th>
+                    <th>REGION</th>
+                    <th>LOCATION</th>
+                    <th>ACTIONS</th>
+                  </tr>
                   </tr>
                 </tfoot>
               </table>
             </div>
             {% else %}
              <div class="card-body">
-              <p class='text-center'>List of Bank Will display Here!</p>
+              <p class='text-center'>List of Moti Districts display Here!</p>
             </div>
             {% endif %}
             <!-- /.card-body -->

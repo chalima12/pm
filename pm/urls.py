@@ -35,6 +35,7 @@ urlpatterns = [
     path('change_password/', views.change_password, name="change-password"),
     path('create_schedule/', views.create_schedule, name='create_schedule'),
     path("add_moti_district/",views.add_moti_district, name="add-moti-district"),
+    path("moti_districts/", views.moti_districts, name="districts-list"),
 
     # Reports URL
     path("report/users", views.engineers_list, name="engineers-list"),
