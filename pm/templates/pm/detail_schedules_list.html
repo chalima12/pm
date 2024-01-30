@@ -196,7 +196,8 @@
                                 > Rejectd </a>
                               {% endif %}  {% endcomment %}
                               <a href="{% url "task_approval" schedule.id %}" style="width: 90px"
-                                class="btn btn-block btn-outline-primary" >Approval</a>
+                                class="btn btn-block btn-outline-primary"  data-toggle="tooltip" data-placement="bottom" 
+                                  title ="Approve Task"><i class="fas fa-check-circle fa-beat-fade fa-xl" style="color: #63E6BE;"></i></a>
                       {% endif %}
                       <!--Start Task Moal-->
                   <div class="modal fade" id="startModal{{schedule.id}}">
