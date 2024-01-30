@@ -34,6 +34,7 @@ urlpatterns = [
     path('view-user/<int:id>', views.view_user, name='view-user'),
     path('change_password/', views.change_password, name="change-password"),
     path('create_schedule/', views.create_schedule, name='create_schedule'),
+    path("add_moti_district/",views.add_moti_district, name="add-moti-district"),
 
     # Reports URL
     path("report/users", views.engineers_list, name="engineers-list"),

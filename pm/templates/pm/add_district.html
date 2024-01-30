@@ -1,0 +1,64 @@
+
+{% extends "base.html" %} {% load static %} {% block content %}
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Add Moti District </h1>
+        </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card card-default border-top border-info">
+        <div class="card-header">
+          {% if form.errors %}
+          <div class="container alert alert-danger alert-dismissible" role="alert">
+            <strong>Error!</strong> Please correct the following errors:
+                  <ul>
+                  {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                      <li> {{ error }}</li>
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+            <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% else %} 
+          <h3 class="card-title">Add District</h3>
+          {% endif %}
+        </div>
+        <div class="card-body">
+          <form action="{% url 'add-bank' %}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label for="{{ form.bank_name.id_for_label }}">Bank Name</label>
+                    {{form.bank_name}}
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label for="{{ form.bank_key.id_for_label }}">Bank Key</label>
+                    {{form.bank_key}}
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary 
+            {% if success %} 
+            swalDefaultSuccess 
+            {% endif %}">
+            Add</button>
+            <a href="{% url 'banks-page' %}" class="btn btn-secondary">Cancel</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock content %}

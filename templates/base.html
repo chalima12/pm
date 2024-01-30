@@ -220,6 +220,12 @@
                 </a>
               </li>
               {% endif %}
+              <li class="nav-item">
+                <a href="{% url 'add-moti-district' %}" class="nav-link">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>Moti District</p>
+                </a>
+              </li>
             {% if user.view_banks %}
               <li class="nav-item">
                 <a href="{% url 'banks-page' %}" class="nav-link">

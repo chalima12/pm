@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
 from django import forms
-from pm.models import Terminal, Bank, User, Schedule, AllSchedule
+from pm.models import Terminal, Bank, User, Schedule, AllSchedule,Moti_district
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth import password_validation
 from django.utils.translation import gettext_lazy as _
@@ -126,6 +126,16 @@ class AssignPermissionsForm(forms.ModelForm):
         }
 
 
+class MotiDistrictForm(forms.ModelForm):
+    class Meta:
+        model = Moti_district
+        fields =['district_name','region','location','district_key']
+        widgets = {
+            'district_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'region': forms.Select(attrs={'class': 'form-control'}),
+            'location': forms.TextInput(attrs={'class': 'form-control'}),
+            'district_key': forms.TextInput(attrs={'class': 'form-control'}),
+            }
 class TerminalForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

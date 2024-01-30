@@ -110,7 +110,8 @@ class Bank(models.Model):
         ordering = ['bank_name']
 
 
-class Moti_district(models.Model):   
+class Moti_district(models.Model):
+    district_key = models.CharField(max_length=100, null= True, blank=True)
     district_name = models.CharField(max_length=100, null= True, blank=True)
     location = models.CharField(max_length=100, null= True, blank=True)
     region = models.CharField(
