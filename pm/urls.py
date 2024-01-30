@@ -36,6 +36,7 @@ urlpatterns = [
     path('create_schedule/', views.create_schedule, name='create_schedule'),
     path("add_moti_district/",views.add_moti_district, name="add-moti-district"),
     path("moti_districts/", views.moti_districts, name="districts-list"),
+    path('update_district/<int:district_id>', views.update_moti_district, name="update-moti-district"),
 
     # Reports URL
     path("report/users", views.engineers_list, name="engineers-list"),

@@ -187,6 +187,23 @@ def add_moti_district(request):
         form = MotiDistrictForm()
     context ={"form":form,"title":"Add Moti District"}
     return render(request,"pm/add_district.html",context)
+from django.shortcuts import get_object_or_404
+
+@login_required
+def update_moti_district(request, district_id):
+    district = get_object_or_404(Moti_district, id=district_id)
+    if request.method == "POST":
+        form = MotiDistrictForm(request.POST, instance=district)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Moti District Updated Successfully")
+            return redirect('districts-list')
+    else:
+        form = MotiDistrictForm(instance=district)
+
+    context = {"form": form, "title": "Edit Moti District"}
+    return render(request, "pm/update_district.html", context)
+
 @login_required
 def moti_districts(request):
         districts = Moti_district.objects.all()
