@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1> Update Terminal Information</h1>
+          <h1>Update Terminal Information</h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -30,7 +30,7 @@
             </button>
           </div>
           {% else %} 
-          <h3 class="card-title">Update Terminal Information</h3>
+          <h3 class="card-title">Update Terminal</h3>
           {% endif %}
         </div>
         <div class="card-body">
@@ -57,8 +57,8 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="{{ form.moti_district.id_for_label }}">Moti District</label>
-                    {{form.moti_district}}
+                  <label for="{{ form.district.id_for_label }}">Moti District</label>
+                    {{form.district}}
                 </div>
               </div>
               <div class="col-md-6">
@@ -106,7 +106,7 @@
               </div>
 
             </div>
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary">update</button>
             <a href="{% url 'all-terminals' %}" class="btn btn-secondary">Cancel</a>
           </form>
         </div>

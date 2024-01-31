@@ -609,6 +609,10 @@ def districts_list(request):
     }
     return render(request, 'pm/districts_report.html', context)
 
+@login_required
+def schedules_by_district(request, district_id):
+    pass
+
 
 @login_required
 def schedules_detail_report(request, bank_id):

@@ -117,7 +117,7 @@ class Moti_district(models.Model):
     region = models.CharField(
         max_length=50, choices=MOTI_DISTRICT, null=True, blank=True)
     def __str__(self):
-        return self.district_name
+        return f'{self.district_name} ({self.region})'
     
 
 class Terminal(models.Model):

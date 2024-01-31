@@ -140,7 +140,6 @@ class TerminalForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['bank_name'].required = True
-        self.fields['moti_district'].required = True
         self.fields['terminal_name'].required = True
         self.fields['city'].required = True
         self.fields['location'].required = True
@@ -154,7 +153,6 @@ class TerminalForm(forms.ModelForm):
             'bank_district': forms.TextInput(attrs={'class': 'form-control'}),
             'bank_branch': forms.TextInput(attrs={'class': 'form-control'}),
             'district': forms.Select(attrs={'class': 'form-control'}),
-            'moti_district': forms.Select(attrs={'class': 'form-control'}),
             'tid': forms.TextInput(attrs={'class': 'form-control'}),
             'terminal_name': forms.TextInput(attrs={'class': 'form-control'}),
             'serial_number': forms.TextInput(attrs={'class': 'form-control'}),
