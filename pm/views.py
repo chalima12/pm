@@ -588,7 +588,7 @@ def engineers_list(request):
     }
     return render(request, 'pm/engineers_report.html', context)
 
-
+@login_required
 def banks_list(request):
     banks = Bank.objects.all()
     title = "Banks Report"
@@ -598,6 +598,16 @@ def banks_list(request):
         "title": title,
     }
     return render(request, 'pm/banks_report.html', context)
+@login_required
+def districts_list(request):
+    districts = Moti_district.objects.all()
+    title = "Districts Report"
+  
+    context = {
+        "districts": districts,
+        "title": title,
+    }
+    return render(request, 'pm/districts_report.html', context)
 
 
 @login_required

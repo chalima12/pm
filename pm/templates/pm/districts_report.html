@@ -1,0 +1,98 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>List of Moti Districts</h1>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <section class="content" >
+    <div class="container-fluid" >
+      <div class="row">
+        <div class="col-12">
+          <div class="card border-top border-info">
+            <div class="card-header">
+              <h3 class="card-title">Districts</h3>
+               <a href="{% url 'add-moti-district' %}" class="btn btn-success btn-md float-right"
+                        > <i class="fas fa-plus"></i>
+                    Add District
+                </a>
+            </div>
+    
+            <!-- /.card-header -->
+            {% if districts %}
+            <div class="card-body">
+              <table id="example2" class="table table-bordered table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>DISTRICT KEY</th>
+                    <th>DISTRICT NAME</th>
+                    <th>REGION</th>
+                    <th>LOCATION</th>
+                    <th>ACTIONS</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for district  in districts %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{district.district_key}}</td>
+                    <td>{{district.district_name}}</td>
+                    <td>{% if district.region == "NR" %}
+                        North
+                        {% elif district.region == "SR" %}
+                        South
+                        {% elif district.region == "ER" %}
+                        East
+                        {% elif district.region == "WR" %}
+                        West
+                        {% elif district.region == "CR" %}
+                        Centeral
+                        {% endif %}
+                    </td>
+                    <td>{{district.location}}</td>
+                    <td>
+                      <a
+                          href="{% url "update-moti-district" district.id %}"
+                          style="width: 80px"
+                          class="d-inline  btn btn-block btn-outline-success"
+                          data-toggle="tooltip" data-placement="bottom" 
+                          title ="Edit District Information"
+                          ><i class="nav-icon fas fa-edit" ></i></a>
+                    </td>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                  <tr>
+                  <tr>
+                    <th>#</th>
+                    <th>DISTRICT KEY</th>
+                    <th>DISTRICT NAME</th>
+                    <th>REGION</th>
+                    <th>LOCATION</th>
+                    <th>ACTIONS</th>
+                  </tr>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            {% else %}
+             <div class="card-body">
+              <p class='text-center'>List of Moti Districts display Here!</p>
+            </div>
+            {% endif %}
+            <!-- /.card-body -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock content %}
