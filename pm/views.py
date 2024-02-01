@@ -615,9 +615,9 @@ def schedule_report_by_district(request, district_id):
     context = {
         'schedules': schedules,
     }
-    print("DATA ",context)
+    print(schedules.count())
 
-    return render(request, 'pm/schedules_report.html', context)
+    return render(request, 'pm/schedules_by_district.html', context)
 
 
 @login_required

@@ -1,0 +1,157 @@
+ {% extends "base.html" %} {% load static %} {% block content %} 
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) 
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+        <p class='text-center'>{% if selected %}List Of <span class="text-success">{{selected}}</span>{% endif %}</p>
+        </div>
+      </div>
+    </div>
+  </section>-->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card border-top border-info">
+            <div class="card-header"><a href="{% url "districts-report" %}" class="btn btn-md btn-info">Back</a>
+              <a  class="btn btn-secondary btn-md float-right" data-toggle="modal" data-target="#analysis"
+                        >
+                    📈Analysis Summary
+                </a></div>
+            <!-- /.card-header -->
+            <div class="modal fade" id="analysis">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Bank Name: <b class="text-info">{{bank.bank_name}}</b></h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                      <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p>TOTAL: <strong><span class="h3"> {{total_count}}</span></strong> </p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Pending Schedule Rate: <strong><span class=" h4" style="color:#cf5438"> {{pending_rate}}%</span></strong> </p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Waiting Task Rate: <strong><span class=" h4" style="color:#3498db">{{waiting_rate}} %</span></strong> </p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Onprogress Task Rate: <strong><span class="h4" style="color:#FFD700">{{onprogress_rate}} %</span> </strong> </p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Submitted Task Rate: <strong><span class="h4" style="color:#81e7ac">{{submitted_rate}} %</span> </strong> </p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Rejectd Task Rate: <strong><span class="h4" style="color:#FF0000">{{rejected_rate}} %</span> </strong> </p>
+                              <hr>
+                            </div>
+                            <div class="col-md-6">
+                              <p>Approved Task Rate: <strong><span class="h4" style="color:#00a65a">{{approved_rate}} %</span> </strong> </p>
+                              <hr>
+                            </div>
+                          </div>
+                        </div>
+                    <div class="modal-footer justify-content-between">
+                      <button type="button text-center" class="btn btn-default m-4" data-dismiss="modal">Close</button>
+
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+            
+            <div class="card-body">
+              <table id = "example1" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>TID</th>
+                    <th>BANK NAME</th>
+                    <th>TERMINAL NAME</th>
+                    <th>MOTI DISTRICT</th>
+                    <th>REGION</th>
+                    <th>END DATE</th>
+                    <th>ASSIGNED TO</th>
+                    <th>STATUS</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for schedule  in schedules %}
+                    <tr>
+                      <td>{{forloop.counter}}</td>
+                      <td>{{schedule.terminal.tid}}</td>
+                      <td>{{schedule.terminal.bank_name}}</td>
+                      <td>{{schedule.terminal.terminal_name}}</td>
+                      <td>{{schedule.terminal.district.district_name}}</td>
+                      <td>
+                        {% if schedule.terminal.district.region == "NR" %}
+                        North
+                        {% elif schedule.terminal.district.region == "SR" %}
+                        South
+                        {% elif schedule.terminal.district.region == "ER" %}
+                        East
+                        {% elif schedule.terminal.district.region == "WR" %}
+                        West
+                        {% elif schedule.terminal.district.region == "CR" %}
+                        Centeral
+                        {% endif %}
+                      </td>
+                      <td>{{schedule.end_date|date:'Y-m-d'}}</td>
+                      <td>{{schedule.assign_to}}</td>
+                      <td>{% if schedule.status == "PE" %}
+                            <p class="badge " style="width:90px;background-color: #cf5438 ;">Pending</p>
+                          {% elif schedule.status == "WT" %}
+                            <p class="badge " style="width:90px; background-color: #3498db ;">Waiting</p>
+                          {% elif schedule.status == "OP" %}
+                            <p class="badge " style="width:90px; background-color: #FFD700 ;">OnProgress</p>
+                          {% elif schedule.status == "SB" %}
+                            <p class= "badge " style="width:90px; background-color: #81e7ac ;">Submitted</p>
+                          {% elif schedule.status == "RE" %}
+                            <p class= "badge " style="width:90px; background-color: #FF0000 ; ">Rejectd</p>
+                          {% elif schedule.status == "AP" %}
+                            <p class= "badge " style="width:90px; background-color: #00a65a ;">Approved</p>
+                      {% endif %}</td>
+                    </tr>
+                
+                    
+                  {% endfor %}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>#</th>
+                    <th>TID</th>
+                    <th>BANK NAME</th>
+                    <th>TERMINAL NAME</th>
+                    <th>MOTI DISTRICT</th>
+                    <th>REGION</th>
+                    <th>END DATE</th>
+                    <th>ASSIGNED TO</th>
+                    <th>STATUS</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% endblock content %}
