@@ -610,8 +610,14 @@ def districts_list(request):
     return render(request, 'pm/districts_report.html', context)
 
 @login_required
-def schedules_by_district(request, district_id):
-    pass
+def schedule_report_by_district(request, district_id):
+    schedules = Schedule.objects.filter(terminal__district__id=district_id)
+    context = {
+        'schedules': schedules,
+    }
+    print("DATA ",context)
+
+    return render(request, 'pm/schedules_report.html', context)
 
 
 @login_required

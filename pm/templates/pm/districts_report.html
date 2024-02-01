@@ -59,7 +59,7 @@
                     </td>
                     <td>{{district.location}}</td>
                     <td>
-                        <a href="#" data-toggle="tooltip" data-placement="bottom"  title="Go to Detail Report">
+                        <a href="{% url "schedule-by-district" district.id %}" data-toggle="tooltip" data-placement="bottom"  title="Go to Detail Report">
                         <span  class="btn btn-info">
                             <i class="far fa-calendar-alt"></i><span class="badge badge-light"></span>
                             {% comment %} <span class="sr-only">Total Schedules </span> {% endcomment %}

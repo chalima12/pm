@@ -45,6 +45,7 @@ urlpatterns = [
     path("banks/<int:bank_id>", views.schedules_detail_report, name="schedules-report"),
     path('assign_permissions/<int:user_id>',views.assign_permissions, name="assign-permisions"),
     path("reports/districts",views.districts_list,name="districts-report"),
+    path("districts/<int:district_id>",views.schedule_report_by_district, name="schedule-by-district"),
 ]
 
 # from . import views
