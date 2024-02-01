@@ -154,6 +154,18 @@
                                       style="width: 90px"
                                       class="btn btn-block btn-outline-success"
                                       >Assign</a>
+                                  {% comment %} <div class="input-group-prepend">
+                                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                      Action
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                      <li class="dropdown-item"><a href="#">Action</a></li>
+                                      <li class="dropdown-item"><a href="#">Another action</a></li>
+                                      <li class="dropdown-item"><a href="#">Something else here</a></li>
+                                      <li class="dropdown-divider"></li>
+                                      <li class="dropdown-item"><a href="#">Separated link</a></li>
+                                    </ul>
+                                  </div> {% endcomment %}
                               {% endif %}
                           {% elif schedule.status == "WT" or  schedule.status == "RE" %}
                               {% if user.start_task %}

@@ -614,6 +614,7 @@ def schedule_report_by_district(request, district_id):
     schedules = Schedule.objects.filter(terminal__district__id=district_id)
     context = {
         'schedules': schedules,
+        'title':"Schedules by Moti district"
     }
     print(schedules.count())
 
