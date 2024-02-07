@@ -125,8 +125,6 @@ class Terminal(models.Model):
         Bank, on_delete=models.PROTECT,null=True,blank=True,related_name='terminalBanks')
     bank_district = models.CharField(max_length=255, null=True, blank=True)
     bank_branch = models.CharField(max_length=255,null=True,blank=True)
-    moti_district = models.CharField(
-        max_length=50, choices=MOTI_DISTRICT, null=True, blank=True)
     district =models.ForeignKey(Moti_district,on_delete=models.PROTECT,null=True,blank=True)
     tid = models.CharField(max_length=30, null=True, blank=True)
     terminal_name = models.CharField(max_length=255, null=True, blank=True)

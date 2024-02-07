@@ -28,7 +28,7 @@ class ScheduleListAdmin(admin.ModelAdmin):
 
 @admin.register(Terminal)
 class TerminalAdmin(admin.ModelAdmin):
-    list_display = ['bank_name', 'moti_district', 'tid',
+    list_display = ['bank_name', 'district', 'tid',
                     'terminal_name', 'serial_number', 'location', 'city']
 
 @admin.register(Moti_district)

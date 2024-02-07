@@ -8,35 +8,38 @@
           <div class="card border-top border-info">
             <div class="card-header">
               <form action="" method="POST">
-                {% csrf_token %}
-                <div class="row">
-                  <div class="col-12"> <h3 class="card-title py-4">FILTER TERMINALS</h3></div>
-                    <div class="col-sm-8">
-                      <div class="form-group">
-                        <label>Filter Terminals Form the Dropdown</label>
-                        <select class="form-control" name ="options">
-                          <option value ="0"selected >-----Select-----</option>
-                          <option value ="All Terminals" >All Terminals</option>
-                          <option value ="North Terminals" >North Terminals</option>
-                          <option value ="South Terminals" >South Terminals</option>  
-                          <option value ="Centeral Terminals" >Centeral Terminals</option>  
-                          <option value ="East Terminals" >East Terminals</option>  
-                          <option value ="West Terminals" >West Terminals</option>  
-                        </select>
+                  {% csrf_token %}
+                  <div class="row">
+                      <div class="col-12">
+                          <h3 class="card-title py-4">FILTER TERMINALS</h3>
                       </div>
-                    </div>
-                <div class="form-group col-sm-12" id="data_5">
-                  <label class="font-normalll">Select Time Range</label>
-                  <div class="input-group date col-sm-8" id="datepicker">
-                    <span class="input-group-text">
-                      From</span>
-                    <input type="date" class="form-control" name="from_date" required>
-                    <span class="input-group-text">To</span>
-                    <input type="date" class="form-control" name="to_date" required>
+                      <div class="col-sm-8">
+                          <div class="form-group">
+                              <label>Filter Terminals Form the Dropdown</label>
+                              <select class="form-control" name="options">
+                                  <option value="0" {% if selected == "0" %}selected{% endif %}>-----Select-----</option>
+                                  <option value="All Terminals" {% if selected == "All Terminals" %}selected{% endif %}>All Terminals</option>
+                                  <option value="North Terminals" {% if selected == "North Terminals" %}selected{% endif %}>North Terminals</option>
+                                  <option value="South Terminals" {% if selected == "South Terminals" %}selected{% endif %}>South Terminals</option>
+                                  <option value="Centeral Terminals" {% if selected == "Centeral Terminals" %}selected{% endif %}>Centeral Terminals</option>
+                                  <option value="East Terminals" {% if selected == "East Terminals" %}selected{% endif %}>East Terminals</option>
+                                  <option value="West Terminals" {% if selected == "West Terminals" %}selected{% endif %}>West Terminals</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="form-group col-sm-12" id="data_5">
+                          <label class="font-normalll">Select Time Range</label>
+                          <div class="input-group date col-sm-8" id="datepicker">
+                              <span class="input-group-text">From</span>
+                              <input type="date" class="form-control" name="from_date" required value="{{ from_date }}">
+                              <span class="input-group-text">To</span>
+                              <input type="date" class="form-control" name="to_date" required value="{{ to_date }}">
+                          </div>
+                      </div>
+                      <button type="submit" class="btn btn-info">Generate</button>
                   </div>
-                </div>
-                <button type="submit" class="btn btn-info">Generate</button>
-               </form>
+              </form>
+
             </div>
             <!-- /.card-header -->
             {% if selected %}
@@ -66,15 +69,15 @@
                     <td>{{terminal.bank_name}}</td>
                     <td>{{terminal.bank_district}}</td>
                     <td>{{terminal.bank_branch}}</td>
-                    <td>{% if terminal.moti_district == "NR" %}
+                    <td>{% if terminal.district.region == "NR" %}
                       <p>North</p>
-                      {% elif terminal.moti_district == "SR" %}
+                      {% elif  terminal.district.region == "SR" %}
                       <p>South</p>
-                      {% elif terminal.moti_district == "ER" %}
+                      {% elif  terminal.district.region == "ER" %}
                       <p>East</p>
-                      {% elif terminal.moti_district == "WR" %}
+                      {% elif  terminal.district.region == "WR" %}
                       <p>West</p>
-                      {% elif terminal.moti_district == "CR" %}
+                      {% elif  terminal.district.region == "CR" %}
                       <p>Centeral</p>
                       {% endif %}</td>
                     <td>{{terminal.terminal_name}}</td>

@@ -146,7 +146,7 @@ class TerminalForm(forms.ModelForm):
 
     class Meta:
         model = Terminal
-        fields = ['bank_name', 'bank_district', 'bank_branch', 'district', 'moti_district', 'tid',
+        fields = ['bank_name', 'bank_district', 'bank_branch', 'district', 'tid',
                   'terminal_name', 'serial_number', 'model', 'disspenser_type', 'city', 'location']
         widgets = {
             'bank_name': forms.Select(attrs={'class': 'form-control'}),

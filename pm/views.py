@@ -12,6 +12,19 @@ from pm.models import Terminal, User, Bank, Schedule, AllSchedule,Moti_district
 import math
 from pm.forms import *
 
+NORTH = "NR"
+SOUTH = "SR"
+EAST = "ER"
+WEST = "WR"
+CENTERAL = "CR"
+MOTI_DISTRICT = [
+        (NORTH, "North"),
+        (SOUTH, "South"),
+        (EAST, "East"),
+        (WEST, "West"),
+        (CENTERAL, "Centeral"),
+    ]
+
 
 def login_user(request):
     logout(request)
@@ -121,8 +134,7 @@ def add_user(request):
 @login_required
 def edit_user(request, user_id):
     user = User.objects.get(pk=user_id)
-    user_form = UserEditForm(request.POST or None,
-                             request.FILES or None, instance=user)
+    user_form = UserEditForm(request.POST or None,request.FILES or None, instance=user)
 
     if request.method == 'POST':
         if user_form.is_valid():
@@ -671,37 +683,30 @@ def schedules_detail_report(request, bank_id):
     }
     return render(request, 'pm/schedules_report.html', context)
 
-
 def terminals_list(request):
     terminals = None
     title = "Terminals Report"
     selected = request.POST.get('options')
     from_date = request.POST.get('from_date')
     to_date = request.POST.get('to_date')
-    if (selected == "All Terminals"):
+    if selected == "All Terminals":
         terminals = Terminal.objects.filter(
             created_date__range=(from_date, to_date))
         title = "All Terminals"
-    if (selected == "North Terminals"):
-        terminals = Terminal.objects.filter(
-            moti_district="NR", created_date__range=(from_date, to_date))
-        title = "North Terminals"
-    if (selected == "South Terminals"):
-        terminals = Terminal.objects.filter(
-            moti_district="SR", created_date__range=(from_date, to_date))
-        title = "South Terminals"
-    if (selected == "Centeral Terminals"):
-        terminals = Terminal.objects.filter(
-            moti_district="CR", created_date__range=(from_date, to_date))
-        title = "Centeral Terminals"
-    if (selected == "East Terminals"):
-        terminals = Terminal.objects.filter(
-            moti_district="ER", created_date__range=(from_date, to_date))
-        title = "East Terminals"
-    if (selected == "West Terminals"):
-        terminals = Terminal.objects.filter(
-            moti_district="WR", created_date__range=(from_date, to_date))
-        title = "West Terminals"
+    else:
+        # Get the region code based on the selected option
+        region_code = None
+        for code, region in MOTI_DISTRICT:
+            if selected == f"{region} Terminals":
+                region_code = code
+                break
+        if region_code is not None:
+            # Filter terminals by the region code and date range
+            terminals = Terminal.objects.filter(
+                district__region=region_code,
+                created_date__range=(from_date, to_date)
+            )
+            title = f"{selected}"
 
     context = {
         "terminals": terminals,
@@ -710,22 +715,4 @@ def terminals_list(request):
     }
     return render(request, 'pm/terminals_report.html', context)
 
-
-# @login_required
-# def schedule_list(request):
-#     title = "Schedules Report"
-#     banks = Bank.objects.all()
-#     schedules = Schedule.objects.all()
-#     bank_name = request.POST.get('options')
-#     for s in schedules:
-#            print(f'form loop{ s.terminal.bank_name}')
-
-#     selected= False
-
-#     context = {
-#         "schedules": schedules,
-#         "title": title,
-#         "selected": selected,
-#         'banks': banks,
-#     }
-#     return render(request, 'pm/schedules_report.html', context)
+#
