@@ -108,10 +108,12 @@
         <ul class="navbar-nav ml-auto">
           <!-- Notifications Dropdown Menu -->
           <li class="nav-item dropdown">
+            {% if user.user_type != "EN" %}
             <a class="nav-link" data-toggle="dropdown" href="#">
               <i class="far fa-bell"></i>
               <span class="badge badge-danger navbar-badge">{{allSchedule}}</span>
             </a>
+            {% endif %}
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <span class="dropdown-item dropdown-header"
                 > </span
@@ -220,12 +222,14 @@
                 </a>
               </li>
               {% endif %}
+              {% if user.user_type == "MA" %}
               <li class="nav-item">
                 <a href="{% url 'districts-list' %}" class="nav-link">
                   <i class="nav-icon fa-solid fa-sitemap"></i>
                   <p>Moti Districts</p> 
                 </a>
               </li>
+              {% endif %}
             {% if user.view_banks %}
               <li class="nav-item">
                 <a href="{% url 'banks-page' %}" class="nav-link">

@@ -387,45 +387,23 @@ def all_schedule(request):
     }
     return render(request, 'pm/schedule.html', context)
 
+@login_required
 def detail_schedules_list(request, pk):
     schedule = get_object_or_404(AllSchedule, pk=pk)
     schedules_list = Schedule.objects.filter(schedule=schedule)
-    specific_schedule_count = schedules_list.count()
-    pending_schedule = schedules_list.filter(status="PE").count()
-    waiting_schedule = schedules_list.filter(status="WT").count()
-    onprogress_schedule = schedules_list.filter(status="OP").count()
-    submitted_schedule = schedules_list.filter(status="SB").count()
-    approved_schedule = schedules_list.filter(status="AP").count()
-    rejected_schedule = schedules_list.filter(status="RE").count()
-
-    # calculating Pending , waiting, onprogress and completed rate
-    pending_rate = round(pending_schedule/specific_schedule_count, 2)*100
-    waiting_rate = round(waiting_schedule/specific_schedule_count, 2)*100
-    onprogress_rate = round(onprogress_schedule/specific_schedule_count, 2)*100
-    submitted_rate = round(submitted_schedule/specific_schedule_count, 2)*100
-    approved_rate = round(approved_schedule/specific_schedule_count, 2)*100
-    rejected_rate = round(rejected_schedule/specific_schedule_count, 2)*100
-
-    engineer_nedded = math.ceil(pending_schedule/7)
-    # Calcuate Remaining Days
+    specific_schedule_statistics = calculate_schedule_statistics(schedules_list)
+    
     now = datetime.now(timezone.utc)
     for schedule in schedules_list:
         schedule.remaining_days = (schedule.end_date - now).days
 
     context = {
         'schedules': schedules_list,
-        "title": "Detial shedule",
-        "pending_rate": pending_rate,
-        "waiting_rate": waiting_rate,
-        "onprogress_rate": onprogress_rate,
-        "submitted_rate": submitted_rate,
-        "approved_rate": approved_rate,
-        "rejected_rate": rejected_rate,
-        "all_schedule_count": specific_schedule_count,
-        "engineer_nedded": engineer_nedded,
-
+        "title": "Detail Schedule",
+        **specific_schedule_statistics,
     }
     return render(request, 'pm/detail_schedules_list.html', context)
+
 
 @login_required
 def user_specific_tasks(request):
@@ -639,13 +617,17 @@ def districts_list(request):
 @login_required
 def schedule_report_by_district(request, district_id):
     schedules = Schedule.objects.filter(terminal__district__id=district_id)
+    specific_schedule_statistics_by_district = calculate_schedule_statistics(schedules)
+
     context = {
         'schedules': schedules,
-        'title':"Schedules by Moti district"
+        'title': "Schedules by Moti district",
+        **specific_schedule_statistics_by_district,
     }
     print(schedules.count())
 
     return render(request, 'pm/schedules_by_district.html', context)
+
 
 
 @login_required
@@ -665,7 +647,7 @@ def schedules_detail_report(request, bank_id):
         **bank_schedule_statistics,
     }
     return render(request, 'pm/schedules_report.html', context)
-
+@login_required
 def terminals_list(request):
     terminals = None
     title = "Terminals Report"
@@ -697,5 +679,3 @@ def terminals_list(request):
         "selected": selected
     }
     return render(request, 'pm/terminals_report.html', context)
-
-#
