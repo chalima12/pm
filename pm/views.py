@@ -26,6 +26,51 @@ MOTI_DISTRICT = [
     ]
 
 
+def calculate_schedule_statistics(schedules):
+    specific_schedule_count = schedules.count()
+    pending_schedule = schedules.filter(status="PE").count()
+    waiting_schedule = schedules.filter(status="WT").count()
+    onprogress_schedule = schedules.filter(status="OP").count()
+    submitted_schedule = schedules.filter(status="SB").count()
+    approved_schedule = schedules.filter(status="AP").count()
+    rejected_schedule = schedules.filter(status="RE").count()
+
+    if specific_schedule_count > 0:
+        pending_rate = round(pending_schedule / specific_schedule_count * 100, 2)
+        waiting_rate = round(waiting_schedule / specific_schedule_count * 100, 2)
+        onprogress_rate = round(onprogress_schedule / specific_schedule_count * 100, 2)
+        submitted_rate = round(submitted_schedule / specific_schedule_count * 100, 2)
+        approved_rate = round(approved_schedule / specific_schedule_count * 100, 2)
+        rejected_rate = round(rejected_schedule / specific_schedule_count * 100, 2)
+    else:
+        pending_rate = 0
+        waiting_rate = 0
+        onprogress_rate = 0
+        submitted_rate = 0
+        approved_rate = 0
+        rejected_rate = 0
+
+    tasks = pending_schedule + waiting_schedule + onprogress_schedule + rejected_schedule
+    days_needed = round(tasks / 7, 2)
+
+    return {
+        "specific_schedule_count": specific_schedule_count,
+        "pending_schedule": pending_schedule,
+        "waiting_schedule": waiting_schedule,
+        "onprogress_schedule": onprogress_schedule,
+        "submitted_schedule": submitted_schedule,
+        "approved_schedule": approved_schedule,
+        "rejected_schedule": rejected_schedule,
+        "pending_rate": pending_rate,
+        "waiting_rate": waiting_rate,
+        "onprogress_rate": onprogress_rate,
+        "submitted_rate": submitted_rate,
+        "approved_rate": approved_rate,
+        "rejected_rate": rejected_rate,
+        "days_needed": days_needed,
+    }
+
+
 def login_user(request):
     logout(request)
     resp = {"status": 'failed', 'msg': ''}
@@ -386,51 +431,21 @@ def detail_schedules_list(request, pk):
 def user_specific_tasks(request):
     user_id = request.user.id
     schedules_list = Schedule.objects.filter(assign_to=user_id)
-    specific_schedule_count = schedules_list.count()
-    pending_schedule = schedules_list.filter(status="PE").count()
-    waiting_schedule = schedules_list.filter(status="WT").count()
-    onprogress_schedule = schedules_list.filter(status="OP").count()
-    submitted_schedule = schedules_list.filter(status="SB").count()
-    approved_schedule = schedules_list.filter(status="AP").count()
-    rejected_schedule = schedules_list.filter(status="RE").count()
 
-    # calculating Pending , waiting, onprogress and completed rate
-    if specific_schedule_count>0:
-        pending_rate = round(pending_schedule/specific_schedule_count, 2)*100
-        waiting_rate = round(waiting_schedule/specific_schedule_count, 2)*100
-        onprogress_rate = round(onprogress_schedule/specific_schedule_count, 2)*100
-        submitted_rate = round(submitted_schedule/specific_schedule_count, 2)*100
-        approved_rate = round(approved_schedule/specific_schedule_count, 2)*100
-        rejected_rate = round(rejected_schedule/specific_schedule_count, 2)*100
-    else:
-        pending_rate = 0
-        waiting_rate = 0
-        onprogress_rate =0
-        submitted_rate = 0
-        approved_rate =0
-        rejected_rate = 0
-    tasks = pending_schedule+ waiting_schedule+ onprogress_schedule + rejected_schedule
-    days_needed = round(tasks/7,2)
-    # Calcuate Remaining Days
+    # Calculate schedule statistics
+    schedule_statistics = calculate_schedule_statistics(schedules_list)
+
+    # Calculate remaining days for each schedule
     now = datetime.now(timezone.utc)
     for schedule in schedules_list:
         schedule.remaining_days = (schedule.end_date - now).days
 
     context = {
         'schedules': schedules_list,
-        "title": "Detial shedule",
-        "pending_rate": pending_rate,
-        "waiting_rate": waiting_rate,
-        "onprogress_rate": onprogress_rate,
-        "submitted_rate": submitted_rate,
-        "approved_rate": approved_rate,
-        "rejected_rate": rejected_rate,
-        "all_schedule_count": specific_schedule_count,
-        "days_needed": days_needed,
-
+        "title": "Detail schedule",
+        **schedule_statistics,
     }
     return render(request, 'pm/user_tasks.html', context)
-
 
 @login_required
 def create_schedule(request):
@@ -642,44 +657,12 @@ def schedules_detail_report(request, bank_id):
     # Filter schedules associated with the terminals in the bank
     schedule_list_by_bank = Schedule.objects.filter(
         terminal__in=terminals_in_bank)
-    total_specific_schedules = schedule_list_by_bank.count()
-    pending_schedule = schedule_list_by_bank.filter(status="PE").count()
-    waiting_schedule = schedule_list_by_bank.filter(status="WT").count()
-    onprogress_schedule = schedule_list_by_bank.filter(status="OP").count()
-    submitted_schedule = schedule_list_by_bank.filter(status="SB").count()
-    approved_schedule = schedule_list_by_bank.filter(status="AP").count()
-    rejected_schedule = schedule_list_by_bank.filter(status="RE").count()
-
-    # calculating Pending , waiting, onprogress and completed rate
-    if total_specific_schedules > 0:
-        pending_rate = round(pending_schedule/total_specific_schedules, 2)*100
-        waiting_rate = round(waiting_schedule/total_specific_schedules, 2)*100
-        onprogress_rate = round(onprogress_schedule /
-                                total_specific_schedules, 2)*100
-        submitted_rate = round(
-            submitted_schedule/total_specific_schedules, 2)*100
-        approved_rate = round(
-            approved_schedule/total_specific_schedules, 2)*100
-        rejected_rate = round(
-            rejected_schedule/total_specific_schedules, 2)*100
-    else:
-        pending_rate = 0
-        waiting_rate = 0
-        onprogress_rate = 0
-        submitted_rate = 0
-        approved_rate = 0
-        rejected_rate = 0
+    bank_schedule_statistics = calculate_schedule_statistics(schedule_list_by_bank)
     context = {
         "schedules": schedule_list_by_bank,
         "title": title,
         "bank": bank,
-        "total_count": total_specific_schedules,
-        "pending_rate": pending_rate,
-        "waiting_rate": waiting_rate,
-        "onprogress_rate": onprogress_rate,
-        "submitted_rate": submitted_rate,
-        "approved_rate": approved_rate,
-        "rejected_rate": rejected_rate,
+        **bank_schedule_statistics,
     }
     return render(request, 'pm/schedules_report.html', context)
 

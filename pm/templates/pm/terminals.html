@@ -90,17 +90,7 @@
                                   <hr>
                                 </div>
                                 <div class="col-md-6">
-                                  <p>Moti District:<strong>{% if terminal.moti_district == "NR" %}
-                                      North
-                                      {% elif terminal.moti_district == "SR" %}
-                                      South
-                                      {% elif terminal.moti_district == "ER" %}
-                                      East
-                                      {% elif terminal.moti_district == "WR" %}
-                                      West
-                                      {% elif terminal.moti_district == "CR" %}
-                                      Centeral
-                                      {% endif %}</strong> </p>
+                                  <p>Moti District:<strong>{{terminal.district}}</strong> </p>
                                   <hr>
                                 </div>
                                 <div class="col-md-6">
