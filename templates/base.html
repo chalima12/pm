@@ -419,6 +419,7 @@
       <script src="{% static "plugins/datatables-buttons/js/buttons.html5.min.js" %}"></script>
       <script src="{% static "plugins/datatables-buttons/js/buttons.print.min.js" %}"></script>
       <script src="{% static "plugins/datatables-buttons/js/buttons.colVis.min.js" %}"></script>
+
       <!-- fullCalendar 2.2.5 -->
       {% comment %} <script src="{% static "plugins/moment/moment.min.js" %}"></script>
       <script src="{% static "plugins/fullcalendar/main.js" %}"></script> {% endcomment %}
@@ -430,8 +431,8 @@
     <!-- AdminLTE App -->
     <script src="{% static 'dist/js/adminlte.js' %}"></script>
     <script src="{% static 'dist/js/pages/dashboard.js' %}"></script>
-    
-
+    <!-- CHART JS CDN ONLINE-->
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> {% endcomment %}
     
 <!-- Page specific script -->
 <script>
@@ -585,6 +586,29 @@
   $('[data-toggle="tooltip"]').tooltip()
 })
 </script>
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+ 
   </body>
 </html>
 {% comment %} high_priority_task {% endcomment %}

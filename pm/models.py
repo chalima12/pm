@@ -215,3 +215,7 @@ class Schedule(models.Model): #TODO: name this to Shedule List
     
 
 
+class Statistic(models.Model):
+    schedule_status = models.ForeignKey(Schedule, on_delete=models.PROTECT, null=True, blank=True)
+    bank_name = models.ForeignKey(Bank, on_delete=models.PROTECT, null=True, blank=True)
+    moti_district = models.ForeignKey(Moti_district, on_delete=models.PROTECT, null=True, blank=True)
