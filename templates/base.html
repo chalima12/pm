@@ -207,6 +207,12 @@
                 </a>
               </li>
             {% endif %}
+             <li class="nav-item">
+                <a href="{% url 'main-dashboard' %}" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>Main Dashboard</p>
+                </a>
+              </li>
             {% if user.user_type == "MA" %}
               <li class="nav-item">
                 <a href="{% url 'all-engineers' %}" class="nav-link">

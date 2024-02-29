@@ -138,7 +138,47 @@ def home(request):
         "schedules": high_priority_schedules,
 
     }
-    return render(request, "pm/index.html", context)
+    return render(request, "pm/overviewDashboard.html", context)
+@login_required
+def main_dashboard(request):
+    if request.user.is_authenticated:
+        loggedin_user_type = request.user.user_type
+        # print(loggedin_user_type)
+        logged_in_user = request.user
+    else:
+        loggedin_user_type = None
+        logged_in_user = None
+    numOfBanks = Bank.objects.all().count()
+    numOfUsers = User.objects.all().count()
+    numberofTerminals = Terminal.objects.all().count()
+    pendingTerminals = Schedule.objects.filter(status="PE").count()
+    pendingLists = Schedule.objects.filter(status="PE").all()
+    pendingSchedule = Schedule.objects.filter(status="PE").count()
+    waitingSchedule = Schedule.objects.filter(status="WT").count()
+    onprogressSchedule = Schedule.objects.filter(status="OP").count()
+    submittedSchedule = Schedule.objects.filter(status="SB").count()
+    approvedSchedule = Schedule.objects.filter(status="AP").count()
+    rejectedSchedule = Schedule.objects.filter(status="RE").count()
+    high_priority_schedules = Schedule.objects.filter(priority="H")
+
+    allSchedule = pendingSchedule + waitingSchedule + onprogressSchedule + \
+        submittedSchedule + approvedSchedule + rejectedSchedule
+    context = {
+        "company": "Moti Engineering PLC",
+        "projectName": "Preventive Maintainace For ATMS",
+        'title': "Dashboard",
+        'numOfBanks': numOfBanks,
+        'numOfUsers': numOfUsers,
+        'numberofTerminals': numberofTerminals,
+        "pendingTerminals": pendingTerminals,
+        "pendingLists": pendingLists,
+        'allSchedule': allSchedule,
+        "logged_in_user": logged_in_user,
+        "user_type": loggedin_user_type,
+        "schedules": high_priority_schedules,
+
+    }
+    return render(request, "pm/mainDashboard.html", context)
 
 
 @login_required
