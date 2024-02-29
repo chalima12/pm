@@ -589,27 +589,38 @@
 <script>
   const ctx = document.getElementById('myChart');
   const banks = {{ banks_list|safe }};
-  const completed_data ={{approved_schedules|safe}};
+  const completed_data = {{ approved_schedules|safe }};
+  
+  // Calculate total completed tasks
+  const totalCompletedTasks = completed_data.reduce((acc, value) => acc + value, 0);
+
+  // Calculate percentages
+  const percentages = completed_data.map(value => ((value / totalCompletedTasks) * 100).toFixed(2));
 
   new Chart(ctx, {
     type: 'bar',
     data: {
       labels: banks,
       datasets: [{
-        label: 'Number of Completed Task By Banks',
-        data: completed_data,
-        borderWidth: 1
+        label: 'Percentage of Completed Tasks By Banks',
+        data: percentages,  // Use the calculated percentages
+        borderWidth: 1,
+        backgroundColor: '#007bff'  
       }]
     },
     options: {
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: true,
+          callback: function(value) {
+            return value + '%';  // Append '%' to each y-axis label
+          }
         }
       }
     }
   });
 </script>
+
  
   </body>
 </html>
