@@ -588,14 +588,16 @@
 </script>
 <script>
   const ctx = document.getElementById('myChart');
+  const banks = {{ banks_list|safe }};
+  const completed_data ={{approved_schedules|safe}};
 
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: banks,
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        label: 'Number of Completed Task By Banks',
+        data: completed_data,
         borderWidth: 1
       }]
     },

@@ -722,22 +722,21 @@ def terminals_list(request):
     return render(request, 'pm/terminals_report.html', context)
 
 #  Main Dashboard View
-
+@login_required
 def main_dashboard(request):
-    bank_name = 'Commercial Bank of Ethiopia'
-    # Query data
-    bank = Bank.objects.get(bank_name=bank_name)
-    schedules = Schedule.objects.filter(terminal__bank_name=bank)
-    status_counts = schedules.values('terminal__district__region', 'status').annotate(count=Count('id'))
-
-    # Prepare data for chart
-    labels = set(status['terminal__district__region'] for status in status_counts)
-    data_by_district = {label: {status['status']: status['count'] for status in status_counts if status['terminal__district__region'] == label} for label in labels}
     
-    # Render Chart
+    banks_queryset = Schedule.objects.values_list('terminal__bank_name__bank_name', flat=True).distinct()
+    banks_list = list(banks_queryset)  # Convert the queryset to a list
+    print(banks_list)
+    # Filter Approved status count for each bank
+    approved_schedules = []
+    for bank in banks_list:
+        approved_schedules.append(Schedule.objects.filter(terminal__bank_name__bank_name=bank, status="AP").count())
+    print(approved_schedules)
     context = {
-        'bank_name': bank_name,
-        'data_by_district': data_by_district,
-        'labels': labels,
+        "title": "Main Dashboard",
+        "banks_list": banks_list,
+        "approved_schedules": approved_schedules,
     }
+ 
     return render(request, 'pm/mainDashboard.html', context)

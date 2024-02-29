@@ -18,6 +18,7 @@ def global_context(request):
     rejectedSchedule = Schedule.objects.filter(status="RE").count()
     
     allSchedule = pendingSchedule + waitingSchedule + onprogressSchedule + submittedSchedule + approvedSchedule + rejectedSchedule
+    
     context = {
         "allSchedule":allSchedule,
         "pendingSchedule": json.dumps(pendingSchedule),
