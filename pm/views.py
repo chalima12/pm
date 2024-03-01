@@ -796,3 +796,21 @@ def quarterly_schedule_status_report(request):
     }
 
     return render(request, 'quarterly_report.html', context)
+
+@login_required
+def yearly_schedule_status_report(request):
+    # Calculate the start and end dates for the current year
+    today = datetime.today()
+    start_of_year = today.replace(month=1, day=1)
+    end_of_year = today.replace(month=12, day=31)
+
+    # Filter schedules for the current year
+    yearly_schedules = Schedule.objects.filter(start_date__gte=start_of_year, end_date__lte=end_of_year)
+
+    # Pass the yearly schedule data to the template
+    context = {
+        'schedules': yearly_schedules,
+        'title': 'Yearly Schedule Status Report'
+    }
+
+    return render(request, 'yearly_report.html', context)
