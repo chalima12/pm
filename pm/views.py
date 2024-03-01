@@ -740,3 +740,21 @@ def main_dashboard(request):
     }
  
     return render(request, 'pm/mainDashboard.html', context)
+
+@login_required
+def weekly_schedule_status_report(request):
+    # Calculate the start and end dates for the current week
+    today = datetime.today()
+    start_of_week = today - timedelta(days=today.weekday())
+    end_of_week = start_of_week + timedelta(days=6)
+
+    # Filter schedules for the current week
+    weekly_schedules = Schedule.objects.filter(start_date__gte=start_of_week, end_date__lte=end_of_week)
+
+    # Pass the weekly schedule data to the template
+    context = {
+        'schedules': weekly_schedules,
+        'title': 'Weekly Schedule Status Report'
+    }
+
+    return render(request, 'weekly_report.html', context)
