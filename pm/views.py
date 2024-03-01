@@ -758,3 +758,22 @@ def weekly_schedule_status_report(request):
     }
 
     return render(request, 'weekly_report.html', context)
+
+@login_required
+def monthly_schedule_status_report(request):
+    # Calculate the start and end dates for the current month
+    today = datetime.today()
+    start_of_month = today.replace(day=1)
+    end_of_month = start_of_month + timedelta(days=32)
+    end_of_month = end_of_month - timedelta(days=end_of_month.day)
+
+    # Filter schedules for the current month
+    monthly_schedules = Schedule.objects.filter(start_date__gte=start_of_month, end_date__lte=end_of_month)
+
+    # Pass the monthly schedule data to the template
+    context = {
+        'schedules': monthly_schedules,
+        'title': 'Monthly Schedule Status Report'
+    }
+
+    return render(request, 'monthly_report.html', context)
