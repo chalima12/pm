@@ -777,3 +777,22 @@ def monthly_schedule_status_report(request):
     }
 
     return render(request, 'monthly_report.html', context)
+
+@login_required
+def quarterly_schedule_status_report(request):
+    # Calculate the start and end dates for the current quarter
+    today = datetime.today()
+    quarter_number = (today.month - 1) // 3 + 1
+    start_of_quarter = datetime(today.year, 3 * quarter_number - 2, 1)
+    end_of_quarter = start_of_quarter + timedelta(days=90) - timedelta(days=1)
+
+    # Filter schedules for the current quarter
+    quarterly_schedules = Schedule.objects.filter(start_date__gte=start_of_quarter, end_date__lte=end_of_quarter)
+
+    # Pass the quarterly schedule data to the template
+    context = {
+        'schedules': quarterly_schedules,
+        'title': 'Quarterly Schedule Status Report'
+    }
+
+    return render(request, 'quarterly_report.html', context)
