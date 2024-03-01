@@ -796,6 +796,26 @@ def quarterly_schedule_status_report(request):
     }
 
     return render(request, 'quarterly_report.html', context)
+@login_required
+def half_yearly_schedule_status_report(request):
+    today = datetime.today()
+    start_of_year = today.replace(month=1, day=1)
+    mid_of_year = today.replace(month=6, day=30)
+    end_of_year = today.replace(month=12, day=31)
+
+    if today <= mid_of_year:
+        start_date = start_of_year
+        end_date = mid_of_year
+    else:
+        start_date = mid_of_year + timedelta(days=1)
+        end_date = end_of_year
+
+    half_yearly_schedules = Schedule.objects.filter(start_date__gte=start_date, end_date__lte=end_date)
+    context = {
+        'schedules': half_yearly_schedules,
+        'title': 'Half-Yearly Schedule Status Report'
+    }
+    return render(request, 'half_yearly_report.html', context)
 
 @login_required
 def yearly_schedule_status_report(request):
@@ -814,3 +834,4 @@ def yearly_schedule_status_report(request):
     }
 
     return render(request, 'yearly_report.html', context)
+
