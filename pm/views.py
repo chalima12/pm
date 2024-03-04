@@ -738,7 +738,7 @@ def main_dashboard(request):
         "banks_list": banks_list,
         "approved_schedules": approved_schedules,
     }
- 
+
     return render(request, 'pm/mainDashboard.html', context)
 
 @login_required

@@ -114,6 +114,7 @@ class Moti_district(models.Model):
     district_key = models.CharField(max_length=100, null= True, blank=True)
     district_name = models.CharField(max_length=100, null= True, blank=True)
     location = models.CharField(max_length=100, null= True, blank=True)
+    city = models.CharField(max_length=100, null= True, blank=True)
     region = models.CharField(
         max_length=50, choices=MOTI_DISTRICT, null=True, blank=True)
     def __str__(self):
@@ -151,7 +152,7 @@ class AllSchedule(models.Model):
         return self.schedul_name
     
 
-class Schedule(models.Model): #TODO: name this to Shedule List
+class Schedule(models.Model): 
     PENDING = 'PE'
     WAITING = "WT"
     ONPROGRESS = 'OP'
@@ -183,6 +184,7 @@ class Schedule(models.Model): #TODO: name this to Shedule List
         auto_now_add=False, editable=True, null=True, blank=True)
     end_date = models.DateTimeField(
         auto_now_add=False, editable=True,null=True,blank=True)
+    remaining_days= models.IntegerField(null=True,blank=True, default=90)
     assign_to = models.ForeignKey(
         User, on_delete=models.PROTECT,null=True, blank=True)
     status = models.CharField(
