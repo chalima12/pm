@@ -586,7 +586,42 @@
   $('[data-toggle="tooltip"]').tooltip()
 })
 </script>
-<script>
+{% comment %} <script>
+  const ctx = document.getElementById('myChart');
+  const banks = {{ banks_list|safe }};
+  const completed_data = {{ approved_schedules|safe }};
+  
+  // Calculate total completed tasks
+  const totalCompletedTasks = completed_data.reduce((acc, value) => acc + value, 0);
+
+  // Calculate percentages
+  const percentages = completed_data.map(value => ((value / totalCompletedTasks) * 100).toFixed(2));
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: banks,
+      datasets: [{
+        label: 'Percentage of Completed Tasks By Banks',
+        data: percentages,  // Use the calculated percentages
+        borderWidth: 1,
+        backgroundColor: '#5b9bea'  
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          callback: function(value) {
+            return value + '%';  // Append '%' to each y-axis label
+          }
+        }
+      }
+    }
+  });
+</script> {% endcomment %}
+
+ <script>
   const ctx = document.getElementById('myChart');
   const banks = {{ banks_list|safe }};
   const completed_data = {{ approved_schedules|safe }};
@@ -621,7 +656,6 @@
   });
 </script>
 
- 
   </body>
 </html>
 {% comment %} high_priority_task {% endcomment %}

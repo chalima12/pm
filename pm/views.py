@@ -739,7 +739,7 @@ def main_dashboard(request):
         "approved_schedules": approved_schedules,
     }
 
-    return render(request, 'pm/mainDashboard.html', context)
+    return render(request, 'pm/main_dashboard.html', context)
 
 @login_required
 def weekly_schedule_status_report(request):
