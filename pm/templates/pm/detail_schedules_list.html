@@ -88,6 +88,7 @@
                     <th>TID</th>
                     <th>BANK NAME</th>
                     <th>TERMINAL NAME</th>
+                    <th>DISTRICT</th>
                     <th>END DATE</th>
                     <th>ASSIGNED TO</th>
                     <th>REMAINING DAY</th>
@@ -103,6 +104,7 @@
                     <td>{{schedule.terminal.tid}}</td>
                     <td>{{schedule.terminal.bank_name}}</td>
                     <td>{{schedule.terminal.terminal_name}}</td>
+                    <td>{{schedule.terminal.district}}</td>
                     <td>{{schedule.end_date|date:'Y-m-d'}}</td>
                     <td>{% if schedule.assign_to %}
                         {{schedule.assign_to.first_name}} {{schedule.assign_to.last_name}}
@@ -279,6 +281,7 @@
                     <th>TID</th>
                     <th>BANK NAME</th>
                     <th>TERMINAL NAME</th>
+                    <th>DISTRICT</th>
                     <th>END DATE</th>
                     <th>ASSIGNED TO</th>
                     <th>REMAINING DAY</th>
