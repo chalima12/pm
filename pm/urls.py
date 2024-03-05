@@ -4,6 +4,7 @@ from django.urls import path
 urlpatterns = [
     path('', views.home, name='home'),
     path('main_dashboard/', views.private_banks_dashboard, name='private-banks-dashboard'),
+     path('cbe_dashboard/', views.cbe_dashboard, name='cbe-dashboard'),
     path('banks/', views.banks, name='banks-page'),
     path('banks/addBank/', views.addBank, name='add-bank'),
     path('banks/update_bank/<int:bank_id>', views.updateBank, name="update-bank"),

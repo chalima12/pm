@@ -742,6 +742,17 @@ def private_banks_dashboard(request):
     return render(request, 'pm/private_banks_dashboard.html', context)
 
 @login_required
+def cbe_dashboard(request):
+    cbe_branches = Schedule.objects.filter(terminal__bank_name__bank_key="CBE")
+    cbe_statistics = calculate_schedule_statistics(cbe_branches)
+    context = {
+        "title": "CBE Dashboard",
+        "schedules": cbe_branches,
+        **cbe_statistics,
+    }
+    return render(request, 'pm/cbe_dashboard.html', context)
+
+@login_required
 def weekly_schedule_status_report(request):
     # Calculate the start and end dates for the current week
     today = datetime.today()
