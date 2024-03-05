@@ -723,7 +723,7 @@ def terminals_list(request):
 
 #  Main Dashboard View
 @login_required
-def main_dashboard(request):
+def private_banks_dashboard(request):
     
     banks_queryset = Schedule.objects.values_list('terminal__bank_name__bank_name', flat=True).distinct()
     banks_list = list(banks_queryset)  # Convert the queryset to a list
@@ -739,7 +739,7 @@ def main_dashboard(request):
         "approved_schedules": approved_schedules,
     }
 
-    return render(request, 'pm/main_dashboard.html', context)
+    return render(request, 'pm/private_banks_dashboard.html', context)
 
 @login_required
 def weekly_schedule_status_report(request):
