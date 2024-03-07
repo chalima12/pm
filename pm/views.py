@@ -745,9 +745,10 @@ def private_banks_dashboard(request):
 def cbe_dashboard(request):
     cbe_branches = Schedule.objects.filter(terminal__bank_name__bank_key="CBE")
     districts = Schedule.objects.values_list('terminal__district__city', flat=True).distinct()
-    print("CBE",cbe_branches)
     unique_districts = list(set(districts))
-    print("Districts",unique_districts)
+    cbe_statistics = calculate_schedule_statistics(cbe_branches)
+    print(cbe_statistics)
+ 
     cbe_statistics = calculate_schedule_statistics(cbe_branches)
     context = {
         "title": "CBE Dashboard",
