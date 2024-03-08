@@ -830,15 +830,15 @@ def cbe_dashboard(request):
 
 
     # 4. Calculate the percentage of approved schedules for each district
-    district_approval_percentages = {}
+    district_approval_percentages = []
     for district in districts:
         total_schedules = district_schedule_counts[district]
         approved_count = cbe_approved_counts.get(district, 0)
         if total_schedules > 0:
             approval_percentage = (approved_count / total_schedules) * 100
-            district_approval_percentages[district] = approval_percentage
+            district_approval_percentages.append(approval_percentage)
         else:
-            district_approval_percentages[district] = 0
+            district_approval_percentages.append(0)
     print(district_approval_percentages)
     # 5. Create a context to pass the data to the template
     context = {

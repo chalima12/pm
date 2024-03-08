@@ -31,7 +31,7 @@
         </div>
         <div class="col-md-12">
           <div>
-            <canvas id="districtChart" width="400" height="400"></canvas>
+            <canvas id="districtChart" width="400"></canvas>
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@
               labels: [{% for district in districts %}"{{ district.district_name }}", {% endfor %}],
               datasets: [{
                   label: 'Approval Percentage',
-                  data: [{% for district in districts %}{{ district_approval_percentages.district|default_if_none:0 }}, {% endfor %}],
+                  data: {{ district_approval_percentages|safe }},
                   backgroundColor: 'rgba(54, 162, 235, 0.2)',
                   borderColor: 'rgba(54, 162, 235, 1)',
                   borderWidth: 1
@@ -58,10 +58,34 @@
               scales: {
                   yAxes: [{
                       ticks: {
-                          beginAtZero: true,
+                          min: 0,
+                          max: 100,
+                          stepSize: 10,
                           callback: function(value) {
                               return value + '%'; // Add percentage symbol
                           }
+                      },
+                      afterBuildTicks: function(scale) {
+                          scale.ticks.push(70); // Add the 70% mark
+
+
+                        }
+                  }]
+              },
+              annotation: {
+                  drawTime: 'afterDatasetsDraw',
+                  annotations: [{
+                      type: 'line',
+                      mode: 'horizontal',
+                      scaleID: 'y-axis-0',
+                      value: 70,
+                      color: 'red', // Set the color to red
+                      borderColor: 'red', // Set the border color to red
+                      borderWidth: 10, // Set the border width to make it bold
+                      label: {
+                          content: 'Target 70%',
+                          enabled: true,
+                          position: 'right'
                       }
                   }]
               }
