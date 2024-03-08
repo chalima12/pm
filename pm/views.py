@@ -774,6 +774,38 @@ def private_banks_dashboard(request):
 #     return render(request, 'pm/cbe_dashboard.html', context)
 
 
+# @login_required
+# def cbe_dashboard(request):
+#     # 1. Get the list of districts
+#     districts = Moti_district.objects.all()
+
+#     # 2. Count all schedules in each district
+#     district_schedule_counts = {}
+#     for district in districts:
+#         schedules = Schedule.objects.filter(terminal__district=district)
+#         district_schedule_counts[district] = schedules.count()
+
+#     # 3. Count all Approved status in each district for the bank called CBE
+#     cbe_approved_counts = {}
+#     cbe_bank_key = "CBE"
+#     for district in districts:
+#         approved_schedules = Schedule.objects.filter(
+#             terminal__district=district,
+#             terminal__bank_name__bank_key=cbe_bank_key,
+#             status=Schedule.APPROVED
+#         )
+#         cbe_approved_counts[district] = approved_schedules.count()
+#     print(cbe_approved_counts)
+#     # 4. Create a context to pass the data to the template
+#     context = {
+#         "title": "CBE Dashboard",
+#         "districts": districts,
+#         "district_schedule_counts": district_schedule_counts,
+#         "cbe_approved_counts": cbe_approved_counts
+#     }
+
+#     return render(request, 'pm/cbe_dashboard.html', context)
+
 @login_required
 def cbe_dashboard(request):
     # 1. Get the list of districts
@@ -782,26 +814,39 @@ def cbe_dashboard(request):
     # 2. Count all schedules in each district
     district_schedule_counts = {}
     for district in districts:
-        schedules = Schedule.objects.filter(terminal__district=district)
-        district_schedule_counts[district] = schedules.count()
+        total_schedules = Schedule.objects.filter(terminal__district=district).count()
+        district_schedule_counts[district] = total_schedules
 
     # 3. Count all Approved status in each district for the bank called CBE
     cbe_approved_counts = {}
-    cbe_bank = Bank.objects.get(bank_name="CBE")
+    cbe_bank_key = "CBE"  # Replace "CBE" with the actual bank_key value
     for district in districts:
-        approved_schedules = Schedule.objects.filter(
+        approved_count = Schedule.objects.filter(
             terminal__district=district,
-            terminal__bank_name=cbe_bank,
+            terminal__bank_name__bank_key=cbe_bank_key,
             status=Schedule.APPROVED
-        )
-        cbe_approved_counts[district] = approved_schedules.count()
+        ).count()
+        cbe_approved_counts[district] = approved_count
 
-    # 4. Create a context to pass the data to the template
+
+    # 4. Calculate the percentage of approved schedules for each district
+    district_approval_percentages = {}
+    for district in districts:
+        total_schedules = district_schedule_counts[district]
+        approved_count = cbe_approved_counts.get(district, 0)
+        if total_schedules > 0:
+            approval_percentage = (approved_count / total_schedules) * 100
+            district_approval_percentages[district] = approval_percentage
+        else:
+            district_approval_percentages[district] = 0
+    print(district_approval_percentages)
+    # 5. Create a context to pass the data to the template
     context = {
         "title": "CBE Dashboard",
         "districts": districts,
         "district_schedule_counts": district_schedule_counts,
-        "cbe_approved_counts": cbe_approved_counts
+        "cbe_approved_counts": cbe_approved_counts,
+        "district_approval_percentages": district_approval_percentages
     }
 
     return render(request, 'pm/cbe_dashboard.html', context)

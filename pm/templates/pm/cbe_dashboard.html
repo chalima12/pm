@@ -1,6 +1,4 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block content %}
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
@@ -33,8 +31,7 @@
         </div>
         <div class="col-md-12">
           <div>
-            {% comment %} <canvas id="cbeChart" style="height: 300px"></canvas>  {% endcomment %}
-            
+            <canvas id="districtChart" width="400" height="400"></canvas>
           </div>
         </div>
       </div>
@@ -42,5 +39,35 @@
   </section>
 </div>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var ctx = document.getElementById('districtChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: [{% for district in districts %}"{{ district.district_name }}", {% endfor %}],
+              datasets: [{
+                  label: 'Approval Percentage',
+                  data: [{% for district in districts %}{{ district_approval_percentages.district|default_if_none:0 }}, {% endfor %}],
+                  backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                  borderColor: 'rgba(54, 162, 235, 1)',
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero: true,
+                          callback: function(value) {
+                              return value + '%'; // Add percentage symbol
+                          }
+                      }
+                  }]
+              }
+          }
+      });
+  });
+</script>
 
-{% endblock content %}
+{% endblock %}

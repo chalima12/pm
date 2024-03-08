@@ -105,7 +105,7 @@ class Bank(models.Model):
 
 
     def __str__(self):
-        return self.bank_key
+        return self.bank_name
     class Meta:
         ordering = ['bank_name']
 

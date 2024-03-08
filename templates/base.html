@@ -662,40 +662,7 @@
   });
 </script>
 
- <script>
-  const ctx = document.getElementById('cbeChart');
-  const x_axis = {{ districts|safe }};
-  const completed_data = [1,2,3,4,5,6,7,8,9,10,11,12,13];
-  
-  // Calculate total completed tasks
-  const totalCompletedTasks = completed_data.reduce((acc, value) => acc + value, 0);
 
-  // Calculate percentages
-  const percentages = completed_data.map(value => ((value / totalCompletedTasks) * 100).toFixed(2));
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: x_axis,
-      datasets: [{
-        label: 'Percentage of Completed Tasks By Banks',
-        data: percentages,  
-        borderWidth: 1,
-        backgroundColor: '#5b9bea'  
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          callback: function(value) {
-            return value + '%';  // Append '%' to each y-axis label
-          }
-        }
-      }
-    }
-  });
-</script>
 
   </body>
 </html>
