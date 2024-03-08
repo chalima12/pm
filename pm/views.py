@@ -747,11 +747,11 @@ def private_banks_dashboard(request):
         total_approved = bank_approved_counts.get(bank.bank_name, 0)
         total_schedules = bank_schedule_counts.get(bank.bank_name, 0)
         if total_schedules > 0:
-            approval_percentage = (total_approved / total_schedules) * 100
+            approval_percentage = round((total_approved / total_schedules) * 100, 2)
             bank_approval_percentages.append(approval_percentage)
         else:
             bank_approval_percentages.append(0)
-
+    print(bank_approval_percentages)
     # 5. Create a context to pass the data to the template
     context = {
         "title": "Private Banks Dashboard",
@@ -790,11 +790,10 @@ def cbe_dashboard(request):
         total_schedules = district_schedule_counts[district]
         approved_count = cbe_approved_counts.get(district, 0)
         if total_schedules > 0:
-            approval_percentage = (approved_count / total_schedules) * 100
+            approval_percentage = round((approved_count / total_schedules) * 100, 2)
             district_approval_percentages.append(approval_percentage)
         else:
             district_approval_percentages.append(0)
-    print(district_approval_percentages)
     # 5. Create a context to pass the data to the template
     context = {
         "title": "CBE Dashboard",
