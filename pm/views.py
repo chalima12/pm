@@ -784,18 +784,18 @@ def cbe_dashboard(request):
     for district in districts:
         schedules = Schedule.objects.filter(terminal__district=district)
         district_schedule_counts[district] = schedules.count()
-    # print('Each District Schedule Count: ',district_schedule_counts)
+
     # 3. Count all Approved status in each district for the bank called CBE
     cbe_approved_counts = {}
-    cbe_bank = Bank.objects.get(bank_key="CBE")
+    cbe_bank = Bank.objects.get(bank_name="CBE")
     for district in districts:
         approved_schedules = Schedule.objects.filter(
             terminal__district=district,
-            terminal__bank_name__bank_key=cbe_bank,
+            terminal__bank_name=cbe_bank,
             status=Schedule.APPROVED
         )
         cbe_approved_counts[district] = approved_schedules.count()
-    print('CBE Approved Counts: ',cbe_approved_counts)
+
     # 4. Create a context to pass the data to the template
     context = {
         "title": "CBE Dashboard",
