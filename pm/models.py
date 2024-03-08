@@ -156,7 +156,6 @@ class Schedule(models.Model):
     PENDING = 'PE'
     WAITING = "WT"
     ONPROGRESS = 'OP'
-    APPROVED ='AP'
     REJECTED='RE'
     SUBMITTED = 'SB'
     APPROVED ="AP"

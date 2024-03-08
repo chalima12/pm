@@ -739,39 +739,73 @@ def private_banks_dashboard(request):
 
     return render(request, 'pm/private_banks_dashboard.html', context)
 
+# @login_required
+# def cbe_dashboard(request):
+#     # 1.  get the list of districts
+#     d = Moti_district.objects.all()
+#     dis = list([district.city for district in d])
+#     print(dis)
+#     # 2.  count All schedules in each district
+#     # 3.  count all Approved status in each district
+#     cbe_branches = Schedule.objects.filter(terminal__bank_name__bank_key="CBE")
+#     districts = Schedule.objects.values_list('terminal__district__city', flat=True).distinct()
+#     unique_districts = list(set(districts))
+#     cbe_statistics = calculate_schedule_statistics(cbe_branches)
+#     print ('List of Districts',districts)
+#     # banks = ["CBE"]
+#     # status_counts_by_bank = {}
+#     # for bank in banks:
+#     #     status_counts_by_bank[bank] = {
+#     #         "pending": Schedule.objects.filter(terminal__bank_name__bank_key=bank, status="PE").count(),
+#     #         "waiting": Schedule.objects.filter(terminal__bank_name__bank_key=bank, status="WT").count(),
+#     #         "onprogress": Schedule.objects.filter(terminal__bank_name__bank_key=bank, status="OP").count(),
+#     #         "submitted": Schedule.objects.filter(terminal__bank_name__bank_key=bank, status="SB").count(),
+#     #         "approved": Schedule.objects.filter(terminal__bank_name__bank_key=bank, status="AP").count(),
+#     #         "rejected": Schedule.objects.filter(terminal__bank_name__bank_key=bank, status="RE").count(),
+#     #     }
+#     # print(status_counts_by_bank)
+#     # cbe_statistics = calculate_schedule_statistics(cbe_branches)
+#     context = {
+#         "title": "CBE Dashboard",
+#         "schedules": cbe_branches,
+#         "districts": unique_districts,
+#         **cbe_statistics,
+#     }
+#     return render(request, 'pm/cbe_dashboard.html', context)
+
+
 @login_required
 def cbe_dashboard(request):
-    # 1.  get the list of districts
-    d = Moti_district.objects.all()
-    dis = list([district.city for district in d])
-    print(dis)
-    # 2.  count All schedules in each district
-    # 3.  count all Approved status in each district
-    cbe_branches = Schedule.objects.filter(terminal__bank_name__bank_key="CBE")
-    districts = Schedule.objects.values_list('terminal__district__city', flat=True).distinct()
-    unique_districts = list(set(districts))
-    cbe_statistics = calculate_schedule_statistics(cbe_branches)
-    print ('List of Districts',districts)
-    # banks = ["CBE"]
-    # status_counts_by_bank = {}
-    # for bank in banks:
-    #     status_counts_by_bank[bank] = {
-    #         "pending": Schedule.objects.filter(terminal__bank_name__bank_key=bank, status="PE").count(),
-    #         "waiting": Schedule.objects.filter(terminal__bank_name__bank_key=bank, status="WT").count(),
-    #         "onprogress": Schedule.objects.filter(terminal__bank_name__bank_key=bank, status="OP").count(),
-    #         "submitted": Schedule.objects.filter(terminal__bank_name__bank_key=bank, status="SB").count(),
-    #         "approved": Schedule.objects.filter(terminal__bank_name__bank_key=bank, status="AP").count(),
-    #         "rejected": Schedule.objects.filter(terminal__bank_name__bank_key=bank, status="RE").count(),
-    #     }
-    # print(status_counts_by_bank)
-    # cbe_statistics = calculate_schedule_statistics(cbe_branches)
+    # 1. Get the list of districts
+    districts = Moti_district.objects.all()
+
+    # 2. Count all schedules in each district
+    district_schedule_counts = {}
+    for district in districts:
+        schedules = Schedule.objects.filter(terminal__district=district)
+        district_schedule_counts[district] = schedules.count()
+    # print('Each District Schedule Count: ',district_schedule_counts)
+    # 3. Count all Approved status in each district for the bank called CBE
+    cbe_approved_counts = {}
+    cbe_bank = Bank.objects.get(bank_key="CBE")
+    for district in districts:
+        approved_schedules = Schedule.objects.filter(
+            terminal__district=district,
+            terminal__bank_name__bank_key=cbe_bank,
+            status=Schedule.APPROVED
+        )
+        cbe_approved_counts[district] = approved_schedules.count()
+    print('CBE Approved Counts: ',cbe_approved_counts)
+    # 4. Create a context to pass the data to the template
     context = {
         "title": "CBE Dashboard",
-        "schedules": cbe_branches,
-        "districts": unique_districts,
-        **cbe_statistics,
+        "districts": districts,
+        "district_schedule_counts": district_schedule_counts,
+        "cbe_approved_counts": cbe_approved_counts
     }
+
     return render(request, 'pm/cbe_dashboard.html', context)
+
 
 @login_required
 def weekly_schedule_status_report(request):
