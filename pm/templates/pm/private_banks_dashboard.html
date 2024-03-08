@@ -33,7 +33,7 @@
         </div>
         <div class="col-md-12">
           <div>
-            <canvas id="myChart" style="height: 300px"></canvas>
+            <canvas id="bankChart" width="400"></canvas>
           </div>
         </div>
       </div>
@@ -41,5 +41,56 @@
   </section>
 </div>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var ctx = document.getElementById('bankChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: [{% for bank in banks %}"{{ bank.bank_name }}", {% endfor %}],
+              datasets: [{
+                  label: 'Approval Percentage',
+                  data: {{ bank_approval_percentages|safe }},
+                  backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                  borderColor: 'rgba(54, 162, 235, 1)',
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          min: 0,
+                          max: 100,
+                          stepSize: 10,
+                          callback: function(value) {
+                              return value + '%'; // Add percentage symbol
+                          }
+                      },
+                      afterBuildTicks: function(scale) {
+                          scale.ticks.push(70); // Add the 70% mark
+                      }
+                  }]
+              },
+              annotation: {
+                  drawTime: 'afterDatasetsDraw',
+                  annotations: [{
+                      type: 'line',
+                      mode: 'horizontal',
+                      scaleID: 'y-axis-0',
+                      value: 70,
+                      borderColor: 'red', // Set the border color to red
+                      borderWidth: 2, // Set the border width
+                      label: {
+                          content: 'Target 70%',
+                          enabled: true,
+                          position: 'right'
+                      }
+                  }]
+              }
+          }
+      });
+  });
+</script>
 
-{% endblock content %}
+{% endblock %}
