@@ -162,6 +162,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var ctx = document.getElementById('barChartDetail').getContext('2d');
+
     var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -174,8 +175,7 @@
           {
             label: "{{ dataset_label }}",
             data: {{ dataset_data|safe }},
-            backgroundColor: '{{ dataset_background_color }}',
-            borderColor: '{{ dataset_border_color }}',
+            backgroundColor: ['#cf5438', '#3498db', '#FFD700', '#81e7ac', '#00a65a', '#FF0000'],
             borderWidth: 1
           }
         ]
