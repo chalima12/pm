@@ -681,11 +681,23 @@ def schedules_detail_report(request, bank_id):
     schedule_list_by_bank = Schedule.objects.filter(
         terminal__in=terminals_in_bank)
     bank_schedule_statistics = calculate_schedule_statistics(schedule_list_by_bank)
+     # Construct labels and dataset_data
+    labels = ["Pending", "Waiting", "On Progress", "Submitted", "Approved", "Rejected"]
+    dataset_data = [
+        bank_schedule_statistics["pending_rate"],
+        bank_schedule_statistics["waiting_rate"],
+        bank_schedule_statistics["onprogress_rate"],
+        bank_schedule_statistics["submitted_rate"],
+        bank_schedule_statistics["approved_rate"],
+        bank_schedule_statistics["rejected_rate"]
+    ]
     context = {
         "schedules": schedule_list_by_bank,
         "title": title,
         "bank": bank,
         **bank_schedule_statistics,
+        "labels": labels,
+        "dataset_data": dataset_data
     }
     return render(request, 'pm/schedules_report.html', context)
 @login_required

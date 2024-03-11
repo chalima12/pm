@@ -146,7 +146,7 @@
               <div class="tab-pane fade" id="custom-tabs-four-chart" role="tabpanel" aria-labelledby="custom-tabs-four-chart-tab">
                 <div class="chart">
 
-                  <canvas id="barChart" style="max-width: 100%;"></canvas>
+                  <canvas id="barChartDetail" style="max-width: 100%;"></canvas>
                 </div>
               </div>
             </div>
@@ -159,4 +159,63 @@
   </section>
 </div>
 
-{% endblock content %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var ctx = document.getElementById('barChartDetail').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: [
+          {% for label in labels %}
+            "{{ label }}",
+          {% endfor %}
+        ],
+        datasets: [
+          {
+            label: "{{ dataset_label }}",
+            data: {{ dataset_data|safe }},
+            backgroundColor: '{{ dataset_background_color }}',
+            borderColor: '{{ dataset_border_color }}',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              min: 0,
+              max: 100,
+              stepSize: 10,
+              callback: function(value) {
+                return value + '%'; // Add percentage symbol
+              }
+            },
+            afterBuildTicks: function(scale) {
+              scale.ticks.push(70); // Add the 70% mark
+            }
+          }]
+        },
+        annotation: {
+          drawTime: 'afterDatasetsDraw',
+          annotations: [{
+            type: 'line',
+            mode: 'horizontal',
+            scaleID: 'y-axis-0',
+            value: 70,
+            color: 'red', // Set the color to red
+            borderColor: 'red', // Set the border color to red
+            borderWidth: 10, // Set the border width to make it bold
+            label: {
+              content: 'Target 70%',
+              enabled: true,
+              position: 'right'
+            }
+          }]
+        }
+      }
+    });
+  });
+</script>
+
+{% endblock %}
