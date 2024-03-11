@@ -644,7 +644,7 @@ def schedule_report_by_district(request, district_id):
 
 
 @login_required
-def schedules_detail_report(request, bank_id):
+def schedules_report_by_bank(request, bank_id):
     bank = get_object_or_404(Bank, pk=bank_id)
     title = "Schedules List"
     # schedule_list_by_bank = Schedule.objects.filter(terminal__bank_name = bank)
@@ -671,7 +671,7 @@ def schedules_detail_report(request, bank_id):
         "labels": labels,
         "dataset_data": dataset_data
     }
-    return render(request, 'pm/schedules_report.html', context)
+    return render(request, 'pm/schedules_by_bank.html', context)
 @login_required
 def terminals_list(request):
     terminals = None
