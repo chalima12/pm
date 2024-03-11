@@ -46,7 +46,7 @@
                       <div class="modal-body">
                           <div class="row">
                             <div class="col-md-12">
-                              <p>TOTAL: <strong><span class="h3"> {{total_count}}</span></strong> </p>
+                              <p>TOTAL: <strong><span class="h3"> {{specific_schedule_count}}</span></strong> </p>
                               <hr>
                             </div>
                             <div class="col-md-6">
@@ -162,7 +162,6 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var ctx = document.getElementById('barChartDetail').getContext('2d');
-
     var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -173,7 +172,7 @@
         ],
         datasets: [
           {
-            label: "{{ dataset_label }}",
+            label: "{{bank.bank_name|safe}}",
             data: {{ dataset_data|safe }},
             backgroundColor: ['#cf5438', '#3498db', '#FFD700', '#81e7ac', '#00a65a', '#FF0000'],
             borderWidth: 1

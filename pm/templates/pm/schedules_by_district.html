@@ -15,18 +15,29 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <div class="card border-top border-info">
+          <div class="card border-top border-info card-primary card-outline card-outline-tabs">
             <div class="card-header"><a href="{% url "districts-report" %}" class="btn btn-md btn-info">Back</a>
               <a  class="btn btn-secondary btn-md float-right" data-toggle="modal" data-target="#analysis"
                         >
                     📈Analysis Summary
-                </a></div>
+                </a>
+              <div class="card-header p-0 border-bottom-0 mt-4">
+                <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="custom-tabs-four-table-tab" data-toggle="pill" href="#custom-tabs-four-table" role="tab" aria-controls="custom-tabs-four-table" aria-selected="true">Table</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-four-chart-tab" data-toggle="pill" href="#custom-tabs-four-chart" role="tab" aria-controls="custom-tabs-four-chart" aria-selected="false">Chart</a>
+                  </li>
+                </ul>
+              </div>
+              </div>
             <!-- /.card-header -->
             <div class="modal fade" id="analysis">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="modal-title">Bank Name: <b class="text-info">{{bank.bank_name}}</b></h4>
+                      <h4 class="modal-title">District Name: <b class="text-info">{{district.district_name}}</b></h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -73,8 +84,10 @@
                 <!-- /.modal-dialog -->
               </div>
             
-            <div class="card-body">
-              <table id = "example1" class="table table-hover">
+          <div class="card-body">
+            <div class="tab-content" id="custom-tabs-four-tabContent">
+              <div class="tab-pane fade show active" id="custom-tabs-four-table" role="tabpanel" aria-labelledby="custom-tabs-four-table-tab">
+            <table id = "example1" class="table table-hover">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -145,6 +158,15 @@
                 </tfoot>
               </table>
             </div>
+            <div class="tab-pane fade" id="custom-tabs-four-chart" role="tabpanel" aria-labelledby="custom-tabs-four-chart-tab">
+                <div class="chart">
+
+                  <canvas id="districtChart" style="max-width: 100%;"></canvas>
+                </div>
+              </div>
+            
+            </div>
+            </div>
           </div>
         </div>
       </div>
@@ -152,4 +174,61 @@
   </section>
 </div>
 
-{% endblock content %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var ctx = document.getElementById('districtChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: [
+          {% for label in labels %}
+            "{{ label }}",
+          {% endfor %}
+        ],
+        datasets: [
+          {
+            label: "{{district.district_name|safe}}",
+            data: {{ dataset_data|safe }},
+            backgroundColor: ['#cf5438', '#3498db', '#FFD700', '#81e7ac', '#00a65a', '#FF0000'],
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              min: 0,
+              max: 100,
+              stepSize: 10,
+              callback: function(value) {
+                return value + '%'; // Add percentage symbol
+              }
+            },
+            afterBuildTicks: function(scale) {
+              scale.ticks.push(70); // Add the 70% mark
+            }
+          }]
+        },
+        annotation: {
+          drawTime: 'afterDatasetsDraw',
+          annotations: [{
+            type: 'line',
+            mode: 'horizontal',
+            scaleID: 'y-axis-0',
+            value: 70,
+            color: 'red', // Set the color to red
+            borderColor: 'red', // Set the border color to red
+            borderWidth: 10, // Set the border width to make it bold
+            label: {
+              content: 'Target 70%',
+              enabled: true,
+              position: 'right'
+            }
+          }]
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}
