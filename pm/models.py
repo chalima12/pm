@@ -197,6 +197,7 @@ class Schedule(models.Model):
     checklist_photo = models.FileField(null=True, blank=True,upload_to="pm_checklist_pics/")
     closed_date = models.DateTimeField(blank=True,null=True)
     approval_comment = models.CharField(max_length=100, null=True, blank=True)
+    rejected_comment = models.CharField(max_length=100, null=True, blank=True)
     
     created_date = models.DateField(
         auto_now_add=True)

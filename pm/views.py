@@ -499,7 +499,7 @@ def end_scheduled_task(request, id):
         if form.is_valid():
             schedule.status = "SB"
             form.save()
-            messages.success(request, "Chenge Updated successfully!")
+            messages.success(request, "Change Updated successfully!")
             return redirect(f'/detail_schedule/{all_schedule_id}')
     else:
         schedule = Schedule.objects.get(pk=id)
@@ -541,7 +541,7 @@ def reject_task(request, id):
         if form.is_valid():
             schedule.status = "RE"
             form.save()
-            messages.success(request, "Chenge Updated successfully!")
+            messages.success(request, "Change Updated successfully!")
             return redirect(f'/detail_schedule/{all_schedule_id}')
     else:
         schedule = Schedule.objects.get(pk=id)
