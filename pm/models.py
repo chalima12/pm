@@ -163,7 +163,7 @@ class Schedule(models.Model):
         (PENDING, 'Pending'),
         (WAITING,'Waiting'),
         (ONPROGRESS, 'Onprogress'),
-        (SUBMITTED, 'Sumitted'),
+        (SUBMITTED, 'Submitted'),
         (APPROVED, 'Approved'),
         (REJECTED, 'Rejected'),
 
@@ -183,7 +183,7 @@ class Schedule(models.Model):
         auto_now_add=False, editable=True, null=True, blank=True)
     end_date = models.DateTimeField(
         auto_now_add=False, editable=True,null=True,blank=True)
-    remaining_days= models.IntegerField(null=True,blank=True, default=90)
+    remaining_days= models.CharField(max_length=255,null=True,blank=True, default=90)
     assign_to = models.ForeignKey(
         User, on_delete=models.PROTECT,null=True, blank=True)
     status = models.CharField(
