@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone, timedelta, date
 from django.db.models import Count
+from django.utils import timezone
 import json
 from pm.models import Terminal, User, Bank, Schedule, AllSchedule,Moti_district
 import math
@@ -735,57 +736,122 @@ def private_banks_dashboard(request):
             bank_approval_percentages.append(approval_percentage)
         else:
             bank_approval_percentages.append(0)
-    print(bank_approval_percentages)
-    # 5. Create a context to pass the data to the template
+
+    # 5. Define start and end dates for each quarter
+    current_date = timezone.now().date()
+    quarters = {
+        1: (timezone.datetime(current_date.year -1, 7, 1), timezone.datetime(current_date.year -1, 9, 30)),  # Q1: July - September previous year
+        2: (timezone.datetime(current_date.year -1, 10, 1), timezone.datetime(current_date.year -1, 12, 31)),  # Q2: October - December previous year
+        3: (timezone.datetime(current_date.year, 1, 1), timezone.datetime(current_date.year, 3, 31)),  # Q3: January - March of the following year
+        4: (timezone.datetime(current_date.year, 4, 1), timezone.datetime(current_date.year, 6, 30)),  # Q4: April - June of the following year
+    }
+
+    # 6. Initialize dictionaries to store data for each quarter
+    quarter_data = {}
+
+    # 7. Iterate over quarters and retrieve data for each quarter
+    for quarter, (start_date, end_date) in quarters.items():
+        # Filter schedules for the current quarter
+        quarter_schedules = Schedule.objects.filter(start_date__gte=start_date, start_date__lte=end_date)
+
+        # Count all schedules in each bank for the current quarter
+        bank_schedule_counts = {}
+        for bank in banks:
+            total_schedules = quarter_schedules.filter(terminal__bank_name=bank).count()
+            bank_schedule_counts[bank.bank_name] = total_schedules
+
+        # Count all Approved status in each bank for the current quarter
+        bank_approved_counts = {}
+        for bank in banks:
+            approved_count = quarter_schedules.filter(
+                terminal__bank_name=bank,
+                status=Schedule.APPROVED
+            ).count()
+            bank_approved_counts[bank.bank_name] = approved_count
+
+        # Calculate the percentage of approved schedules for each bank for the current quarter
+        bank_approval_percentages = []
+        for bank in banks:
+            total_approved = bank_approved_counts.get(bank.bank_name, 0)
+            total_schedules = bank_schedule_counts.get(bank.bank_name, 0)
+            if total_schedules > 0:
+                approval_percentage = round((total_approved / total_schedules) * 100, 2)
+                bank_approval_percentages.append(approval_percentage)
+            else:
+                bank_approval_percentages.append(0)
+
+        # Store data for the current quarter
+        quarter_data[quarter] = {
+            "banks": banks,
+            "bank_approval_percentages": bank_approval_percentages
+        }
+
+    # 8. Create a context to pass the data to the template
     context = {
         "title": "Private Banks Dashboard",
-        "banks": banks,
-        "bank_approval_percentages": bank_approval_percentages
+        "quarter_data": quarter_data,
     }
 
     return render(request, 'pm/private_banks_dashboard.html', context)
 
 @login_required
 def cbe_dashboard(request):
-    # 1. Get the list of districts
+    # Get the list of districts
     districts = Moti_district.objects.all()
+    # Get the current date in the current time zone
+    current_date = timezone.now().date()
+    # Define start and end dates for each quarter
+    quarters = {
+        1: (timezone.datetime(current_date.year -1, 7, 1), timezone.datetime(current_date.year -1, 9, 30)),  # Q1: July - September pervious year
+        2: (timezone.datetime(current_date.year -1, 10, 1), timezone.datetime(current_date.year -1, 12, 31)),  # Q2: October - December previous year
+        3: (timezone.datetime(current_date.year, 1, 1), timezone.datetime(current_date.year, 3, 31)),  # Q3: January - March of the following year
+        4: (timezone.datetime(current_date.year, 4, 1), timezone.datetime(current_date.year, 6, 30)),  # Q4: April - June of the following year
+    }
+    quarter_data = {}
+    # Iterate over quarters and retrieve data for each quarter
+    for quarter, (start_date, end_date) in quarters.items():
+        # Filter schedules for the current quarter
+        quarter_schedules = Schedule.objects.filter(start_date__gte=start_date, start_date__lte=end_date)
 
-    # 2. Count all schedules in each district
-    district_schedule_counts = {}
-    for district in districts:
-        total_schedules = Schedule.objects.filter(terminal__district=district).count()
-        district_schedule_counts[district] = total_schedules
+        # Count all schedules in each district for the current quarter
+        district_schedule_counts = {}
+        for district in districts:
+            total_schedules = quarter_schedules.filter(terminal__district=district).count()
+            district_schedule_counts[district] = total_schedules
 
-    # 3. Count all Approved status in each district for the bank called CBE
-    cbe_approved_counts = {}
-    cbe_bank_key = "CBE"  # Replace "CBE" with the actual bank_key value
-    for district in districts:
-        approved_count = Schedule.objects.filter(
-            terminal__district=district,
-            terminal__bank_name__bank_key=cbe_bank_key,
-            status=Schedule.APPROVED
-        ).count()
-        cbe_approved_counts[district] = approved_count
+        # Count all Approved status in each district for the bank called CBE for the current quarter
+        cbe_approved_counts = {}
+        cbe_bank_key = "CBE"  # Replace "CBE" with the actual bank_key value
+        for district in districts:
+            approved_count = quarter_schedules.filter(
+                terminal__district=district,
+                terminal__bank_name__bank_key=cbe_bank_key,
+                status=Schedule.APPROVED
+            ).count()
+            cbe_approved_counts[district] = approved_count
 
+        # Calculate the percentage of approved schedules for each district for the current quarter
+        district_approval_percentages = []
+        for district in districts:
+            total_schedules = district_schedule_counts[district]
+            approved_count = cbe_approved_counts.get(district, 0)
+            if total_schedules > 0:
+                approval_percentage = round((approved_count / total_schedules) * 100, 2)
+                district_approval_percentages.append(approval_percentage)
+            else:
+                district_approval_percentages.append(0)
 
-    # 4. Calculate the percentage of approved schedules for each district
-    district_approval_percentages = []
-    for district in districts:
-        total_schedules = district_schedule_counts[district]
-        approved_count = cbe_approved_counts.get(district, 0)
-        if total_schedules > 0:
-            approval_percentage = round((approved_count / total_schedules) * 100, 2)
-            district_approval_percentages.append(approval_percentage)
-        else:
-            district_approval_percentages.append(0)
-    # 5. Create a context to pass the data to the template
+        # Store data for the current quarter
+        quarter_data[quarter] = {
+            "districts": districts,
+            "district_schedule_counts": district_schedule_counts,
+            "cbe_approved_counts": cbe_approved_counts,
+            "district_approval_percentages": district_approval_percentages
+        }
+
     context = {
         "title": "CBE Dashboard",
-        "districts": districts,
-        "district_schedule_counts": district_schedule_counts,
-        "cbe_approved_counts": cbe_approved_counts,
-        "district_approval_percentages": district_approval_percentages
+        "quarter_data": quarter_data,
     }
 
     return render(request, 'pm/cbe_dashboard.html', context)
-

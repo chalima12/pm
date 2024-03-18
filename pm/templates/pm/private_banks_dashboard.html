@@ -1,14 +1,42 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
 <div class="content-wrapper">
   <section class="content">
-    <div class="container-fluid">
+    <div class="card">
       <div class="row">
         <div class="col-md-12">
-          <h4 class="text-center">Banks Compeleted Percentage</h4>
-        </div>
-        <div class="col-md-12">
-          <div>
-            <canvas id="bankChart" style="height: 200px"></canvas>
+          <ul class="nav nav-tabs" id="quarterTabs" role="tablist">
+            {% for quarter, data in quarter_data.items %}
+            <li class="nav-item">
+              <a
+                class="nav-link {% if forloop.first %}active{% endif %}"
+                id="quarter{{ quarter }}-tab"
+                data-toggle="tab"
+                href="#quarter{{ quarter }}"
+                role="tab"
+                aria-controls="quarter{{ quarter }}"
+                aria-selected="true"
+                >Quarter {{ quarter }}</a
+              >
+            </li>
+            {% endfor %}
+          </ul>
+          <div class="tab-content" id="quarterTabsContent">
+            {% for quarter, data in quarter_data.items %}
+            <div
+              class="tab-pane fade {% if forloop.first %}show active{% endif %}"
+              id="quarter{{ quarter }}"
+              role="tabpanel"
+              aria-labelledby="quarter{{ quarter }}-tab"
+            >
+              <div class="card-body">
+                <div>
+                  <canvas id="quarter{{ quarter }}Chart" width="400"></canvas>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
           </div>
         </div>
       </div>
@@ -18,53 +46,56 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-      var ctx = document.getElementById('bankChart').getContext('2d');
-      var myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-              labels: [{% for bank in banks %}"{{ bank.bank_name }}", {% endfor %}],
-              datasets: [{
-                  label: 'Compeleted Percentage',
-                  data: {{ bank_approval_percentages|safe }},
-                  backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                  borderColor: 'rgba(54, 162, 235, 1)',
-                  borderWidth: 1
-              }]
-          },
-          options: {
-              scales: {
-                  yAxes: [{
-                      ticks: {
-                          min: 0,
-                          max: 100,
-                          stepSize: 10,
-                          callback: function(value) {
-                              return value + '%'; // Add percentage symbol
-                          }
-                      },
-                      afterBuildTicks: function(scale) {
-                          scale.ticks.push(70); // Add the 70% mark
-                      }
-                  }]
-              },
-              annotation: {
-                  drawTime: 'afterDatasetsDraw',
-                  annotations: [{
-                      type: 'line',
-                      mode: 'horizontal',
-                      scaleID: 'y-axis-0',
-                      value: 70,
-                      borderColor: 'red', // Set the border color to red
-                      borderWidth: 2, // Set the border width
-                      label: {
-                          content: 'Target 70%',
-                          enabled: true,
-                          position: 'right'
-                      }
-                  }]
+    {% for quarter, data in quarter_data.items %}
+    var ctx{{ quarter }} = document.getElementById('quarter{{ quarter }}Chart').getContext('2d');
+    var myChart{{ quarter }} = new Chart(ctx{{ quarter }}, {
+      type: 'bar',
+      data: {
+        labels: [{% for bank in data.banks %}"{{ bank.bank_name }}", {% endfor %}],
+        datasets: [{
+          label: 'Completed | CBE',
+          data: {{ data.bank_approval_percentages|safe }},
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              min: 0,
+              max: 100,
+              stepSize: 10,
+              callback: function(value) {
+                return value + '%'; // Add percentage symbol
               }
-          }
-      });
+            },
+            afterBuildTicks: function(scale) {
+              scale.ticks.push(70); // Add the 70% mark
+            }
+          }]
+        },
+        annotation: {
+          drawTime: 'afterDatasetsDraw',
+          annotations: [{
+            type: 'line',
+            mode: 'horizontal',
+            scaleID: 'y-axis-0',
+            value: 70,
+            color: 'red', // Set the color to red
+            borderColor: 'red', // Set the border color to red
+            borderWidth: 10, // Set the border width to make it bold
+            label: {
+              content: 'Target 70%',
+              enabled: true,
+              position: 'right'
+            }
+          }]
+        }
+      }
+    });
+    {% endfor %}
   });
 </script>
 

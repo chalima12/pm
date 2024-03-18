@@ -1,15 +1,152 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
 <div class="content-wrapper">
   <section class="content">
     <div class="card">
       <div class="row">
         <div class="col-md-12">
-          <h4 class="text-center">Compeleted Percentage by District | CBE</h4>
+          <ul class="nav nav-tabs" id="quarterTabs" role="tablist">
+            {% for quarter, data in quarter_data.items %}
+            <li class="nav-item">
+              <a class="nav-link {% if forloop.first %}active{% endif %}" id="quarter{{ quarter }}-tab" data-toggle="tab" href="#quarter{{ quarter }}" role="tab" aria-controls="quarter{{ quarter }}" aria-selected="true">Quarter {{ quarter }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+          <div class="tab-content" id="quarterTabsContent">
+            {% for quarter, data in quarter_data.items %}
+            <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="quarter{{ quarter }}" role="tabpanel" aria-labelledby="quarter{{ quarter }}-tab">
+              <div class="card-body">
+                <div>
+                  <canvas id="quarter{{ quarter }}Chart" width="400"></canvas>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    {% for quarter, data in quarter_data.items %}
+    var ctx{{ quarter }} = document.getElementById('quarter{{ quarter }}Chart').getContext('2d');
+    var myChart{{ quarter }} = new Chart(ctx{{ quarter }}, {
+      type: 'bar',
+      data: {
+        labels: [{% for district in data.districts %}"{{ district.district_name }}", {% endfor %}],
+        datasets: [{
+          label: 'Completed | CBE',
+          data: {{ data.district_approval_percentages|safe }},
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              min: 0,
+              max: 100,
+              stepSize: 10,
+              callback: function(value) {
+                return value + '%'; // Add percentage symbol
+              }
+            },
+            afterBuildTicks: function(scale) {
+              scale.ticks.push(70); // Add the 70% mark
+            }
+          }]
+        },
+        annotation: {
+          drawTime: 'afterDatasetsDraw',
+          annotations: [{
+            type: 'line',
+            mode: 'horizontal',
+            scaleID: 'y-axis-0',
+            value: 70,
+            color: 'red', // Set the color to red
+            borderColor: 'red', // Set the border color to red
+            borderWidth: 10, // Set the border width to make it bold
+            label: {
+              content: 'Target 70%',
+              enabled: true,
+              position: 'right'
+            }
+          }]
+        }
+      }
+    });
+    {% endfor %}
+  });
+</script>
+
+{% endblock %}
+
+{% comment %} {% extends "base.html" %} {% load static %}
+{% block content %}
+<<div class="content-wrapper">
+  <section class="content">
+    <div class="card">
+      <div class="row">
         <div class="col-md-12">
-          <div class="card-body">
-            <div>
-              <canvas id="districtChart" width="400"></canvas>
+          <ul class="nav nav-tabs" id="quarterTabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="yearly-tab" data-toggle="tab" href="#yearly" role="tab" aria-controls="yearly" aria-selected="true">Yearly</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="quarter1-tab" data-toggle="tab" href="#quarter1" role="tab" aria-controls="quarter1" aria-selected="true">Quarter 1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="quarter2-tab" data-toggle="tab" href="#quarter2" role="tab" aria-controls="quarter2" aria-selected="false">Quarter 2</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="quarter3-tab" data-toggle="tab" href="#quarter3" role="tab" aria-controls="quarter3" aria-selected="false">Quarter 3</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="quarter4-tab" data-toggle="tab" href="#quarter4" role="tab" aria-controls="quarter4" aria-selected="false">Quarter 4</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="quarterTabsContent">
+            <div class="tab-pane fade show active" id="yearly" role="tabpanel" aria-labelledby="yearly-tab">
+              <div class="card-body">
+                <div>
+                  <canvas id="districtChart" width="400"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade show " id="quarter1" role="tabpanel" aria-labelledby="quarter1-tab">
+              <div class="card-body">
+                <div>
+                  <canvas id="quarter1Chart" width="400"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="quarter2" role="tabpanel" aria-labelledby="quarter2-tab">
+              <div class="card-body">
+                <div>
+                  <canvas id="quarter2Chart" width="400"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="quarter3" role="tabpanel" aria-labelledby="quarter3-tab">
+              <div class="card-body">
+                <div>
+                  <canvas id="quarter3Chart" width="400"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="quarter4" role="tabpanel" aria-labelledby="quarter4-tab">
+              <div class="card-body">
+                <div>
+                  <canvas id="quarter4Chart" width="400"></canvas>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -73,4 +210,4 @@
   });
 </script>
 
-{% endblock %}
+{% endblock %} {% endcomment %}
