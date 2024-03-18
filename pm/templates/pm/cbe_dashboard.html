@@ -38,7 +38,7 @@
     var myChart{{ quarter }} = new Chart(ctx{{ quarter }}, {
       type: 'bar',
       data: {
-        labels: [{% for district in data.districts %}"{{ district.district_name }}", {% endfor %}],
+        labels: [{% for district in data.districts %}"{{ district }}", {% endfor %}],
         datasets: [{
           label: 'Completed | CBE',
           data: {{ data.district_approval_percentages|safe }},

@@ -18,13 +18,13 @@ NORTH = "NR"
 SOUTH = "SR"
 EAST = "ER"
 WEST = "WR"
-CENTERAL = "CR"
+CENTRAL = "CR"
 MOTI_DISTRICT = [
         (NORTH, "North"),
         (SOUTH, "South"),
         (EAST, "East"),
         (WEST, "West"),
-        (CENTERAL, "Centeral"),
+        (CENTRAL, "Central"),
     ]
 
 
@@ -673,6 +673,66 @@ def schedules_report_by_bank(request, bank_id):
         "dataset_data": dataset_data
     }
     return render(request, 'pm/schedules_by_bank.html', context)
+
+
+# @login_required
+# def schedules_report_by_bank(request, bank_id):
+#     bank = get_object_or_404(Bank, pk=bank_id)
+#     title = "Schedules List"
+    
+#     # Fetch terminals in the bank
+#     terminals_in_bank = Terminal.objects.filter(bank_name=bank)
+    
+#     # Fetch all schedules associated with the terminals in the bank
+#     schedule_list_by_bank = Schedule.objects.filter(terminal__in=terminals_in_bank)
+    
+#     # Calculate schedule statistics for the entire period
+#     bank_schedule_statistics = calculate_schedule_statistics(schedule_list_by_bank)
+    
+#     # Calculate quarters dynamically based on the current date
+#     current_date = timezone.now()
+#     quarters = {
+#         1: (timezone.datetime(current_date.year - 1, 7, 1), timezone.datetime(current_date.year - 1, 9, 30)),  # Q1: July - September previous year
+#         2: (timezone.datetime(current_date.year - 1, 10, 1), timezone.datetime(current_date.year - 1, 12, 31)),  # Q2: October - December previous year
+#         3: (timezone.datetime(current_date.year, 1, 1), timezone.datetime(current_date.year, 3, 31)),  # Q3: January - March of the following year
+#         4: (timezone.datetime(current_date.year, 4, 1), timezone.datetime(current_date.year, 6, 30)),  # Q4: April - June of the following year
+#     }
+    
+#     # Calculate schedule statistics for each quarter
+#     quarter_statistics = {}
+#     for quarter, (start_date, end_date) in quarters.items():
+#         # Filter schedules for the current quarter
+#         schedules_in_quarter = schedule_list_by_bank.filter(end_date__range=(start_date, end_date))
+#         # Calculate statistics for the current quarter
+#         quarter_statistics[quarter] = calculate_schedule_statistics(schedules_in_quarter)
+    
+#     # Construct labels and dataset_data for the chart
+#     labels = ["Pending", "Waiting", "On Progress", "Submitted", "Approved", "Rejected"]
+#     dataset_data = [
+#         bank_schedule_statistics["pending_rate"],
+#         bank_schedule_statistics["waiting_rate"],
+#         bank_schedule_statistics["onprogress_rate"],
+#         bank_schedule_statistics["submitted_rate"],
+#         bank_schedule_statistics["approved_rate"],
+#         bank_schedule_statistics["rejected_rate"]
+#     ]
+    
+#     context = {
+#         "schedules": schedule_list_by_bank,
+#         "title": title,
+#         "bank": bank,
+#         **bank_schedule_statistics,
+#         "quarter_statistics": quarter_statistics,
+#         "labels": labels,
+#         "dataset_data": dataset_data
+#     }
+#     return render(request, 'pm/schedules_by_bank.html', context)
+
+
+
+
+
+
 @login_required
 def terminals_list(request):
     terminals = None
