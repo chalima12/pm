@@ -1,11 +1,9 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block content %}
 <div class="content-wrapper">
   <section class="content">
     <div class="card">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 mt-4">
           <ul class="nav nav-tabs" id="quarterTabs" role="tablist">
             {% for quarter, data in quarter_data.items %}
             <li class="nav-item">
@@ -83,9 +81,9 @@
             mode: 'horizontal',
             scaleID: 'y-axis-0',
             value: 70,
-            color: 'red', 
+            color: 'red',
             borderColor: 'red',
-            borderWidth: 10, 
+            borderWidth: 10,
             label: {
               content: 'Target 70%',
               enabled: true,

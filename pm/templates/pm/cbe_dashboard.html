@@ -1,25 +1,39 @@
-
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block content %}
 <div class="content-wrapper">
   <section class="content">
     <div class="card">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 mt-4">
           <ul class="nav nav-tabs" id="quarterTabs" role="tablist">
             {% for quarter, data in quarter_data.items %}
             <li class="nav-item">
-              <a class="nav-link {% if forloop.first %}active{% endif %}" id="quarter{{ quarter }}-tab" data-toggle="tab" href="#quarter{{ quarter }}" role="tab" aria-controls="quarter{{ quarter }}" aria-selected="true">Quarter {{ quarter }}</a>
+              <a
+                class="nav-link {% if forloop.first %}active{% endif %}"
+                id="quarter{{ quarter }}-tab"
+                data-toggle="tab"
+                href="#quarter{{ quarter }}"
+                role="tab"
+                aria-controls="quarter{{ quarter }}"
+                aria-selected="true"
+                >Quarter {{ quarter }}</a
+              >
             </li>
             {% endfor %}
           </ul>
           <div class="tab-content" id="quarterTabsContent">
             {% for quarter, data in quarter_data.items %}
-            <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="quarter{{ quarter }}" role="tabpanel" aria-labelledby="quarter{{ quarter }}-tab">
+            <div
+              class="tab-pane fade {% if forloop.first %}show active{% endif %}"
+              id="quarter{{ quarter }}"
+              role="tabpanel"
+              aria-labelledby="quarter{{ quarter }}-tab"
+            >
               <div class="card-body">
-                <div>
-                  <canvas id="quarter{{ quarter }}Chart" width="400"></canvas>
+                <div class="r">
+                  <canvas
+                    id="quarter{{ quarter }}Chart"
+                    style="max-width: 100%"
+                  ></canvas>
                 </div>
               </div>
             </div>
@@ -86,62 +100,130 @@
   });
 </script>
 
-{% endblock %}
-
-{% comment %} {% extends "base.html" %} {% load static %}
-{% block content %}
-<<div class="content-wrapper">
+{% endblock %} {% comment %} {% extends "base.html" %} {% load static %} {%
+block content %} <
+<div class="content-wrapper">
   <section class="content">
     <div class="card">
       <div class="row">
         <div class="col-md-12">
           <ul class="nav nav-tabs" id="quarterTabs" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" id="yearly-tab" data-toggle="tab" href="#yearly" role="tab" aria-controls="yearly" aria-selected="true">Yearly</a>
+              <a
+                class="nav-link active"
+                id="yearly-tab"
+                data-toggle="tab"
+                href="#yearly"
+                role="tab"
+                aria-controls="yearly"
+                aria-selected="true"
+                >Yearly</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="quarter1-tab" data-toggle="tab" href="#quarter1" role="tab" aria-controls="quarter1" aria-selected="true">Quarter 1</a>
+              <a
+                class="nav-link"
+                id="quarter1-tab"
+                data-toggle="tab"
+                href="#quarter1"
+                role="tab"
+                aria-controls="quarter1"
+                aria-selected="true"
+                >Quarter 1</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="quarter2-tab" data-toggle="tab" href="#quarter2" role="tab" aria-controls="quarter2" aria-selected="false">Quarter 2</a>
+              <a
+                class="nav-link"
+                id="quarter2-tab"
+                data-toggle="tab"
+                href="#quarter2"
+                role="tab"
+                aria-controls="quarter2"
+                aria-selected="false"
+                >Quarter 2</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="quarter3-tab" data-toggle="tab" href="#quarter3" role="tab" aria-controls="quarter3" aria-selected="false">Quarter 3</a>
+              <a
+                class="nav-link"
+                id="quarter3-tab"
+                data-toggle="tab"
+                href="#quarter3"
+                role="tab"
+                aria-controls="quarter3"
+                aria-selected="false"
+                >Quarter 3</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="quarter4-tab" data-toggle="tab" href="#quarter4" role="tab" aria-controls="quarter4" aria-selected="false">Quarter 4</a>
+              <a
+                class="nav-link"
+                id="quarter4-tab"
+                data-toggle="tab"
+                href="#quarter4"
+                role="tab"
+                aria-controls="quarter4"
+                aria-selected="false"
+                >Quarter 4</a
+              >
             </li>
           </ul>
           <div class="tab-content" id="quarterTabsContent">
-            <div class="tab-pane fade show active" id="yearly" role="tabpanel" aria-labelledby="yearly-tab">
+            <div
+              class="tab-pane fade show active"
+              id="yearly"
+              role="tabpanel"
+              aria-labelledby="yearly-tab"
+            >
               <div class="card-body">
                 <div>
                   <canvas id="districtChart" width="400"></canvas>
                 </div>
               </div>
             </div>
-            <div class="tab-pane fade show " id="quarter1" role="tabpanel" aria-labelledby="quarter1-tab">
+            <div
+              class="tab-pane fade show"
+              id="quarter1"
+              role="tabpanel"
+              aria-labelledby="quarter1-tab"
+            >
               <div class="card-body">
                 <div>
                   <canvas id="quarter1Chart" width="400"></canvas>
                 </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="quarter2" role="tabpanel" aria-labelledby="quarter2-tab">
+            <div
+              class="tab-pane fade"
+              id="quarter2"
+              role="tabpanel"
+              aria-labelledby="quarter2-tab"
+            >
               <div class="card-body">
                 <div>
                   <canvas id="quarter2Chart" width="400"></canvas>
                 </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="quarter3" role="tabpanel" aria-labelledby="quarter3-tab">
+            <div
+              class="tab-pane fade"
+              id="quarter3"
+              role="tabpanel"
+              aria-labelledby="quarter3-tab"
+            >
               <div class="card-body">
                 <div>
                   <canvas id="quarter3Chart" width="400"></canvas>
                 </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="quarter4" role="tabpanel" aria-labelledby="quarter4-tab">
+            <div
+              class="tab-pane fade"
+              id="quarter4"
+              role="tabpanel"
+              aria-labelledby="quarter4-tab"
+            >
               <div class="card-body">
                 <div>
                   <canvas id="quarter4Chart" width="400"></canvas>
