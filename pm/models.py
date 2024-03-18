@@ -156,61 +156,54 @@ class Schedule(models.Model):
     PENDING = 'PE'
     WAITING = "WT"
     ONPROGRESS = 'OP'
-    REJECTED='RE'
+    REJECTED = 'RE'
     SUBMITTED = 'SB'
-    APPROVED ="AP"
+    APPROVED = "AP"
+    
     status_choices = [
         (PENDING, 'Pending'),
-        (WAITING,'Waiting'),
+        (WAITING, 'Waiting'),
         (ONPROGRESS, 'Onprogress'),
         (SUBMITTED, 'Submitted'),
         (APPROVED, 'Approved'),
         (REJECTED, 'Rejected'),
-
     ]
+    
     HIGH = 'H'
     MEDIUM = 'M'
     LOW = 'L'
-    priority_choice = [
+    
+    priority_choices = [
         (HIGH, 'High'), 
         (MEDIUM, 'Medium'), 
         (LOW, 'Low')
-        ]
-    schedule = models.ForeignKey(AllSchedule, models.PROTECT, related_name='all_schedules',null=True, blank=True)
-    terminal = models.ForeignKey(
-        Terminal, on_delete=models.PROTECT, help_text='Select Terminal', related_name='terminals', null=True)
-    start_date = models.DateTimeField(
-        auto_now_add=False, editable=True, null=True, blank=True)
-    end_date = models.DateTimeField(
-        auto_now_add=False, editable=True,null=True,blank=True)
-    remaining_days= models.CharField(max_length=255,null=True,blank=True, default=90)
-    assign_to = models.ForeignKey(
-        User, on_delete=models.PROTECT,null=True, blank=True)
-    status = models.CharField(
-        max_length=10, choices=status_choices, default=PENDING,null=True,blank=True)
-    terminal = models.ForeignKey(
-        Terminal, on_delete=models.PROTECT, help_text='Select Terminal', null=True)
-    priority = models.CharField(
-        max_length=10, choices=priority_choice,null=True,blank=True)
-    material_required = models.CharField(max_length=255, null=True,blank=True)
-    comment = models.CharField(max_length=255,null=True,blank=True)
-    checklist_photo = models.FileField(null=True, blank=True,upload_to="pm_checklist_pics/")
-    closed_date = models.DateTimeField(blank=True,null=True)
+    ]
+    
+    schedule = models.ForeignKey(AllSchedule, models.PROTECT, related_name='all_schedules', null=True, blank=True)
+    terminal = models.ForeignKey(Terminal, on_delete=models.PROTECT, help_text='Select Terminal', related_name='terminals', null=True)
+    start_date = models.DateTimeField(auto_now_add=False, editable=True, null=True, blank=True)
+    end_date = models.DateTimeField(auto_now_add=False, editable=True, null=True, blank=True)
+    assign_to = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True)
+    status = models.CharField(max_length=10, choices=status_choices, default=PENDING, null=True, blank=True)
+    priority = models.CharField(max_length=10, choices=priority_choices, null=True, blank=True)
+    material_required = models.CharField(max_length=255, null=True, blank=True)
+    comment = models.CharField(max_length=255, null=True, blank=True)
+    checklist_photo = models.FileField(null=True, blank=True, upload_to="pm_checklist_pics/")
+    closed_date = models.DateTimeField(blank=True, null=True)
     approval_comment = models.CharField(max_length=100, null=True, blank=True)
     rejected_comment = models.CharField(max_length=100, null=True, blank=True)
-    
-    created_date = models.DateField(
-        auto_now_add=True)
-    
+    created_date = models.DateField(auto_now_add=True)
 
     def __str__(self) -> str:
         return str(self.terminal)
-    
-    # def remaining_days(self):
-    #     today = timezone.now().date()
-    #     days_elapsed = (today - self.start_date).days
-    #     remaining_days = max(0, 90 - days_elapsed)
-    #     return remaining_days
+    def get_remaining_days(self):
+        if self.start_date and self.end_date:
+            today = timezone.now().date()
+            end_date = self.end_date.date()
+            remaining_days = (end_date - today).days
+            return max(0, remaining_days)
+        return None
+
     class Meta:
         ordering = ['end_date']
         

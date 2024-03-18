@@ -553,6 +553,25 @@ def reject_task(request, id):
     return render(request, 'pm/task_approval.html', context)
 
 
+#Scheduler 
+def update_schedule_statuses():
+    # Define quarters
+    current_date = timezone.now().date()
+    quarters = {
+        1: (timezone.datetime(current_date.year - 1, 7, 1), timezone.datetime(current_date.year - 1, 9, 30)),
+        2: (timezone.datetime(current_date.year - 1, 10, 1), timezone.datetime(current_date.year - 1, 12, 31)),
+        3: (timezone.datetime(current_date.year, 1, 1), timezone.datetime(current_date.year, 3, 31)),
+        4: (timezone.datetime(current_date.year, 4, 1), timezone.datetime(current_date.year, 6, 30)),
+    }
+    
+    # Update schedules status for each quarter
+    for quarter, (start_date, end_date) in quarters.items():
+        # Get schedules ending within the current quarter
+        schedules = Schedule.objects.filter(end_date__gte=start_date, end_date__lte=end_date)
+        # Update status to "Pending" for each schedule
+        schedules.update(status=Schedule.PENDING)
+
+
 # Reports View
 
 
