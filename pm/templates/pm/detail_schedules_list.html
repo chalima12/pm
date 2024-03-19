@@ -113,14 +113,14 @@
                       {% endif %}
                     </td>
                     <td>
-                      {% if schedule.remaining_days < 3%}
-                        {% if schedule.remaining_days < 0 %}
+                      {% if schedule.get_remaining_days < 3%}
+                        {% if schedule.get_remaining_days < 0 %}
                         <span class="badge badge-danger" style="width: 90px"><b>OVER</b></span>
                         {% else %}
                         <span class="badge badge-danger" style="width: 90px"><b>{{schedule.remaining_days}} Days</b></span>
                         {% endif %}
                       {% else %}
-                        {{schedule.remaining_days}} Days
+                        {{schedule.get_remaining_days}} Days
                       {% endif %}
                     </td>
                     <td>
@@ -156,18 +156,6 @@
                                       style="width: 90px"
                                       class="btn btn-block btn-outline-success"
                                       >Assign</a>
-                                  {% comment %} <div class="input-group-prepend">
-                                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-                                      Action
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                      <li class="dropdown-item"><a href="#">Action</a></li>
-                                      <li class="dropdown-item"><a href="#">Another action</a></li>
-                                      <li class="dropdown-item"><a href="#">Something else here</a></li>
-                                      <li class="dropdown-divider"></li>
-                                      <li class="dropdown-item"><a href="#">Separated link</a></li>
-                                    </ul>
-                                  </div> {% endcomment %}
                               {% endif %}
                           {% elif schedule.status == "WT" or  schedule.status == "RE" %}
                               {% if user.start_task %}
@@ -197,18 +185,6 @@
                                 > End </a>
                               {% endif %}
                           {% elif schedule.status == "SB" %}
-                              {% comment %} {% if user.approve_task %}
-                                <a href="{% url "task_approval" schedule.id %}"
-                                  style="width: 90px"
-                                  class="btn  btn-success mr-2"
-                                  > Approve </a>
-                                {% endif %}
-                              {% if user.reject_task %}
-                              <a href="{% url "reject_task" schedule.id %}"
-                                style="width: 90px"
-                                class="btn  btn-danger"
-                                > Rejectd </a>
-                              {% endif %}  {% endcomment %}
                               <a href="{% url "task_approval" schedule.id %}" style="width: 90px"
                                 class="btn btn-block btn-outline-info"  data-toggle="tooltip" data-placement="bottom" 
                                   title ="Approve Task"><i class="fas fa-check-circle fa-beat-fade fa-xl" style="color: #63E6BE;"></i></a>

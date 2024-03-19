@@ -394,9 +394,9 @@ def detail_schedules_list(request, pk):
     schedules_list = Schedule.objects.filter(schedule=schedule)
     specific_schedule_statistics = calculate_schedule_statistics(schedules_list)
     
-    now = datetime.now(timezone.utc)
-    for schedule in schedules_list:
-        schedule.remaining_days = (schedule.end_date - now).days
+    # now = datetime.now(timezone.utc)
+    # for schedule in schedules_list:
+    #     schedule.remaining_days = (schedule.end_date - now).days
 
     context = {
         'schedules': schedules_list,
