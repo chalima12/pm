@@ -51,7 +51,7 @@
       data: {
         labels: [{% for bank in data.banks %}"{{ bank.bank_name }}", {% endfor %}],
         datasets: [{
-          label: 'Completed | CBE',
+          label: "Quarter {{ quarter }} Compeleted",
           data: {{ data.bank_approval_percentages|safe }},
           backgroundColor: 'rgba(54, 162, 235, 0.2)',
           borderColor: 'rgba(54, 162, 235, 1)',
