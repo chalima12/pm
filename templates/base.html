@@ -207,18 +207,23 @@
                 </a>
               </li>
             {% endif %}
+            {% if user.view_report %}
+              <li class="nav-item">
+                  <a href="{% url 'cbe-dashboard' %}" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>CBE Dashboard</p>
+                  </a>
+                </li>
+            {% endif %}
+
+            {% if user.view_report %}
             <li class="nav-item">
-                <a href="{% url 'cbe-dashboard' %}" class="nav-link">
-                  <i class="nav-icon fas fa-th"></i>
-                  <p>CBE Dashboard</p>
-                </a>
-              </li>
-            <li class="nav-item">
-                <a href="{% url 'private-banks-dashboard' %}" class="nav-link">
-                  <i class="nav-icon fas fa-th"></i>
-                  <p>Private Banks Dashboard</p>
-                </a>
-              </li>
+                    <a href="{% url 'private-banks-dashboard' %}" class="nav-link">
+                      <i class="nav-icon fas fa-th"></i>
+                      <p>Private Banks Dashboard</p>
+                    </a>
+                  </li>
+            {% endif %}
             {% if user.user_type == "MA" %}
               <li class="nav-item">
                 <a href="{% url 'all-engineers' %}" class="nav-link">
