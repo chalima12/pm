@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-#1nvnu9-@d+x3d)!tl3%01cpna0135mc+=)m104b4*7i4=j%#0'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.10.73', 'www.pm.com', 'pm.com', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.120', 'www.pm.com', 'pm.com', '127.0.0.1', '0.0.0.0']
+
 
 
 # Application definition
@@ -75,23 +75,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Preventive_Maintainace.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-#Postgress setup 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pm',
         'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

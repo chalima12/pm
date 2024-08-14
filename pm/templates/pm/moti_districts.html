@@ -31,7 +31,7 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>DISTRICT KEY</th>
+                    
                     <th>DISTRICT NAME</th>
                     <th>REGION</th>
                     <th>LOCATION</th>
@@ -43,19 +43,10 @@
                   {% for district  in districts %}
                   <tr>
                     <td>{{forloop.counter}}</td>
-                    <td>{{district.district_key}}</td>
+                    
                     <td>{{district.district_name}}</td>
-                    <td>{% if district.region == "NR" %}
-                        North
-                        {% elif district.region == "SR" %}
-                        South
-                        {% elif district.region == "ER" %}
-                        East
-                        {% elif district.region == "WR" %}
-                        West
-                        {% elif district.region == "CR" %}
-                        Centeral
-                        {% endif %}
+                    <td>{{district.region}}
+                       
                     </td>
                     <td>{{district.location}}</td>
                     <td>

@@ -6,17 +6,17 @@ from .managers import CustomUserManager
 
 # Create your models here.
 
-NORTH = "NR"
-SOUTH = "SR"
-EAST = "ER"
-WEST = "WR"
-CENTERAL = "CR"
+NORTH = "North"
+SOUTH = "South"
+EAST = "East"
+WEST = "West"
+CENTERAL = "Central"
 MOTI_DISTRICT = [
         (NORTH, "North"),
         (SOUTH, "South"),
         (EAST, "East"),
         (WEST, "West"),
-        (CENTERAL, "Centeral"),
+        (CENTERAL, "Central"),
     ]
 
 class User(AbstractBaseUser, PermissionsMixin):

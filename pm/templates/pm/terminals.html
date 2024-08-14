@@ -36,7 +36,7 @@
                     <th>BANK Name</th>
                     <th>TERMINAL NAME</th>
                     <th>SERIAL NO</th>
-                    <th>LOCATION</th>
+                    <th>District</th>
                     <th>ACTIONS</th>
                   </tr>
                 </thead>
@@ -49,7 +49,7 @@
                     <td>{{terminal.bank_name}}</td>
                     <td>{{terminal.terminal_name}}</td>
                     <td>{{terminal.serial_number}}</td>
-                    <td>{{terminal.location}}</td>
+                    <td>{{terminal.district.district_name}}</td>
                     <td>
                       {% if user.edit_terminal %}
                       <a href="{% url "update-terminal" terminal.id %}" style="width: 80px"

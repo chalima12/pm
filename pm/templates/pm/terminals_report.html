@@ -69,17 +69,9 @@
                     <td>{{terminal.bank_name}}</td>
                     <td>{{terminal.bank_district}}</td>
                     <td>{{terminal.bank_branch}}</td>
-                    <td>{% if terminal.district.region == "NR" %}
-                      <p>North</p>
-                      {% elif  terminal.district.region == "SR" %}
-                      <p>South</p>
-                      {% elif  terminal.district.region == "ER" %}
-                      <p>East</p>
-                      {% elif  terminal.district.region == "WR" %}
-                      <p>West</p>
-                      {% elif  terminal.district.region == "CR" %}
-                      <p>Centeral</p>
-                      {% endif %}</td>
+                    <td>{{terminal.district.district_name }}
+                  
+                     </td>
                     <td>{{terminal.terminal_name}}</td>
                     <td>{{terminal.serial_number}}</td>
                     <td>{{terminal.model}}</td>

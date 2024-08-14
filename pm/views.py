@@ -14,11 +14,11 @@ from pm.models import Terminal, User, Bank, Schedule, AllSchedule,Moti_district
 import math
 from pm.forms import *
 
-NORTH = "NR"
-SOUTH = "SR"
-EAST = "ER"
-WEST = "WR"
-CENTRAL = "CR"
+NORTH = "North"
+SOUTH = "South"
+EAST = "East"
+WEST = "West"
+CENTRAL = "Central"
 MOTI_DISTRICT = [
         (NORTH, "North"),
         (SOUTH, "South"),
@@ -528,7 +528,7 @@ def approve_task(request, id):
         form = ApprovalScheduleForm(instance=schedule)
         all_schedule_id = schedule.schedule.id
     context = {'form': form, 'schedule': schedule,
-               "title": "Approval task", "all_schedule_id": all_schedule_id}
+            "title": "Approval task", "all_schedule_id": all_schedule_id}
     return render(request, 'pm/task_approval.html', context)
 
 
@@ -627,7 +627,7 @@ def banks_list(request):
 def districts_list(request):
     districts = Moti_district.objects.all()
     title = "Districts Report"
-  
+
     context = {
         "districts": districts,
         "title": title,
@@ -672,7 +672,7 @@ def schedules_report_by_bank(request, bank_id):
     schedule_list_by_bank = Schedule.objects.filter(
         terminal__in=terminals_in_bank)
     bank_schedule_statistics = calculate_schedule_statistics(schedule_list_by_bank)
-     # Construct labels and dataset_data
+    # Construct labels and dataset_data
     labels = ["Pending", "Waiting", "On Progress", "Submitted", "Approved", "Rejected"]
     dataset_data = [
         bank_schedule_statistics["pending_rate"],
