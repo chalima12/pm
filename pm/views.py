@@ -74,7 +74,6 @@ def calculate_schedule_statistics(schedules):
 
 
 def login_user(request):
-    logout(request)
     resp = {"status": 'failed', 'msg': ''}
     username = ''
     password = ''
@@ -730,91 +729,92 @@ def terminals_list(request):
     }
     return render(request, 'pm/terminals_report.html', context)
 
+from django.utils import timezone
+from django.db.models import Count, Q
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
 @login_required
 def private_banks_dashboard(request):
     # 1. Get List of Banks
     banks = Bank.objects.all()
 
-    # 2. Count all schedules in each bank
+    # 2. Count all schedules and approved schedules for each bank
     bank_schedule_counts = {}
+    bank_approved_counts = {}
+
     for bank in banks:
         total_schedules = Schedule.objects.filter(terminal__bank_name=bank).count()
+        approved_count = Schedule.objects.filter(terminal__bank_name=bank, status=Schedule.APPROVED).count()
         bank_schedule_counts[bank.bank_name] = total_schedules
-
-    # 3. Count all Approved status in each bank
-    bank_approved_counts = {}
-    for bank in banks:
-        approved_count = Schedule.objects.filter(
-            terminal__bank_name=bank,
-            status=Schedule.APPROVED
-        ).count()
         bank_approved_counts[bank.bank_name] = approved_count
 
-    # 4. Calculate the percentage of approved schedules for each bank
-    bank_approval_percentages = []
+    # 3. Calculate the percentage of approved schedules for each bank
+    bank_approval_percentages = {}
     for bank in banks:
         total_approved = bank_approved_counts.get(bank.bank_name, 0)
         total_schedules = bank_schedule_counts.get(bank.bank_name, 0)
         if total_schedules > 0:
             approval_percentage = round((total_approved / total_schedules) * 100, 2)
-            bank_approval_percentages.append(approval_percentage)
         else:
-            bank_approval_percentages.append(0)
+            approval_percentage = 0
+        bank_approval_percentages[bank.bank_name] = approval_percentage
 
-    # 5. Define start and end dates for each quarter
+    # 4. Define start and end dates for each quarter
     current_date = timezone.now().date()
     quarters = {
-        1: (timezone.datetime(current_date.year -1, 7, 1), timezone.datetime(current_date.year -1, 9, 30)),  # Q1: July - September previous year
-        2: (timezone.datetime(current_date.year -1, 10, 1), timezone.datetime(current_date.year -1, 12, 31)),  # Q2: October - December previous year
-        3: (timezone.datetime(current_date.year, 1, 1), timezone.datetime(current_date.year, 3, 31)),  # Q3: January - March of the following year
-        4: (timezone.datetime(current_date.year, 4, 1), timezone.datetime(current_date.year, 6, 30)),  # Q4: April - June of the following year
+        'Q1': (timezone.make_aware(timezone.datetime(current_date.year - 1, 7, 1)), 
+               timezone.make_aware(timezone.datetime(current_date.year - 1, 9, 30))),
+        'Q2': (timezone.make_aware(timezone.datetime(current_date.year - 1, 10, 1)), 
+               timezone.make_aware(timezone.datetime(current_date.year - 1, 12, 31))),
+        'Q3': (timezone.make_aware(timezone.datetime(current_date.year, 1, 1)), 
+               timezone.make_aware(timezone.datetime(current_date.year, 3, 31))),
+        'Q4': (timezone.make_aware(timezone.datetime(current_date.year, 4, 1)), 
+               timezone.make_aware(timezone.datetime(current_date.year, 6, 30))),
     }
 
-    # 6. Initialize dictionaries to store data for each quarter
+    # 5. Initialize a dictionary to store data for each quarter
     quarter_data = {}
 
-    # 7. Iterate over quarters and retrieve data for each quarter
+    # 6. Iterate over quarters and retrieve data for each quarter
     for quarter, (start_date, end_date) in quarters.items():
         # Filter schedules for the current quarter
         quarter_schedules = Schedule.objects.filter(start_date__gte=start_date, start_date__lte=end_date)
 
-        # Count all schedules in each bank for the current quarter
-        bank_schedule_counts = {}
+        # Count all schedules and approved schedules for each bank in the current quarter
+        quarter_bank_schedule_counts = {}
+        quarter_bank_approved_counts = {}
+
         for bank in banks:
             total_schedules = quarter_schedules.filter(terminal__bank_name=bank).count()
-            bank_schedule_counts[bank.bank_name] = total_schedules
+            approved_count = quarter_schedules.filter(terminal__bank_name=bank, status=Schedule.APPROVED).count()
+            quarter_bank_schedule_counts[bank.bank_name] = total_schedules
+            quarter_bank_approved_counts[bank.bank_name] = approved_count
 
-        # Count all Approved status in each bank for the current quarter
-        bank_approved_counts = {}
+        # Calculate the percentage of approved schedules for each bank in the current quarter
+        quarter_bank_approval_percentages = {}
         for bank in banks:
-            approved_count = quarter_schedules.filter(
-                terminal__bank_name=bank,
-                status=Schedule.APPROVED
-            ).count()
-            bank_approved_counts[bank.bank_name] = approved_count
-
-        # Calculate the percentage of approved schedules for each bank for the current quarter
-        bank_approval_percentages = []
-        for bank in banks:
-            total_approved = bank_approved_counts.get(bank.bank_name, 0)
-            total_schedules = bank_schedule_counts.get(bank.bank_name, 0)
+            total_approved = quarter_bank_approved_counts.get(bank.bank_name, 0)
+            total_schedules = quarter_bank_schedule_counts.get(bank.bank_name, 0)
             if total_schedules > 0:
                 approval_percentage = round((total_approved / total_schedules) * 100, 2)
-                bank_approval_percentages.append(approval_percentage)
             else:
-                bank_approval_percentages.append(0)
+                approval_percentage = 0
+            quarter_bank_approval_percentages[bank.bank_name] = approval_percentage
 
         # Store data for the current quarter
         quarter_data[quarter] = {
             "banks": banks,
-            "bank_approval_percentages": bank_approval_percentages
+            "bank_approval_percentages": quarter_bank_approval_percentages,
         }
 
-    # 8. Create a context to pass the data to the template
+    # 7. Create a context to pass the data to the template
     context = {
         "title": "Private Banks Dashboard",
+        "bank_approval_percentages": bank_approval_percentages,
         "quarter_data": quarter_data,
     }
+    print(quarter_data)
 
     return render(request, 'pm/private_banks_dashboard.html', context)
 
